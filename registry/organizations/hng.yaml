@@ -1,0 +1,16 @@
+slug: hng
+name: HNG Tech
+category: trainingProvider
+homepageUrl: https://hng.tech
+description: >
+  Africa's largest remote internship programme, running cohorts several times a year
+  across software, design, data and product.
+country: NG
+city: lagos
+sources:
+  - name: site
+    kind: html
+    url: https://hng.tech/internship
+    adapter: hng
+    cadence: quarterly
+    notes: Cohort registration opens on the internship page; no feed as of 2026-09.

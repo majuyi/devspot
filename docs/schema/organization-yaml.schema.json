@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "slug": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 120
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "employer",
+        "ossProgram",
+        "fellowshipFunder",
+        "scholarshipFunder",
+        "hackathonHost",
+        "community",
+        "trainingProvider",
+        "accelerator",
+        "government",
+        "university"
+      ]
+    },
+    "homepageUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 600
+    },
+    "country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2,
+      "pattern": "^[A-Z]{2}$"
+    },
+    "city": {
+      "type": "string",
+      "enum": [
+        "lagos",
+        "abuja",
+        "ibadan",
+        "port-harcourt",
+        "enugu",
+        "kano",
+        "benin-city",
+        "kaduna",
+        "jos",
+        "calabar",
+        "uyo",
+        "owerri",
+        "abeokuta",
+        "ilorin",
+        "akure",
+        "ile-ife"
+      ]
+    },
+    "logoUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "enabled": {
+      "default": true,
+      "type": "boolean"
+    },
+    "sources": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["feed", "sitemap", "html", "api", "manual"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "adapter": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "cadence": {
+            "default": "unpredictable",
+            "type": "string",
+            "enum": ["rolling", "monthly", "quarterly", "annual", "unpredictable"]
+          },
+          "include": {
+            "type": "string"
+          },
+          "enabled": {
+            "default": true,
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": ["name", "kind", "url", "cadence", "enabled"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["slug", "name", "category", "homepageUrl", "country", "enabled", "sources"],
+  "additionalProperties": false
+}

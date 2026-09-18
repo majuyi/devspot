@@ -1,0 +1,35 @@
+{
+  "name": "@devspot/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "generate": "prisma generate",
+    "build": "prisma generate",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "validate": "prisma validate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy && echo 'Reminder: re-run the engine role grants from docs/09-operations.md §3 if a table was added.'",
+    "sync-registry": "tsx scripts/sync-registry.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@devspot/schema": "workspace:*",
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "dotenv": "17.2.4",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.5",
+    "prisma": "7.10.0",
+    "tsx": "4.23.13",
+    "typescript": "5.9.3",
+    "vitest": "5.0.1"
+  }
+}

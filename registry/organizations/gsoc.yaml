@@ -1,0 +1,14 @@
+slug: gsoc
+name: Google Summer of Code
+category: ossProgram
+homepageUrl: https://summerofcode.withgoogle.com
+description: >
+  Google's annual open-source mentoring programme for new contributors, with stipends and
+  a fixed yearly timeline.
+country: US
+sources:
+  - name: timeline
+    kind: html
+    url: https://summerofcode.withgoogle.com/programs/current/timeline
+    adapter: gsoc
+    cadence: annual

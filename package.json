@@ -1,0 +1,36 @@
+{
+  "name": "devspot",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.17.1",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "turbo run dev --filter @devspot/web",
+    "build": "turbo run build",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "engine": "pnpm --filter @devspot/engine run cli --",
+    "registry:check": "pnpm --filter @devspot/schema run registry:check",
+    "db:generate": "pnpm --filter @devspot/db run generate",
+    "db:migrate": "pnpm --filter @devspot/db run migrate:dev",
+    "db:migrate:deploy": "pnpm --filter @devspot/db run migrate:deploy",
+    "db:sync-registry": "pnpm --filter @devspot/db run sync-registry",
+    "check": "turbo run lint typecheck test build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "turbo": "2.10.13",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/engines",
+      "esbuild",
+      "prisma"
+    ]
+  }
+}

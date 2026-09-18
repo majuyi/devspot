@@ -1,0 +1,15 @@
+slug: outreachy
+name: Outreachy
+category: ossProgram
+homepageUrl: https://www.outreachy.org
+description: >
+  Paid, remote open-source internships for people subject to systemic bias, with two
+  rounds a year. Nigerian applicants are regularly accepted.
+country: US
+sources:
+  - name: site
+    kind: html
+    url: https://www.outreachy.org/apply/
+    adapter: outreachy
+    cadence: annual
+    notes: Two rounds a year (applications open around January and August).
