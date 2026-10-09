@@ -6,7 +6,14 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!**/src/generated", "!**/.next", "!**/dist", "!**/test/fixtures"]
+    "includes": [
+      "**",
+      "!**/src/generated",
+      "!**/.next",
+      "!**/dist",
+      "!**/test/fixtures",
+      "!docs/schema"
+    ]
   },
   "formatter": {
     "enabled": true,

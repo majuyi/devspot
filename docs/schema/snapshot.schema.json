@@ -46,7 +46,10 @@
             ]
           },
           "summary": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "organization": {
             "type": "object",
@@ -62,7 +65,11 @@
                 "format": "uri"
               }
             },
-            "required": ["slug", "name", "url"],
+            "required": [
+              "slug",
+              "name",
+              "url"
+            ],
             "additionalProperties": false
           },
           "canonicalUrl": {
@@ -106,10 +113,18 @@
           },
           "deadlineKind": {
             "type": "string",
-            "enum": ["fixed", "rolling", "multiRound", "unknown"]
+            "enum": [
+              "fixed",
+              "rolling",
+              "multiRound",
+              "unknown"
+            ]
           },
           "deadlineTimezone": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "startsAt": {
             "anyOf": [
@@ -137,13 +152,23 @@
           },
           "locationMode": {
             "type": "string",
-            "enum": ["remote", "onsite", "hybrid"]
+            "enum": [
+              "remote",
+              "onsite",
+              "hybrid"
+            ]
           },
           "country": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "city": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "venue": {
             "anyOf": [
@@ -151,19 +176,36 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": ["string", "null"]
+                    "type": [
+                      "string",
+                      "null"
+                    ]
                   },
                   "address": {
-                    "type": ["string", "null"]
+                    "type": [
+                      "string",
+                      "null"
+                    ]
                   },
                   "lat": {
-                    "type": ["number", "null"]
+                    "type": [
+                      "number",
+                      "null"
+                    ]
                   },
                   "lng": {
-                    "type": ["number", "null"]
+                    "type": [
+                      "number",
+                      "null"
+                    ]
                   }
                 },
-                "required": ["name", "address", "lat", "lng"],
+                "required": [
+                  "name",
+                  "address",
+                  "lat",
+                  "lng"
+                ],
                 "additionalProperties": false
               },
               {
@@ -184,11 +226,17 @@
             }
           },
           "requirementsText": {
-            "type": ["string", "null"]
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "status": {
             "type": "string",
-            "enum": ["published", "closed"]
+            "enum": [
+              "published",
+              "closed"
+            ]
           },
           "firstSeenAt": {
             "type": "string",
@@ -265,6 +313,10 @@
       }
     }
   },
-  "required": ["version", "generatedAt", "items"],
+  "required": [
+    "version",
+    "generatedAt",
+    "items"
+  ],
   "additionalProperties": false
 }

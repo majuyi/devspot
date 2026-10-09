@@ -85,7 +85,13 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["feed", "sitemap", "html", "api", "manual"]
+            "enum": [
+              "feed",
+              "sitemap",
+              "html",
+              "api",
+              "manual"
+            ]
           },
           "url": {
             "type": "string",
@@ -100,7 +106,13 @@
           "cadence": {
             "default": "unpredictable",
             "type": "string",
-            "enum": ["rolling", "monthly", "quarterly", "annual", "unpredictable"]
+            "enum": [
+              "rolling",
+              "monthly",
+              "quarterly",
+              "annual",
+              "unpredictable"
+            ]
           },
           "include": {
             "type": "string"
@@ -114,11 +126,25 @@
             "maxLength": 500
           }
         },
-        "required": ["name", "kind", "url", "cadence", "enabled"],
+        "required": [
+          "name",
+          "kind",
+          "url",
+          "cadence",
+          "enabled"
+        ],
         "additionalProperties": false
       }
     }
   },
-  "required": ["slug", "name", "category", "homepageUrl", "country", "enabled", "sources"],
+  "required": [
+    "slug",
+    "name",
+    "category",
+    "homepageUrl",
+    "country",
+    "enabled",
+    "sources"
+  ],
   "additionalProperties": false
 }

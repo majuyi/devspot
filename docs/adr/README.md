@@ -19,4 +19,4 @@ One file per decision, numbered, never edited after acceptance except to add a
 | 0012 | Admin gated by a single token in v1 | Accepted 2026-09-18 |
 | 0013 | Prisma 7, TypeScript 5.9; majors by ADR | Accepted 2026-09-18 |
 | 0014 | Weekly snapshot as a GitHub Release asset, not committed data | Accepted 2026-09-18 |
-| 0015 | Apache-2.0 licence | Proposed 2026-09-18 |
+| 0015 | Apache-2.0 licence | Accepted 2026-10-09 |
