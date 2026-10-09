@@ -30,6 +30,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @devspot/db validate
       - run: pnpm --filter @devspot/db migrate:deploy
+      # Fails when schema.prisma changed without a migration (exit code 2 means a diff remains).
+      - run: pnpm --filter @devspot/db migrate:check
       - run: pnpm registry:check
       - run: pnpm check
       - run: pnpm --filter @devspot/db sync-registry

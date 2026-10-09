@@ -29,7 +29,7 @@ Schema; the Prisma schema migrates.
   `ApiListParams`, `OpportunitySnapshot`, `OrganizationSnapshot`, `SnapshotFile`; `scripts/emit-json-schema.ts` writing to `docs/schema/`.
   Spec: `03` §3. Check: `pnpm --filter @devspot/schema test` covers each schema with a valid
   and an invalid case; three JSON Schema files exist after `build`.
-- [ ] **M0.3 `@devspot/db`.** Prisma 7 schema from `03` §2, `prisma.config.ts`, client with
+- [x] **M0.3 `@devspot/db`.** Prisma 7 schema from `03` §2, `prisma.config.ts`, client with
   `@prisma/adapter-pg`, first migration, `enum-parity.test.ts`, `docker-compose.yml` with a
   Postgres 17 service for local dev. Check: `prisma validate`; `migrate deploy` on the Docker
   database; parity test passes.
