@@ -19,7 +19,8 @@
     "db:migrate": "pnpm --filter @devspot/db run migrate:dev",
     "db:migrate:deploy": "pnpm --filter @devspot/db run migrate:deploy",
     "db:sync-registry": "pnpm --filter @devspot/db run sync-registry",
-    "check": "turbo run lint typecheck test build"
+    "check": "turbo run lint typecheck test build",
+    "ci": "pnpm run check"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
