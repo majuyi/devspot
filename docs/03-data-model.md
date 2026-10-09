@@ -361,20 +361,23 @@ export const db = new PrismaClient({ adapter });
 ## 3. Zod schemas (`packages/schema`)
 
 One file per concern; every enum is a `z.enum` whose values are asserted equal to the Prisma
-enum in `packages/db/test/enum-parity.test.ts`.
+enum in `packages/db/test/enum-parity.test.ts`. Each schema is a Zod value with a type of the
+same name (`OpportunityDraft` is both), so there is no `*Schema` suffix.
 
 | Schema | Used by | Notes |
 |---|---|---|
 | `OrganizationYaml` | registry validation, `db:sync-registry` | The YAML shape; includes nested `sources[]` |
-| `RawItemSchema` | engine fetch stage output | `url`, `title?`, `text`, `publishedAt?`, `meta?` |
-| `OpportunityDraftSchema` | extract stage output, LLM structured output | Every field optional except `title` and `canonicalUrl`; each field carries a sibling confidence |
-| `OpportunitySchema` | loader input after validation, API DTO | Required fields enforced here |
-| `PreferencesSchema` | `/feed` cookie and query params | `{ v: 1, kinds: Kind[], city?: City, tags: string[], remoteOnly?: boolean }` |
+| `RawItemInput` | engine fetch stage output | `url`, `title?`, `text`, `publishedAt?`, `meta?` |
+| `OpportunityDraft` | extract stage output, LLM structured output | Every field optional except `title` and `canonicalUrl`; per-field confidence in `fieldConfidence`, quotes in `evidence` |
+| `OpportunityInput` | loader input after validation | Required fields enforced here |
+| `OpportunityDto` | API response, snapshot | Public fields only; never confidence, `extracted` or raw ids |
+| `Preferences` | `/feed` cookie and query params | `{ v: 1, kinds: Kind[], city?: City, tags: string[], remoteOnly?: boolean }` |
 | `ApiListParams` | `/api/v1/*` query parsing | cursor, limit (max 100), filters |
-| `SnapshotSchema` | weekly export | `{ version, generatedAt, organizations[], opportunities[] }` |
+| `OpportunitySnapshot`, `OrganizationSnapshot` | weekly export | Two release files, each `{ version, generatedAt, items[] }` (see `06` §5); `SnapshotFile` accepts either |
 
-`pnpm --filter @devspot/schema build` emits JSON Schema for `OpportunitySchema`,
-`OrganizationYaml` and `SnapshotSchema` into `docs/schema/`. The API references these.
+`pnpm --filter @devspot/schema build` emits JSON Schema for `OpportunityDto`,
+`OrganizationYaml` and `SnapshotFile` into `docs/schema/`; a test fails if the committed copies
+are stale. The API references these.
 
 ### Controlled vocabularies
 

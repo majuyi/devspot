@@ -35,14 +35,14 @@ Overall confidence at rules-only: `min(kind, max(deadline, startsAt), locationMo
 ```ts
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import { OpportunityDraftSchema } from "@devspot/schema";
+import { OpportunityDraft } from "@devspot/schema";
 
 const client = new Anthropic();
 const response = await client.messages.parse({
   model: "claude-opus-5",
   max_tokens: 4000,
   thinking: { type: "adaptive" },
-  output_config: { effort: "medium", format: zodOutputFormat(OpportunityDraftSchema) },
+  output_config: { effort: "medium", format: zodOutputFormat(OpportunityDraft) },
   system: SYSTEM_PROMPT,             // frozen text, PROMPT_VERSION bumps on change
   messages: [{ role: "user", content: buildUserMessage(org, rawItem) }],
 });

@@ -24,9 +24,9 @@ Schema; the Prisma schema migrates.
   `tsconfig.base.json` (strict, `noUncheckedIndexedAccess`, `moduleResolution: bundler`,
   `verbatimModuleSyntax`), `biome.json`, `.gitignore`, `.editorconfig`, `.nvmrc` (22).
   Spec: `02` §2–3. Check: `pnpm install` and `pnpm lint` run with no packages yet.
-- [ ] **M0.2 `@devspot/schema`.** Enums, `CITIES`, `TAGS`, `OrganizationYaml`,
-  `RawItemSchema`, `OpportunityDraftSchema`, `OpportunitySchema`, `PreferencesSchema`,
-  `ApiListParams`, `SnapshotSchema`; `scripts/emit-json-schema.ts` writing to `docs/schema/`.
+- [x] **M0.2 `@devspot/schema`.** Enums, `CITIES`, `TAGS`, `OrganizationYaml`,
+  `RawItemInput`, `OpportunityDraft`, `OpportunityInput`, `OpportunityDto`, `Preferences`,
+  `ApiListParams`, `OpportunitySnapshot`, `OrganizationSnapshot`, `SnapshotFile`; `scripts/emit-json-schema.ts` writing to `docs/schema/`.
   Spec: `03` §3. Check: `pnpm --filter @devspot/schema test` covers each schema with a valid
   and an invalid case; three JSON Schema files exist after `build`.
 - [ ] **M0.3 `@devspot/db`.** Prisma 7 schema from `03` §2, `prisma.config.ts`, client with
