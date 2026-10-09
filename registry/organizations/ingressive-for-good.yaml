@@ -1,0 +1,17 @@
+slug: ingressive-for-good
+name: Ingressive for Good
+category: scholarshipFunder
+homepageUrl: https://ingressive.org
+description: >
+  Nigerian non-profit funding tech education for African students: microscholarships,
+  laptops, free training and campus ambassador programmes.
+country: NG
+city: lagos
+sources:
+  - name: site
+    kind: manual
+    url: https://ingressive.org
+    cadence: unpredictable
+    notes: >
+      Site did not respond on 2026-10-09 (DNS resolves, connection times out). It is
+      WordPress, so try https://ingressive.org/feed when it is back.

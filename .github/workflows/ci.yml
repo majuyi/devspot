@@ -34,4 +34,6 @@ jobs:
       - run: pnpm --filter @devspot/db migrate:check
       - run: pnpm registry:check
       - run: pnpm check
-      - run: pnpm --filter @devspot/db sync-registry
+      # M0.4: the first sync creates every organization; a second run must change nothing.
+      - run: pnpm --silent --filter @devspot/db sync-registry | tail -1 | jq -e '.organizationsUpserted == .files'
+      - run: pnpm --silent --filter @devspot/db sync-registry | tail -1 | jq -e '.organizationsUpserted == 0 and .unchanged == .files'

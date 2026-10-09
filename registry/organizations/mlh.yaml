@@ -1,0 +1,18 @@
+slug: mlh
+name: Major League Hacking
+category: hackathonHost
+homepageUrl: https://www.mlh.com
+description: >
+  The official student hackathon league. Runs and lists hackathons worldwide each season,
+  including online events open to students in Nigeria.
+country: US
+sources:
+  - name: season-events
+    kind: html
+    url: https://www.mlh.com/seasons/2027/events
+    adapter: mlh
+    cadence: rolling
+    notes: >
+      Server-rendered list (also as JSON in the data-page attribute). Most events are
+      in-person in North America; the adapter keeps online ones. The URL carries the season
+      year and moves each summer. Verified 2026-10-09.

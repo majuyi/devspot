@@ -12,9 +12,11 @@ This is the most useful thing you can do. One file, one pull request.
    and fill it in. `slug` is lowercase and hyphenated. `kind` is `feed` when you found a
    feed, `sitemap` when the site has one and new opportunities get their own URLs, `html`
    when neither (an adapter will be needed, see below), or `manual` if the organization only
-   announces on social media.
-3. Run `pnpm registry:check`. It validates the file and tells you if it found a feed you
-   missed.
+   announces on social media. Check the site's `robots.txt` too: if it disallows the page,
+   use `manual` even when a feed exists. Say why in `notes`, with the date you checked.
+3. Run `pnpm registry:check`. It validates every file and prints each problem as
+   `file: field: message`. (Feed discovery arrives with the engine as `pnpm engine
+   registry:check`.)
 4. Open a pull request titled `registry: add <name>`. That is all.
 
 ## Fix a source that stopped working

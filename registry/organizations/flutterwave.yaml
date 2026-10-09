@@ -1,0 +1,18 @@
+slug: flutterwave
+name: Flutterwave
+category: employer
+homepageUrl: https://flutterwave.com
+description: >
+  Lagos-founded payments company operating across Africa. Hires engineers, designers and
+  product people, with occasional graduate programmes.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: api
+    url: https://flutterwavego.bamboohr.com/careers/list
+    adapter: bamboohr
+    cadence: rolling
+    notes: >
+      BambooHR public job list (JSON) behind flutterwave.com/us/careers/vacancies. The adapter
+      is generic to BambooHR boards. Verified 2026-10-09.

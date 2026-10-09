@@ -1,0 +1,17 @@
+slug: paystack
+name: Paystack
+category: employer
+homepageUrl: https://paystack.com
+description: >
+  Lagos-based payments company (part of Stripe). Hires engineers, designers and product
+  people, and has run graduate and internship intakes.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: manual
+    url: https://paystack.com/careers
+    cadence: unpredictable
+    notes: >
+      Behind a Cloudflare challenge (403 to any crawler, robots.txt included). No public ATS
+      board found on Greenhouse, Lever, Ashby or Workable. Checked 2026-10-09.
