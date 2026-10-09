@@ -204,7 +204,10 @@ sources:
     cadence: rolling
 ```
 
-`pnpm db:sync-registry` validates every file with `OrganizationYaml`, computes the file hash,
+`pnpm db:sync-registry` validates every file with `validateRegistry` (the same check as
+`pnpm registry:check`: `OrganizationYaml`, slug matches file name, no duplicates) and writes
+nothing if any file fails, throwing `RegistryValidationError` with one `file: field: message`
+line per problem. It then computes the file hash,
 upserts `Organization` and `Source` by slug and key, disables sources removed from the file,
 and never deletes rows (history stays). It runs at the start of `engine run` and in CI as a
 check.

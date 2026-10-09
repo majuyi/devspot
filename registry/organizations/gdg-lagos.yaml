@@ -1,0 +1,19 @@
+slug: gdg-lagos
+name: GDG Lagos
+category: community
+homepageUrl: https://gdg.community.dev/gdg-lagos/
+description: >
+  Google Developer Group for Lagos. Free meetups, Build with AI sessions, I/O Extended and
+  DevFest Lagos.
+country: NG
+city: lagos
+sources:
+  - name: events
+    kind: html
+    url: https://gdg.community.dev/gdg-lagos/
+    adapter: bevy
+    cadence: monthly
+    notes: >
+      Server-rendered upcoming and past events. robots.txt disallows /api/, so the JSON event
+      API is off limits. Send Accept-Language: en or dates come back localised. The adapter is
+      generic to gdg.community.dev chapters. Verified 2026-10-09.
