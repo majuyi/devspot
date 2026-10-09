@@ -1,6 +1,7 @@
 export * from "./api.js";
 export * from "./cities.js";
 export * from "./enums.js";
+export * from "./json-schema.js";
 export * from "./opportunity.js";
 export * from "./organization.js";
 export * from "./preferences.js";

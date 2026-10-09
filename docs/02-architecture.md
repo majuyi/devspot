@@ -128,7 +128,7 @@ pipeline is visible to readers, not just to the maintainer.
 - `/feed` reads a preferences cookie (`prefs=v1.<base64 json>`) and renders server-side;
   the same preferences are encodable as query params so a feed is shareable.
 - `/api/v1` reads the database directly with Prisma and returns DTOs validated by `schema`.
-  The weekly snapshot is the same DTOs, whole, as one file.
+  The weekly snapshot is the same DTOs, whole, as two files (`06` §5).
 
 ## 7. Security model
 

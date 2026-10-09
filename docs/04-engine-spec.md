@@ -81,7 +81,7 @@ budget allows. Output is an `OpportunityDraft` with `fieldConfidence`.
 
 ### Stage 4 · Validate
 
-`OpportunitySchema.safeParse` with the organization context merged in. Failures are logged
+`OpportunityInput.safeParse` with the organization context merged in. Failures are logged
 with the field path and counted on the run; they never throw.
 
 ### Stage 5 · Load
