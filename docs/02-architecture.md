@@ -86,6 +86,10 @@ packages/engine ──▶ @devspot/db ──▶ @devspot/schema
 - `engine` and `web` never import each other. Shared logic lives in `schema` or `db`.
 - Anything crossing this line is a design error and CI fails the build (enforced by a
   Biome `noRestrictedImports` rule and by `turbo.json` task inputs).
+- In `biome.json`, a later matching override replaces the whole `paths` map rather than
+  merging it, so the fetchers/adapters/extract block stays last and repeats the engine-wide
+  restriction. Keep comments out of `biome.json`: with one present, Biome stops honouring
+  `.gitignore` and lints `.turbo/`.
 
 ## 4. Environments
 

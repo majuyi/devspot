@@ -18,7 +18,7 @@ Gate: `pnpm check` is green from a clean clone against an empty database; adding
 YAML with a mistake fails validation with a clear message; the schema package emits JSON
 Schema; the Prisma schema migrates.
 
-- [ ] **M0.1 Workspace scaffold.** Root `package.json` (`packageManager: pnpm@10`, scripts
+- [x] **M0.1 Workspace scaffold.** Root `package.json` (`packageManager: pnpm@10`, scripts
   `ci`, `dev`, `lint`, `typecheck`, `test`, `build`, `engine`, `db:*`), `pnpm-workspace.yaml`,
   `turbo.json` (tasks `build`, `lint`, `typecheck`, `test` with `dependsOn: ["^build"]`),
   `tsconfig.base.json` (strict, `noUncheckedIndexedAccess`, `moduleResolution: bundler`,

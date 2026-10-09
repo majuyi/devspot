@@ -41,11 +41,7 @@
   },
   "overrides": [
     {
-      "includes": [
-        "packages/engine/src/fetchers/**",
-        "packages/engine/src/adapters/**",
-        "packages/engine/src/extract/**"
-      ],
+      "includes": ["packages/schema/**"],
       "linter": {
         "rules": {
           "style": {
@@ -53,7 +49,44 @@
               "level": "error",
               "options": {
                 "paths": {
-                  "@devspot/db": "Fetchers, adapters and extractors never import the database. Return values; the loader writes."
+                  "@devspot/db": "@devspot/schema imports nothing from the workspace.",
+                  "@devspot/engine": "@devspot/schema imports nothing from the workspace.",
+                  "@devspot/web": "@devspot/schema imports nothing from the workspace."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["packages/db/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@devspot/engine": "@devspot/db imports @devspot/schema only.",
+                  "@devspot/web": "@devspot/db imports @devspot/schema only."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/web/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@devspot/engine": "The app never imports the engine. Shared logic lives in @devspot/schema or @devspot/db."
                 }
               }
             }
@@ -70,6 +103,28 @@
               "level": "error",
               "options": {
                 "paths": {
+                  "@devspot/web": "The engine never imports the app."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "packages/engine/src/fetchers/**",
+        "packages/engine/src/adapters/**",
+        "packages/engine/src/extract/**"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@devspot/db": "Fetchers, adapters and extractors never import the database. Return values; the loader writes.",
                   "@devspot/web": "The engine never imports the app."
                 }
               }
