@@ -14,6 +14,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "validate": "prisma validate",
     "migrate:dev": "prisma migrate dev",
+    "migrate:check": "prisma migrate diff --from-config-datasource --to-schema prisma/schema.prisma --exit-code",
     "migrate:deploy": "prisma migrate deploy && echo 'Reminder: re-run the engine role grants from docs/09-operations.md §3 if a table was added.'",
     "sync-registry": "tsx scripts/sync-registry.ts",
     "test": "vitest run"

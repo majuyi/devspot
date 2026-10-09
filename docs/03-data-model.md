@@ -340,12 +340,13 @@ model UsageMeter {
 ```ts
 // packages/db/prisma.config.ts
 import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
-  migrations: { path: "prisma/migrations", seed: "tsx prisma/seed.ts" },
-  datasource: { url: env("DIRECT_URL") },   // migrations use the session pooler
+  migrations: { path: "prisma/migrations" },
+  // Migrations use the session pooler. Not env(): generate and validate must work with no .env.
+  datasource: { url: process.env.DIRECT_URL },
 });
 ```
 
@@ -424,6 +425,8 @@ as the query and note the `EXPLAIN` in the PR description.
 
 - `prisma migrate dev` locally; commit the migration folder; `prisma migrate deploy` in CI
   before the app deploys (a GitHub Action step on `main`, using `DIRECT_URL`).
+- CI runs `pnpm --filter @devspot/db migrate:check` after `migrate deploy`: it fails when
+  `schema.prisma` changed without a migration.
 - Additive first. A destructive change (drop or rename) ships as two migrations across two
   releases: add and backfill, then drop.
 - Never edit an applied migration. Never run `prisma db push` against production.
