@@ -10,7 +10,7 @@
   },
   "scripts": {
     "generate": "prisma generate",
-    "build": "prisma generate",
+    "build": "prisma validate && prisma generate",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "validate": "prisma validate",
     "migrate:dev": "prisma migrate dev",
