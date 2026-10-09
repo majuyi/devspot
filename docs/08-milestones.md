@@ -39,7 +39,7 @@ Schema; the Prisma schema migrates.
   stable page exists yet), `scripts/sync-registry.ts` in `db`, `pnpm registry:check`. Spec:
   `04` §5. Check: sync creates 10 organizations and their sources; a second run is a no-op;
   a malformed file fails with the path and field.
-- [ ] **M0.5 CI.** `.github/workflows/ci.yml` with a Postgres service, running
+- [x] **M0.5 CI.** `.github/workflows/ci.yml` with a Postgres service, running
   `pnpm check` (lint, typecheck, test, build, `prisma validate`). Spec: `02` §5, `09` §5.
   Check: green on the PR.
 - [ ] **M0.6 Repo hygiene.** `README.md` (what, quick start, links into docs), `LICENSE`
