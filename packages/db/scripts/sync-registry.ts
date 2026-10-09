@@ -6,20 +6,39 @@
 import { createHash } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { OrganizationYaml, sourceKey } from "@devspot/schema";
+import {
+  type RegistryFile,
+  RegistryValidationError,
+  sourceKey,
+  validateRegistry,
+} from "@devspot/schema";
 import { parse } from "yaml";
 import { db } from "../src/client.ts";
 
 const dir = resolve(import.meta.dirname, "../../../registry/organizations");
 const files = readdirSync(dir).filter((f) => f.endsWith(".yaml") && !f.startsWith("_"));
+const texts = new Map(files.map((file) => [file, readFileSync(resolve(dir, file), "utf8")]));
+const parsed: RegistryFile[] = files.map((file) => {
+  try {
+    return { file, raw: parse(texts.get(file) as string) };
+  } catch (e) {
+    return { file, parseError: e instanceof Error ? e.message : String(e) };
+  }
+});
+
+// Validate the whole registry before writing anything, so one bad file never leaves a
+// half-synced database.
+const { organizations, issues } = validateRegistry(parsed);
+if (issues.length) throw new RegistryValidationError(issues);
+
 let orgs = 0;
 let sources = 0;
 let unchanged = 0;
 
-for (const file of files) {
-  const text = readFileSync(resolve(dir, file), "utf8");
-  const org = OrganizationYaml.parse(parse(text));
-  const registryHash = createHash("sha256").update(text).digest("hex");
+for (const org of organizations) {
+  const registryHash = createHash("sha256")
+    .update(texts.get(org.file) as string)
+    .digest("hex");
 
   const existing = await db.organization.findUnique({
     where: { slug: org.slug },

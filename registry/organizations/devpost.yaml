@@ -1,0 +1,15 @@
+slug: devpost
+name: Devpost
+category: hackathonHost
+homepageUrl: https://devpost.com
+description: >
+  The largest hackathon platform. Lists online and in-person hackathons from companies,
+  universities and communities, many with cash prizes.
+country: US
+sources:
+  - name: hackathons
+    kind: api
+    url: https://devpost.com/api/hackathons
+    adapter: devpost
+    cadence: rolling
+    notes: Public JSON behind devpost.com/hackathons; robots.txt allows it. Verified 2026-10-09.

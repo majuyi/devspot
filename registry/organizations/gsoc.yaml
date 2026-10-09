@@ -7,8 +7,11 @@ description: >
   a fixed yearly timeline.
 country: US
 sources:
-  - name: timeline
-    kind: html
-    url: https://summerofcode.withgoogle.com/programs/current/timeline
-    adapter: gsoc
+  - name: blog
+    kind: feed
+    url: https://opensource.googleblog.com/feeds/posts/default/-/gsoc
     cadence: annual
+    notes: >
+      Google Open Source Blog, gsoc label. Carries the organisations, applications-open and
+      results posts. The timeline page is client-rendered, so it is not a source. Verified
+      2026-10-09.

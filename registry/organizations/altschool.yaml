@@ -1,0 +1,17 @@
+slug: altschool
+name: AltSchool Africa
+category: trainingProvider
+homepageUrl: https://altschoolafrica.com
+description: >
+  Online tech school offering diplomas in software engineering, data and product, with
+  periodic scholarship and discount windows.
+country: NG
+city: lagos
+sources:
+  - name: site
+    kind: manual
+    url: https://altschoolafrica.com
+    cadence: unpredictable
+    notes: >
+      robots.txt disallows all crawlers (Disallow: /), so the RSS feed at /feed/ cannot be
+      used. Checked 2026-10-09.

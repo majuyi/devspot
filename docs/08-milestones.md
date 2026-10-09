@@ -33,7 +33,7 @@ Schema; the Prisma schema migrates.
   `@prisma/adapter-pg`, first migration, `enum-parity.test.ts`, `docker-compose.yml` with a
   Postgres 17 service for local dev. Check: `prisma validate`; `migrate deploy` on the Docker
   database; parity test passes.
-- [ ] **M0.4 Registry format and sync.** `registry/organizations/` with 10 seed files
+- [x] **M0.4 Registry format and sync.** `registry/organizations/` with 10 seed files
   (suggested: hng, outreachy, gsoc, mlh, devpost, paystack, flutterwave, ingressive-for-good,
   altschool, gdg-lagos; verify each URL by hand and mark `kind: manual` where no feed or
   stable page exists yet), `scripts/sync-registry.ts` in `db`, `pnpm registry:check`. Spec:
