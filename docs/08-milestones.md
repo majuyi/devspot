@@ -42,9 +42,10 @@ Schema; the Prisma schema migrates.
 - [x] **M0.5 CI.** `.github/workflows/ci.yml` with a Postgres service, running
   `pnpm check` (lint, typecheck, test, build, `prisma validate`). Spec: `02` §5, `09` §5.
   Check: green on the PR.
-- [ ] **M0.6 Repo hygiene.** `README.md` (what, quick start, links into docs), `LICENSE`
+- [x] **M0.6 Repo hygiene.** `README.md` (what, quick start, links into docs), `LICENSE`
   (Apache-2.0), `CONTRIBUTING.md` (already written; verify commands match),
-  `SECURITY.md` (report by email), `CHANGELOG.md` (Keep a Changelog, `Unreleased`).
+  `SECURITY.md` (GitHub private vulnerability reporting; email arrives in M5.1),
+  `CHANGELOG.md` (Keep a Changelog, `Unreleased`).
   Check: links resolve; `pnpm` commands in README run.
 
 ## M1 · Engine core
@@ -172,7 +173,8 @@ the weekly benchmark shows at least five items in a month that YouthOp and Oppor
 did not list.
 
 - [ ] **M5.1 Name.** Decide, buy the domain, rename the package scope and wordmark, update
-  `NEXT_PUBLIC_SITE_URL`, redirects from the Vercel URL.
+  `NEXT_PUBLIC_SITE_URL`, redirects from the Vercel URL, `security@<domain>` forwarding
+  and its address in `SECURITY.md`.
 - [ ] **M5.2 SEO.** Sitemap, robots, canonical tags, structured data validation, Search
   Console.
 - [ ] **M5.3 Contribution on-ramp.** Good-first-issue labels generated from `/status`,
