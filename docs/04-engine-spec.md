@@ -145,21 +145,29 @@ human summary to stderr.
 
 Copied from CLIST's design.
 
-- `pnpm engine record --source hng/site` runs the fetcher with a recording dispatcher that
-  writes `test/fixtures/hng__site/http.json.gz` (request key → status, headers, body) and
-  `expected.json` (the normalized `RawItemInput[]`, then the `OpportunityDraft[]` from rules).
-- Recording scrubs `Set-Cookie`, `Authorization` and any header or body substring matching a
-  credential regex before writing, and refuses to write if a scrub matched in the body
-  (prints where).
-- Tests construct `http` from a replay dispatcher over the fixture. A request with no
-  recorded key throws `UnexpectedNetworkAccess`. `vitest` sets `NODE_OPTIONS` so undici's
-  global dispatcher is the replay one; nothing can reach the network.
+- `pnpm engine record --source hng/site` runs the fetcher with an `HttpClient` whose
+  `onExchange` hook captures every response (robots.txt included) and writes
+  `packages/engine/test/fixtures/hng__site/http.json.gz` (`GET <url>` → status, headers,
+  body, in order) and `expected.json` (the validated `RawItemInput[]`; the rules extractor's
+  `OpportunityDraft[]` joins it in M1.7). Sources are read from the registry YAML, so no
+  database is needed.
+- Recording drops `Set-Cookie`, `Cookie` and `Authorization` headers, masks any other header
+  value matching a credential pattern (`CREDENTIAL_PATTERNS` in `src/fixtures/record.ts`:
+  bearer tokens, `api_key=`-style pairs, AWS, GitHub and Anthropic keys, JWTs), and refuses
+  to write anything if a body matches, throwing `FixtureContainsCredential` with the URL and
+  offset.
+- Tests construct `http` from a `ReplayDispatcher` over the fixture. A request with no
+  recorded key throws `UnexpectedNetworkAccess` (never retried, never mistaken for an
+  unreachable robots.txt). The engine's vitest `setupFiles` installs `NoNetworkDispatcher`
+  as undici's global dispatcher, so even a stray `fetch()` fails; nothing can reach the
+  network. A source with no fixture throws `FixtureMissing`.
 - `pnpm engine replay --source <key>` prints a unified diff of actual vs expected and exits 1
   on difference. `--update` rewrites `expected.json` after a human looks at the diff.
 - Fixture size: keep bodies under 300 KB each; truncate HTML after the relevant container in
   the adapter's `fetch` before recording where possible.
 - Every `Source` with kind `feed`, `sitemap`, `html` or `api` must have a fixture; a test
-  enumerates the registry and fails for any missing one.
+  enumerates the registry and fails for any missing one (lands with the adapter loader in
+  M1.5, once every kind has a fetcher to record with).
 
 ## 4. Scheduling (GitHub Actions)
 
