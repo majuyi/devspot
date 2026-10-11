@@ -19,7 +19,7 @@
     "db:migrate": "pnpm --filter @devspot/db run migrate:dev",
     "db:migrate:deploy": "pnpm --filter @devspot/db run migrate:deploy",
     "db:sync-registry": "pnpm --filter @devspot/db run sync-registry",
-    "check": "turbo run lint typecheck test build",
+    "check": "biome check . && turbo run typecheck test build",
     "ci": "pnpm run check"
   },
   "devDependencies": {

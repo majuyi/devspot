@@ -20,7 +20,8 @@ Schema; the Prisma schema migrates.
 
 - [x] **M0.1 Workspace scaffold.** Root `package.json` (`packageManager: pnpm@10`, scripts
   `ci`, `dev`, `lint`, `typecheck`, `test`, `build`, `engine`, `db:*`), `pnpm-workspace.yaml`,
-  `turbo.json` (tasks `build`, `lint`, `typecheck`, `test` with `dependsOn: ["^build"]`),
+  `turbo.json` (tasks `build`, `typecheck`, `test` with `dependsOn: ["^build"]`; lint is
+  `biome check .`, run first by `pnpm check`, not a Turbo task),
   `tsconfig.base.json` (strict, `noUncheckedIndexedAccess`, `moduleResolution: bundler`,
   `verbatimModuleSyntax`), `biome.json`, `.gitignore`, `.editorconfig`, `.nvmrc` (22).
   Spec: `02` §2–3. Check: `pnpm install` and `pnpm lint` run with no packages yet.

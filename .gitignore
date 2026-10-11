@@ -10,3 +10,6 @@ packages/db/src/generated/
 coverage/
 .DS_Store
 *.log
+
+# Claude Code per-user permissions; local only.
+.claude/settings.local.json
