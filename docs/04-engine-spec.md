@@ -37,10 +37,17 @@ Dispatch on `Source.kind`:
 | `api` | same as `html` with a JSON-speaking adapter | same |
 | `manual` | no-op; items arrive through `/submit` or the admin | never |
 
-`http` is an undici `Dispatcher`-backed client wrapper with: one request per second per host,
-a 20s timeout, 3 retries with jitter on 5xx and network errors, no retry on 4xx, a fixed
-`User-Agent: devspot-bot/0.1 (+https://<site>/about#bot)`, and `robots.txt` checked and cached
-per host for 24 hours. A disallowed path raises `RobotsDisallowed` and the run records it.
+`http` is `HttpClient` in `src/http.ts`, an undici `Dispatcher`-backed wrapper with: one
+request per second per host (or the host's `Crawl-delay` when longer), a 20s timeout, 3
+retries with jitter on 5xx and network errors (timeouts included), no retry on 4xx, a fixed
+`User-Agent: devspot-bot/0.1 (+https://github.com/majuyi/devspot)` (the contact URL becomes
+`https://<site>/about#bot` when the site ships in M2.12), and `robots.txt` checked and cached
+per host for 24 hours, matched against the `devspot-bot` group. Per RFC 9309, a 4xx
+`robots.txt` means no rules and a 5xx or unreachable one means disallow everything. Redirects
+are followed (5 hops) with `robots.txt` checked on every hop. A disallowed path raises
+`RobotsDisallowed` and the run records it. `get` returns any status, so the feed fetcher can
+read a 304; `text` and `json` throw `HttpStatusError` on non-2xx and `HttpRequestFailed` when
+retries run out.
 
 ### Adapter contract
 

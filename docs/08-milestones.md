@@ -55,7 +55,7 @@ Gate: 20 organizations yield real opportunities through the pipeline into the da
 a fixture; a deliberately broken source shows `erroring` on the health report and fails
 the Actions job.
 
-- [ ] **M1.1 HTTP client and robots.** `src/http.ts` over undici with per-host rate limit,
+- [x] **M1.1 HTTP client and robots.** `src/http.ts` over undici with per-host rate limit,
   timeout, retries, user agent, `robots.txt` cache; `RobotsDisallowed` error. Spec: `04` §1.
   Check: unit tests with a `MockAgent` for retry, rate limit timing, robots deny.
 - [ ] **M1.2 Record and replay.** `src/fixtures/{record,replay}.ts`, credential scrubbing,

@@ -1,0 +1,19 @@
+{
+  "name": "@devspot/engine",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "robots-parser": "3.0.1",
+    "undici": "8.11.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.5",
+    "typescript": "5.9.3",
+    "vitest": "5.0.1"
+  }
+}
