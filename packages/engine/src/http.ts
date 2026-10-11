@@ -1,5 +1,6 @@
 import robotsParser from "robots-parser";
 import { type Dispatcher, getGlobalDispatcher, request } from "undici";
+import { UnexpectedNetworkAccess } from "./fixtures/replay.js";
 
 /**
  * The contact URL is the repository until the public site exists (M2.12); see docs/04 §1.
@@ -67,7 +68,11 @@ export type HttpClientOptions = {
   now?: () => number;
   sleep?: (ms: number) => Promise<void>;
   random?: () => number;
+  /** Called with every response, robots.txt included. The fixture recorder listens here. */
+  onExchange?: (exchange: HttpExchange) => void;
 };
+
+export type HttpExchange = HttpResponse & { method: "GET" };
 
 type RobotsRules = { fetchedAt: number; allows: (url: string) => boolean; crawlDelayMs: number };
 
@@ -86,6 +91,7 @@ export class HttpClient {
   private readonly now: () => number;
   private readonly sleep: (ms: number) => Promise<void>;
   private readonly random: () => number;
+  private readonly onExchange: ((exchange: HttpExchange) => void) | undefined;
   /** Per origin: the earliest time the next request may start. */
   private readonly nextSlot = new Map<string, number>();
   private readonly robots = new Map<string, RobotsRules>();
@@ -101,6 +107,7 @@ export class HttpClient {
     this.now = options.now ?? Date.now;
     this.sleep = options.sleep ?? ((ms) => new Promise((r) => setTimeout(r, ms)));
     this.random = options.random ?? Math.random;
+    this.onExchange = options.onExchange;
   }
 
   /**
@@ -153,7 +160,8 @@ export class HttpClient {
         if (hop >= this.maxRedirects) throw new TooManyRedirects(robotsUrl);
         res = await this.fetchWithRetry(new URL(res.headers.location, res.url).href, {});
       }
-    } catch {
+    } catch (error) {
+      if (error instanceof UnexpectedNetworkAccess) throw error;
       return { fetchedAt, allows: () => false, crawlDelayMs: 0 };
     }
     if (res.status >= 400 && res.status < 500)
@@ -177,6 +185,8 @@ export class HttpClient {
         const res = await this.fetchOnce(url, headers);
         if (res.status < 500 || attempt >= this.retries) return res;
       } catch (error) {
+        // A replay miss is a missing fixture, not a flaky network: fail at once.
+        if (error instanceof UnexpectedNetworkAccess) throw error;
         if (attempt >= this.retries) throw new HttpRequestFailed(url, attempt + 1, error);
       }
       await this.sleep(500 * 2 ** attempt * (0.5 + this.random()));
@@ -196,7 +206,9 @@ export class HttpClient {
     for (const [name, value] of Object.entries(res.headers)) {
       if (value !== undefined) flat[name] = Array.isArray(value) ? value.join(", ") : value;
     }
-    return { url, status: res.statusCode, headers: flat, body };
+    const response = { url, status: res.statusCode, headers: flat, body };
+    this.onExchange?.({ method: "GET", ...response });
+    return response;
   }
 
   /** Reserves the slot before waiting, so concurrent callers queue instead of colliding. */

@@ -58,7 +58,7 @@ the Actions job.
 - [x] **M1.1 HTTP client and robots.** `src/http.ts` over undici with per-host rate limit,
   timeout, retries, user agent, `robots.txt` cache; `RobotsDisallowed` error. Spec: `04` §1.
   Check: unit tests with a `MockAgent` for retry, rate limit timing, robots deny.
-- [ ] **M1.2 Record and replay.** `src/fixtures/{record,replay}.ts`, credential scrubbing,
+- [x] **M1.2 Record and replay.** `src/fixtures/{record,replay}.ts`, credential scrubbing,
   `UnexpectedNetworkAccess`, vitest setup that installs the replay dispatcher globally,
   `engine record` and `engine replay` commands. Spec: `04` §3. Check: recording a source
   writes `http.json.gz` and `expected.json`; replay with a missing key throws; a body
