@@ -24,7 +24,8 @@ This is the most useful thing you can do. One file, one pull request.
 `/status` on the site lists stale and erroring sources, worst first. Pick one, run
 `pnpm engine run --source <key> --dry-run`, read the error, fix the URL in the YAML or the
 adapter, re-record the fixture with `pnpm engine record --source <key>`, look at the diff
-that `pnpm engine replay --source <key>` prints, and open a PR.
+that `pnpm engine replay --source <key>` prints, and open a PR. (The engine and these
+commands arrive in M1; `/status` arrives with the web app in M2.)
 
 ## Write an adapter (some code)
 
@@ -49,7 +50,7 @@ cp .env.example .env            # fill DATABASE_URL and DIRECT_URL for the local
 pnpm db:migrate
 pnpm db:sync-registry
 pnpm test                        # runs with the network disabled
-pnpm dev                         # web app on http://localhost:3000
+pnpm dev                         # web app on http://localhost:3000 (from M2)
 ```
 
 ## Rules
@@ -61,4 +62,5 @@ pnpm dev                         # web app on http://localhost:3000
   we do not need to be clever.
 - Read `CLAUDE.md` if you are using an AI coding agent; the same rules apply to it.
 
-Licence: Apache-2.0 for code; the registry is CC0.
+Licence: Apache-2.0 for code ([LICENSE](LICENSE)); the registry is CC0
+([registry/LICENSE](registry/LICENSE)).

@@ -5,7 +5,8 @@ in Nigeria: internships, jobs, fellowships, scholarships, grants, hackathons, op
 programmes, events, competitions, accelerators and bootcamps. One promise: **a reader will
 not miss a deadline they were eligible for.**
 
-Status: **M0 · Foundation** (see `docs/08-milestones.md`). Nothing is deployed yet.
+Status: **M0 · Foundation** done; **M1 · Engine core** next (see
+[`docs/08-milestones.md`](docs/08-milestones.md)). Nothing is deployed yet.
 
 ## How it works
 
@@ -48,4 +49,5 @@ pnpm test
 Contributing: the most useful thing you can do is [add an organization](CONTRIBUTING.md).
 AI coding agents start at [`CLAUDE.md`](CLAUDE.md).
 
-Licence: Apache-2.0 (code). The registry is CC0.
+Licence: Apache-2.0 for code ([LICENSE](LICENSE)). The registry is CC0
+([registry/LICENSE](registry/LICENSE)).
