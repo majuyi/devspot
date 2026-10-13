@@ -45,8 +45,8 @@ important bug we have.
 ```sh
 corepack enable
 pnpm install
+cp .env.example .env            # if 5432 is taken, set DB_PORT=5433 and use 5433 in both URLs
 docker compose up -d db
-cp .env.example .env            # fill DATABASE_URL and DIRECT_URL for the local database
 pnpm db:migrate
 pnpm db:sync-registry
 pnpm test                        # runs with the network disabled

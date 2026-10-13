@@ -1,5 +1,9 @@
-import "dotenv/config";
+import { resolve } from "node:path";
+import { config } from "dotenv";
 import { defineConfig } from "prisma/config";
+
+// The one .env lives at the repo root (CONTRIBUTING); variables already set, as in CI, win.
+config({ path: resolve(import.meta.dirname, "../../.env"), quiet: true });
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
