@@ -64,7 +64,7 @@ the Actions job.
   `engine record` and `engine replay` commands. Spec: `04` §3. Check: recording a source
   writes `http.json.gz` and `expected.json`; replay with a missing key throws; a body
   containing `Bearer abc` is refused.
-- [ ] **M1.3 Feed fetcher.** feedsmith-based, conditional headers, HTML stripping to text.
+- [x] **M1.3 Feed fetcher.** feedsmith-based, conditional headers, HTML stripping to text.
   Spec: `04` §1. Check: fixtures for three real feeds (record them), golden output tests.
 - [ ] **M1.4 Sitemap fetcher.** Sitemap and index parsing, `include` glob, readable-text
   extraction. Check: fixture for one real sitemap source.

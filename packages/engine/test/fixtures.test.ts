@@ -19,13 +19,14 @@ const source: FetchSource = {
   adapter: "example",
 };
 
-/** A stand-in fetcher: one page, one item per line. Real fetchers arrive in M1.3 to M1.5. */
+/** A stand-in fetcher: one page, one item per line. Real fetchers live in src/fetchers. */
 const fetchLines: FetchFn = async (s, http) => {
   const text = await http.text(s.url);
-  return text
+  const items = text
     .split("\n")
     .filter(Boolean)
     .map((line, i) => ({ url: `${s.url}#${i}`, title: line, text: line }));
+  return { items };
 };
 
 let root: string;
@@ -95,7 +96,7 @@ describe("record", () => {
     live.get(ORIGIN).intercept({ path: "/jobs" }).reply(200, "x");
     const bad: FetchFn = async (s, http) => {
       await http.text(s.url);
-      return [{ url: "not a url", text: "x" }];
+      return { items: [{ url: "not a url", text: "x" }] };
     };
     await expect(record(bad)).rejects.toThrow();
     expect(existsSync(join(root, "example__jobs"))).toBe(false);
@@ -146,7 +147,7 @@ describe("replay", () => {
     await recorded();
     const strays: FetchFn = async (_s, http) => {
       await http.text(`${ORIGIN}/jobs?page=2`);
-      return [];
+      return { items: [] };
     };
     await expect(replaySource({ source, fetch: strays, root })).rejects.toBeInstanceOf(
       UnexpectedNetworkAccess,
@@ -157,7 +158,7 @@ describe("replay", () => {
     await recorded();
     const elsewhere: FetchFn = async (_s, http) => {
       await http.text("https://elsewhere.example/jobs");
-      return [];
+      return { items: [] };
     };
     await expect(replaySource({ source, fetch: elsewhere, root })).rejects.toBeInstanceOf(
       UnexpectedNetworkAccess,
@@ -172,8 +173,9 @@ describe("replay", () => {
 
   it("reports a diff when the fetcher's output changes", async () => {
     await recorded();
-    const renamed: FetchFn = async (s, http) =>
-      (await fetchLines(s, http)).map((i) => ({ ...i, title: `${i.title} 2027` }));
+    const renamed: FetchFn = async (s, http) => ({
+      items: (await fetchLines(s, http)).items.map((i) => ({ ...i, title: `${i.title} 2027` })),
+    });
     const result = await replaySource({ source, fetch: renamed, root });
     expect(result.equal).toBe(false);
     expect(result.diff).toContain('-       "title": "Backend Intern",');

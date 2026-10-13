@@ -87,7 +87,7 @@ export async function recordSource(options: {
     ...(options.dispatcher ? { dispatcher: options.dispatcher } : {}),
     onExchange: (e) => seen.push(e),
   });
-  const items = z.array(RawItemInput).parse(await options.fetch(options.source, http));
+  const items = z.array(RawItemInput).parse((await options.fetch(options.source, http)).items);
   const exchanges = seen.map((e) => scrubExchange(options.source.key, e));
   const dir = fixtureDir(options.source.key, options.root ?? FIXTURES_DIR);
   writeFixture(

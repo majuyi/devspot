@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@devspot/schema": "workspace:*",
+    "cheerio": "1.2.0",
+    "feedsmith": "2.9.6",
     "robots-parser": "3.0.1",
     "undici": "8.11.2",
     "yaml": "2.9.1",

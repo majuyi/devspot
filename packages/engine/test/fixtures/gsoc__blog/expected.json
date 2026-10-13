@@ -1,0 +1,1113 @@
+{
+  "sourceKey": "gsoc/blog",
+  "items": [
+    {
+      "url": "https://opensource.googleblog.com/2026/04/the-journey-begins-meet-the-2026-gsoc-contributors.html",
+      "title": "The Journey Begins: Meet the 2026 GSoC Contributors!",
+      "text": "by Stephanie Taylor, Mary Radomile & Lucila Ortíz, Google Summer of Code\n\nA warm welcome to the 1,141 Contributors of Google Summer of Code (GSoC) 2026! We are excited to start this new edition alongside our 184 mentoring orgs. Organizations reviewed a record-breaking 23,371 proposals to find the best matches for their communities.\n\n2026 Application Statistics:\n\n- 15,245 applicants from 131 countries submitting a total of 23,371 proposals\n- Over 2,000 mentors and org admins\n\nWhat's Next?\n\nBefore the first line of code is written, there is Community Bonding. This 3.5-week GSoC tradition is about more than just tool configuration; it's about immersion. It's a dedicated space for Contributors to master the codebase, align with community standards, and understand the 'why' behind their projects. By the time the coding period begins, every Contributor is ready to turn project fundamentals into real-world impact.\n\nThe official coding period begins on May 25. For our contributors, this period represents a deep dive into collaborative development, offering the chance to learn new tools and contribute to the heartbeat of open source projects.\n\nThank you, Mentors!\n\nFinally, we want to express our deepest gratitude to our phenomenal Mentors and Org Admins. As AI profoundly shifts the landscape of open source communities, GSoC is no exception. Your patience, grit, and tireless volunteer efforts are the heartbeat of this program, ensuring its continued success as we welcome a new generation of contributors into the open source ecosystem.",
+      "publishedAt": "2026-04-30T18:30:00.000Z",
+      "meta": {
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2026/03/open-source-open-doors-apply-now-for-google-summer-of-code.html",
+      "title": "Open Source, Open Doors, Apply Now for Google Summer of Code!",
+      "text": "by Stephanie Taylor, Mary Radomile & Lucila Ortíz, GSoC Program Admins\n\nJoin Google Summer of Code (GSoC) and start contributing to the world of open source development! Applications for GSoC are open from now - March 31, 2026 at 18:00 UTC.\n\nGoogle Summer of Code is celebrating its 22nd year in 2026! GSoC started back in 2005 and has brought over 22,000 new contributors from 123 countries into the open source community. This is an exciting opportunity for students and beginners to open source (18+) to gain real-world experience during the summer. You will spend 12+ weeks coding, learning about open source development, and earn a stipend under the guidance of experienced mentors.\n\nApply and get started!\n\n- First things first. Read the Contributor Guide and Advice for people applying for GSoC for application basics.\n- Elevate your proposal! Review the Writing a proposal doc written by former contributors and the Guidance for GSoC Contributors using AI tooling in GSoC 2026.\n- Read the Program Rules, FAQ, and join us in our Discord Channel to connect with the GSoC community.\n- Explore the 184 mentoring organizations, find a couple that align with your interests/skills and reach out immediately by using their preferred contact methods listed on the GSoC site. Do not email mentors directly unless explicitly told to do so in their instructions.\n- Watch our Intro to GSoC video, as well as the GSoC Org Highlight videos and Community Talks Series to get inspired about projects that contributors have worked on in the past.\n\nPlease remember that mentors are volunteers and they are being inundated with hundreds of requests from interested participants. It may take time for them to respond to you. Follow their Contributor Guidance instructions exactly. Do not just start submitting PRs without reading their guidance section first.\n\nComplete your registration and submit your project proposals on the GSoC site before the deadline on Tuesday, March 31, 2026 at 18:00 UTC.\n\nWe wish all our applicants the best of luck!",
+      "publishedAt": "2026-03-16T21:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code (GSoC)",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "Contributor Guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "Advice for people applying for GSoC",
+            "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+          },
+          {
+            "text": "Writing a proposal",
+            "href": "https://google.github.io/gsocguides/student/writing-a-proposal"
+          },
+          {
+            "text": "Guidance for GSoC Contributors using AI tooling in GSoC 2026",
+            "href": "https://developers.google.com/open-source/gsoc/resources/ai_guidance"
+          },
+          {
+            "text": "Program Rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          },
+          {
+            "text": "Discord Channel",
+            "href": "http://discord.gg/google-dev-community"
+          },
+          {
+            "text": "184 mentoring organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2026/organizations"
+          },
+          {
+            "text": "Intro to GSoC video",
+            "href": "https://www.youtube.com/watch?v=Wxjxwx7mqaI&list=PLOU2XLYxmsIL7-SZlT0UHBWEG3DBwbaoA&index=5"
+          },
+          {
+            "text": "GSoC Org Highlight videos",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+          },
+          {
+            "text": "Community Talks Series",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+          },
+          {
+            "text": "GSoC site",
+            "href": "https://summerofcode.withgoogle.com/"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2026/02/introducing-the-185-organizations-for-gsoc-2026.html",
+      "title": "Introducing the 185 Organizations for GSoC 2026",
+      "text": "by Stephanie Taylor, Mary Radomile & Lucila Ortíz, Google Open Source\n\nThe complete list of Google Summer of Code (GSoC) Mentoring Organizations is now available! 2026 brings us 185 open source communities who are eager to mentor a new group of open source contributors. Now is the time for prospective contributors to start looking for a community to participate with. Visit the full list of 2026 organizations to learn about each community, their project ideas, and read the specific contributor guidance to apply.\n\nWho can apply as a GSoC contributor?\nIf you are 18 or older and a student or just starting out in open source (less than 2 years of open source experience), GSoC is for you!\n\nWhy participate in Google Summer of Code?\nGSoC offers a unique opportunity to gain real-world experience and build new skills through open source contributions while being mentored by experienced maintainers and developers.\n\nThe application period starts on March 16th at 1800 UTC. Here are some things you can do to get started:\n\n- Visit our GSoC website and read the FAQ, the Contributor Guide, Advice for people applying for GSoC, Program Rules and the videos for Potential GSoC Contributors to learn the basics about GSoC.\n- Browse the Organization pages—use filters (languages, categories) to narrow down your choices.\n- Look at the Project Ideas for the Orgs you like. Pick one that excites you and reach out to them ASAP to talk about it.\n- Heads up! Each Org has its own application steps and maybe some required pre-tasks. Check their Contributor guidance link in their profile. Chatting and contributing early is HUGE for getting accepted!\n- Write a proposal based on the organization guidelines, also remember that some orgs do not allow the use of AI, be aware of their guidelines.\n- We strongly recommend submitting your proposal on the GSoC site at least 3 days before the hard deadline March 31, 1800 UTC.\n\nMark your calendars with the upcoming important GSoC 2026 dates!\n\n- Contributor application period: March 16 - 31 1800 UTC\n- GSoC 2026 Accepted Contributors announced: April 30 1800 UTC\n- Coding Starts: May 25\n\nThank you for being part of this wonderful community and we wish the best of luck to all the 2026 applicants!",
+      "publishedAt": "2026-02-19T21:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "now available",
+            "href": "https://summerofcode.withgoogle.com/programs/2026/organizations"
+          },
+          {
+            "text": "GSoC website",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          },
+          {
+            "text": "Contributor Guide",
+            "href": "https://developers.google.com/open-source/gsoc/resources/manual"
+          },
+          {
+            "text": "Advice for people applying for GSoC",
+            "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+          },
+          {
+            "text": "Program Rules",
+            "href": "https://developers.google.com/open-source/gsoc/rules"
+          },
+          {
+            "text": "videos for Potential GSoC Contributors",
+            "href": "https://developers.google.com/open-source/gsoc/videos#potential_gsoc_contributors"
+          },
+          {
+            "text": "GSoC site",
+            "href": "http://g.co/gsoc"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2026/01/mentor-org-applications-for-google-summer-of-code-2026-open-through-feb-3.html",
+      "title": "Mentor Org Applications for Google Summer of Code 2026 open through Feb 3",
+      "text": "by Stephanie Taylor, Mary Radomile & Lucila Ortíz, Google Open Source\n\nAttention open source enthusiasts! Mentoring organization applications for Google Summer of Code (GSoC) 2026 are officially open. This is your opportunity to guide students and developers early in their careers. The application window begins today, Monday, January 19th, and will remain open until February 3, 2026, at 18:00 UTC.\n\nTo find more information about the process of becoming a mentor organization, please review our official GSoC site. We also recommend consulting the Mentor Guide and the GSoC Organization Admin Tips, as both provide tips for preparing your community and strengthening your application.\n\nGSoC welcomes a wide variety of open source projects working in AI/ML, security, cloud, development tools, science, medicine, data, media, and more! For 2026, we are looking for even more innovative projects working on Artificial Intelligence/Machine Learning and Security.\n\nRequirements for GSoC Mentoring Organizations:\n\n- An established open source project with at least 18 months of history\n- Software produced and released under an Open Source Initiative (OSI)-approved license\n- A robust community with members who are enthusiastic and prepared to mentor GSoC participants\n- An active project characterized by regular engagement, rather than infrequent contributions\n- A comprehensive list of Project Ideas (refer to the mentor guide for best practices)\n- A clear grasp of GSoC objectives and program rules\n- A high-quality application that provides a detailed explanation of your project and its specific goals\n\n2026 Mentoring Organizations will be announced on February 19, 18:00 UTC*.\n\nFor first-time organizations interested in participating, we strongly suggest getting a referral from experienced organizations that think that your project is a good fit.\n\nGoogle Summer of Code: Organizations Apply\n\nPlease visit the GSoC site for even more information on how to apply and review the detailed timeline for important deadlines this year. We recommend reading our help page on our website for easy access to all the most important resources for all the applicants.\n\nWe look forward to seeing your organization applications and learning more about your communities!\n\n*Interested GSoC Contributor? After mentoring organizations are announced you can (and should!) begin researching each organization and reviewing project ideas to find the community that fits your interests. GSoC contributor applications are open from March 16-31.",
+      "publishedAt": "2026-01-19T20:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "GSoC site",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "Mentor Guide",
+            "href": "https://google.github.io/gsocguides/mentor/"
+          },
+          {
+            "text": "GSoC Organization Admin Tips",
+            "href": "https://developers.google.com/open-source/gsoc/help/oa-tips"
+          },
+          {
+            "text": "Open Source Initiative (OSI)-approved license",
+            "href": "https://opensource.org/licenses"
+          },
+          {
+            "text": "mentor guide",
+            "href": "https://google.github.io/gsocguides/mentor/defining-a-project-ideas-list"
+          },
+          {
+            "text": "program rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "Google Summer of Code: Organizations Apply",
+            "href": "https://www.youtube.com/watch?v=L4JNz6zWzLs&t=1s"
+          },
+          {
+            "text": "timeline",
+            "href": "https://developers.google.com/open-source/gsoc/timeline"
+          },
+          {
+            "text": "help page",
+            "href": "https://summerofcode.withgoogle.com/help"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2025/12/shape-future-with-google-summer-of-code.html",
+      "title": "Shape the future with Google Summer of Code 2026!",
+      "text": "By Stephanie Taylor, Mary Radomile & Lucila Ortiz\n\nAre you a passionate beginner ready to make your mark in open source? Now is your chance to make an impact in the 2026 Google Summer of Code (GSoC) program!\n\nFor over two decades, GSoC has been a critical launchpad, consistently introducing fresh, enthusiastic talent into the open source ecosystem. The numbers speak for themselves: GSoC has connected more than 22,000 contributors with over 20,000 mentors from 1,000+ open source organizations, all collaborating to keep this vital community thriving.\n\nGoogle, like everyone else, is built on open source. We depend on a healthy, vibrant open source ecosystem and want to lower the barrier to entry for people who want to contribute to the open community. Join in, learn great skills, and make an impact on people around the world.\n\nRichard Seroter, Chief Evangelist, Google Cloud\n\nOver 3+ months, contributors spend their time collaborating on real-world projects right alongside experienced mentors and their communities. This isn't just about coding; this deep immersion in open source does more than build valuable technical skills. It cultivates a strong understanding of community dynamics, best practices, and the soft skills needed to become a truly impactful open source contributor.\n\nCheck out the trailer below to learn more about the massive impact GSoC has made over the last two-plus decades.\n\nGoogle Summer of Code trailer\n\nJoin GSoC as a Mentoring Organization\n\nApplication Period: January 19 – February 3\n\nIf you're interested in your organization participating, now is the time to start! We welcome around 30 new organizations to GSoC annually—and yours could be one of them.\n\n- Visit our website where you'll find supportive materials to get started.\n- The Mentor Guide is a must-read, offering an introduction to GSoC, community engagement tips, project idea suggestions, and guidance on applying.\n- Pro Tip: For 2026, we'll have an expanded focus on the AI, Security, and Machine Learning domains.\n\nWant to be a GSoC Contributor?\n\nApplication Period: March 16 – March 31\n\nReady to get started? The official website is your first stop!\n\n- Watch the Introduction to GSoC video for a quick overview.\n- For more in-depth preparation, read the Contributor Guide—it's packed with insightful ideas from past participants.\n- Be sure to review the program rules and FAQ to understand eligibility requirements and how the program works.\n\nSpread the Word!\n\nPlease help us amplify the message about GSoC 2026! Share this post with your peers, family members, colleagues, universities, and anyone interested in making a real difference in the open source community.\n\nJoin us and help shape the future of open source!",
+      "publishedAt": "2025-12-03T19:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code trailer",
+            "href": "https://www.youtube.com/watch?v=EJFdPmFNIjk"
+          },
+          {
+            "text": "website",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "Mentor Guide",
+            "href": "https://developers.google.com/open-source/gsoc/resources/guide#mentor_guide"
+          },
+          {
+            "text": "official website",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "Introduction to GSoC video",
+            "href": "https://www.youtube.com/watch?v=Wxjxwx7mqaI"
+          },
+          {
+            "text": "Contributor Guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "program rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2025/08/google-summer-of-code-2025-contributor-statistics.html",
+      "title": "Google Summer of Code 2025: Contributor Statistics",
+      "text": "The Numbers Are In: A Deep Dive into GSoC 2025 Stats\n\nGoogle Summer of Code (GSoC) is an online global program that introduces students and beginner developers to open source software development. For our 21st year of the program we welcomed 1280 Contributors from 68 countries who are coding for 185 Mentoring Organizations.\n\nWith the coding period starting June 2nd, GSoC contributors are focused on their 2025 projects alongside their Mentors and the thriving open source communities they are working with. We are excited to share some statistics about the accepted contributors in this year's program.\n\nAccepted GSoC Contributors\n\n- 92.32% are participating in their first GSoC\n- 43.04% had not contributed to open source before GSoC 2025\n- 89.02% are enrolled in an academic program\n\nProjects\n\n- 53.68% of projects were large (~350 hours), 41.54% medium (~175 hours), 4% (~90 hour) projects\n- Currently, 77.9% of projects are the standard 12 weeks in length, with 18.3% extending their projects between 14-22 weeks.\n\nProposals\n\nWe got a whopping 15,240 applicants submitting proposals (an increase of 130% of our previous high - a new record!) from 130 countries. These folks submitted 23,559 proposals, a 159% increase over last year!\n\n96.55% applied to GSoC for the first time in 2025\n\nRegistrations\n\nWe had a record 98,698 people registering from 172 countries for the 2025 program, an increase of 124.4% over the previous high.\n\nMentors\n\nThis summer, 185 open-source organizations are participating in GSoC. Their projects are supported by over 2,100 mentors from 75 countries. These dedicated volunteers guide new contributors, helping them hone their skills.\n\nMany of these mentors are highly experienced. Almost two-thirds have mentored GSoC contributors for four or more years.\n\nA big thank you for being part of this wonderful community and for helping to spread the word about GSoC, which offers an invaluable opportunity for all the individuals beginning their journey in Open Source. We'll keep you updated with future entries about GSoC 2025, stay tuned!\n\n–by Stephanie Taylor, Mary Radomile & Lucila Ortiz, Google Open Source Team",
+      "publishedAt": "2025-08-14T18:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "185 Mentoring Organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2025/organizations"
+          },
+          {
+            "text": "2025 projects",
+            "href": "https://summerofcode.withgoogle.com/programs/2025/projects"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2025/05/gsoc-2025-we-have-our-contributors.html",
+      "title": "GSoC 2025: We have our Contributors!",
+      "text": "Congratulations to the 1272 Contributors from 68 countries accepted for GSoC 2025! Our 185 Mentoring Orgs have been very busy this past month - reviewing 23,559 proposals, having countless discussions with applicants, and finally, completing the rigorous selection process to find the right Contributors for their community.\n\nHere are some highlights of the 2025 GSoC applicants:\n\n- 15,240 applicants from 130 countries submitting 23,559 proposals\n- Over 2,350 mentors and organization administrators\n- 66.3% of applicants have no prior open source experience\n\nNow that the 2025 GSoC Contributors have been announced, the Organizations and Contributors will be spending 3 weeks together in the Community Bonding period. This time is a very important part of the GSoC program. Designed to get new contributors quickly up to speed, Mentors will use the next three weeks to introduce GSoC Contributors to their community, helping them understand the codebase and norms of their project, adjusting deliverables for the project and understanding the impact and reach of their summer project.\n\nContributors will begin writing code for Organizations on June 2nd - the official beginning of a totally new adventure! We're absolutely delighted to kick off another year alongside our amazing community.\n\nA huge thanks to all the enthusiastic applicants who participated and, of course, to our phenomenal volunteer Mentors and Organization Administrators. Your weeks of thoughtful proposal reviews and proactive engagement with participants have been invaluable in introducing them to the world of open source.\n\nAnd congratulations once again to our 2025 GSoC Contributors! Our goal is that GSoC serves as the catalyst for Contributors to become long term participants (and maybe even maintainers!) of open source communities of every shape and size. Now is their chance to dive in and learn more about open source and connect with these amazing communities.\n\n– Stephanie Taylor, Mary Radomile and Lucila Ortiz, Google Open Source",
+      "publishedAt": "2025-05-08T18:30:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "185 Mentoring Orgs",
+            "href": "https://summerofcode.withgoogle.com/programs/2025/organizations"
+          },
+          {
+            "text": "Community Bonding period",
+            "href": "https://google.github.io/gsocguides/student/how-gsoc-works"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2025/03/google-summer-of-code-2025-contributor.html",
+      "title": "Google Summer of Code 2025 Contributor Applications Now Open!",
+      "text": "Join Google Summer of Code (GSoC) and contribute to the world of open source! Applications for GSoC are open from March 24 to April 8, 2025.\n\nSince 2005, GSoC has successfully brought over 21,000 new contributors from 123 countries into the open source community. This is an exciting opportunity for students and beginners to open source (18+) to gain real-world experience this summer. You will spend 12+ weeks coding, learning about open source development, and earn a competitive stipend under the guidance of experienced mentors.\n\nLearn More and Apply\n\n- Read the Contributor Guide and Advice for people applying for GSoC to learn more about application basics.\n\n- Make your proposal stand out! Read the Writing a proposal doc written by former contributors.\n\n- Watch our Intro to GSoC video, as well as the GSoC Org Highlight videos and Community Talks Series to get inspired about projects that contributors have worked on in the past.\n\n- Read the Google Summer of Code Program Rules, FAQ, and join us in our Discord Channel to connect with the community.\n\n- Explore the 185 mentoring organizations and use filters to sort by your interests including programming language and category.\n\n- Reach out now to your preferred organizations via their contact methods listed on the GSoC site\n\nInterested contributors may register and submit project proposals on the GSoC site from now until Tuesday, April 8th at 18:00 UTC.\n\nBest of luck to all our applicants!\n\nBy Stephanie Taylor, Mary Radomile and Lucila Ortíz – GSoC Program Admins",
+      "publishedAt": "2025-03-24T19:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code (GSoC)",
+            "href": "http://g.co/gsoc"
+          },
+          {
+            "text": "Contributor Guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "Advice for people applying for GSoC",
+            "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+          },
+          {
+            "text": "Writing a proposal",
+            "href": "https://google.github.io/gsocguides/student/writing-a-proposal"
+          },
+          {
+            "text": "Intro to GSoC video",
+            "href": "https://www.youtube.com/watch?v=Wxjxwx7mqaI&list=PLOU2XLYxmsIL7-SZlT0UHBWEG3DBwbaoA&index=5"
+          },
+          {
+            "text": "GSoC Org Highlight videos",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+          },
+          {
+            "text": "Community Talks Series",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+          },
+          {
+            "text": "Google Summer of Code Program Rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          },
+          {
+            "text": "Discord Channel",
+            "href": "http://discord.gg/google-dev-community"
+          },
+          {
+            "text": "185 mentoring organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2025/organizations"
+          },
+          {
+            "text": "GSoC site",
+            "href": "https://summerofcode.withgoogle.com/"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2025/02/meet-mentoring-organizations-of-gsoc.html",
+      "title": "Meet the Mentoring organizations of GSoC 2025!",
+      "text": "We are thrilled to share that we have selected 185 open source projects for the 21st year of Google Summer of Code (GSoC)\n\nGet to know more about each organization via their individual GSoC program page. There you will find the best way to engage with each community, view project ideas, and read their contributor guidance for applying to their organization.\n\nApplications for the GSoC Contributors are open March 24 - April 8, 2025\n\nThe 2025 GSoC program is open to students and to beginners in open source software development. If you are eager to enhance your chances of becoming a GSoC contributor this year, we highly recommend following these steps:\n\n- Get inspired by watching the 'Introduction to GSoC' video for a quick overview and the Community Talks to learn more about past projects that contributors completed.\n- Review the Contributor Guide and Advice for Applying to GSoC.\n- Review the list of accepted organizations.\n\n- We recommend finding two to three Orgs that interest you and reading through their project ideas. Use the filters on the site to help you narrow down based on the programming languages you are familiar with or categories that interest you.\n\n- Once you find an idea that excites you, reach out to the organization right away via their preferred communication methods. Communicating early and often will increase your chances of being accepted.\n\n- Introduce yourself to the mentors and community and ask questions to determine if this project idea is a good fit for your skill set and interests.\n- Use the information you received to write up your proposal.\n\nJoin us in our upcoming Info session!\n\n- Contributor Talk #3 on Thursday, March 6, 16:00 UTC\nJoin the talk here: meet.google.com/gyq-mcuz-wey\n\nFinally, you can find more information about the program on our website which includes the full 2025 timeline. You’ll also find the FAQ, Program Rules and some videos with more details about GSoC for both contributors and mentors.\n\nWelcome aboard 2025 Mentoring Organizations! We are looking forward to an amazing year!\n\nBy Stephanie Taylor, Mary Radomile & Lucila Ortíz – GSoC Program Admins",
+      "publishedAt": "2025-02-27T20:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code (GSoC)",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "GSoC program page",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "Introduction to GSoC",
+            "href": "https://youtube.com/watch?v=Wxjxwx7mqaI&feature=shared"
+          },
+          {
+            "text": "Community Talks",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+          },
+          {
+            "text": "Contributor Guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "Advice for Applying to GSoC",
+            "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+          },
+          {
+            "text": "accepted organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2025/organizations"
+          },
+          {
+            "text": "meet.google.com/gyq-mcuz-wey",
+            "href": "https://meet.google.com/gyq-mcuz-wey"
+          },
+          {
+            "text": "our website",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "full 2025 timeline",
+            "href": "https://developers.google.com/open-source/gsoc/timeline"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          },
+          {
+            "text": "Program Rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "videos",
+            "href": "https://youtu.be/S6IP_6HG2QE?feature=shared"
+          },
+          {
+            "text": "contributors",
+            "href": "https://www.youtube.com/watch?v=YN7uGCg5vLg"
+          },
+          {
+            "text": "mentors",
+            "href": "https://www.youtube.com/watch?v=3J_eBuYxcyg"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2025/01/google-summer-of-code-2025-is-here.html",
+      "title": "Google Summer of Code 2025 is here!",
+      "text": "Level up your coding skills in Google Summer of Code 2025\n\nGet ready for the 2025 Google Summer of Code (GSoC) program! We started this adventure in 2005 and over the past 20 years we have welcomed over 21,000 new contributors to open source through the program under the guidance of 20,000+ mentors from over 1,000 open source organizations. Check out the video below to learn more about the impact GSoC has made over the last two decades.\n\nOur mission since day one has been to foster the next generation of open source contributors. Participants are immersed in a supportive environment where they spend 3+ months collaborating on real-world projects alongside experienced mentors. This deep dive into open source not only builds valuable coding skills, but cultivates a strong understanding of community dynamics and best practices, empowering them to become impactful contributors.\n\n2024 was a milestone year with 1,127 GSoC contributors completing their projects with 195 open source organizations. We hope to surpass these numbers in 2025!\n\nBe a GSoC 2025 mentoring organization\n\nApplication period: January 27 – Feb 11\n\nInterested organizations can learn more by visiting our website; there you’ll find supportive materials to get started.\n\nAn invaluable resource is our Mentor Guide, which is a quick way to familiarize yourself with the GSoC program. You’ll find tips on how to engage your community, suggestions on how to present achievable project ideas, and guidance on applying these to your communities.\n\nWe are happy to welcome organizations new to GSoC each year. Typically, 20-30 organizations join us for the first time, and we encourage you to apply. In 2025, we're particularly excited to expand our reach in the Security and Machine Learning domains.\n\nLearn more about being a GSoC mentoring organization\n\nJoin us in our first information session of the year:\n\n- Organization Applications Tips on Tuesday, January 22 17:00 UTC\n\nJoin the talk here: meet.google.com/gse-thow-xmc\n\nBe a GSoC 2025 contributor\n\nApplication period: March 24 - April 8\n\nIf you are a beginner to open source development or a student interested in learning about open source, this is your chance to get involved and gain experience on real-world software development projects. Follow these quick steps to set yourself up for success:\n\n- Learn more about GSoC on our official website.\n- Watch our Introduction to GSoC video for a quick overview of the program.\n- Review the Contributor Guide to get insightful ideas from past students and mentors for your program success.\n- Read the GSoC Program rules to understand how GSoC works.\n\nLearn more about being a GSoC contributor\n\nJoin one of our upcoming information sessions:\n\n- Contributor Talk #1 on Wednesday, February 19, 16:00 UTC\n\nJoin the talk here: meet.google.com/oct-wgna-paa\n\n- Contributor Talk #2 on Tuesday, February 25, 2:00 UTC\n\nJoin the talk here: meet.google.com/zau-gtwk-tif\n\n- Contributor Talk #3 on Thursday, March 6, 16:00 UTC\n\nJoin the talk here: meet.google.com/gyq-mcuz-wey\n\nPlease help us spread the word about GSoC 2025 to your peers, family members, colleagues, universities and anyone interested in making a difference in the open source community. Join us and help shape the future of open source!\n\nBy Stephanie Taylor, Mary Radomile, and Lucila Ortiz",
+      "publishedAt": "2025-01-14T20:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "website",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "Mentor Guide",
+            "href": "https://developers.google.com/open-source/gsoc/resources/guide#mentor_guide"
+          },
+          {
+            "text": "meet.google.com/gse-thow-xmc",
+            "href": "https://meet.google.com/gse-thow-xmc"
+          },
+          {
+            "text": "Introduction to GSoC video",
+            "href": "https://youtu.be/7jD2tChhrWM"
+          },
+          {
+            "text": "Contributor Guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "GSoC Program rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "meet.google.com/oct-wgna-paa",
+            "href": "https://meet.google.com/oct-wgna-paa"
+          },
+          {
+            "text": "meet.google.com/zau-gtwk-tif",
+            "href": "https://meet.google.com/zau-gtwk-tif"
+          },
+          {
+            "text": "meet.google.com/gyq-mcuz-wey",
+            "href": "https://meet.google.com/gyq-mcuz-wey"
+          },
+          {
+            "text": "GSoC 2025",
+            "href": "https://g.co/gsoc"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2024/10/celebrating-20-years-google-summer-of-code-nurturing-next-generation-contributors.html",
+      "title": "Celebrating 20 Years of Google Summer of Code",
+      "text": "Nurturing the Next Generation of Open Source Contributors\n\nIn the ever-evolving landscape of technology, open source software development plays a pivotal role in fostering innovation and collaboration on a global scale. For 20 years the Google Summer of Code (GSoC) program has introduced and nurtured new contributors entering the open source community. At All Things Open 2024, we’re excited to celebrate the 20th anniversary of GSoC, and reflect on some of the contributions this initiative has made to the world of software development.\n\nAbout the Google Summer of Code program\n\nSince its inception in 2005, one of GSoC’s goals has been to act as a bridge between aspiring developers and the open source ecosystem. The program's core principle revolves around mentorship; pairing participants with experienced developers from open source organizations of all shapes and sizes. GSoC has facilitated the connection of over 21,000 contributors from 123 countries. In 2005, the program reached over 200 contributors from 51 countries––a 10,400% increase in 20 years! This global reach underscores the program's commitment to fostering an inclusive and diverse open source community.\n\nOver the years, participants have collectively produced over 43 million lines of code, and contributed to the development and health of over 1,000 open source organizations. This substantial body of work not only strengthens the foundation of open source projects, but also shows the program's effectiveness by empowering new developers to make meaningful contributions.\n\nGSoC's Impact: Bridging the gap between aspiring developers and open source\n\nGSoC has far-reaching positive effects extending beyond the participants accepted into the program. For organizations, the GSoC application process itself acts as a catalyst for positive change in their communities. To apply, they must refine their documentation, develop newcomer-friendly tasks, and foster a collaborative environment to define potential projects. These efforts strengthen their communities, enhance organization, and create a more welcoming space for new members. Even when their application isn't accepted, organizations and contributors that don't make it into the program continue to benefit from these improvements.\n\nSimilarly, developers who apply to GSoC gain valuable insights. They discover open source projects aligned with their interests and realize the vast and exciting landscape of open source work. Many even go on to contribute to these projects independently, outside the formal GSoC structure.\n\nThe impact of GSoC extends beyond numbers. Participants tell us that one of the most significant aspects of GSoC is the invaluable learning experience it offers. Through their 12+ week programming projects, contributors gain exposure to real-world software development practices, coding standards, and collaboration techniques. The guidance and mentorship provided by seasoned open source developers enables participants to hone their skills, build confidence, and develop a deeper understanding of the open source ethos.\n\nThe value of mentorship and learning within the open source community\n\nFor participating organizations, GSoC serves as a valuable pipeline for identifying and attracting fresh perspectives. Many GSoC contributors continue to engage with their new communities long after the program concludes, becoming active members, maintainers, and even mentors themselves; in fact, GSoC has had more than 20,000 mentors hailing from 138 countries. This cycle of learning and contribution perpetuates the growth and sustainability of the open source ecosystem. We’re excited to build an even deeper connection with our GSoC alumni in 2025 to help strengthen the long term contributor and maintainer community further.\n\nCelebrating 20 Years of GSoC\n\nWith the 20th anniversary of Google Summer of Code, we celebrate the program's enduring tradition as a catalyst for open source innovation. By providing a platform for collaboration, mentorship, and skill development, GSoC has empowered countless individuals to embark on fulfilling careers in software development while simultaneously enriching the open source ecosystem.\n\nJoin me at Google’s All Things Open keynote to learn more about GSoC and celebrate its 20th anniversary.\n\nBy Timothy Jordan – Director, Developer Relations & Open Source, Google",
+      "publishedAt": "2024-10-15T15:00:00.001Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code (GSoC)",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "All Things Open 2024",
+            "href": "https://2024.allthingsopen.org/"
+          },
+          {
+            "text": "Google Summer of Code",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "All Things Open",
+            "href": "https://2024.allthingsopen.org/sessions/google-summer-of-code-celebrating-20-years-of-supporting-open-source"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2024/05/google-summer-of-code-2024-accepted-contributors-announced.html",
+      "title": "Google Summer of Code 2024 accepted contributors announced!",
+      "text": "We are celebrating our 20th anniversary of Google Summer of Code (GSoC) and we are thrilled to announce the new 1,220 Contributors that will be writing code for 195 open source mentoring organizations starting May 27. Over the last few weeks, our mentoring organizations have read through applications, had discussions with applicants, and made the difficult decision of selecting the GSoC Contributors they will be mentoring this summer.\n\nHighlighting significant results from this year’s application period:\n\n- 43,984 applicants from 172 countries\n- 9,107 proposals submitted by 6,518 applicants\n- 1,220 GSoC contributors accepted from 73 countries\n- Over 2,800 mentors and organization administrators\n- 34 mentoring organizations are participating in their 16th-20th GSoC!\n\nStarting today, our GSoC 2024 Contributors will actively engage with their new open source community and become familiar with their organizations during the Community Bonding period. Mentors will guide the GSoC Contributors through documentation and introduce them to community norms and processes while helping plan their milestones and projects for the summer. Coding begins May 27th and while most folks will wrap up September 2nd, GSoC Contributors have the opportunity to request a longer coding period and wrap up their projects between early September and early November based on their schedules and availability.\n\nWe’d like to express our gratitude to the thousands of applicants who took the time and effort to reach out to our mentoring organizations and submit proposals this year. The experience of researching, asking questions and becoming more familiar with open source communities has hopefully helped you feel excited about open source and maybe you found a great community that you want to contribute to outside of Google Summer of Code! Communication is key to GSoC and open source, and staying connected with the community or reaching out to other organizations is an exceptional way to set the stage for future opportunities. Open source communities are always looking for new and eager collaborators to join their projects.\n\nA huge thank you to all of our mentors and organization administrators who make this program so special and impactful for thousands of developers each year. Google Summer of Code continues because of the dedication of mentors to keep the open source ecosystem thriving by supporting new developers and their exciting perspectives and ideas. Google is honored to support the open source ecosystem (and 1,000+ open source projects and 20,000+ developers) over these past 20 years.\n\nGSoC Contributors — have fun this summer, keep learning and enjoy becoming part of the open source community! Your mentors and community members have dozens, and in some cases hundreds, of years of combined experience so let them share their knowledge with you to help you become phenomenal open source contributors.\n\nBy Stephanie Taylor – Program Lead and Lucila Ortiz – Program Administrator",
+      "publishedAt": "2024-05-01T19:15:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "Community Bonding",
+            "href": "https://google.github.io/gsocguides/student/how-gsoc-works"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2024/03/google-summer-of-code-2024-contributor-applications-open.html",
+      "title": "Google Summer of Code 2024 contributor applications are open!",
+      "text": "We are thrilled to announce that the Contributor applications for Google Summer of Code (GSoC) 2024 are now open! If you are a Student or a beginner in open source software development and 18+ years old, we hope you will apply. The application period opened March 18th at 18:00 UTC and closes April 2nd at 18:00 UTC.\n\nThis year we are celebrating the 20th year of Google Summer of Code! During GSoC, contributors will spend 12+ weeks writing code and learning more about open source software development under the guidance of experienced mentors.\n\nSince 2005, GSoC has welcomed thousands of new developers into the open source community every year. The GSoC program has brought together over 20,000 contributors from 116 countries and 19,000 mentors from 850+ open source organizations.\n\nThis year we have added more projects focused on Artificial Intelligence, Machine Learning and Security than ever before; keep in mind the following points before applying:\n\n- Consider the three project sizes: ~90 hours, ~175 hours, and ~350 hours and choose which time commitment is best for you.\n- Contributors can submit a maximum of 3 project proposals (to different orgs or even multiple proposals to the same org).\n\nWith GSoC contributor applications now open, please review these helpful tips to guide your application:\n\n- Read the program rules, FAQ, contributor guide, and advice for applying and join us in our Discord chat Channel to connect with the community.\n- Review the list of 195 mentoring organizations and use filters to sort by your interests including programming language (python, Rust, etc.) and category (data, development tools, artificial intelligence, infrastructure and cloud, security, etc.).\n- Narrow down your list to 2-4 organizations and review their ideas list.\n- Reach out to the organizations via their contact methods listed on the GSoC site immediately.\n- Engage with the organization early and often, good communication is key! You must talk to the organization about your proposal before the application period ends if you want to be accepted into the program.\n- Watch our Intro to GSoC video, as well as the GSoC Org Highlight videos and Community Talks series, to get inspired about projects that contributors have worked on in the past.\n\nInterested contributors may register and submit project proposals on the GSoC site from now until Tuesday, April 2nd at 18:00 UTC.\n\nBest of luck to all our applicants!\n\nBy Stephanie Taylor – Program Manager, and Lucila Ortiz – Associate Program Manager for the Google Open Source Programs Office",
+      "publishedAt": "2024-03-18T19:30:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code (GSoC) 2024",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "program rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          },
+          {
+            "text": "contributor guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "advice for applying",
+            "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+          },
+          {
+            "text": "Discord chat Channel",
+            "href": "http://discord.gg/google-dev-community"
+          },
+          {
+            "text": "mentoring organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2024/organizations"
+          },
+          {
+            "text": "Intro to GSoC video",
+            "href": "https://www.youtube.com/watch?v=7jD2tChhrWM"
+          },
+          {
+            "text": "GSoC Org Highlight videos",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+          },
+          {
+            "text": "Community Talks series",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+          },
+          {
+            "text": "GSoC site",
+            "href": "https://summerofcode.withgoogle.com/"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2024/02/mentor-organizations-announced-for-google-summer-of-code-2024.html",
+      "title": "Mentor organizations announced for Google Summer of Code 2024",
+      "text": "We are thrilled to share that we have 195 open source projects that have been selected for Google Summer of Code (GSoC) 2024! This year we are excited to welcome 30 new organizations for their first year as part of the program.\n\nCheck out our program site to view the complete list of GSoC 2024 accepted mentoring organizations. Get to know more about each organization on their GSoC program page, which includes reading through the project ideas that they are looking for GSoC contributors to work on this year.\n\nAre you interested in being a GSoC Contributor?\n\nThe 2024 GSoC program is open to students and to beginners in open source software development. Contributor applications will open on Monday, March 18, 2024 at 18:00 UTC with a deadline of Tuesday, April 2, 2024 18:00 UTC to submit your application (including your project proposal).\n\nIf you are eager to enhance your chances of becoming a successful contributor this year, we highly recommend beginning your preparations and initiating communication with the organizations that interest you right away. Below are some tips for prospective GSoC contributors to accomplish before the application period begins March 18th:\n\n- Watch our ‘Introduction to GSoC’ video to see a quick overview of the program, and view our Community Talks or Org Highlight Videos to get inspired and learn more about some projects that contributors have worked on in the past.\n- Check out the Contributor Guide (so much great info in here!) and Advice for Applying to GSoC doc.\n- Review the list of accepted organizations here. We recommend finding two to four that interest you and reading through their project ideas lists. Use the filters on the site to help you narrow down based on the programming languages you are familiar with and the categories that interest you (cloud, AI, security, science, etc.).\n- As soon as you see an idea that sparks your interest, reach out to the organization via their preferred communication methods (listed on their org page on the GSoC program site). The earlier you start the conversation, the better your chances of being accepted as a GSoC contributor.\n- Talk with the mentors and community to determine if this project idea is something you would enjoy working on during the program. Find a project that excites you, otherwise it may be a challenging summer for you and your mentor.\n- Use the information you received during your communications with the mentors and other org community members to write up your proposal.\n\nYou can find more information about the program on our website which includes a full timeline of important dates. We also urge anyone interested in applying to read the FAQ and Program Rules and watch some of our other videos with more details about GSoC for contributors and mentors.\n\nA hearty welcome—and thank you—to all of our mentor organizations. We look forward to working with all of you during this 20th year of Google Summer of Code!\n\nBy Stephanie Taylor – Google Open Source",
+      "publishedAt": "2024-02-21T19:30:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code (GSoC) 2024",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "program site",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "Introduction to GSoC",
+            "href": "https://www.youtube.com/watch?v=7jD2tChhrWM"
+          },
+          {
+            "text": "Community Talks",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+          },
+          {
+            "text": "Org Highlight Videos",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+          },
+          {
+            "text": "Contributor Guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "Advice for Applying to GSoC",
+            "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+          },
+          {
+            "text": "list of accepted organizations here",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "our website",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "full timeline",
+            "href": "https://developers.google.com/open-source/gsoc/timeline"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          },
+          {
+            "text": "Program Rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "videos",
+            "href": "https://developers.google.com/open-source/gsoc/videos"
+          },
+          {
+            "text": "contributors",
+            "href": "https://www.youtube.com/watch?v=YN7uGCg5vLg"
+          },
+          {
+            "text": "mentors",
+            "href": "https://www.youtube.com/watch?v=3J_eBuYxcyg"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2024/01/google-summer-of-code-2024-mentor-organization-applications-now-open.html",
+      "title": "Google Summer of Code 2024 Mentor Organization Applications Now Open",
+      "text": "We are excited to announce that open source projects and organizations can now apply to participate as mentor organizations in the 2024 Google Summer of Code (GSoC) program. Applications for organizations will close on February 6, 2024 at 18:00 UTC.\n\nWe are celebrating a big milestone as we head into our 20th year of Google Summer of Code this year! In 2024 we are adding a third project size option which you can read more about in our announcement blog post.\n\nDoes your open source project want to learn more about becoming a mentor organization? Visit the program site and read the mentor guide to learn what it means to be a mentor organization and how to prepare your community (hint: have plenty of excited, dedicated mentors and well thought out project ideas!).\n\nWe welcome all types of organizations and are very eager to involve first-time mentor orgs in GSoC. We encourage new organizations to get a referral from experienced organizations that think they would be a good fit to participate in GSoC.\n\nThe open source projects that participate in GSoC as mentor organizations span many fields including those doing interesting work in AI/ML, security, cloud, development tools, science, medicine, data, media, and more! Projects can range from being relatively new (about 2 years old) to well established projects that started over 20 years ago. We welcome open source projects big, small, and everything in between.\n\nThis year we are looking to bring more open source projects in the AI/ML field into GSoC 2024. If your project is in the artificial intelligence or machine learning fields please chat with your community and see if you would be interested in applying to GSoC 2024.\n\nOne thing to remember is that open source projects wishing to apply need to have a solid community; the goal of GSoC is to bring new contributors into established and welcoming communities. While you don’t have to have 50+ community members, the project also can’t have as few as three people.\n\nYou can apply to be a mentor organization for GSoC starting today on the program site. The deadline to apply is February 6, 2024 at 18:00 UTC. We will publicly announce the organizations chosen for GSoC 2024 on February 21st.\n\nPlease visit the program site for more information on how to apply and review the detailed timeline for important deadlines. We also encourage you to check out the Mentor Guide, our ‘Intro to Google Summer of Code’ video, and our short video on why open source projects are excited to be a part of the GSoC program.\n\nGood luck to all open source mentor organization applicants!\n\nBy Stephanie Taylor, Program Manager – Google Open Source Programs Office",
+      "publishedAt": "2024-01-22T18:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "announcement blog post",
+            "href": "https://opensource.googleblog.com/2023/11/google-summer-of-code-2024-celebrating-20th-year.html"
+          },
+          {
+            "text": "program site",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "mentor guide",
+            "href": "https://google.github.io/gsocguides/mentor/"
+          },
+          {
+            "text": "program site",
+            "href": "http://g.co/gsoc"
+          },
+          {
+            "text": "timeline",
+            "href": "https://developers.google.com/open-source/gsoc/timeline"
+          },
+          {
+            "text": "Mentor Guide",
+            "href": "https://developers.google.com/open-source/gsoc/resources/guide#mentor_guide"
+          },
+          {
+            "text": "Intro to Google Summer of Code",
+            "href": "https://www.youtube.com/watch?v=7jD2tChhrWM"
+          },
+          {
+            "text": "short video",
+            "href": "https://www.youtube.com/watch?v=L4JNz6zWzLs"
+          }
+        ],
+        "categories": [
+          "announcements",
+          "community",
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2023/12/google-summer-of-code-2023-final-results.html",
+      "title": "Google Summer of Code 2023 Final Results!",
+      "text": "On November 17th, we wrapped up our 2023 Google Summer of Code program where 903 contributors completed open source projects for 168 OSS organizations. This year 70% (628) of the successful 2023 contributors opted for a 12-week project, while the remaining 30% (275) completed their GSoC work over the past few weeks. That being said, many contributors choose to continue involvement in the OSS community after finishing their GSoC projects. GSoC is typically just one small chapter in a contributor's lifetime open source journey.\n\nThis certainly was one of our most enthusiastic groups of mentors & GSoC contributors yet. We were able to host multiple virtual check-ins where contributors had the chance to ask GSoC Administrators questions and get live reminders and advice regarding the program and its milestones, the response to these sessions was overwhelming with one session having over 60% of 2023 GSoC contributors attending. Our final virtual event as part of this series was a multi-day ‘Contributor Talks’ Series where 43 participants had the chance to give three minute Lightning Talks about their GSoC projects.\n\nOur mentors and GSoC contributors spent a lot of time giving us invaluable feedback from the program so we wanted to share a few top insights below. Their comments help us to keep the program relevant and to continue to meet the needs of open source communities and new open source contributors.\n\nAdvice for future contributors\n\nAs we head into our 20th year of GSoC, we wanted to highlight some of the advice that the 2023 GSoC contributors offered to future contributors. Much of the advice falls into the themes of:\n\n- Communicate early and often with mentors.\n- Take the time in February as soon as orgs are announced to find the right org and choose a project you are excited about, it will make the program much more enjoyable.\n- Set realistic goals and break tasks into milestones.\n- Be open to learning! Open source can seem intimidating but you have amazing mentors and the community there encouraging and supporting you.\n\nWe welcomed 18 new mentoring organizations this year, many of which were able to attend our Mentor Summit on Google’s campus a few weeks ago.\n\nIn 2023, 10.15% of GSoC contributors were non-students. This was the second year since we opened up the program to non-students. We hope to continue to have more potential GSoC contributors who are changing careers or not currently enrolled in academic programs join the program.\n\n“My advice is to just go for it. I'm a thirty-something career-changer who doesn't have a technical background; at times, I doubt myself and my ability to transition into a more technical field. During GSoC, I was paired with knowledgeable, friendly, engaging mentors who trusted me to get the work done. It was empowering, and I did work that I'm extremely proud of. To anyone in my shoes who may be afraid to take the plunge, I highly encourage them to do so. Seriously - if I can do it, anyone can.\"\n\n– brittneyjuliet, GSoC’23 Contributor\n\nFavorite part of GSoC\n\nGSoC contributors have shared their favorite parts of GSoC with some very common themes:\n\n- Working on real-world projects that thousands/millions of people actually use and rely on\n- Interacting with experienced developers and truly being part of an enthusiastic, welcoming community\n- Making a difference\n- Gaining overall skills and confidence to boost their careers that can’t be obtained from classrooms alone\n\nHow GSoC improved their programming skills\n\n95.5% of contributors believe GSoC improved their programming skills. The most common responses to how GSoC improved their skills were:\n\n- Practical experience. Applying programming concepts and techniques to real projects.\n- Learning to write cleaner, more maintainable code.\n- Enhanced problem solving skills.\n- Project management - learned how to break large, complex problems into smaller, organized tasks.\n- Learning to understand complex codebases.\n- Learning new concepts and technologies.\n- Engaging in code reviews with mentors regularly helped to grasp industry best practices.\n\nWe want to thank all of our mentors, organization administrators, and GSoC contributors for a rewarding and smooth GSoC 2023. The excitement from our GSoC contributors throughout the program and our mentors at the recent Mentor Summit was palpable. Thank you all for the time and energy you put in to make open source communities stronger and sustainable.\n\nGSoC 2024 will be open for organization applications from January 22–February 6, 2024. We will announce the 2024 accepted GSoC organizations February 21 on the program site: g.co/gsoc. GSoC contributor applications will be open March 18–April 2, 2024.\n\nBy Stephanie Taylor, Program Manager, and Perry Burnham, Associate Program Manager for the Google Open Source Programs Office",
+      "publishedAt": "2023-12-04T20:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "OSS organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2023/organizations"
+          },
+          {
+            "text": "g.co/gsoc",
+            "href": "http://g.co/gsoc"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2023/11/google-summer-of-code-2024-celebrating-20th-year.html",
+      "title": "Google Summer of Code 2024 Celebrating our 20th Year!",
+      "text": "Google Summer of Code (GSoC) will be celebrating its 20th anniversary with our upcoming 2024 program. Over the past 19 years we have welcomed over 19,000 new contributors to open source through the program under the guidance of 19,000+ mentors from over 800 open source organizations in a wide range of fields.\n\nWe are honored and thrilled to keep GSoC’s mission of bringing new contributors into open source communities alive for 20 years. Open source communities thrive when they have new contributors with fresh, exciting ideas and the renewed energy they bring to these communities. Mentorship is a vital way to keep these new contributors coming into the open source ecosystem where they can see collaboration at its finest from their community members all across the world, all with different backgrounds and skills working towards a common goal.\n\nWith just over a week left in the 2023 program, we have had one of our most enthusiastic groups of GSoC contributors with 841 GSoC contributors completing their projects with 159 open source organizations. There are 68 GSoC contributors wrapping up their projects. A GSoC 2023 wrap up blog post will be coming late this month with stats and quotes from our contributors and mentors.\n\nOur contributors and mentors have given us invaluable feedback and we are making one adjustment around project time commitment/project scope. For the 2024 program, there will be three options for project scope: medium at ~175 hours, large at ~350 hours and a new size: small at ~90 hours. The idea is to remove the barrier of available time that many potential contributors have and open the program to people who want to learn about open source development but can’t dedicate all or even half of their summer to the program.\n\nAs a reminder, GSoC 2024 is open to students and to beginners in open source software development that are over the age of 18 at time of registration.\n\nInterested in applying to the Google Summer of Code Program?\n\nOpen Source Organizations\n\nCheck out our website to learn what it means to be a participating mentor organization. Watch the GSoC Org Highlight videos and get inspired about projects that contributors have worked on in the past.\n\nTake a look through our mentor guide to learn about what it means to be part of Google Summer of Code, how to prepare your community, gather excited mentors, create achievable project ideas, and tips for applying. We welcome all types of open source organizations and encourage you to apply—it is especially exciting for us to welcome new orgs into the program and we hope you are inspired to get involved with our growing community. In 2024, we look forward to accepting more artificial intelligence/machine learning open source organizations.\n\nWant to be a GSoC Contributor?\n\nNew to open source development or a student? Eager to gain experience on real-world software development projects used by thousands of people? It is never too early to start thinking about what kind of open source organization you’d like to learn more about and how the application process works!\n\nWatch our ‘Introduction to GSoC’ video to see a quick overview of the program. Read through our contributor guide for important tips from past participants on preparing your proposal, what to think about if you wish to apply for the program, and explore our website for other resources. Continue to check for more information about the 2024 program once the 2023 program ends later this month.\n\nPlease share information about the 2024 GSoC program with your friends, family, colleagues, and anyone you think may be interested in joining our community. We are excited to welcome new contributors and mentoring organizations to celebrate the 20th year of Google Summer of Code!\n\nBy Stephanie Taylor – Program Manager, Google Open Source Programs Office",
+      "publishedAt": "2023-11-09T20:00:00.001Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "website",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "GSoC Org Highlight videos",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+          },
+          {
+            "text": "",
+            "href": "https://google.github.io/gsocguides/mentor/"
+          },
+          {
+            "text": "‘Introduction to GSoC’ video",
+            "href": "https://youtu.be/7jD2tChhrWM"
+          },
+          {
+            "text": "contributor guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "website",
+            "href": "https://summerofcode.withgoogle.com/"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2023/09/gsoc-2023-project-results-and-feedback-part-1.html",
+      "title": "GSoC 2023: project results and feedback part 1",
+      "text": "In 2023, Google Summer of Code brought 966 new contributors into open source software development to work with open source organizations on a 12+ week project. We had 168 participating open source organizations with mentors and contributors from over 75 countries this year.\n\nFor 19 years, Google Summer of Code has thrived due to the enthusiasm of our open source communities and the 19k+ volunteer mentors that spend from 50-150 hours mentoring each of our 20k contributors since 2005! This year, there are 168 mentoring organizations and over 1,950 mentors participating in the 2023 program. A sincere thank you to our mentors and organization administrators for guiding and supporting our contributors this year. We are also looking forward to hosting many of the 2023 GSoC Mentors on campus this fall for the annual Mentor Summit.\n\nSeptember 4th concluded the standard 12-week project timeline and we are pleased to announce that 628 contributors have successfully completed this year’s program as of today, September 5th, 2023. Congratulations to all the contributors and mentors that have wrapped up their summer coding projects!\n\n2023 has shown us that GSoC continues to grow in popularity with students and developers 19 years after the program began. GSoC had a record high 5,679 contributor applicants from 106 countries submit their project proposals this year. We also had huge interest in the program with over 43,765 registrants from 160 countries applying to the program during the two week application period.\n\nThe final step of every GSoC program is to hear back from mentors and contributors on their experiences through evaluations. This helps GSoC Admins continuously improve the program and gives us a chance to see the impact the program has on so many individuals! Some notable results and comments from the standard 12-week project length evaluations are below:\n\n- 95.63% of contributors think that GSoC helped their programming skills\n- 99.06% of contributors would recommend their GSoC mentors\n- 97.81% of contributors will continue working with their GSoC organization\n- 99.84% of contributors plan to continue working on open source\n- 82.81% of contributors said they would consider being a mentor\n- 96.25% of contributors said they would apply to GSoC again\n\nHere’s some of what our GSoC 2023 Contributors had to say about the program!\n\nAt the suggestion of last year’s contributors, we added multiple live talks throughout the coding period to bring contributors together, providing tips to help them make the most of their GSoC experience. Each of these talks were attended on average by 42% of the 2023 GSoC contributors.\n\nAnother request from our previous contributors was to hear more about the cool projects their colleagues did over the summer and the opportunity to talk about their own projects with others. Over the coming weeks we are hosting three lightning talk sessions where over 40 of the 2023 contributors will have the opportunity to present their project learnings to the other contributors and their mentors.\n\nWe’ll be back in a couple of months to give a final update on the GSoC projects that will conclude later this year. Almost 30% of contributors (286 contributors) are still completing their projects, so please stay tuned for their results in part two of this blog post later this year!\n\nBy Perry Burnham – Google Open Source",
+      "publishedAt": "2023-09-06T19:00:00.000Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "168 participating open source organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2023/organizations"
+          },
+          {
+            "text": "168 mentoring organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2023/organizations"
+          },
+          {
+            "text": "GSoC projects",
+            "href": "https://summerofcode.withgoogle.com/programs/2023/projects"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2023/05/google-summer-of-code-2023-accepted-contributors-announced.html",
+      "title": "Google Summer of Code 2023 accepted contributors announced!",
+      "text": "We are pleased to announce the Google Summer of Code (GSoC) Contributors for 2023. Over the last few weeks, our 171 mentoring organizations have read through applications, had discussions with applicants, and made the difficult decision of selecting the GSoC Contributors they will be mentoring this summer.\n\nSome notable results from this year’s application period:\n\n- 43,765 applicants from 160 countries\n- 7,723 proposals submitted\n- 967 GSoC contributors accepted from 65 countries\n- Over 2,400 mentors and organization administrators\n\nOver the next few weeks, our GSoC 2023 Contributors will be actively engaging with their new open source community and getting acclimated with their organization. Mentors will guide the GSoC Contributors through the documentation and processes used by the community, as well as help with planning their milestones and projects for the summer. This Community Bonding period helps familiarize the GSoC Contributors with the languages and tools they will need to successfully complete their projects. Coding begins May 29th and most folks will wrap up September 5th, however, for the second year in a row, GSoC Contributors can request a longer coding period and wrap up their projects by mid-November instead.\n\nWe’d like to express our appreciation to the thousands of applicants who took the time to reach out to our mentoring organizations and submit proposals. Through the experience of asking questions, researching, and writing your proposals we hope you all learned more about open source and maybe even found a community you want to contribute to outside of Google Summer of Code! We always say that communication is key, and staying connected with the community or reaching out to other organizations is a great way to set the stage for future opportunities. Open source communities are always looking for new and eager collaborators to bring fresh ideas to the table. We hope you connect with an open source community or even start your own open source project!\n\nThere are a handful of program changes to this 19th year of GSoC and we are excited to see how our GSoC Contributors and mentoring organizations take advantage of these adjustments. A big thank you to all of our mentors and organization administrators who make this program so special.\n\nGSoC Contributors—have fun this summer and keep learning! Your mentors and community members have dozens, and in some cases hundreds, of years of combined experience. Let them share their knowledge with you and help you become awesome open source contributors!\n\nBy Perry Burnham, Associate Program Manager for the Google Open Source Programs Office",
+      "publishedAt": "2023-05-04T19:00:00.003Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://g.co/gsoc"
+          },
+          {
+            "text": "Community Bonding",
+            "href": "https://google.github.io/gsocguides/student/how-gsoc-works"
+          },
+          {
+            "text": "program changes",
+            "href": "https://opensource.googleblog.com/2022/11/get-ready-for-google-summer-of-code-2023.html"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2023/03/google-summer-of-code-2023-contributor.html",
+      "title": "Google Summer of Code 2023 contributor applications open!",
+      "text": "Contributor applications for Google Summer of Code (GSoC) 2023 are now open! Students and open source beginners 18 years and older are welcome to apply during the registration period, which opened March 20th at 18:00 UTC and closes April 4th at 18:00 UTC.\n\nGoogle Summer of Code is a global online program focused on bringing new contributors into open source software development. GSoC Contributors work with an open source organization on a 12+ week programming project under the guidance of mentors. GSoC’s mission is centered around bringing new contributors into open source communities through mentorship and collaboration.\n\nSince 2005, GSoC has welcomed new developers into the open source community every year. The GSoC program has brought together over 19,000 contributors from 112 countries and 18,000 mentors from 800+ open source organizations.\n\n2023 will be the 19th consecutive year hosting Google Summer of Code. We are keeping the big changes we made leading into the 2022 program, with one adjustment around eligibility described below:\n\n- Increased flexibility in project lengths (10-22 weeks, not a set 12 weeks for everyone).\n- Choice of project time commitment (medium at ~175 hours or large at ~350 hours)\n- For 2023, we are expanding the program to be open to students and beginners in open source software development.\n\nWe invite students and beginners in open source to check out Google Summer of Code. Now that applications are open, please keep a few helpful tips in mind:\n\n- Read the program rules, FAQ, contributor guide, and advice for applying.\n- Watch our new Intro to GSoC video, as well as the GSoC Org Highlight videos and Community Talks series, to get inspired about projects that contributors have worked on in the past.\n- Review the list of 172 mentoring organizations and use filters to sort by programming language (python, C++, etc.) and by category (data, development tools, infrastructure and cloud, security, etc.).\n- Narrow down your list to 2-4 organizations and review their ideas list.\n- Reach out to the organizations via their contact methods listed on the GSoC site.\n- Engage with your organization early and often.\n\nInterested contributors may register and submit project proposals on the GSoC site from now until Tuesday, April 4th at 18:00 UTC.\n\nBest of luck to all our applicants!\n\nBy Stephanie Taylor, Program Manager, and Perry Burnham, Associate Program Manager for the Google Open Source Programs Office",
+      "publishedAt": "2023-03-20T19:00:00.046Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code (GSoC) 2023",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "keeping the big changes",
+            "href": "https://opensource.googleblog.com/2021/11/expanding-google-summer-of-code-in-2022.html"
+          },
+          {
+            "text": "adjustment around eligibility",
+            "href": "https://opensource.googleblog.com/2022/11/get-ready-for-google-summer-of-code-2023.html"
+          },
+          {
+            "text": "program rules",
+            "href": "https://summerofcode.withgoogle.com/rules"
+          },
+          {
+            "text": "FAQ",
+            "href": "https://developers.google.com/open-source/gsoc/faq"
+          },
+          {
+            "text": "contributor guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "advice for applying",
+            "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+          },
+          {
+            "text": "Intro to GSoC video",
+            "href": "https://www.youtube.com/watch?v=7jD2tChhrWM"
+          },
+          {
+            "text": "GSoC Org Highlight videos",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+          },
+          {
+            "text": "Community Talks series",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+          },
+          {
+            "text": "mentoring organizations",
+            "href": "https://summerofcode.withgoogle.com/programs/2023/organizations"
+          },
+          {
+            "text": "GSoC site",
+            "href": "https://summerofcode.withgoogle.com/"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2023/01/mentor-organization-applications-are-open-for-google-summer-of-code-2023.html",
+      "title": "Mentor organization applications are open for Google Summer of Code 2023!",
+      "text": "We are excited to announce that open source projects and organizations can now apply to participate as mentor organizations in the 2023 Google Summer of Code (GSoC) program. Applications for organizations will close on February 7, 2023 at 18:00 UTC.\n\nAs 2023 begins, so does our 19th year of Google Summer of Code! Last year, we had a few updates to the program that will continue for the 2023 program year. Our most noted change coming in 2023 is that we are expanding the program to be open to students and to beginners in open source software development. We are also continuing our increased flexibility in the length of the projects—offering 175 and 350-hour projects—and the ability to extend the program from the standard 12 weeks up to 22 weeks.\n\nDoes your open source project want to learn more about becoming a mentor organization? Visit the program site and read the mentor guide to learn what it means to be a mentor organization and how to prepare your community (hint: have plenty of excited, dedicated mentors and well thought out project ideas!).\n\nWe welcome all types of organizations and are very eager to involve first-timers with a 2023 goal of welcoming 30+ new orgs into GSoC. We encourage new organizations to get a referral from experienced organizations that think they would be a good fit to participate in GSoC.\n\nThe open source projects that participate in GSoC as mentor organizations do all kinds of interesting work in security, cloud, development tools, science, medicine, data, media, and more! Projects can range from being relatively new (about 2 years old) to well established projects that started over 20 years ago. We welcome open source projects big, small, and everything in between.\n\nOne thing to remember is that open source projects wishing to apply need to have a solid community; the goal of GSoC is to bring new contributors into established and welcoming communities. While you don’t have to have 50+ community members, the project also can’t have as few as three people.\n\nYou can apply to be a mentor organization for GSoC starting today on the program site. The deadline to apply is February 7, 2023 at 18:00 UTC. We will publicly announce the organizations chosen for GSoC 2023 on February 22nd.\n\nPlease visit the program site for more information on how to apply and review the detailed timeline for important deadlines. We also encourage you to check out the Mentor Guide, our new ‘Intro to Google Summer of Code’ video, and our short video on why open source projects are excited to be a part of the GSoC program.\n\nGood luck to all open source mentor organization applicants!\n\nBy Stephanie Taylor, Program Manager – Google Open Source Programs Office",
+      "publishedAt": "2023-01-23T18:00:00.001Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "updates to the program",
+            "href": "https://opensource.googleblog.com/2021/11/expanding-google-summer-of-code-in-2022.html"
+          },
+          {
+            "text": "most noted change",
+            "href": "https://opensource.googleblog.com/2022/11/get-ready-for-google-summer-of-code-2023.html"
+          },
+          {
+            "text": "program site",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "mentor guide",
+            "href": "https://google.github.io/gsocguides/mentor/"
+          },
+          {
+            "text": "program site",
+            "href": "http://g.co/gsoc"
+          },
+          {
+            "text": "timeline",
+            "href": "https://developers.google.com/open-source/gsoc/timeline"
+          },
+          {
+            "text": "Mentor Guide",
+            "href": "https://developers.google.com/open-source/gsoc/resources/guide#mentor_guide"
+          },
+          {
+            "text": "Intro to Google Summer of Code",
+            "href": "https://www.youtube.com/watch?v=7jD2tChhrWM"
+          },
+          {
+            "text": "short video",
+            "href": "https://www.youtube.com/watch?v=L4JNz6zWzLs"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2022/12/gsoc-2022-its-wrap.html",
+      "title": "GSoC 2022: It’s a wrap!",
+      "text": "We just wrapped up the final projects for Google Summer of Code 2022 and want to share some highlights from this year’s program. We are pleased to announce that a total of 1,054 GSoC contributors successfully completed the 2022 cycle.\n\n2022 saw some considerable changes to the Google Summer of Code program. Let’s start with some stats around those three major changes:\n\n- The standard 12-week project length was used by 71.2% of contributors while 19.21% spent between 13–18 weeks on their project, while 9.33% of GSoC contributors took advantage of the 19–22 week project lengths. It is clear from feedback written by mentors and contributors alike the option for extended project lengths was a hit with participants.\n- GSoC 2022 allowed both medium-size (~175 hours) and large-size (~350 hours) projects. For 2022, 47% of the contributor projects were medium while 53% were large projects.\n- This year the program was also open to more than students for the first time and 10.4% of the accepted GSoC contributors were non-students.\n\nIn the final weeks of the program we asked contributors and mentors questions about their experiences with the program this year. Here are some of the key takeaways from the participants:\n\nFavorite part of GSoC 2022\n\nThere were a few themes that rose to the top when contributors were asked what their favorite part of the program was:\n\n- Getting involved in their organization’s open source community with folks from all around the world and their amazing mentors.\n- Learning new skills (programming languages, skills, new technologies) and learning more about open source communities.\n- Contributing to a meaningful community and project.\n- Learning from experienced and thoughtful developers (their mentors and their whole community).\n\nImproved programming skills\n\n96% of contributors think that GSoC helped their programming skills. The most common responses to how GSoC improved their skills were:\n\n- Improving the quality of their code through feedback from mentors, collaboration and learning more about the importance of code reviews.\n- Gaining confidence in their coding skills and knowledge about best practices. Learning how to write more efficient code and to meet the org’s coding standards.\n- Ability to read and understand real complex codebases, and learning how to implement code with other developer’s code.\n\nMost challenging parts of GSoC\n\nAnd the most common struggles included:\n\n- Managing their time effectively with many other commitments.\n- Initial days starting with the organization, understanding the codebase, and sometimes learning a new programming language along the way.\n- Communicating with mentors and community members in different time zones and collaborating remotely.\n\nAdditional fun stats from GSoC Contributors\n\n- 99% of GSoC contributors would recommend their GSoC mentors\n- 98% of GSoC contributors plan to continue working with their GSoC organization\n- 99% of GSoC contributors plan to continue working on open source\n- 35% of GSoC contributors said GSoC has already helped them get a job or internship\n- 84% of GSoC contributors said they would consider being a mentor\n- 95% of GSoC contributors said they would apply to GSoC again\n\nWe know that’s a lot of numbers to read through, but folks ask us for more information and feedback on GSoC each year. Our hope is that we succeeded in providing additional details for this 2022 program. Every mentor and GSoC contributor took the time to fill in their evaluations and give us great written feedback on how the program affected them so we wanted to highlight this.\n\nAs we look forward to Google Summer of Code 2023, we want to thank all of our mentors, organization administrators, and contributors for a successful and smooth GSoC 2022. Thank you all for the time and energy you put in to make open source communities stronger and healthier.\n\nRemember GSoC 2023 will be open for organization applications from January 23–February 7, 2023. We will announce the 2023 accepted GSoC organizations February 22 on the program site: g.co/gsoc. GSoC contributor applications will be open March 20–April 4, 2023.\n\nBy Stephanie Taylor, Program Manager – Google Open Source",
+      "publishedAt": "2022-12-06T19:00:00.001Z",
+      "meta": {
+        "links": [
+          {
+            "text": "g.co/gsoc",
+            "href": "http://g.co/gsoc"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2022/11/get-ready-for-google-summer-of-code-2023.html",
+      "title": "Get ready for Google Summer of Code 2023!",
+      "text": "We are thrilled to announce the 2023 Google Summer of Code (GSoC) program and share the timeline with you to get involved! 2023 will be our 19th consecutive year of hosting GSoC and we could not be more excited to welcome more organizations, mentors, and new contributors into the program.\nWith just three weeks left in the 2022 program, we had an exciting year with 958 GSoC contributors completing their projects with 198 open source organizations.\nOur 2022 contributors and mentors have given us extensive feedback and we are keeping the big changes we made this year, with one adjustment around eligibility described below.\n\n- Increased flexibility in project lengths (10-22 weeks, not a set 12 weeks for everyone) allowed many people to be able to participate and to not feel rushed as they wrapped up their projects. We have 109 GSoC contributors wrapping up their projects over the next three weeks.\n\n- Choice of project time commitment there are now two options, medium at ~175 hours or large at ~350 hours, with 47% and 53% GSoC contributors, respectively.\n\n- Our most talked about change was GSoC being open to contributors new to open source software development (and not just to students anymore). For 2023, we are expanding the program to be open to students and to beginners in open source software development.\n\nWe are excited to launch the 2023 GSoC program and to continue to help grow the open source community. GSoC’s mission of bringing new contributors into open source communities is centered around mentorship and collaboration. We are so grateful for all the folks that continue to contribute, mentor, and get involved in open source communities year after year.\n\nInterested in applying to the Google Summer of Code Program?\n\nOpen Source Organizations\n\nCheck out our website to learn what it means to be a participating organization. Watch our new GSoC Org Highlight videos and get inspired about projects that contributors have worked on in the past.\n\nThink you have what it takes to participate as a mentor organization? Take a look through our mentor guide to learn about what it means to be part of Google Summer of Code, how to prepare your community, gather excited mentors, create achievable project ideas, and tips for applying. We welcome all types of open source organizations and encourage you to apply—it is especially exciting for us to welcome new orgs into the program and we hope you are inspired to get involved with our growing community.\n\nWant to be a GSoC Contributor?\n\nAre you new to open source development or a student? Are you eager to gain experience on real-world software development projects that will be used by thousands or millions of people? It is never too early to start thinking about what kind of open source organization you’d like to learn more about and how the application process works!\n\nWatch our new ‘Introduction to GSoC’ video to see a quick overview of the program. Read through our contributor guide for important tips from past participants on preparing your proposal, what to think about if you wish to apply for the program, and everything you wanted to know about the program. We also hope you’re inspired by checking out the nearly 200 organizations that participated in 2022 and the 1,000+ projects that have been completed so far!\n\nWe encourage you to explore our website for other resources and continue to check for more information about the 2023 program.\nYou are welcome and encouraged to share information about the 2023 GSoC program with your friends, family, colleagues, and anyone you think may be interested in joining our community. We are excited to welcome many more contributors and mentoring organizations in the new year!\nBy Stephanie Taylor, Program Manager, and Perry Burnham, Associate Program Manager for the Google Open Source Programs Office",
+      "publishedAt": "2022-11-10T15:31:00.175Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "http://g.co/gsoc"
+          },
+          {
+            "text": "keeping the big changes",
+            "href": "https://opensource.googleblog.com/2021/11/expanding-google-summer-of-code-in-2022.html"
+          },
+          {
+            "text": "website",
+            "href": "http://g.co/gsoc"
+          },
+          {
+            "text": "GSoC Org Highlight videos",
+            "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+          },
+          {
+            "text": "mentor guide",
+            "href": "https://google.github.io/gsocguides/mentor/"
+          },
+          {
+            "text": "‘Introduction to GSoC’ video",
+            "href": "https://youtu.be/7jD2tChhrWM"
+          },
+          {
+            "text": "contributor guide",
+            "href": "https://google.github.io/gsocguides/student/"
+          },
+          {
+            "text": "nearly 200",
+            "href": "https://summerofcode.withgoogle.com/programs/2022/organizations"
+          },
+          {
+            "text": "1,000+ projects",
+            "href": "https://summerofcode.withgoogle.com/programs/2022/projects"
+          },
+          {
+            "text": "website",
+            "href": "https://summerofcode.withgoogle.com/"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2022/09/gsoc-2022-first-phase-of-completed-projects.html",
+      "title": "GSoC 2022: The first phase of completed projects",
+      "text": "Google Summer of Code (GSoC) is a global, online program focused on bringing new contributors into open source software development. GSoC contributors work with an open source organization on a 12+ week programming project under the guidance of mentors. The updates to the program beginning in 2022 included a rolling timeline, which allowed considerable flexibility for contributors to either finish their projects in 12 weeks or extend their deadline up to 22 weeks. We are happy to announce that 755 contributors from 51 countries have successfully completed this year’s program thus far. Congratulations!\n\nNo GSoC is complete without our dedicated mentors and organization administrators from all around the globe. In its 18th year of the program, GSoC continues to thrive due to its robust mentor community. There are 198 open source organizations—and over 2,000 mentors from 76 countries—that are participating in the 2022 program. A sincere thank you to our mentors and organization administrators for guiding and supporting our contributors this year.\n\nThroughout the course of the program, evaluations provide us a window to the GSoC experience that only a contributor or a mentor have. Evaluations have also influenced a number of GSoC program changes and events. At the suggestion of last year’s contributors, we held this year’s Contributor Summit earlier with several talks on how to have a successful Google Summer of Code. Mentor and contributor comments helped validate the changes to both projects and contributors that expanded the reach and flexibility of GSoC in 2022. We also held feedback sessions with our mentors to talk through their questions, suggestions and opinions on the changes we implemented this year. Our contributors and mentors inspire GSoC administrators too, and for that, we are truly grateful.\n\nWe’ll be back in a couple of months to give a final update on the GSoC projects that will conclude in October and November. Google Summer of Code 2022 hasn’t fully ended just yet, so please stay tuned!\n\nBy Romina Vicente – Google Open Source Programs Office",
+      "publishedAt": "2022-09-20T18:04:00.026Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "https://summerofcode.withgoogle.com/"
+          },
+          {
+            "text": "updates to the program",
+            "href": "https://opensource.googleblog.com/2021/11/expanding-google-summer-of-code-in-2022.html"
+          },
+          {
+            "text": "GSoC in 2022",
+            "href": "https://opensource.googleblog.com/2021/11/expanding-google-summer-of-code-in-2022.html"
+          }
+        ],
+        "categories": [
+          "google summer of code",
+          "gsoc",
+          "open source",
+          "student programs"
+        ]
+      }
+    },
+    {
+      "url": "https://opensource.googleblog.com/2022/05/GSoC-2022-Accepted-Contributor-Announced.html",
+      "title": "GSoC 2022 accepted Contributors announced!",
+      "text": "May is here and we’re pleased to announce the Google Summer of Code (GSoC) Contributors for 2022. Our 196 mentoring organizations have spent the last few weeks making the difficult decisions on which applicants they will be mentoring this year as GSoC Contributors.\n\nSome notable results from this year’s application period:\n\n- Over 4,000 applicants from 96 countries\n- 5,155 proposals submitted\n- 1,209 GSoC contributors accepted from 62 countries\n- 1,882 mentors and organization administrators\n\nFor the next few weeks our GSoC 2022 Contributors will be actively engaging with their new open source community and learning the ins and outs of how their new community works. Mentors will help guide them through the documentation and processes the community uses as well as helping the GSoC Contributors with planning their milestones and projects for the summer. This Community Bonding period helps familiarize the GSoC Contributors with the languages and tools they will need to successfully complete their projects. Coding begins June 13th and for most folks will wrap up September 5th, however this year GSoC Contributors can request a longer coding period wrapping up their projects by mid November.\n\nThank you to all the applicants who reached out to our mentoring organizations to learn more about the work they do and for the time they spent crafting their project proposals. We hope you all learned more about open source and maybe even found a community you want to contribute to even outside of GSoC. Staying connected with the community or reaching out to other organizations is a great way to set the stage for future opportunities. Open source communities are always looking for new, excited contributors to bring fresh perspectives and ideas to the table. We hope you connect with an open source community or apply to a future GSoC.\n\nThere are many changes to this 18th year of GSoC and we are excited to see how our GSoC Contributors and mentoring organizations take advantage of these adjustments. A big thank you to all our mentors and organization administrators who make this program so special.\n\nGSoC Contributors—have fun this summer and keep learning! Your mentors and community members have dozens and in some cases, hundreds of years of experience, let them share their knowledge with you and help you become awesome open source contributors!\n\nBy Stephanie Taylor, Google Open Source",
+      "publishedAt": "2022-05-20T15:00:00.066Z",
+      "meta": {
+        "links": [
+          {
+            "text": "Google Summer of Code",
+            "href": "http://g.co/gsoc"
+          },
+          {
+            "text": "Community Bonding",
+            "href": "https://google.github.io/gsocguides/student/how-gsoc-works"
+          }
+        ],
+        "categories": [
+          "coding",
+          "google summer of code",
+          "gsoc",
+          "open source"
+        ]
+      }
+    }
+  ]
+}
