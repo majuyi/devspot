@@ -74,7 +74,7 @@ the Actions job.
 - [x] **M1.6 Dedupe.** URL canonicalization, content hash, `RawItem` upsert semantics. Spec:
   `04` §1 stage 2. Check: table tests for canonicalization; upsert behaviour tests against
   the Docker database.
-- [ ] **M1.7 Rules extractor.** `extract/rules.ts` per `05` §1 with table-driven tests (10+
+- [x] **M1.7 Rules extractor.** `extract/rules.ts` per `05` §1 with table-driven tests (10+
   cases per field, negatives included). Check: eval harness skeleton `engine eval` runs on
   20 hand-labelled items with reported accuracy.
 - [ ] **M1.8 Validate and load.** `identityKey`, slug generation, publish rule at M1

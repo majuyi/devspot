@@ -1,8 +1,9 @@
 /**
  * `pnpm engine <command>`. Logs are JSON lines on stdout; the human summary goes to stderr.
- * Only record and replay exist so far; run, verify, health and snapshot arrive in M1.10.
+ * record, replay and eval exist so far; run, verify, health and snapshot arrive in M1.10.
  */
 import { parseArgs } from "node:util";
+import { formatReport, loadEvalSet, runEval } from "./eval.js";
 import { fetchSource } from "./fetch.js";
 import { recordSource } from "./fixtures/record.js";
 import { acceptReplay, replaySource } from "./fixtures/replay.js";
@@ -10,7 +11,8 @@ import { findSource } from "./registry.js";
 
 const USAGE = `usage:
   pnpm engine record --source <key>            record a fixture from the live network
-  pnpm engine replay --source <key> [--update] diff the fetcher's output against the fixture`;
+  pnpm engine replay --source <key> [--update] diff the fetcher's output against the fixture
+  pnpm engine eval                             score the rules extractor on test/eval/items.json`;
 
 function log(event: string, fields: Record<string, unknown>): void {
   console.log(JSON.stringify({ event, ...fields }));
@@ -23,6 +25,12 @@ async function main(argv: string[]): Promise<number> {
     options: { source: { type: "string" }, update: { type: "boolean", default: false } },
   });
   const [command] = positionals;
+  if (command === "eval") {
+    const report = runEval(loadEvalSet());
+    log("eval.finished", report);
+    console.error(formatReport(report));
+    return 0;
+  }
   if ((command !== "record" && command !== "replay") || !values.source) {
     console.error(USAGE);
     return 2;

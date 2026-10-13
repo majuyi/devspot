@@ -28,6 +28,39 @@ Overall confidence at rules-only: `min(kind, max(deadline, startsAt), locationMo
 0.15 penalty when `requirementsText` is null. At M1, publish threshold for rules-only items is
 0.75, which in practice means kind found in the title and a dated deadline or start.
 
+**Dates with no time (decided 2026-10-13).** A deadline stated as a date only ("Applications
+close 31 October 2026") means 23:59 that day. The time zone is the one the source states
+("12:00pm PST" stays exact, stored as `deadlineTimezone`); when none is stated it is
+`Africa/Lagos`, the reader's clock, and `deadlineTimezone` stays null. The cost is a few hours
+of error for sources in zones east of Lagos that do not name their zone. Start dates with no
+time mean 00:00 Lagos time. Zone abbreviations map to one IANA zone each (`IST` is India's,
+`AoE` is UTC−12); `GMT+1`-style offsets are kept as offsets.
+
+**As built in M1.7** (`src/extract/dates.ts`, `src/extract/rules.ts`), where the table above
+leaves room:
+
+- `kind`: "graduate programme" and "expression of interest" count as `job`. Organization
+  priors: employer → job, ossProgram → ossProgram, fellowshipFunder → fellowship,
+  scholarshipFunder → scholarship, hackathonHost → hackathon, accelerator → accelerator,
+  trainingProvider → bootcamp; community, government and university have none. Two kinds in
+  the title: the stronger wins at 0.6.
+- `deadline`: anchors also include "until", "open through", "submissions due" and "closing
+  date". A deadline's anchor must come before the date. `multiRound` takes the next round.
+  Rolling confidence is 0.7.
+- `locationMode` in body text: "online" counts only in phrases such as "held online",
+  "Location: Online" or "online cohort", so "apply online" does not make a programme remote.
+  Only Nigerian cities are known, so a programme abroad gets no location from the text.
+- `venue`: only `Venue:` and `Location:` lines. "at" followed by a proper noun is not used;
+  it matched too much.
+- `requirementsText` headings also include "who we're looking for" and "qualifications".
+- `regionsTags` values: `africa`, `west-africa`, `nigeria`, `global`.
+
+`pnpm engine eval` scores the rules on `packages/engine/test/eval/items.json`: per-field
+accuracy for `kind`, `deadlineKind`, `deadlineAt` (exact instant) and `locationMode` over
+labelled opportunities (fields a label leaves out are not scored), non-opportunities that
+would publish (must be zero), and summaries with eligibility words (must be zero). A test
+holds the current scores as floors.
+
 ## 2. LLM extraction (`extract/llm.ts`), M3
 
 ### Request
