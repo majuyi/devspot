@@ -14,7 +14,10 @@ export type FetchSource = {
   include?: string;
   /** From the last successful run, for a conditional GET. Absent on the first run. */
   validators?: Validators;
-  /** Sitemap only: the source's known `RawItem.canonicalUrl`s, loaded by the caller. */
+  /**
+   * The source's `RawItem.canonicalUrl`s, loaded by the caller. Sources that spend a request
+   * per item (sitemap, the devpost adapter) skip these and fetch only new ones.
+   */
   knownUrls?: ReadonlySet<string>;
 };
 
