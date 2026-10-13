@@ -196,6 +196,7 @@ pnpm engine snapshot --out <dir>
 pnpm engine record --source <key>          # record fixture from the live network
 pnpm engine replay --source <key>          # run fetch+extract against the fixture, print diff
 pnpm engine registry:check                 # validate all YAML, report feeds found on watch pages
+pnpm engine eval                           # score the rules extractor on the labelled eval set
 ```
 
 `--dry-run` prints drafts and skips the loader. All commands log JSON lines to stdout and a

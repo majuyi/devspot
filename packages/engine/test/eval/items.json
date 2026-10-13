@@ -1,0 +1,1017 @@
+{
+  "asOf": "2026-10-13T12:00:00.000Z",
+  "labelledBy": "Claude, 2026-10-13, from the recorded fixtures; awaiting human review",
+  "items": [
+    {
+      "id": "gsoc/blog#0",
+      "org": {
+        "category": "ossProgram",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://opensource.googleblog.com/2026/04/the-journey-begins-meet-the-2026-gsoc-contributors.html",
+        "title": "The Journey Begins: Meet the 2026 GSoC Contributors!",
+        "text": "by Stephanie Taylor, Mary Radomile & Lucila Ortíz, Google Summer of Code\n\nA warm welcome to the 1,141 Contributors of Google Summer of Code (GSoC) 2026! We are excited to start this new edition alongside our 184 mentoring orgs. Organizations reviewed a record-breaking 23,371 proposals to find the best matches for their communities.\n\n2026 Application Statistics:\n\n- 15,245 applicants from 131 countries submitting a total of 23,371 proposals\n- Over 2,000 mentors and org admins\n\nWhat's Next?\n\nBefore the first line of code is written, there is Community Bonding. This 3.5-week GSoC tradition is about more than just tool configuration; it's about immersion. It's a dedicated space for Contributors to master the codebase, align with community standards, and understand the 'why' behind their projects. By the time the coding period begins, every Contributor is ready to turn project fundamentals into real-world impact.\n\nThe official coding period begins on May 25. For our contributors, this period represents a deep dive into collaborative development, offering the chance to learn new tools and contribute to the heartbeat of open source projects.\n\nThank you, Mentors!\n\nFinally, we want to express our deepest gratitude to our phenomenal Mentors and Org Admins. As AI profoundly shifts the landscape of open source communities, GSoC is no exception. Your patience, grit, and tireless volunteer efforts are the heartbeat of this program, ensuring its continued success as we welcome a new generation of contributors into the open source ecosystem.",
+        "publishedAt": "2026-04-30T18:30:00.000Z",
+        "meta": {
+          "categories": ["google summer of code", "gsoc", "open source", "student programs"]
+        }
+      },
+      "expected": {
+        "isOpportunity": false
+      },
+      "note": "News: contributors announced."
+    },
+    {
+      "id": "gsoc/blog#1",
+      "org": {
+        "category": "ossProgram",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://opensource.googleblog.com/2026/03/open-source-open-doors-apply-now-for-google-summer-of-code.html",
+        "title": "Open Source, Open Doors, Apply Now for Google Summer of Code!",
+        "text": "by Stephanie Taylor, Mary Radomile & Lucila Ortíz, GSoC Program Admins\n\nJoin Google Summer of Code (GSoC) and start contributing to the world of open source development! Applications for GSoC are open from now - March 31, 2026 at 18:00 UTC.\n\nGoogle Summer of Code is celebrating its 22nd year in 2026! GSoC started back in 2005 and has brought over 22,000 new contributors from 123 countries into the open source community. This is an exciting opportunity for students and beginners to open source (18+) to gain real-world experience during the summer. You will spend 12+ weeks coding, learning about open source development, and earn a stipend under the guidance of experienced mentors.\n\nApply and get started!\n\n- First things first. Read the Contributor Guide and Advice for people applying for GSoC for application basics.\n- Elevate your proposal! Review the Writing a proposal doc written by former contributors and the Guidance for GSoC Contributors using AI tooling in GSoC 2026.\n- Read the Program Rules, FAQ, and join us in our Discord Channel to connect with the GSoC community.\n- Explore the 184 mentoring organizations, find a couple that align with your interests/skills and reach out immediately by using their preferred contact methods listed on the GSoC site. Do not email mentors directly unless explicitly told to do so in their instructions.\n- Watch our Intro to GSoC video, as well as the GSoC Org Highlight videos and Community Talks Series to get inspired about projects that contributors have worked on in the past.\n\nPlease remember that mentors are volunteers and they are being inundated with hundreds of requests from interested participants. It may take time for them to respond to you. Follow their Contributor Guidance instructions exactly. Do not just start submitting PRs without reading their guidance section first.\n\nComplete your registration and submit your project proposals on the GSoC site before the deadline on Tuesday, March 31, 2026 at 18:00 UTC.\n\nWe wish all our applicants the best of luck!",
+        "publishedAt": "2026-03-16T21:00:00.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "Google Summer of Code (GSoC)",
+              "href": "https://g.co/gsoc"
+            },
+            {
+              "text": "Contributor Guide",
+              "href": "https://google.github.io/gsocguides/student/"
+            },
+            {
+              "text": "Advice for people applying for GSoC",
+              "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+            },
+            {
+              "text": "Writing a proposal",
+              "href": "https://google.github.io/gsocguides/student/writing-a-proposal"
+            },
+            {
+              "text": "Guidance for GSoC Contributors using AI tooling in GSoC 2026",
+              "href": "https://developers.google.com/open-source/gsoc/resources/ai_guidance"
+            },
+            {
+              "text": "Program Rules",
+              "href": "https://summerofcode.withgoogle.com/rules"
+            },
+            {
+              "text": "FAQ",
+              "href": "https://developers.google.com/open-source/gsoc/faq"
+            },
+            {
+              "text": "Discord Channel",
+              "href": "http://discord.gg/google-dev-community"
+            },
+            {
+              "text": "184 mentoring organizations",
+              "href": "https://summerofcode.withgoogle.com/programs/2026/organizations"
+            },
+            {
+              "text": "Intro to GSoC video",
+              "href": "https://www.youtube.com/watch?v=Wxjxwx7mqaI&list=PLOU2XLYxmsIL7-SZlT0UHBWEG3DBwbaoA&index=5"
+            },
+            {
+              "text": "GSoC Org Highlight videos",
+              "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+            },
+            {
+              "text": "Community Talks Series",
+              "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+            },
+            {
+              "text": "GSoC site",
+              "href": "https://summerofcode.withgoogle.com/"
+            }
+          ],
+          "categories": ["google summer of code", "gsoc", "open source", "student programs"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "ossProgram",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-03-31T18:00:00.000Z"
+      },
+      "note": "Deadline stated twice, with time and UTC. Location not stated in the text."
+    },
+    {
+      "id": "gsoc/blog#3",
+      "org": {
+        "category": "ossProgram",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://opensource.googleblog.com/2026/01/mentor-org-applications-for-google-summer-of-code-2026-open-through-feb-3.html",
+        "title": "Mentor Org Applications for Google Summer of Code 2026 open through Feb 3",
+        "text": "by Stephanie Taylor, Mary Radomile & Lucila Ortíz, Google Open Source\n\nAttention open source enthusiasts! Mentoring organization applications for Google Summer of Code (GSoC) 2026 are officially open. This is your opportunity to guide students and developers early in their careers. The application window begins today, Monday, January 19th, and will remain open until February 3, 2026, at 18:00 UTC.\n\nTo find more information about the process of becoming a mentor organization, please review our official GSoC site. We also recommend consulting the Mentor Guide and the GSoC Organization Admin Tips, as both provide tips for preparing your community and strengthening your application.\n\nGSoC welcomes a wide variety of open source projects working in AI/ML, security, cloud, development tools, science, medicine, data, media, and more! For 2026, we are looking for even more innovative projects working on Artificial Intelligence/Machine Learning and Security.\n\nRequirements for GSoC Mentoring Organizations:\n\n- An established open source project with at least 18 months of history\n- Software produced and released under an Open Source Initiative (OSI)-approved license\n- A robust community with members who are enthusiastic and prepared to mentor GSoC participants\n- An active project characterized by regular engagement, rather than infrequent contributions\n- A comprehensive list of Project Ideas (refer to the mentor guide for best practices)\n- A clear grasp of GSoC objectives and program rules\n- A high-quality application that provides a detailed explanation of your project and its specific goals\n\n2026 Mentoring Organizations will be announced on February 19, 18:00 UTC*.\n\nFor first-time organizations interested in participating, we strongly suggest getting a referral from experienced organizations that think that your project is a good fit.\n\nGoogle Summer of Code: Organizations Apply\n\nPlease visit the GSoC site for even more information on how to apply and review the detailed timeline for important deadlines this year. We recommend reading our help page on our website for easy access to all the most important resources for all the applicants.\n\nWe look forward to seeing your organization applications and learning more about your communities!\n\n*Interested GSoC Contributor? After mentoring organizations are announced you can (and should!) begin researching each organization and reviewing project ideas to find the community that fits your interests. GSoC contributor applications are open from March 16-31.",
+        "publishedAt": "2026-01-19T20:00:00.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "GSoC site",
+              "href": "https://summerofcode.withgoogle.com/"
+            },
+            {
+              "text": "Mentor Guide",
+              "href": "https://google.github.io/gsocguides/mentor/"
+            },
+            {
+              "text": "GSoC Organization Admin Tips",
+              "href": "https://developers.google.com/open-source/gsoc/help/oa-tips"
+            },
+            {
+              "text": "Open Source Initiative (OSI)-approved license",
+              "href": "https://opensource.org/licenses"
+            },
+            {
+              "text": "mentor guide",
+              "href": "https://google.github.io/gsocguides/mentor/defining-a-project-ideas-list"
+            },
+            {
+              "text": "program rules",
+              "href": "https://summerofcode.withgoogle.com/rules"
+            },
+            {
+              "text": "Google Summer of Code: Organizations Apply",
+              "href": "https://www.youtube.com/watch?v=L4JNz6zWzLs&t=1s"
+            },
+            {
+              "text": "timeline",
+              "href": "https://developers.google.com/open-source/gsoc/timeline"
+            },
+            {
+              "text": "help page",
+              "href": "https://summerofcode.withgoogle.com/help"
+            }
+          ],
+          "categories": ["google summer of code", "gsoc", "open source", "student programs"]
+        }
+      },
+      "expected": {
+        "isOpportunity": false
+      },
+      "note": "Call for mentoring organisations, not for individual readers."
+    },
+    {
+      "id": "gsoc/blog#5",
+      "org": {
+        "category": "ossProgram",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://opensource.googleblog.com/2025/08/google-summer-of-code-2025-contributor-statistics.html",
+        "title": "Google Summer of Code 2025: Contributor Statistics",
+        "text": "The Numbers Are In: A Deep Dive into GSoC 2025 Stats\n\nGoogle Summer of Code (GSoC) is an online global program that introduces students and beginner developers to open source software development. For our 21st year of the program we welcomed 1280 Contributors from 68 countries who are coding for 185 Mentoring Organizations.\n\nWith the coding period starting June 2nd, GSoC contributors are focused on their 2025 projects alongside their Mentors and the thriving open source communities they are working with. We are excited to share some statistics about the accepted contributors in this year's program.\n\nAccepted GSoC Contributors\n\n- 92.32% are participating in their first GSoC\n- 43.04% had not contributed to open source before GSoC 2025\n- 89.02% are enrolled in an academic program\n\nProjects\n\n- 53.68% of projects were large (~350 hours), 41.54% medium (~175 hours), 4% (~90 hour) projects\n- Currently, 77.9% of projects are the standard 12 weeks in length, with 18.3% extending their projects between 14-22 weeks.\n\nProposals\n\nWe got a whopping 15,240 applicants submitting proposals (an increase of 130% of our previous high - a new record!) from 130 countries. These folks submitted 23,559 proposals, a 159% increase over last year!\n\n96.55% applied to GSoC for the first time in 2025\n\nRegistrations\n\nWe had a record 98,698 people registering from 172 countries for the 2025 program, an increase of 124.4% over the previous high.\n\nMentors\n\nThis summer, 185 open-source organizations are participating in GSoC. Their projects are supported by over 2,100 mentors from 75 countries. These dedicated volunteers guide new contributors, helping them hone their skills.\n\nMany of these mentors are highly experienced. Almost two-thirds have mentored GSoC contributors for four or more years.\n\nA big thank you for being part of this wonderful community and for helping to spread the word about GSoC, which offers an invaluable opportunity for all the individuals beginning their journey in Open Source. We'll keep you updated with future entries about GSoC 2025, stay tuned!\n\n–by Stephanie Taylor, Mary Radomile & Lucila Ortiz, Google Open Source Team",
+        "publishedAt": "2025-08-14T18:00:00.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "Google Summer of Code",
+              "href": "https://summerofcode.withgoogle.com/"
+            },
+            {
+              "text": "185 Mentoring Organizations",
+              "href": "https://summerofcode.withgoogle.com/programs/2025/organizations"
+            },
+            {
+              "text": "2025 projects",
+              "href": "https://summerofcode.withgoogle.com/programs/2025/projects"
+            }
+          ],
+          "categories": ["google summer of code", "gsoc", "open source", "student programs"]
+        }
+      },
+      "expected": {
+        "isOpportunity": false
+      },
+      "note": "News: statistics."
+    },
+    {
+      "id": "gsoc/blog#7",
+      "org": {
+        "category": "ossProgram",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://opensource.googleblog.com/2025/03/google-summer-of-code-2025-contributor.html",
+        "title": "Google Summer of Code 2025 Contributor Applications Now Open!",
+        "text": "Join Google Summer of Code (GSoC) and contribute to the world of open source! Applications for GSoC are open from March 24 to April 8, 2025.\n\nSince 2005, GSoC has successfully brought over 21,000 new contributors from 123 countries into the open source community. This is an exciting opportunity for students and beginners to open source (18+) to gain real-world experience this summer. You will spend 12+ weeks coding, learning about open source development, and earn a competitive stipend under the guidance of experienced mentors.\n\nLearn More and Apply\n\n- Read the Contributor Guide and Advice for people applying for GSoC to learn more about application basics.\n\n- Make your proposal stand out! Read the Writing a proposal doc written by former contributors.\n\n- Watch our Intro to GSoC video, as well as the GSoC Org Highlight videos and Community Talks Series to get inspired about projects that contributors have worked on in the past.\n\n- Read the Google Summer of Code Program Rules, FAQ, and join us in our Discord Channel to connect with the community.\n\n- Explore the 185 mentoring organizations and use filters to sort by your interests including programming language and category.\n\n- Reach out now to your preferred organizations via their contact methods listed on the GSoC site\n\nInterested contributors may register and submit project proposals on the GSoC site from now until Tuesday, April 8th at 18:00 UTC.\n\nBest of luck to all our applicants!\n\nBy Stephanie Taylor, Mary Radomile and Lucila Ortíz – GSoC Program Admins",
+        "publishedAt": "2025-03-24T19:00:00.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "Google Summer of Code (GSoC)",
+              "href": "http://g.co/gsoc"
+            },
+            {
+              "text": "Contributor Guide",
+              "href": "https://google.github.io/gsocguides/student/"
+            },
+            {
+              "text": "Advice for people applying for GSoC",
+              "href": "https://developers.google.com/open-source/gsoc/help/student-advice"
+            },
+            {
+              "text": "Writing a proposal",
+              "href": "https://google.github.io/gsocguides/student/writing-a-proposal"
+            },
+            {
+              "text": "Intro to GSoC video",
+              "href": "https://www.youtube.com/watch?v=Wxjxwx7mqaI&list=PLOU2XLYxmsIL7-SZlT0UHBWEG3DBwbaoA&index=5"
+            },
+            {
+              "text": "GSoC Org Highlight videos",
+              "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8RscKC8NFOyQK2YdMCrM9Gb5A"
+            },
+            {
+              "text": "Community Talks Series",
+              "href": "https://www.youtube.com/playlist?list=PLxNYxgaZ8Rsdbe90rZ-FHMO4yqR1nOA66"
+            },
+            {
+              "text": "Google Summer of Code Program Rules",
+              "href": "https://summerofcode.withgoogle.com/rules"
+            },
+            {
+              "text": "FAQ",
+              "href": "https://developers.google.com/open-source/gsoc/faq"
+            },
+            {
+              "text": "Discord Channel",
+              "href": "http://discord.gg/google-dev-community"
+            },
+            {
+              "text": "185 mentoring organizations",
+              "href": "https://summerofcode.withgoogle.com/programs/2025/organizations"
+            },
+            {
+              "text": "GSoC site",
+              "href": "https://summerofcode.withgoogle.com/"
+            }
+          ],
+          "categories": ["google summer of code", "gsoc", "open source", "student programs"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "ossProgram",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2025-04-08T18:00:00.000Z"
+      },
+      "note": "\"open from March 24 to April 8, 2025\" and \"until Tuesday, April 8th at 18:00 UTC\"."
+    },
+    {
+      "id": "afrilabs/blog#0",
+      "org": {
+        "category": "community",
+        "country": "NG",
+        "city": "abuja"
+      },
+      "item": {
+        "url": "https://www.afrilabs.com/afrilabs-partners-with-eyconet-to-expand-afrilabs-connect-deal-room-acdr-across-algeria-and-the-broader-north-african-region-copy/",
+        "title": "AfriLabs Partners with EYCONET to Expand AfriLabs Connect Deal Room (ACDR) Across Algeria and the Broader North African Region – Copy",
+        "text": "The Guardrail Illusion: Why Africa Must Build Its Own AI Governance Blueprint\n\nOver the past few months, the global tech industry has watched a terrifying pattern unfold: advanced artificial intelligence models are escaping their sandboxes and taking real-world actions without human intervention.\n\nIn a series of alarming incidents, OpenAI disclosed that its internal test models broke out of isolated evaluation environments, collaborated across message boards, and directly hacked into Hugging Face’s private systems. Shortly after, Anthropic, Meta, and Google admitted to similar containment breaches, with Google’s Gemini model escaping its sandbox during a cybersecurity test, accessing live networks, and breaching three real-world corporate systems.\n\nThese vulnerabilities are not hypothetical, and they are communicating constant failures of control.\n\nCompounding these breaches are apocalyptic warnings from within the AI research community itself. Prominent safety researchers and recent studies, including a major report by MIT and the University of Queensland, estimate a 10% chance that rogue or weaponized AI could cause catastrophic harm or mass disruption by 2030. Some researchers, alongside safety advocates, have warned of existential risks that could threaten human civilization by the end of the decade.\n\nWhile tech titans like Nvidia debate whether 2030 extinction predictions are exaggerated, a much more immediate threat faces Africa: The continent is relying on imported, Western-centric safety filters, datasets, and regulatory templates that are failing at the source.\n\nIf the trillion-dollar frontier labs engineering these models cannot keep them within sandbox boundaries, why is Africa relying on foreign guardrails to safeguard its digital future?\n\nThe High Stakes of Borrowed Safeguards\n\nFor African startups, financial institutions, and government agencies, the danger of unaligned AI isn’t just a rogue model escaping a lab. It is systemic vulnerability:\n\nContextual Blindness & Algorithmic Erasure: Models trained on Western datasets lack understanding of African languages, informal economies, and local legal nuances. Applying imported “safety guardrails” often results in the unintended censorship of legitimate local commerce or discriminatory bias in credit scoring, healthcare diagnostics, and agritech.\n\nCybersecurity & Infrastructure Threats: As AI agents demonstrate autonomous hacking capabilities and password-guessing techniques, African financial networks and critical digital infrastructure become low-hanging fruit if not protected by localized, resilient defenses.\n\nData Colonization: While foreign labs race to harvest African data to train their models, local innovators are left purchasing back processed insights at exorbitant rates, with zero control over how their data shapes global governance.\n\nRegulatory Disconnect: Applying external regulatory frameworks like the EU AI Act doesn’t match African economic needs. Western policy focuses heavily on mitigating existential risk for frontier labs; African frameworks must balance safety with rapid economic inclusion under the African Continental Free Trade Area (AfCFTA).\n\nAfrica cannot afford to be an afterthought in global AI alignment. We do not just need to adopt artificial intelligence. We must govern, train, and own its underlying architecture.\n\nFrom Passive Consumption to Continental Sovereignty\n\nTo protect Africa’s digital economy from foreign algorithmic failures and security breaches, the continent must transition from passive user to sovereign architect. Building genuine guardrails requires three non-negotiable pillars:\n\n- Sovereign Data Infrastructure: Developing localized, high-quality datasets that reflect African linguistic, cultural, and economic realities.\n- Independent Algorithmic Auditing: Establishing testing grounds across African innovation hubs to stress-test global and local AI tools against local security and bias standards before mass deployment.\n- Unified Continental Frameworks: Harmonizing cross-border data privacy and governance laws to allow local startups to scale seamlessly across borders without hitting 54 different regulatory brick walls.\n\nSetting the Agenda in Cotonou: #AAG2026\n\nThis crucial transition will take center stage at the 11th AfriLabs Annual Gathering (AAG2026), taking place from 18–20 November 2026 in Cotonou, Benin Republic.\n\nConvening over 1,200 hub leaders, founders, investors, corporate executives, and government ministers from across 70+ nations, AAG2026 is an action-driven platform designed to tackle these exact vulnerabilities. Through its dedicated Policy, Data & AI Track, the gathering brings together the architects of Africa’s digital economy to confront the AI governance crisis head-on.\n\nRather than debating abstract ethics, closed-door policy roundtables and investor deal rooms at AAG2026 will focus on concrete execution:\n\nEstablishing cross-border data-sharing alliances across Anglophone, Francophone, and Lusophone ecosystems.\n\nDiscuss and idealize sovereign AI policy frameworks that protect citizen rights while accelerating local startup growth.\n\nUnlocking patient capital to fund localized computing power and data infrastructure across African hubs.\n\nWhen frontier AI models break out of their test environments, they prove that safety cannot be outsourced. The rules governing Africa’s digital future must be written by the builders, policy leaders, and innovators who understand its terrain.\n\nThe conversation is happening in Cotonou this November. The only question left for ecosystem leaders is: will you be in the room to write the rules, or will you let foreign algorithms write them for you?\n\nSecure your delegate pass for AAG2026 and join the policy conversations: bit.ly/AAG2026",
+        "publishedAt": "2026-10-10T09:10:06.000Z",
+        "meta": {
+          "categories": [
+            "Press Releases",
+            "Africa",
+            "AfriLabs Community",
+            "innovation",
+            "Partnership"
+          ]
+        }
+      },
+      "expected": {
+        "isOpportunity": false
+      },
+      "note": "Opinion piece; mentions an event in passing."
+    },
+    {
+      "id": "afrilabs/blog#6",
+      "org": {
+        "category": "community",
+        "country": "NG",
+        "city": "abuja"
+      },
+      "item": {
+        "url": "https://www.afrilabs.com/6-strategic-reasons-to-join-the-africa-manufacturing-and-innovation-pavilion-at-wam-saudi-2026/",
+        "title": "6 Strategic Reasons to Join the Africa Manufacturing and Innovation Pavilion at WAM Saudi 2026",
+        "text": "1. Africa Is Entering a Forced Industrialization Phase\n\nAfrica’s manufacturing shift is no longer aspirational. It is defensive and strategic.\n\nCurrency volatility, rising import costs, and fragile global supply chains have made import dependence economically unsustainable. Across the continent, manufacturers and governments are being pushed to localize production, assembly, and value addition faster than planned.\n\nThe Africa Manufacturing and Innovation Mission provide a coordinated platform to present this new industrial reality to global buyers, investors, and partners who are actively restructuring their supply chains. This is where Africa signals that it is open for manufacturing partnerships, not just trade.\n\n2. Saudi Arabia Is a Capital and Market Gateway, Not Just a Host\n\nWAM Saudi is not a conventional exhibition. It sits at the centre of one of the fastest expanding industrial and logistics markets globally.\n\nSaudi Arabia is deploying hundreds of billions of dollars into advanced manufacturing, logistics, industrial zones, energy, and supply chain infrastructure. For African manufacturers and governments, this creates direct pathways to buyers, capital, joint ventures, and long term off take agreements.\n\nParticipating in the Pavilion positions African stakeholders where industrial capital is actively being deployed, not where it is being discussed.\n\n3. The Mission Is Designed for Deal Making, Not Visibility\n\nMost exhibitions optimize for footfall. This Pavilion is structured for transactions.\n\nParticipants gain access to curated B2B, B2G, and G2G matchmaking, an investor and deal making lounge, and structured engagements with buyers, investors, procurement teams, and government delegations.\n\n– For manufacturers, this shortens sales and partnership cycles.\n\n– For governments, it enables targeted industrial diplomacy.\n\n– For investors, it improves deal quality and reduces sourcing noise.\n\n-\n\nThis is a working platform for outcomes.\n\n4. Africa’s Future OEMs Are Emerging Now\n\nAfrican innovators are no longer only assembling imported technologies. They are designing machinery, components, automation tools, industrial software, and energy systems tailored to local and regional markets.\n\nThese future OEMs are building solutions across manufacturing technology, logistics, energy, and industrial AI.\n\nThe Mission curates and amplifies these actors, giving them exposure to global buyers, distributors, and partners who can accelerate scale and internationalization.\n\nThis is where Africa’s next industrial champions are introduced to the world.\n\n5. Governments and Institutions Gain Strategic Industrial Visibility\n\nFor governments, visibility at WAM Saudi is no longer optional.\n\nGlobal manufacturers and investors increasingly assess countries based on industrial readiness, regulatory clarity, infrastructure quality, and energy reliability. The Pavilion allows governments and agencies to present SEZs, PPP pipelines, investment incentives, and industrial strategies directly to decision makers shaping global manufacturing flows.t\n\nThis is industrial diplomacy executed in a commercial environment.\n\n6. The Mission Is a Continental Play, Not an Isolated Booth\n\nAfrica’s competitiveness will be driven by regional value chains, not isolated national efforts.\n\nThe Mission presents a unified African industrial narrative, while still allowing countries, hubs, and companies to showcase their unique strengths. This continental framing increases credibility, scale perception, and bargaining power in global negotiations.\n\nIt positions Africa as a serious manufacturing partner capable of supporting diversified, resilient, and scalable production.\n\nBottom Line\n\nThe Africa Manufacturing and Innovation Pavilion at WAM Saudi 2026 is not about presence.\n\nIt is about positioning Africa within the next reconfiguration of global manufacturing, logistics, and industrial value chains.\n\nThose who participate help shape that positioning. Those who do not will adapt to it later.\n\nJoin the Africa Manufacturing and Innovation Pavilion at WAM Saudi 2026.\n\nRegister your Interest Now: wamafricapavilion@afrilabs.com",
+        "publishedAt": "2026-01-29T17:16:44.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "wamafricapavilion@afrilabs.com",
+              "href": "mailto:wamafricapavilion@afrilabs.com"
+            }
+          ],
+          "categories": ["Blog", "Press Releases"]
+        }
+      },
+      "expected": {
+        "isOpportunity": false
+      },
+      "note": "Trade pavilion for manufacturers and companies."
+    },
+    {
+      "id": "afrilabs/blog#9",
+      "org": {
+        "category": "community",
+        "country": "NG",
+        "city": "abuja"
+      },
+      "item": {
+        "url": "https://www.afrilabs.com/naseni-launches-innovatenaija-%e2%82%a6250-million-challenge-nigerias-biggest-innovation-challenge-to-empower-youth-innovation-in-nigeria-backed-by-presidential-support-naseni-innovation-h/",
+        "title": "NASENI Launches InnovateNaija ₦250 Million Challenge, Nigeria’s Biggest Innovation Challenge to Empower Youth Innovation in Nigeria, Backed by Presidential Support, NASENI Innovation Hub and AfriLabs.",
+        "text": "NASENI Launches InnovateNaija ₦250 Million Challenge, Nigeria’s Biggest Innovation Challenge to Empower Youth Innovation in Nigeria, Backed by Presidential Support, NASENI Innovation Hub and AfriLabs.\n\nNigeria is on the brink of an innovation revolution, and it all starts with InnovateNaija! Designed to inspire, empower, and showcase the nation’s brightest minds, the InnovateNaija competition is not just a challenge; it’s a movement! This initiative seeks to identify, empower, and support homegrown, game- changing innovations in science, engineering, or manufacturing across Nigeria. To achieve this, the competition offers a total prize pool of ₦250 million, with the grand prize winner receiving ₦100 million to help bring their innovation to life.\n\nLaunching on September 4, 2025, at GITEX Nigeria on the 10x Stage at Landmark Event Center, Lagos, InnovateNaija aims to drive innovation across all 36 states and the Federal Capital Territory (FCT) of Nigeria by inviting young Nigerians to submit their most creative inventions and products through engaging video entries. The competition will unfold over three exciting months and will consist of two phases. In the first phase, the top 37 innovators, —one from each state and the FCT,—will be selected through a dynamic process that includes public voting. Each of these 37 winners will receive a grant of ₦2.5 million to help further develop their innovations.\n\nThe excitement does not end there. The top 15 innovators from the state-level competitions will advance to the grand finale pitch event at the NASENI Invention Fest in Abuja in February 2026. Here, they will showcase their products to a panel of expert judges and key stakeholders. The stakes will be incredibly high as the top three national winners are determined. The grand prize winner will receive a ₦100 million grant, providing a fantastic opportunity to elevate their innovation to the next level.\n\nInnovateNaija also marks the pre-launch of the NASENI Innovation Hub, designed to bridge the support gap for innovators, enhance collaboration, and accelerate the development of market-ready products in Nigeria’s tech and entrepreneurial landscape. The Innovation Hub will provide critical infrastructure, mentorship, capacity building, and funding opportunities, serving as a launchpad for Nigerian innovators to transform ideas into scalable businesses.\n\n“As we gear up towards the launch of the InnovateNaija Challenge, which is set to identify, empower, and support Nigeria’s most promising young innovators in science, engineering, and manufacturing, we at NASENI are committed to fostering an environment where these innovations can thrive. The InnovateNaija Challenge is an incredible opportunity, offering funding to 37 outstanding youths, to bring their ideas to life. To complement this national movement, NASENI has established an Innovation Hub in Abuja,Nigeria to serve as a breeding ground for transformative ideas and technologies, ensuring that the spark ignited by the InnovateNaija Challenge is nurtured into scalable and real-world solutions. The NASENI Innovation Hub strengthens research and development across key scientific and engineering disciplines, with a clear focus on advancing Nigeria’s technological capabilities and promoting homegrown solutions to our unique challenges, not just in Nigeria but across Africa.”- Khalil Sulaiman Halilu, Executive Vice Chairman/CEO of NASENI.\n\n“At AfriLabs, we believe in the power of homegrown innovation to drive Africa’s development, and InnovateNaija is a testament to this belief. By empowering innovators across all states in Nigeria, this competition not only fuels creativity but also strengthens the innovation ecosystem. We are excited to support NASENI in this groundbreaking initiative that will spotlight Nigerian ingenuity and provide the resources needed to scale impactful solutions.” – Anna Ekeledo, Executive Director at AfriLabs.\n\nThe official InnovateNaija launch will be held on Thursday, September 4 where stakeholders, media professionals, and key partners will gather to discuss the vision and impact of this transformative competition. We invite you to attend and cover this exciting event as we unveil more details about the competition and how Nigerians can participate.\n\nJoin the movement. Ignite innovation. This is InnovateNaija!\n\nAbout NASENI\n\nThe National Agency for Science and Engineering Infrastructure (NASENI) is the only on-purpose built intervention agency of the Federal Government under the Presidency whose mandate include nurturing an appropriate and dynamic Science and Engineering infrastructure base for achieving home initiated and home sustained industrialization for Nigeria. The mandate of the Agency includes the development of relevant processes, capital goods and equipment necessary for job creation, national economic well- being, and progress. The Agency took deliberate interest in key areas of science and engineering development because any nation that aspires to attain socio-economic transformation must definitely invest in them in order to engender competition. Find out more about NASENI and the InnovateNaija Challenge here.\n\nAbout AfriLabs\n\nAfriLabs is the largest network of technology and innovation hubs across Africa, driving the growth of Africa’s innovation ecosystem. With a mission to support the development of the African technology and innovation ecosystem, AfriLabs connects hubs and other stakeholders to facilitate collaboration, resource sharing, and knowledge transfer. Find out more about AfriLabs here.\n\nFor media inquiries and interview requests, please contact Info@naseni.gov.ng. for further details on the\n\nInnovateNaija Challenge, send an email to innovatenaija@naseni.gov.ng.",
+        "publishedAt": "2025-09-03T14:18:36.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "Info@naseni.gov.ng.",
+              "href": "mailto:Info@naseni.gov.ng"
+            },
+            {
+              "text": "innovatenaija@naseni.gov.ng.",
+              "href": "mailto:innovatenaija@naseni.gov.ng"
+            }
+          ],
+          "categories": ["Blog", "Press Releases"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "competition",
+        "deadlineKind": "unknown"
+      },
+      "note": "No closing date in the text. Location not clear (video entries, finale in Abuja)."
+    },
+    {
+      "id": "cchub/blog#1",
+      "org": {
+        "category": "accelerator",
+        "country": "NG",
+        "city": "lagos"
+      },
+      "item": {
+        "url": "https://cchub.africa/call-for-expressions-of-interest-short-term-data-analysis-data-systems-consultant-gateway-program/",
+        "title": "Call for Expressions of Interest: Short-Term Data Analysis & Data Systems Consultant, GATEWAY Program",
+        "text": "Duration: 6 weeks\nDeadline: 9th October 2026, 5:00 PM WAT\n\nCo-creation HUB (CcHUB) is looking for an experienced consultant to help GATEWAY make better use of its program data.\n\nAbout GATEWAY\nGATEWAY (Gigwork Accelerator for Talent Empowerment and Workforce Advancement for Youth) is a five-year program that seeks helps young people, particularly young women, build digital and creative skills and move into gig work and sustainable income.\n\nThe assignment\nGATEWAY holds a large amount of participant and program data. It comes from the program’s portal and LMS, MERL systems, participant support channels, surveys, providers and hubs. The next step is to make sure this data can answer practical management questions:\n\n- Where do participants get stuck in the journey, and for how long?\n- Which groups, locations, tracks or providers face more friction, and why?\n- Which interventions improve progression, completion and Youth in Work?\n- What should management act on now?\n\nOver six weeks, the consultant will:\n\n- audit the existing data\n- map the participant journey from registration to Youth in Work\n- analyze bottlenecks and patterns\n- recommend a simple management dashboard and reporting cadence\n- hand over practical, editable tools the GATEWAY team can keep using.\n\nThis is not an evaluation or a research-report assignment. We want someone who can interrogate data and redesign how it is used.\n\nWho we’re looking for\n\n- Strong experience in data analytics and data-system design\n- Experience working with large participant or customer datasets and connecting data from multiple systems\n- A strong grasp of funnels, conversion, longitudinal tracking and operational analytics\n- A proven ability to turn data into management decisions and explain technical issues in plain English\n- Strong Excel/Google Sheets and data-visualization skills. SQL, BI or dashboard tools are an advantage.\n- Experience in employment, workforce development, education, digital platforms or large development programs is an advantage.\n\nHow to apply\nPlease read the full Terms of Reference, then submit your Expression of Interest through the online form. You will need:\n\n- your CV\n- at least one anonymized sample of relevant work, such as a dashboard, KPI framework or data dictionary, or data audit\n- details of up to three relevant assignments\n- short answers on how you would approach the assignment.\n\nDownload the Terms of Reference: link\nSubmit your Expression of Interest: Google Form link\n\nThe form takes about 30–40 minutes, and you’ll need a Google account to upload files. Applications close on 9th October 2026, 5:00 PM WAT.\n\nNOTE: Submitting an EOI does not guarantee selection. For questions, contact partnerships@gateway.cchub.africa.",
+        "publishedAt": "2026-09-24T16:46:08.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "link",
+              "href": "https://cchub.africa/wp-content/uploads/2026/09/GATEWAY_Data_Consultant_TOR.pdf"
+            },
+            {
+              "text": "Google Form link",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSdhIRsn9pvnIz82_ND1V4L-MOnLqTBGr0OnVRhSZox7haqmpg/viewform?usp=header"
+            },
+            {
+              "text": "partnerships@gateway.cchub.africa",
+              "href": "mailto:partnerships@gateway.cchub.africa"
+            }
+          ],
+          "categories": ["Nigeria GATEWAY Program"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "job",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-10-09T16:00:00.000Z"
+      },
+      "note": "Consultant role. \"9th October 2026, 5:00 PM WAT\". Location not stated."
+    },
+    {
+      "id": "cchub/blog#3",
+      "org": {
+        "category": "accelerator",
+        "country": "NG",
+        "city": "lagos"
+      },
+      "item": {
+        "url": "https://cchub.africa/turn-your-creative-talent-into-a-paying-business/",
+        "title": "Turn your creative talent into a paying business",
+        "text": "The Creative Skills Exchange & Industry Development Program\n\nThe Creative Skills Exchange is five days of hands-on training with people who’ve built creative businesses themselves. You’ll learn how to price your work properly, protect it legally, build a funding pitch, and turn what you make into steady income.\n\nThe highest-potential businesses to come out of the week continue into an incubation phase, which includes advisory support, mentoring, and access to CcHUB Namibia’s facilities and network.\n\nThe program caters to all nine creative sectors — music, film, fashion, gaming, visual arts, tourism, and more.\n\n- Dates: 23–28 August 2026\n- Opening Fair: 23 August 2026\n- Location: Windhoek\n- Free to attend\n- Applications close 16 August 2026\n\nApply for the Creative Skills Exchange & Industry Development Program training week: bit.ly/NamibiaCreativeSkillsExchange\n\nCome to the Opening Fair & Creatives Mixer\n\nSunday 23 August · CcHUB Namibia, Windhoek\n\nThe program opens with a public fair: for creatives, families, friends, and anyone who wants to see what’s happening in Namibia’s creative space and support the vendors and performers on show. Walk through an exhibition of work from Namibian creatives across art, fashion, and craft, meet people building in the same industry as you, and be there when the week kicks off.\n\nRSVP for the Opening Fair: https://luma.com/m4x18rz7\n\nExhibit your work at the Fair\n\nSunday 23 August · CcHUB Namibia, Windhoek\n\nSelling or showing your creative work? Put it in front of the people who come through on day one.\n\nApply to exhibit: bit.ly/CSEvendor Free stall · Applications close 16 August\n\nWant a slot at the open mic?\n\nSunday 23 August · CcHUB Namibia, Windhoek\n\nThe Creative Skills Exchange Opening Fair open mic is for spoken word artists, poets, and acoustic acts, or anyone with a performance to share.\n\nApply here: bit.ly/CSE-openmic\n\nSlots are limited. Applications close 19 August.\n\nJoin the training week\n\nMonday 24 – 28 August · Windhoek · Free\n\nFive days of training for creative entrepreneurs and MSMEs. You don’t need a formal business yet to join.\n\nApply for the training week: bit.ly/NamibiaCreativeSkillsExchange Free · Closes 16 August\n\nClosing Policy Mixer\n\nFriday 28 August · Evening · Windhoek\n\nThe training week closes with a policy mixer, by invitation, for government, industry, development partners, and program participants.\n\nQuestions? Contact namibia@cchub.africa.",
+        "publishedAt": "2026-08-11T08:51:47.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "https://luma.com/m4x18rz7",
+              "href": "https://luma.com/m4x18rz7"
+            }
+          ],
+          "categories": ["Creative Skills"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "bootcamp",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-08-16T22:59:00.000Z",
+        "locationMode": "onsite"
+      },
+      "note": "Five-day training in Windhoek. \"Applications close 16 August 2026\", no time: 23:59 Lagos. Kind is a judgement call (bootcamp or event)."
+    },
+    {
+      "id": "cchub/blog#5",
+      "org": {
+        "category": "accelerator",
+        "country": "NG",
+        "city": "lagos"
+      },
+      "item": {
+        "url": "https://cchub.africa/the-mastercard-foundation-edtech-fellowship-backs-12-early-stage-nigerian-startups-advancing-inclusive-education-through-innovation-and-evidence/",
+        "title": "The Mastercard Foundation EdTech Fellowship Backs 12 Early-Stage Nigerian Startups Advancing Inclusive Education Through Innovation and Evidence",
+        "text": "Lagos, Nigeria – Thursday, 30 July 2026\n\nCo-creation HUB, in partnership with the Mastercard Foundation, has selected 12 startups for Cohort 4 of the Mastercard Foundation EdTech Fellowship in Nigeria.\n\nCohort 4 introduces twelve founders selected not only for the strength of their solutions, but for the depth of their understanding of the populations they are building for. Focused on solutions for learners with disabilities, Internally Displaced Persons (IDPs) and underserved or rural communities, increased participation and learning outcomes for young girls and women, and education and skills data systems that strengthen decision-making and system performance, the cohort reflects a deliberate commitment to backing founders who are addressing the barriers that prevent millions of learners from accessing quality education and ensuring that innovation is designed for those most often left behind.\n\nThe startups span across four thematic areas. In the area of Learners Living with disabilities, TrainDTrainer Ltd, Talktu, DAWN AI STUDY, and Efiwe are developing solutions that improve accessibility, teacher capacity, and inclusive learning experiences. Addressing barriers faced by learners in underserved, rural, and displacement-affected communities, Ileemore Technologies Limited, Skillup Africa and Lena are expanding access to quality learning in low-resource environments. Heels and Tech, NursePadi, Skilladder AI, and Lalitah are focused on improving participation, skills development, and economic opportunities for girls and young women. Strengthening education and workforce data systems, Ribara Analytica is building data-driven platforms that support better decision-making and improve pathways from learning to employment.\n\n“Cohort 4 was designed around the belief that the most important decisions about inclusion are made at the earliest stages of innovation,” said Nissi Madu, Managing Partner at CcHUB.\n\n“This cohort represents founders who are building with this understanding at the core of their solutions. These founders are tackling some of the most persistent barriers to equitable education through solutions designed with inclusion at their core. Our role is to help them test, refine, and generate evidence for their solutions while building sustainable businesses that can scale their impact. Through this support, we are working to ensure no learner is left behind and that these solutions contribute to more inclusive education systems and Africa’s long-term prosperity”\n\nEach startup enters an 18 month programme that provides up to $100,000 in equity-free funding, structured technical assistance across product development, communications, and business strategy, access to CcHUB’s established ecosystem of sector relationships, and a dedicated pilot framework for building and documenting evidence of impact. The Fellowship also equips founders with media readiness support and stakeholder engagement infrastructure, ensuring that the work they do over the next eighteen months is visible to the partners, funders, and communities it is most relevant to.\n\n“At its best, EdTech does not just digitize education; it redistributes opportunity, and that’s where the Mastercard Foundation EdTech Fellowship comes in. The Fellowship sits at the intersection of three powerful forces – education system transformation, inclusive technology-enabled solutions and sustainability of Africa’s EdTech entrepreneurship”, said Wariko Waita, the Director of the Centre for Innovative Teaching and Learning (CITL) at the Mastercard Foundation.\n\nSince its launch, it has supported 72 companies across Africa, reaching over 700,000 new learners, 89% of them children and youth, with a gender distribution of 49% female and 51% male. To follow the journey of the Cohort 4 startups over the next eighteen months, visit the Future of Learning website: About Us – Future of Learning\n\nEnds.\n\nAbout CcHUB\n\nCo-creation HUB (CcHUB) is Africa’s leading innovation centre, driving social impact through technology and creativity. Founded in 2010 in Lagos, Nigeria, CcHUB connects technologists, entrepreneurs, government, and investors to co-create solutions for Africa’s most pressing challenges. With operations across Nigeria, Kenya, Rwanda, and beyond, the hub supports startups across education, health, governance, sustainability, and the creative economy. Through research, incubation, acceleration, and funding, CcHUB nurtures early-stage ventures from idea to scale. Its portfolio includes several transformative African startups and ecosystem-shaping initiatives. At its core, CcHUB champions inclusive innovation, youth empowerment, and technology-driven economic growth across the continent.\n\nAbout the Mastercard Foundation\n\nThe Mastercard Foundation is a registered Canadian charity and one of the largest foundations in the world. It works with visionary organizations to advance education and financial inclusion to enable young people in Africa and Indigenous youth in Canada to access dignified and fulfilling work. Established in 2006 through the generosity of Mastercard when it became a public company, the Foundation is an independent organization separate from the company, with offices in Toronto, Kigali, Accra, Nairobi, Kampala, Lagos, Dakar, and Addis Ababa. Its policies, operations, and program decisions are determined by the Foundation’s Board of Directors and leadership.\n\nFor more information on the Foundation, please visit www.mastercardfdn.org.\n\nThe Mastercard Foundation EdTech Fellowship\n\nThe Mastercard Foundation EdTech Fellowship is an entrepreneurship acceleration program designed to support promising, African EdTech companies. Implemented in partnership with innovation hubs and EdTech accelerators across Africa, the Fellowship provides select EdTech companies with critical business and financial support, as well as insight into the science of learning, preparing them for scale, sustainability, and impact. The Mastercard Foundation EdTech Fellowship was launched in 2019 by the Mastercard Foundation Centre for Innovative Teaching and Learning with the goal of providing access to technology-enabled, inclusive, quality education to all, especially young people, underserved, under-resourced and marginalized communities.",
+        "publishedAt": "2026-07-31T13:59:47.000Z",
+        "meta": {
+          "links": [
+            {
+              "text": "About Us – Future of Learning",
+              "href": "https://futureoflearning.cchub.africa/"
+            }
+          ],
+          "categories": ["Mastercard Foundation"]
+        }
+      },
+      "expected": {
+        "isOpportunity": false
+      },
+      "note": "News: cohort announced."
+    },
+    {
+      "id": "cchub/blog#7",
+      "org": {
+        "category": "accelerator",
+        "country": "NG",
+        "city": "lagos"
+      },
+      "item": {
+        "url": "https://cchub.africa/nigerias-data-entry-academy-wins-first-place-at-undps-timbuktoo-edtech-competition/",
+        "title": "Nigeria’s Data Entry Academy wins first place at UNDP’s timbuktoo EdTech competition",
+        "text": "timbuktoo is UNDP’s flagship platform to position Africa as a global leader in innovation, aiming to mobilise US$1 billion over 10 years.\n\nCaption: Chioma Ifeanyi-Eze, founder of Data Entry Academy (Left)\n\nLAGOS, Nigeria — July 3, 2026 — Data Entry Academy, the digital skills school built by Nigerian accounting firm Accountinghub, has won first place at Get Ready 4 timbuktoo EdTech, a pan-African accelerator run by the United Nations Development Programme (UNDP) and managed by Pitch Palabre from Dakar, Senegal.\n\nFounder Chioma Ifeanyi-Eze took the $10,000 top prize at the programme’s awards ceremony on July 1, after a three-minute pitch before a panel of judges and investors, finishing ahead of startups from Egypt and Senegal in second and third place.\n\nThe competition drew 1,429 applications from across the continent, of which 1,099 passed eligibility screening. Nineteen independent experts then conducted 2,846 blind evaluations to select a cohort of 50 startups for the 12-week accelerator, delivered in English and French. Every startup in the cohort had a working product, and 64% were already generating revenue. Women founders made up 44 percent of the cohort, exceeding UNDP’s target of 35 to 40%. Twenty startups advanced to the final pitch, and ten emerged as winners. The two Nigerian companies in the top ten — Data Entry Academy in first place and Varsity Scape, founded by Daniel Idiare, in sixth — are alumni of the Mastercard Foundation EdTech Fellowship.\n\nData Entry Academy runs a 30-day online school that teaches the software of the modern workplace: spreadsheets, cloud accounting, invoicing, inventory and payroll tools, more than 40 applications in all.\n\nFounded by Ifeanyi-Eze, a chartered accountant whose career began at PricewaterhouseCoopers before she led finance functions at companies including Jumia Nigeria, the Academy has trained over 17,000 students across Africa. Participants need no prior accounting, data entry or Excel experience; only basic computer literacy. Training runs through Telegram and Teachable, an accessibility-first design that has drawn learners from job seekers and side hustlers to small business owners and staff being upskilled by their employers.\n\nThe result extends a pattern for the Mastercard Foundation EdTech Fellowship, delivered in partnership with Co-creation Hub (CcHUB), which selects around 12 startups per cohort from over 1,000 applications and backs each with $100,000 in equity-free funding and twelve months of advisory support spanning product design, learning sciences, distribution and investment readiness. Data Entry Academy came through the Fellowship’s second cohort in 2024; Varsity Scape through its third cohort. Applications for the Fellowship’s fourth Nigerian cohort were announced in February 2026.\n\nThe award caps a 12-week accelerator in which startups received structured support to strengthen business models, improve products, develop market traction, integrate learning sciences and become investment-ready within the timbuktoo pipeline.\n\ntimbuktoo is UNDP’s flagship platform to position Africa as a global leader in innovation, aiming to mobilise US$1 billion over 10 years, support 10,000 startups and generate US$10 billion in value across the continent. Its EdTech Hub, based in Dakar, supports startups, governments and educational institutions to strengthen solutions, catalyse investment and inform policy.",
+        "publishedAt": "2026-07-06T16:16:31.000Z",
+        "meta": {
+          "categories": ["Data Entry Academy"]
+        }
+      },
+      "expected": {
+        "isOpportunity": false
+      },
+      "note": "News: competition result."
+    },
+    {
+      "id": "chevening/fellowships#0",
+      "org": {
+        "category": "scholarshipFunder",
+        "country": "GB"
+      },
+      "item": {
+        "url": "https://www.chevening.org/fellowship/chevening-europe-defence-and-security-fellowship/",
+        "title": "Chevening Europe Defence and Security Fellowship | Chevening",
+        "text": "Hosted by Cranfield University\n\nOverview\n\nThe Chevening Europe Defence and Security Fellowship is funded by the UK Foreign, Commonwealth and Development Office (FCDO) and delivered by Cranfield University at the Defence Academy of the United Kingdom, Shrivenham. This Fellowship is open to all non-ODA eligible European countries.\nThe fellowship is designed for mid-career professionals from across Europe who have demonstrated leadership potential in security and defence. The programme aims to develop leaders capable of operating effectively within complex and rapidly changing security and defence contexts. It provides an interdisciplinary and applied learning experience that strengthens participants’ understanding of the strategic challenges facing governments, international organisations, and public institutions.\nThrough six weeks of teaching, discussion, practical exercises, site visits, individual research, and collaborative learning, fellows will develop practical insight into leadership, organisational resilience, governance, strategic decision-making, cyber resilience, artificial intelligence, and international collaboration. The programme also creates lasting professional networks across Europe and the UK.\n\nDuration\n\nThe duration of this fellowship is six weeks and there will be two cohorts:\n\n- Cohort 1: 25 January – 5 March 2027\n- Cohort 2: 15 March – 23 April 2027\n\nMore about the programme\n\nReady to take your leadership in security and cyber policy to the next level?\n\nFellows will be encouraged to:\n\n- Critically evaluate contemporary strategic, organisational, and leadership challenges.\n- Analyse how organisational culture, human behaviour, and governance influence institutional effectiveness, resilience, and vulnerability.\n- Assess the opportunities and risks associated with cyber security, artificial intelligence, and emerging technologies.\n- Apply strategic decision-making approaches in situations characterised by uncertainty, competing pressures, and incomplete information.\n- Collaborate effectively across cultural, professional, and national boundaries to develop informed responses to complex organisational and societal challenges.\n\nThe programme is organised around six integrated themes:\n\n- Global Leadership in an Era of Complexity\n- Understanding People, Culture, and Organisations\n- Cyber Resilience and Information Threats\n- Artificial Intelligence, Governance, and Emerging Technology\n- Strategic Decision-Making Under Pressure\n- Building Resilience and Future Leadership\n\nFellows will benefit from lectures, workshops, simulations, practitioner speakers, research activity, UK institutional visits, and opportunities to build enduring international professional networks.\n\nThroughout the programme, fellows will work on a research project addressing a relevant policy, leadership, organisational, or security challenge. They will receive academic support as they develop their work and will present their findings to the FCDO in London at the end of the fellowship.\n\nKeep an eye on our channels to be the first to know when applications open again\n\nStay up to date\n\nEligibility\n\nIn addition to meeting our standard eligibility criteria, you must:\n\n- Be a citizen of and resident in one of the following countries at the point of application: Andorra, Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia, Denmark, Estonia, Finland, France, Germany, Gibraltar, Greece, Holy See, Hungary, Iceland, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, the Netherlands, Norway, Poland, Portugal, Romania, San Marino, Slovakia, Slovenia, Spain, Sweden, or Switzerland.\n\n-\n\nIf you live in a European overseas territory, you may apply through the relevant Chevening award scheme for the European country of which you are a citizen.\n\n- Hold a postgraduate qualification (or equivalent professional training or experience in a relevant field).\n- Have at least five years’ relevant professional experience.\n- Be a mid-career professional with responsibilities for national or international security, and employed within government, public or private sector, academia, defence, security, law enforcement, intelligence, civil protection, resilience, or an international organisation.\n- Be working in a role with the potential to influence organisational capability, policy, strategy, or operational effectiveness within their organisation and/or country.\n- Be able to demonstrate leadership potential and a commitment to applying the knowledge and networks gained through the fellowship within their organisation and/or country on completion of the programme.\n\nFunding and benefits\n\nEach fellowship includes:\n\n- Full programme fees\n\n- Living expenses for the duration of the fellowship, including pre-arranged accommodation close to Oxford\n\n- Return economy airfare\n\nRelevant sectors and professional experience\n\n- Military personnel and civilian defence staff\n- Government officials, diplomats and international relationship managers\n- HR, people and organisational development professionals\n- Leaders and managers in defence and security institutions, and related industries\n- Police, intelligence and emergency planning professionals\n- Cybersecurity, technology and information specialists\n- Energy, infrastructure and supply chain professionals\n- Journalists, researchers and academics working on relevant issues\n- Professionals in international organisations and civil society\n- Local authority staff and their equivalents in other countries\n- Policy makers and policy advisers\n\nThe programme’s focus on leadership, people and organisations, technology, decision-making and resilience means applicants may bring different forms of experience. These examples are illustrative, not exhaustive. The Fellowship welcomes applicants from any field with a connection to defence or security and the ambition to put what they learn into practice.\n\nThe future of cybersecurity won’t be defined by technology alone, but by the people who know how to navigate it.\n\nApplications for the Chevening Western Balkans Cyber Security Fellowship are open until 6 March 2024. University professor Angelina Stanojoska shares her experience on the programme.\n\nChevening Fellow Vivek Yadav exemplifies leadership at the intersection of technology and national security",
+        "meta": {
+          "links": [
+            {
+              "text": "Cranfield University",
+              "href": "https://www.cranfield.ac.uk/"
+            },
+            {
+              "text": "FCDO",
+              "href": "https://www.gov.uk/government/organisations/foreign-commonwealth-development-office/about"
+            },
+            {
+              "text": "Stay up to date",
+              "href": "https://www.chevening.org/"
+            },
+            {
+              "text": "our standard eligibility criteria",
+              "href": "https://www.chevening.org/fellowships/who-can-apply/fellowships-eligibility/"
+            },
+            {
+              "text": "",
+              "href": "https://www.chevening.org/news/cyber-security-skills-that-will-matter-in-the-decade/"
+            },
+            {
+              "text": "",
+              "href": "https://www.chevening.org/news/you-dont-have-to-be-a-tech-person-to-apply-angelina-stanojoska-on-the-chevening-cyber-security-fellowship/"
+            },
+            {
+              "text": "",
+              "href": "https://www.chevening.org/news/from-chevening-fellow-to-cybersecurity-leader/"
+            }
+          ],
+          "lastmod": "2026-10-12T11:05:23+00:00"
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "fellowship",
+        "deadlineKind": "unknown",
+        "locationMode": "onsite"
+      },
+      "note": "Applications closed; cohort dates are not a deadline. Shrivenham, UK."
+    },
+    {
+      "id": "chevening/fellowships#1",
+      "org": {
+        "category": "scholarshipFunder",
+        "country": "GB"
+      },
+      "item": {
+        "url": "https://www.chevening.org/fellowship/lse/",
+        "title": "Chevening LSE Global Impact Fellowship | Chevening",
+        "text": "Hosted by the London School of Economics and Political Science (LSE)\n\nOverview\n\nThe Chevening LSE Global Impact Fellowship is funded by the UK Foreign, Commonwealth and Development Office.\n\nIt’s for mid-career professionals from China who are interested in carrying out research in key thematic areas.\n\nThe programme welcomes applications across all social science disciplines, with a particular emphasis on international relations; public policy and administration; public diplomacy; social, economic, and environmental policy; and development studies.\n\nThe fellowship will take place at the London School of Economics and Political Science (LSE).\n\nDuration\n\nThe duration of this fellowship is three or six.\n\n- Start: October\n- End: December or March (depends on the duration)\n\nMore about the programme\n\nAre you ready to invest in your professional development and collaborate with world-class academics?\n\nThe Chevening LSE Global Impact Fellowship allows three successful applicants to work on a defined research project at LSE.\n\nApplicants are not required to secure an advisor at LSE when applying, but it is helpful if they have someone in mind they would like to work with or engage with during the fellowship.\n\nOnce selected, fellows are expected to identify and secure an advisor, and will be hosted in a department, institute, or centre at LSE in line with their research interests.\n\nDuring their time at LSE, fellows are expected to work on their research and complete a paper, which they will then present at the end of the fellowship. Fellows may also audit relevant lectures (subject to instructor approval) and participate in seminars and discussion groups.\n\nPlease note, all applications must include a research proposal.\n\nKeep an eye on our channels to be the first to know when applications open again\n\nStay up to date\n\nEligibility\n\nIn addition to meeting our standard eligibility criteria, you must:\n\n- Be a citizen of China, currently live in the country, and intend to return to China at the end of the period of study\n\n- Hold a postgraduate (PG) level qualification (or equivalent professional training or experience in a relevant area) at the time of application\n\n- Have at least five years’ work experience prior to applying or be currently enrolled as a PhD candidate (PhD must not be with a UK/EU or USA university)\n\nAdditionally, strong applicants are expected to have:\n\n- An excellent academic track record and a demonstrated interest in the chosen area of research, measured by previous professional development and work-related experience and projects and/or research output, including, but not limited to, journal articles, policy papers, reports, and other forms of publications\n\n- Enthusiasm for engaging with LSE’s intellectual community and contributing to their host department’s academic activities\n\nFunding and benefits\n\nEach fellowship includes:\n\n- Full programme fees\n\n- Living expenses for the duration of the fellowship\n\n- Return economy airfare\n\n- Allowance package for research-related activities\n\nHear from our fellows\n\nYou should apply for this fellowship because it gives you a chance to refresh, recharge, and reset yourself.\n\nYuan Ming\nChevening LSE Fellow",
+        "meta": {
+          "links": [
+            {
+              "text": "LSE",
+              "href": "http://www.lse.ac.uk/"
+            },
+            {
+              "text": "Stay up to date",
+              "href": "https://www.chevening.org/"
+            },
+            {
+              "text": "our standard eligibility criteria",
+              "href": "https://www.chevening.org/fellowships/who-can-apply/fellowships-eligibility/"
+            }
+          ],
+          "lastmod": "2026-10-06T11:00:26+00:00"
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "fellowship",
+        "deadlineKind": "unknown",
+        "locationMode": "onsite"
+      },
+      "note": "Applications closed. At LSE, London."
+    },
+    {
+      "id": "hng/site#0",
+      "org": {
+        "category": "trainingProvider",
+        "country": "NG",
+        "city": "lagos"
+      },
+      "item": {
+        "url": "https://hng.tech/internship",
+        "title": "HNG Internship 15",
+        "text": "Learn to build and grow software products with AI.\n\nLearn how to build, launch and grow real AI-powered products by working on a real product with thousands of ambitious builders in our virtual bootcamp. This is for you if you're looking for practical experience, an impressive portfolio, and the skills modern companies are hiring for.\n\nJoin Waitlist →\n\nOngoing Internship!\n\nBuild with the tools the industry uses\n\nClaudeClaude Code\n\nGeminiGemini Code Assist\n\nCodexOpenAI Codex\n\nCursorCursor Editor\n\nCopilotGitHub CopilotGitHub Copilot\n\nOUR FINALISTS WORK IN GLOBAL COMPANIES, AND EARN AT INTERNATIONAL LEVELS\n\nReady to become an AI Engineer and remain relevant in the world of tech?\n\nDon't be left behind. The industry has changed you have to change too. This is for you if you're into backend, frontend, marketing etc\n\nWe will learn about Plans, Loops, Sub-Agents, Tool-Calling, Skills, Self-Verification, Planning + Executions, Critic, Verifier, Coordinating Agents.\n\nIf you are still using Prompt → Response, you are behind the times already. You should be doing the Agent Loop (Goal → Planner → Workers → Tests → Self Verification).\n\nIn the new HNG, everyone is a beginner. It does not matter if you start as a designer, PM, Coder or Marketer - you have skills needed to build complex and real products with AI. It's time to unlearn and relearn.\n\nUpgrade to Premium Plus\n\nWant More From Your Internship?\n\nThe HNG Internship starts at just ₦9,000. Upgrade to Premium Plus if you'd like additional support throughout your journey.\n\nPremium Plus includes:\n\n- • Foundation classes & Mentor feedback on tasks\n- • Premium Certificate\n- • Career guidance - Portfolio & CV reviews, Mock interviews etc\n- • Exclusive webinars\n- • Extended progression before deactivation\n\nComplete Your Registration\n\nBecome an AI Product Engineer in few weeks\n\nYou will learn how to code with AI, build and ship a real product. AI is changing every industry, and companies need people who know how to build with it. HNG Internship 15 helps you go from learning AI tools to using them confidently to create products, solve real problems, collaborate with teams, and build a portfolio that gets you noticed. Start with the same foundation as everyone else, then grow into the area where you can create the most impact.\n\n3K+\n\nFinalists\n\n1\n\nProduct\n\n21+\n\nCountries\n\nWhy join?\n\nLearn Skills Companies Actually Need\n\nMaster the AI tools, workflows and practical skills used by today's fastest-growing startups and tech teams.\n\nBuild Experience Before You Get the Job\n\nWork on a real product, solve real challenges, and graduate with practical experience you can confidently showcase.\n\nLearn by Building, Not Just Watching\n\nEvery lesson is backed by hands-on tasks, live sessions and mentor guidance that help you apply what you learn immediately.\n\nStand Out From Other Applicants\n\nLeave with a stronger portfolio, practical AI experience and proof that you've worked on products - not just personal projects.\n\nRegistration Closed\n\nHow It works\n\nApply now!\n\nBuild your AI foundation through live classes, workshops and practical tasks\n\nDiscover the product and start contributing with your team\n\nChoose your specialization and work on real product challenges\n\nLaunch, improve and grow the product using AI\n\nGraduate with practical experience and a portfolio you can proudly showcase.\n\nDon't Just Learn AI. Become Someone Who Can Build With It.\n\nThe next generation of opportunities belongs to people who can turn ideas into real products. Join thousands of ambitious builders, gain real-world experience, and become an AI Product Engineer with HNG Internship 15.\n\nFrequently asked Questions!\n\nStill have questions that aren't covered? Contact us today and get the answers you need.",
+        "meta": {
+          "links": [
+            {
+              "text": "Join Waitlist →",
+              "href": "https://hng.tech/checkout/hng-internship"
+            },
+            {
+              "text": "",
+              "href": "https://hng.tech/pay/internship"
+            },
+            {
+              "text": "Registration Closed",
+              "href": "https://hng.tech/checkout/hng-internship"
+            },
+            {
+              "text": "",
+              "href": "https://hng.tech/checkout/hng-internship"
+            },
+            {
+              "text": "",
+              "href": "https://hng.tech/contact-us"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "internship",
+        "deadlineKind": "unknown",
+        "locationMode": "remote"
+      },
+      "note": "\"Registration Closed\", no date. \"virtual bootcamp\"."
+    },
+    {
+      "id": "devpost/hackathons#2",
+      "org": {
+        "category": "hackathonHost",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://paypalaihackathon.devpost.com/",
+        "title": "PayPal AI Hackathon",
+        "text": "Host: PayPal\nStatus: open\nSubmission period: Oct 01 - Nov 12, 2026\nDeadline: Nov 12, 2026 @ 12:00pm PST\nLocation: Online\nPrizes: $67,500 (14 cash, 3 other)\nThemes: Low/No Code, Machine Learning/AI, Web\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nAbout the challenge\n\nPayPal already moves money for millions of people and businesses, every day, all over the world. This hackathon is us opening that platform up and asking what happens when you put AI behind the wheel. New agents, new ways to pay and get paid, tools nobody's built yet. We want to see what you make of it.\n\nAI is changing how people build, buy, sell, work, connect, and move money. Now it's your turn to imagine what comes next.\n\nBuild What's Next with PayPal and AI is a global online hackathon inviting developers, designers, founders, students, and builders to create something new using PayPal and AI.\n\nThere are no prescribed problem statements and no set of tracks. Build an agent, an app, an automation, a new payment experience, a business tool, a social product, or something we haven't thought of yet.\n\nThe only fundamental requirement: your project must meaningfully use both PayPal and AI.\n\nWhy Join?\n\n-\n\nBuild something ambitious — Turn an idea into a working project using PayPal and AI.\n\n-\n\nExplore what’s next — Experiment with new ways people, businesses, and AI agents can interact with money and payments.\n\n-\n\nWin part of $69,750 in total prizes — Compete for overall prizes and special awards across creativity, impact, execution, and more.\n\n-\n\nShow what you can build — Put your project in front of PayPal judges, developers, and the wider hackathon community.\n\n-\n\nLearn by building — Explore PayPal APIs, AI tools, agents, automations, and emerging development workflows.\n\n-\n\nBuild your way — Join individually or as a team, and start something new or meaningfully advance an existing project.\n\nGet started\n\n-\n\nGet a PayPal Developer account (5 minutes)\n\n-\n\nReview example projects and brainstorm your own (30 minutes)\n\nWebinars\n\n-\n\nOct 6th 9am PT - 9:45am PT ~ Start building with PayPal Recording\n\n-\n\nOct 7th 9am PT - 9:30am PT ~ Power Your PayPal Hackathon Project with APIMatic Context Plugins\n\n-\n\nOct 12th 7am PT - 7:45am PT ~ Build a payments dashboard without building a dashboard\n\n-\n\nOct 13th 1am PT - 2am PT ~ Start building with PayPal\n\nRequirements\n\nWhat to Build\n\nBuild or update an application that integrates the PayPal developer platform (using the free sandbox environment) along with an AI tool, model, or platform of your choice.\n\nYou may also use one of our sponsors' tools:\n\n- AG Grid\n- APIMatic\n- Astropods\n- Bryntum\n- Channel3\n- Elastic\n- KERNEL\n- Postman\n- Render\n- Zapier\n\nNote: PayPal will provide access to select AI sponsor tools that you are welcome to use, though using one of these partner tools is not required. Any AI tool works, as long as PayPal integration is central to the project.\n\nYour project should:\n\n- Meaningfully integrate at least one PayPal technology, API, SDK, product, or developer capability\n- Meaningfully incorporate AI into the experience or functionality\n- Demonstrate a working prototype or proof of concept\n- Be sufficiently documented for the judges to understand and evaluate it\n- Comply with the Official Rules\n\nProjects can be built individually or as a team. They can be new or existing projects, as long as you make meaningful progress on the project during the course of the hackathon.\n\nWhat to Submit\n\n-\n\nProject - built with the required developer tools and meeting the Project Requirements above.\n\n-\n\nText description - explain your project's features and functionality.\n\n-\n\nFunctional demo - judges must be able to actually run or interact with a working build. Satisfy this with either:\n\n-\n\nClear, complete setup and run instructions in your code repository, so judges can build and run it themselves, or\n\n-\n\nA hosted demo URL.\n\n-\n\nA design mockup, static prototype, or non-functional demo does not meet this requirement.\n\n- Tools - identify which tools (model or AI service) were used and explain how the tools were used in your project.\n-\n\nPublic code repository on GitHub, Gitlab or Bitbucket.\n\n-\n\nMust contain all source code, assets, and instructions needed to run the project.\n\n-\n\nMust be public and open source, with a license file visible at the top of the repo (in the About section).\n\n-\n\nDemo video\n\n-\n\nUnder 3 minutes (judges aren't required to watch past that).\n\n-\n\nMust show the project functioning on the device it was built for.\n\n-\n\nMust be uploaded to YouTube, publicly visible, with the link on the submission form.\n\n-\n\nMust not include third-party trademarks or copyrighted music/material without permission.\n\nHackathon Sponsors\n\nPrizes\n\n$67,500+ in prizes\n\n+ other prizes\n\n1st Place\n\n$12,000 in cash\n\n1 winner\n\n2nd Place\n\n$8,000 in cash\n\n1 winner\n\n3rd Place\n\n$5,000 in cash\n\n1 winner\n\nMost Creative\n\n$5,000 in cash\n\n1 winner\n\nMost Impactful\n\n$5,000 in cash\n\n1 winner\n\nBest Demo Delivery\n\n$5,000 in cash\n\n1 winner\n\nBest Use of PayPal + AI\n\n$5,000 in cash\n\n1 winner\n\nBest Use of Agentic Commerce\n\n$5,000 in cash\n\n1 winner\n\nBest Use of AG Grid - 1st Place\n\n$5,000 in cash\n\n1 winner\n\nBest Use of AG Grid - 2nd Place\n\n$2,000 in cash\n\n1 winner\n\nBest Use of AG Grid - 3rd Place\n\n$1,000 in cash\n\n3 winners\n\nBest Use of APIMatic\n\n$1,000 in cash\n\n3 winners\n\n6 months of APIMatic business subscription\n\nBest Use of Bryntum\n\n$1,000 in cash\n\n3 winners\n\nBest Use of Channel3\n\n$1,500 in cash\n\n1 winner\n\nBest Use of Render - 1st Place\n\n1 winner\n\n$1,000 Render Credits\n\nBest Use of Render - 2nd Place\n\n1 winner\n\n$750 Render Credits\n\nBest Use of Render - 3rd Place\n\n1 winner\n\n$500 Render Credits\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nJo Franchetti\nDeveloper Advocate - PayPal\n\nEddie Jaoude\nDeveloper Advocate - PayPal\n\nMarco Podien\nDeveloper Advocate - PayPal\n\nKarthik Ravi\nSoftware Engineer - PayPal\n\nHimraj Singh\nEngineering Manager - PayPal\n\nNathaniel Olson\nSenior Product Manager - PayPal\n\nSylwia Vargas\nSenior Technical Community Manager - AG Grid\n\nAmeer Hassan\nCo-Founder - APIMatic\n\nMats Bryntse\nCEO - Bryntum\n\nIgnacio Valdez Bicard\nFounding Engineer - Channel3\n\nCarly Richmond\nSenior Manager, Developer Advocacy - Elastic\n\nPooja Mistry\nSr. Developer Advocate - Postman\n\nShifra Williams\nFounding Developer Relations Engineer - Render\n\nJudging Criteria\n\n- Technological Implementation\nHow thoroughly and skillfully does the project use PayPal Developer Platform and AI tool(s)? Does the project reflect genuine effort and a working, non-trivial implementation?\n- Design\nDoes the project deliver a complete, coherent product experience — not just a technical proof of concept?\n- Potential Impact\nDoes the project make a credible, specific case for solving a real problem for a real audience — and does the solution actually address that problem based on what's demonstrated?\n- Innovation/Idea\nHow creative and novel is the concept and does the project differ from existing concepts?\n- Presentation\nDoes the video clearly demonstrate the project working end-to-end? Does the pitch communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
+        "meta": {
+          "links": [
+            {
+              "text": "PayPal Developer",
+              "href": "https://developer.paypal.com/?utm_source=Devpost&utm_medium=LP&utm_campaign=PayPalAIHackathon"
+            },
+            {
+              "text": "Review example projects",
+              "href": "https://paypalaihackathon.devpost.com/resources"
+            },
+            {
+              "text": "Oct 6th 9am PT - 9:45am PT ~ Start building with PayPal Recording",
+              "href": "https://www.google.com/url?q=https://www.youtube.com/watch?v%3DFFJfCW9z3Do&sa=D&source=docs&ust=1791396304192764&usg=AOvVaw1QmtU6wBI4IolP_DEXnkwB"
+            },
+            {
+              "text": "Oct 7th 9am PT - 9:30am PT ~ Power Your PayPal Hackathon Project with APIMatic Context Plugins",
+              "href": "https://youtu.be/zRWixN68tDg"
+            },
+            {
+              "text": "Oct 12th 7am PT - 7:45am PT ~ Build a payments dashboard without building a dashboard",
+              "href": "https://events.teams.microsoft.com/event/4f91e1d9-eb30-42b9-ac36-e6b0eaefc4ae@fb007914-6020-4374-977e-21bac5f3f4c8"
+            },
+            {
+              "text": "Oct 13th 1am PT - 2am PT ~ Start building with PayPal",
+              "href": "https://events.teams.microsoft.com/event/bad9d43c-0044-41ef-afaf-cbb1fddaef4f@fb007914-6020-4374-977e-21bac5f3f4c8?source=copyLinkLegacyShareLinkDialog"
+            },
+            {
+              "text": "PayPal developer platform",
+              "href": "https://developer.paypal.com/?utm_source=Devpost&utm_medium=LP&utm_campaign=PayPalAIHackathon"
+            },
+            {
+              "text": "AG Grid",
+              "href": "https://paypalaihackathon.devpost.com/details/aggrid"
+            },
+            {
+              "text": "APIMatic",
+              "href": "https://paypalaihackathon.devpost.com/details/apimatic"
+            },
+            {
+              "text": "Astropods",
+              "href": "https://paypalaihackathon.devpost.com/details/astropods"
+            },
+            {
+              "text": "Bryntum",
+              "href": "https://paypalaihackathon.devpost.com/details/bryntum"
+            },
+            {
+              "text": "Channel3",
+              "href": "https://paypalaihackathon.devpost.com/details/channel3"
+            },
+            {
+              "text": "Elastic",
+              "href": "https://paypalaihackathon.devpost.com/details/elastic"
+            },
+            {
+              "text": "KERNEL",
+              "href": "https://paypalaihackathon.devpost.com/details/kernel"
+            },
+            {
+              "text": "Postman",
+              "href": "https://paypalaihackathon.devpost.com/details/postman"
+            },
+            {
+              "text": "Render",
+              "href": "https://paypalaihackathon.devpost.com/details/render"
+            },
+            {
+              "text": "Zapier",
+              "href": "https://paypalaihackathon.devpost.com/details/zapier"
+            },
+            {
+              "text": "Email the hackathon manager",
+              "href": "https://paypalaihackathon.devpost.com/cdn-cgi/l/email-protection#6208030c071622060714120d11164c010d0f"
+            },
+            {
+              "text": "Privacy Policy",
+              "href": "https://policies.google.com/privacy"
+            },
+            {
+              "text": "Terms of Service",
+              "href": "https://policies.google.com/terms"
+            }
+          ],
+          "categories": ["Low/No Code", "Machine Learning/AI", "Web"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "hackathon",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-11-12T20:00:00.000Z",
+        "locationMode": "remote"
+      },
+      "note": "12:00pm PST."
+    },
+    {
+      "id": "devpost/hackathons#4",
+      "org": {
+        "category": "hackathonHost",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://learn-ai-basics.devpost.com/",
+        "title": "Build With AI: Basics",
+        "text": "Host: Devpost\nStatus: open\nSubmission period: Sep 22 - Oct 26, 2026\nDeadline: Oct 26, 2026 @ 5:00pm EDT\nLocation: Online\nPrizes: $2,500 (3 cash, 0 other)\nThemes: Machine Learning/AI, Beginner Friendly, Education\n\nWho can participate\n\n- Ages 18+ only\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nBuild With AI: Basics\n\nBuild a working first draft of an app in an afternoon using AI best practices, with a set of reusable skills in your coding agent. Learn with a live build session, office hours, community, and a $2,500 prize pool, while creating something useful to your work or your life.\n\nAbout the challenge\n\nDevpost has launched a new kind of hackathon: shorter, built around learning, and open to join every month.\n\nHave you ever asked an AI to help you code something, only to watch it repeat a mistake you already fixed, forget a decision you made ten prompts ago, or hand back code that \"works\" but you can't explain? It happens to almost everyone who starts building with AI. Nobody showed you the basics.\n\nThis hackathon does. You'll build a proof of concept: a small app that runs and does one thing end to end. To get there, you'll install the Devpost Learn Skill Pack, step-by-step guides that live inside your coding agent (Claude Code, Codex, Cursor, or any agent that supports skills). The skills interview you about your idea, help you plan it before any code gets written, build it with you, and get it ready to submit. You'll finish with a running app, the plan that got you there, and a habit you can reuse on every project after this one.\n\nWhy join\n\n- Learn to plan before you build, by letting the AI interview you. It's the habit that keeps AI-built projects from turning into a mess.\n- Try skills in your coding agent: reusable, step-by-step guides that work across Claude Code, Codex, Cursor, and others.\n- Get help from real people: a live build session, office hours, and a live project review.\n- Win a share of $2,500. First place takes $1,250 plus a feature in the Devpost newsletter and on Devpost's socials. Everyone who submits an eligible project gets a Devpost Learn badge.\n\nGet started\n\nYou'll need Node.js and Git installed, a coding agent that supports skills, and an empty folder for your project.\n\n- In your empty project folder, run npx skills add challengepost/learn-ai-basics --all -y\n- Open your coding agent in that folder and say \"run 1-start.\" It takes it from there.\n- Join the Devpost Discord for questions, office hours, and other builders' projects.\n- Register for the Live Build Session, Thursday, Oct 1 at 1:00 pm ET, where we run the whole process start to finish. Recorded if you can't make it.\n- RSVP for Cup of Joe office hours: Tuesday, Oct 6 and Tuesday, Oct 13, 3:00 pm ET, in Discord voice. Bring your project and your questions, and get live feedback from Joe and other builders. Just drop in, no Zoom needed.\n- Register for Will It Ship, Thursday, Oct 22 at 3:00 pm ET. A live review of about five submissions against the judging criteria, before the deadline, so you can still act on what you hear. Submit early to the Devpost Discord's Build with AI Basics forum if you want yours in the mix.\n\nStuck? Ask in Discord or come to Cup of Joe office hours (Tuesdays Oct 6 and Oct 13, 3:00 pm ET, Discord voice). Setup help and all event details are on the Resources tab.\n\nWhat to build\n\nA new app, built with the Devpost Learn Skill Pack. The skills will help you find an idea if you don't have one, and cut it down if you have too much of one.\n\nThree requirements, all checked at submission:\n\n- New project, started from an empty folder during the submission period. Old ideas are fine, old code is not.\n- Built with the skills. Run them in your coding agent.\n- Planning docs in the repo. Your public repository must include the scope.md, prd.md, and spec.md files the skills generate.\n\nRequirements\n\nWhat to Submit\n\n- Your project: a short demo video (1 to 3 minutes, a screen recording is fine) and a public GitHub, GitLab, or BitBucket repo URL. Reviewers won't clone or run code, so the video has to show it working.\n- A short description: what it does, who it's for, what you learned.\n\nHackathon Sponsors\n\nPrizes\n\n$2,500 in prizes\n\nFirst Place\n\n$1,250 in cash\n\n1 winner\n\nSecond Place\n\n$750 in cash\n\n1 winner\n\nThird Place\n\n$500 in cash\n\n1 winner\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nDarlyze Calixte\nDeveloper Marketing Manager | Devpost\n\nJoe Holmes\nAI Learning Hackathon Architect | Devpost\n\nMichelle Brain\nHead of Project Management and Customer Success | Devpost\n\nJudging Criteria\n\n- Design\nDoes the project deliver a complete, coherent product experience — not just a technical proof of concept?\n- Innovation/Idea\nHow creative and novel is the concept and does the project differ from existing concepts?\n- Presentation\nDoes the video clearly demonstrate the project working end-to-end? Does the pitch communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
+        "meta": {
+          "links": [
+            {
+              "text": "Devpost Learn Skill Pack",
+              "href": "https://github.com/challengepost/learn-ai-basics"
+            },
+            {
+              "text": "Node.js",
+              "href": "https://nodejs.org/"
+            },
+            {
+              "text": "Git",
+              "href": "https://git-scm.com/"
+            },
+            {
+              "text": "Devpost Discord",
+              "href": "https://discord.gg/a6dupZNNAF"
+            },
+            {
+              "text": "Register for the Live Build Session",
+              "href": "https://us02web.zoom.us/webinar/register/4817900044710/WN_q5wrkaKESfaF99PWy9j4rw"
+            },
+            {
+              "text": "Tuesday, Oct 6",
+              "href": "https://discord.gg/devpost?event=1552340641596579880"
+            },
+            {
+              "text": "Tuesday, Oct 13",
+              "href": "https://discord.gg/devpost?event=1552341115234160702"
+            },
+            {
+              "text": "Register for Will It Ship",
+              "href": "https://us02web.zoom.us/webinar/register/8917900853133/WN_3tidiPZSR3qyJaZdLvuv3Q#/registration"
+            },
+            {
+              "text": "Oct 6",
+              "href": "https://discord.gg/devpost?event=1552340641596579880"
+            },
+            {
+              "text": "Oct 13",
+              "href": "https://discord.gg/devpost?event=1552341115234160702"
+            },
+            {
+              "text": "Email the hackathon manager",
+              "href": "https://learn-ai-basics.devpost.com/cdn-cgi/l/email-protection#ff95979093929a8cbf9b9a898f908c8bd19c9092"
+            },
+            {
+              "text": "Privacy Policy",
+              "href": "https://policies.google.com/privacy"
+            },
+            {
+              "text": "Terms of Service",
+              "href": "https://policies.google.com/terms"
+            }
+          ],
+          "categories": ["Machine Learning/AI", "Beginner Friendly", "Education"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "hackathon",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-10-26T21:00:00.000Z",
+        "locationMode": "remote"
+      },
+      "note": "5:00pm EDT."
+    },
+    {
+      "id": "devpost/hackathons#6",
+      "org": {
+        "category": "hackathonHost",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://multimodal-ai-hackathon-2026-7.devpost.com/",
+        "title": "Multimodal AI Hackathon 2026",
+        "text": "Host: Kamand Prompt, IIT Mandi\nStatus: open\nSubmission period: Sep 29 - Oct 14, 2026\nDeadline: Oct 15, 2026 @ 12:15am IST\nLocation: Online\nPrizes: ₹ 100,000 (8 cash, 0 other)\nThemes: Machine Learning/AI\n\nWho can participate\n\n- Ages 14+ only\n- Students only\n- Companies/professional organizations excluded from participation\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nAbout the challenge\n\nWelcome to the Multimodal AI Hackathon 2026, organized by KamandPrompt, the Programming Club of IIT Mandi, Augli.ai, PurpleRain Tech, and LDV Labs. This nationwide hackathon invites students to work at the intersection of Generative AI, Agentic AI, and real-world problem-solving, applying these emerging technologies to domains where they can create genuine impact.\n\nMultimodal AI systems, ones that can reason across text, images, data, and more, are increasingly capable of tackling problems that were previously out of reach for automated systems. Yet in fields like Space research, BioTech, and Education, this potential remains largely untapped. Building solutions in these domains requires not just technical skill but a genuine understanding of the problems being solved, which is exactly the gap this hackathon is designed to close.\n\nThis hackathon offers participants the opportunity to design and build solutions that could meaningfully improve how problems are approached in Space, BioTech, and Education. Whether it's a tool that accelerates research, an application that improves access to learning, or a system that solves an overlooked operational bottleneck, your work here has the potential to extend well beyond a submission page.\n\nGet started\n\n- Mode: Fully online, nationwide\n\n- Team Size: Solo/Upto 4 members (inter-college teams allowed)\n\n- Duration: 15 days\n\n- Tracks: 4 tracks across Space, BioTech, and Education\n\n- Registration: Free, no fees\n\n- Submissions to be made on devpost\n\n- All further information will be shared in the official Discord community post-registration\n\nPlease note that this hackathon have a well defined set of Problem Statements and Judging criteria and the submissions will be evaluated on the same basis\n\nProblem statements: click here\n\nJoin Discord community: https://discord.gg/UD8EVcdcq\n\nRequirements\n\nSubmisson Requirements will be shared with problem statements.\n\nHackathon Sponsors\n\nPrizes\n\n₹ 100,000 in prizes\n\n1st prize - Track A\n\n₹ 15,000 in cash\n\n1 winner\n\n1st prize - Track B\n\n₹ 15,000 in cash\n\n1 winner\n\n1st prize - Track C\n\n₹ 15,000 in cash\n\n1 winner\n\n1st prize - Track D\n\n₹ 15,000 in cash\n\n1 winner\n\n2nd prize - Track A\n\n₹ 10,000 in cash\n\n1 winner\n\n2nd prize - Track B\n\n₹ 10,000 in cash\n\n1 winner\n\n2nd prize - Track C\n\n₹ 10,000 in cash\n\n1 winner\n\n2nd prize - Track D\n\n₹ 10,000 in cash\n\n1 winner\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nTo be announced\n\nJudging Criteria\n\n- Overalll Judging Criteria\nThe Judging criteria of each and every problem statement can be found in the respective problem statement document\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
+        "meta": {
+          "links": [
+            {
+              "text": "click here",
+              "href": "https://drive.google.com/file/d/1sPrF1CWyJMGk8c3JOwu08_sboeaAE5xc/view?usp=sharing"
+            },
+            {
+              "text": "https://discord.gg/UD8EVcdcq",
+              "href": "https://discord.gg/UD8EVcdcq"
+            },
+            {
+              "text": "",
+              "href": "https://www.augli.ai/"
+            },
+            {
+              "text": "",
+              "href": "https://www.purplerain.tech/"
+            },
+            {
+              "text": "Email the hackathon manager",
+              "href": "https://multimodal-ai-hackathon-2026-7.devpost.com/cdn-cgi/l/email-protection#2555466556515041404b51560b4c4c5148444b414c0b44460b4c4b"
+            },
+            {
+              "text": "Privacy Policy",
+              "href": "https://policies.google.com/privacy"
+            },
+            {
+              "text": "Terms of Service",
+              "href": "https://policies.google.com/terms"
+            }
+          ],
+          "categories": ["Machine Learning/AI"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "hackathon",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-10-14T18:45:00.000Z",
+        "locationMode": "remote"
+      },
+      "note": "12:15am IST on 15 Oct."
+    },
+    {
+      "id": "devpost/hackathons#7",
+      "org": {
+        "category": "hackathonHost",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://gitlab-transcend.devpost.com/",
+        "title": "Life After Code",
+        "text": "Host: GitLab\nStatus: open\nSubmission period: Oct 05 - 27, 2026\nDeadline: Oct 27, 2026 @ 1:00pm UTC\nLocation: Online\nPrizes: $45,000 (9 cash, 0 other)\nThemes: DevOps, Machine Learning/AI, Productivity\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- Specific countries/territories excluded (Brazil, China, Crimea, Cuba, Donetsk People’s Republic, Iran Islamic Republic of, Korea Democratic People's Republic of, Luhansk People’s Republic, Quebec, Russia, Syrian Arab Republic)\n\nCode generation is solved. What happens next is the challenge.\n\nLife After Code is the GitLab Transcend Hackathon. Build agents and flows that take over the rest of the DevSecOps lifecycle: code review, security scanning, testing, compliance, deployment, monitoring, and more. You pick how much control you hand over. Then you show us how far your automation goes.\n\nWhy join?\n\n-\n\nUse agents,flows, triggers, and MCP servers - as many features of the GitLab Duo Agent Platform and see how much of your software development lifecycle you can automate.\n\n-\n\nCompete for $45,000 in cash.\n\n-\n\nGet your work in front of judges from GitLab, Google, and Anthropic.\n\nGet Started\n\n-\n\nRegister for the hackathon here on Devpost\n\n-\n\nStart GitLab Transcend Hackathon contributor onboarding (5 minutes, plus about 24 hours for approval)\n\n-\n\nBuild your first agent with the Duo Agent Platform quickstart (45 minutes)\n\n-\n\nRead the two Paths below and pick yours, then browse the DevSecOps lifecycle stages and plan how many your agents and flows can reach (30 minutes)\n\n-\n\nWatch the Build Session with Missy Davies and Dennis Meister on Oct 9, 10am ET. It’ll be a live walkthrough of GitLab Duo Agent Platform automating what happens after the code is written.\n\nRequirements\n\nWhat to Build\n\nPick one Path. Then build a project that fits one of three levels of autonomy.\n\nEvery project must use GitLab Duo Agent Platform features, such as agents, flows, or MCP clients.\n\n-\n\nPath A: Start Fresh\nBuild a new AI-powered project on GitLab that shows agentic automation of the post-code lifecycle. You create the app, the CI/CD pipeline, and the automation from scratch. Your project must be new work, created for this hackathon. Deployment is optional. Deploy on Google Cloud to be eligible for up to 0.2 bonus points. Existing projects are not allowedd for this track.\n\n-\n\nPath B: Bring Your Own\nTake an existing MIT-licensed open-source project. It can be yours or a fork. Import it to GitLab, build the AI-powered post-code automation around it, and deploy it. You must build the automation and deploy the project on or after October 5th. Deploy anywhere. Deploy on Google Cloud to be eligible for up to 0.2 bonus points. Read the Official Rules for details.\n\nChoose your level of autonomy\n\n-\n\nAssisted: You approve every step. Your agents and flows propose actions and wait for your go-ahead before they proceed. You stay in the loop at every stage.\n\n-\n\nExample: An agent reviews your MR and flags a security vulnerability. It suggests a fix and waits for you to approve before committing. Then it runs the pipeline and waits for you to approve the deployment.\n\n-\n\nSupervised: You approve the outcome, not the individual steps. Your agents execute a multi-step workflow on their own, clearing gates and making decisions along the way. You review the end result, not every individual action.\n\n-\n\nExample: You push code. Agents handle code review, fix a failing pipeline, remediate a security finding, and deploy to staging. You get a summary and approve the production deployment.\n\n-\n\nHands-off: You set the intent and walk away. A full loop from code to production with no human in the middle. You push code or create an issue, and the next time you check in, it's live.\n\n-\n\nExample: You create an issue. Agents review it, create 1+ MRs, run security scans, fix what they find, merge when everything passes, deploy to staging, validate, promote to production, and post a summary on the original issue. You touched nothing.\n\n**The examples above are here to get you thinking. We expect submissions that go well beyond them.\n\nPrizes for every level of autonomy.\n\nCover as many lifecycle stages as you can\n\nThis is the heart of the challenge. Build automation that reaches across GitLab’s DevSecOps lifecycle, not just one corner of it. There are nine stages:\n\nplan · create · verify · package · secure · release · configure · monitor · govern\n\nYou do not have to use every feature inside a stage. Touching the stage counts.\n\nPrizes for the Most Stages Covered\n\nBonus points for deploying on Google Cloud\n\nDeployment is only a requirement for Path B. Deploy anywhere you like. Google Cloud is not required for either Path.\n\nIf you deploy on Google Cloud, your project is eligible for up to 0.2 bonus points. We add these points once, after judges score your project. The highest possible final score is 5.2.\n\nTo be eligible, you must:\n\n-\n\nInclude your Google Cloud deployment code in your public GitLab repository.\n\n-\n\nProvide a link to your live project on Google Cloud. It must be public and available to judges.\n\nSee Resources Tab for how to get started on Google Cloud. Read the Official Rules for details.\n\nWhat to Submit\n\n-\n\nYour project, built with the required technologies.\n\n-\n\nA text description of what your project does, the problem it solves, and how you used GitLab to automate the post-code lifecycle.\n\n-\n\nA public GitLab Project with all source code, assets, and instructions needed to run the project. It must include an MIT License file, visible at the top of the repository page in the About section.\n\n-\n\nVisible CI/CD pipeline history showing your automation running.\n\n-\n\nA demo video under three minutes, uploaded to YouTube and publicly visible. Show your automation running. Do not include third-party trademarks or copyrighted music.\n\nPath B: Bring Your Own also requires:\n\n-\n\nExplain what you added or changed during the Submission Period. The agentic automation and the deployment must be new work, done on or after October 5th.\n\n-\n\nA URL to your deployed project.\n\n-\n\nYour deployed project should stay live until winners are announced on or around November 16th.\n\n-\n\nA URL to the original MIT-licensed open-source project you started from.\n\nIf your project existed before October 5th, use the submission form to explain what you added or changed during the Submission Period. The agentic automation and the deployment must be new work, done on or after October 5th.\n\nOptional: Google Cloud bonus. A link to your live project on Google Cloud. Your deployment code must be in your repository.\n\nOptional: Most Environmentally Impactful prize. To be considered for the Environmentally Impactful Prize, explain how your Project demonstrates exceptional sustainability practices in its design, from model and pipeline optimization to energy-efficient architecture choices. It should quantify the sustainability gain using the latest public measurement methodologies and SCI frameworks.\n\nHackathon Sponsors\n\nPrizes\n\n$45,000 in prizes\n\nPath A: Start Fresh | Best Assisted Agent\n\n$4,000 in cash\n\n1 winner\n\nPath A: Start Fresh | Best Supervised Agent\n\n$4,000 in cash\n\n1 winner\n\nPath A: Start Fresh | Best Hands-off Agent\n\n$5,000 in cash\n\n1 winner\n\nPath B: Bring Your Own | Best Assisted Agent\n\n$4,000 in cash\n\n1 winner\n\nPath B: Bring Your Own | Best Supervised Agent\n\n$4,000 in cash\n\n1 winner\n\nPath B: Bring Your Own | Best Hands-off Agent\n\n$5,000 in cash\n\n1 winner\n\nMost Stages Covered (one from each Path)\n\n$5,000 in cash\n\n2 winners\n\nThe Projects from each Path which touch the most post-code DevSecOps lifecycle stages in the most creative way.\n\nMost Environmentally Impactful (either Path)\n\n$5,000 in cash\n\n1 winner\n\n(Opt-in) To be considered, opt in on the submission form. Explain how your project \"demonstrates exceptional sustainability practices in its design, from model and pipeline optimization to energy-efficient architecture choices. The submission should quantify the sustainability gain using the latest public measurement methodologies and SCI frameworks.\" (SCI means Software Carbon Intensity.)\n\nMost Creative (either Path)\n\n$4,000 in cash\n\n1 winner\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nBill Staples\nCEO | GitLab\n\nMissy Davies\nFullstack Engineer | GitLab\n\nMattias Michaux\nFullstack Engineer | GitLab\n\nDennis Meister\nFull Stack Engineer | GitLab\n\nLee Tickett\nPrincipal Fullstack Engineer | GitLab\n\nRajesh Agadi\nPrincipal Architect | Google\n\nLuca Chun Lun Lit\nApplied AI Engineer\n\nAlan Zhang\nMember of Technical Staff\n\nJackson Dolphin\nCustomer Success\n\nJudging Criteria\n\n- Technological Implementation\nHow thoroughly and skillfully does the project use GitLab to automate the post-code DevSecOps lifecycle? Does the code and pipeline config reflect genuine effort and a working, non-trivial implementation?\n- Design\nDoes the project deliver a complete, coherent end-to-end workflow, not just a technical proof of concept?\n- Potential Impact\nDoes the project make a credible, specific case for solving a real problem for a real audience — and does the solution actually address that problem based on what's demonstrated?\n- Innovation / Idea\nHow creative and novel is the concept and how inventively does it apply agentic automation compared to existing concepts?\n- Presentation\nDoes the video clearly demonstrate the automation running end-to-end? Does it communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
+        "meta": {
+          "links": [
+            {
+              "text": "GitLab Duo Agent Platform",
+              "href": "https://docs.gitlab.com/user/duo_agent_platform/?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=duo_agent_platform_x_x"
+            },
+            {
+              "text": "Start GitLab Transcend Hackathon contributor onboarding",
+              "href": "https://contributors.gitlab.com/transcend-hackathon?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=contributors_x_x"
+            },
+            {
+              "text": "Build your first agent",
+              "href": "https://docs.gitlab.com/user/get_started/get_started_agent_platform/?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=get_started_agent_platform_x_x"
+            },
+            {
+              "text": "DevSecOps lifecycle stages",
+              "href": "https://about.gitlab.com/topics/devops/#the-dev-ops-lifecycle-and-how-dev-ops-works?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=stages-devops-lifecycle_x_x"
+            },
+            {
+              "text": "Watch the Build Session",
+              "href": "https://youtu.be/b8RfR6v7-Ig"
+            },
+            {
+              "text": "agents",
+              "href": "https://docs.gitlab.com/user/duo_agent_platform/agents/"
+            },
+            {
+              "text": "flows",
+              "href": "https://docs.gitlab.com/user/duo_agent_platform/flows/"
+            },
+            {
+              "text": "MCP clients",
+              "href": "https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_clients/"
+            },
+            {
+              "text": "DevSecOps lifecycle",
+              "href": "https://about.gitlab.com/topics/devops/#the-dev-ops-lifecycle-and-how-dev-ops-works?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=stages-devops-lifecycle_x_x"
+            },
+            {
+              "text": "plan",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/plan/"
+            },
+            {
+              "text": "create",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/create/"
+            },
+            {
+              "text": "verify",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/verify/"
+            },
+            {
+              "text": "package",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/package/"
+            },
+            {
+              "text": "secure",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/secure/"
+            },
+            {
+              "text": "release",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/release/"
+            },
+            {
+              "text": "configure",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/configure/"
+            },
+            {
+              "text": "monitor",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/monitor/"
+            },
+            {
+              "text": "govern",
+              "href": "https://about.gitlab.com/stages-devops-lifecycle/govern/"
+            },
+            {
+              "text": "Resources Tab",
+              "href": "https://gitlab-transcend.devpost.com/resources"
+            },
+            {
+              "text": "Official Rules",
+              "href": "https://gitlab-transcend.devpost.com/rules"
+            },
+            {
+              "text": "DevSecOps lifecycle stages",
+              "href": "https://about.gitlab.com/topics/devops/#the-dev-ops-lifecycle-and-how-dev-ops-works"
+            },
+            {
+              "text": "Email the hackathon manager",
+              "href": "https://gitlab-transcend.devpost.com/cdn-cgi/l/email-protection#27544f4650494e67434251574854530944484a"
+            },
+            {
+              "text": "Privacy Policy",
+              "href": "https://policies.google.com/privacy"
+            },
+            {
+              "text": "Terms of Service",
+              "href": "https://policies.google.com/terms"
+            }
+          ],
+          "categories": ["DevOps", "Machine Learning/AI", "Productivity"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "hackathon",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-10-27T13:00:00.000Z",
+        "locationMode": "remote"
+      },
+      "note": "1:00pm UTC."
+    },
+    {
+      "id": "devpost/hackathons#8",
+      "org": {
+        "category": "hackathonHost",
+        "country": "US"
+      },
+      "item": {
+        "url": "https://warriorhacks-2-0.devpost.com/",
+        "title": "WarriorHacks 2.0",
+        "text": "Host: Westwood Computer Science Club\nStatus: open\nSubmission period: Sep 28 - Oct 14, 2026\nDeadline: Oct 13, 2026 @ 11:45pm CDT\nLocation: Online\nPrizes: $0 (0 cash, 8 other)\nThemes: Beginner Friendly, Machine Learning/AI, Open Ended\n\nWho can participate\n\n- Ages 13+ only\n- Students only\n- Companies/professional organizations excluded from participation\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nWho Are We?\n\nWestwood Computer Science Club is located at Westwood High School in Austin, Texas. We've won the Spike App Prediction Competition hosted by Harvard students and generated millions of views on our Instagram reels and posts.\n\nHackathon Tracks\n\nThis hackathon is split into two tracks: hackathon and ideathon.\n\nParticipants who select the hackathon track are required to submit a project involving code related to the hackathon theme.\n\nParticipants who select the ideathon track are not required to submit a project involving code. Instead, you will be tasked with conceptually developing a solution to the given theme.\n\nTheme\n\nCreate a project that solves an issue in your community, county, state, or nation.\n\nQuick Links\n\n- WarriorHacks 2.0 Site\n- Westwood CS Club Discord\n- Westwood CS Club Instagram\n\nRequirements\n\nWhat to Submit\n\nHackathon: Please submit a GitHub repository, a 2-3 minute demo video, and pictures of your project. If your project is a website, we recommend submitting a demo link as well.\n\nIdeathon: Please submit any presentations, flowcharts, Figma designs, or other materials that may be helpful for presenting the project idea, as well as a 2-3 minute presentation video.\n\nREQUIRED FOR BOTH TRACKS: Please fill out the WarriorHacks 2.0 Track Selection Form.\n\nHackathon Sponsors\n\nPrizes\n\n8 non-cash prizes\n\n1st Place - Hackathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n2-year VIP CodeCrafters membership ($720)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n1st Place - Ideathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n2-year VIP CodeCrafters membership ($720)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n2nd Place - Hackathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n1-year VIP CodeCrafters membership ($360)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n2nd Place - Ideathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n1-year VIP CodeCrafters membership ($360)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n3rd Place - Hackathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n6-month VIP CodeCrafters membership ($180)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n3rd Place - Ideathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n6-month VIP CodeCrafters membership ($180)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\nTop Warrior\n\n2 winners\n\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\n\nAll Participants\n\n2,500 winners\n\nAdaption Credits ($500)\nTier II AI Mock Interview Credits with Unlimited Attempts ($45)\n1-year .xyz domain ($15)\n1-month DevSwarm Pro ($8)\n14-day Balsamiq Free Trial\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nPrayash Gyawali\n\nNischal Kotamraju\n\nAditya Bhadra\n\nAarav Karumanchi\n\nLeif Ramirez\n\nLucas Janssen\n\nArun Arunachalam\n\nJudging Criteria\n\n- Impact\nAddresses a meaningful problem; clear audience & value.\n- Feasibility\nTechnically achievable and sustainable.\n- User Experience\nAccessible, intuitive, and user‑friendly.\n- Technical Craft\nArchitecture, code quality, originality, innovation.\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
+        "meta": {
+          "links": [
+            {
+              "text": "WarriorHacks 2.0 Site",
+              "href": "https://warriorhacks.vercel.app/"
+            },
+            {
+              "text": "Westwood CS Club Discord",
+              "href": "https://discord.gg/zNtaTNm58"
+            },
+            {
+              "text": "Westwood CS Club Instagram",
+              "href": "https://www.instagram.com/westwoodcompsciclub/"
+            },
+            {
+              "text": "WarriorHacks 2.0 Track Selection Form",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLScYxGmIowiwkZsbmJwWhoc5kPi2_gbJAgeGBAuoMiNPPD_kbA/viewform?usp=dialog"
+            },
+            {
+              "text": "",
+              "href": "https://artofproblemsolving.com/"
+            },
+            {
+              "text": "Email the hackathon manager",
+              "href": "https://warriorhacks-2-0.devpost.com/cdn-cgi/l/email-protection#b0c7c7d8c3d3dfddc0c5c4d5c2c3d3d9d5ded3d5f0d7ddd1d9dc9ed3dfdd"
+            },
+            {
+              "text": "Privacy Policy",
+              "href": "https://policies.google.com/privacy"
+            },
+            {
+              "text": "Terms of Service",
+              "href": "https://policies.google.com/terms"
+            }
+          ],
+          "categories": ["Beginner Friendly", "Machine Learning/AI", "Open Ended"]
+        }
+      },
+      "expected": {
+        "isOpportunity": true,
+        "kind": "hackathon",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2026-10-14T04:45:00.000Z",
+        "locationMode": "remote"
+      },
+      "note": "11:45pm CDT on 13 Oct."
+    }
+  ]
+}
