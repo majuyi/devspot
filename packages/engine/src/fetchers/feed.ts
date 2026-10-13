@@ -3,6 +3,7 @@ import { parseFeed } from "feedsmith";
 import type { FetchSource } from "../fetch.js";
 import { type HttpClient, HttpStatusError } from "../http.js";
 import { htmlToText, type TextLink } from "./html-text.js";
+import { absoluteHttpUrl, isoDate } from "./util.js";
 
 /** The body was not RSS, Atom, RDF or JSON Feed, or feedsmith could not read it. */
 export class FeedParseError extends Error {
@@ -142,23 +143,6 @@ function permalinkGuid(guid: { value?: string; isPermaLink?: boolean } | undefin
   return guid?.isPermaLink !== false && guid?.value && /^https?:\/\//i.test(guid.value)
     ? guid.value
     : undefined;
-}
-
-function absoluteHttpUrl(link: string | undefined, base: string): string | undefined {
-  if (!link) return undefined;
-  try {
-    const url = new URL(link.trim(), base);
-    return url.protocol === "http:" || url.protocol === "https:" ? url.href : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-/** RFC 822 (RSS) and RFC 3339 (Atom, JSON Feed) both parse with Date; anything else is dropped. */
-function isoDate(value: string | undefined): string | undefined {
-  if (!value) return undefined;
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
 }
 
 function oneLine(text: string): string {

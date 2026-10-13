@@ -19,7 +19,9 @@ describe("golden output", () => {
 
   it("every fetchable source has a fixture", () => {
     // html and api sources join this list as their adapters land in M1.5.
-    const fetchable = sources.filter((s) => s.kind === "feed").map((s) => s.key);
+    const fetchable = sources
+      .filter((s) => s.kind === "feed" || s.kind === "sitemap")
+      .map((s) => s.key);
     expect(fetchable.filter((k) => !recorded.includes(k))).toEqual([]);
   });
 
