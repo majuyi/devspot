@@ -1,0 +1,18 @@
+slug: cchub
+name: Co-creation Hub (CcHUB)
+category: accelerator
+homepageUrl: https://cchub.africa
+description: >
+  Innovation centre in Yaba, Lagos. Announces fellowships, startup programmes, challenges
+  and calls for applications, often run with partners such as the Mastercard Foundation.
+country: NG
+city: lagos
+sources:
+  - name: blog
+    kind: feed
+    url: https://cchub.africa/feed/
+    cadence: unpredictable
+    notes: >
+      WordPress RSS with ETag and Last-Modified. Mostly ecosystem news; calls for
+      applications and expressions of interest arrive among them. robots.txt disallows only
+      /wp-content/uploads/. Verified 2026-10-13.
