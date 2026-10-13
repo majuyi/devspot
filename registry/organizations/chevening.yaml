@@ -1,0 +1,19 @@
+slug: chevening
+name: Chevening
+category: scholarshipFunder
+homepageUrl: https://www.chevening.org
+description: >
+  The UK government's international scholarships and fellowships programme. Scholarships
+  fund a one-year master's in the UK; fellowships are shorter, subject-specific programmes.
+country: GB
+sources:
+  - name: fellowships
+    kind: sitemap
+    url: https://www.chevening.org/wp-sitemap-posts-fellowships-1.xml
+    include: "https://www.chevening.org/fellowship/*/"
+    cadence: annual
+    notes: >
+      WordPress sitemap of the fellowship post type, one page per fellowship, each saying
+      whether applications are open. The site feed carries news, not fellowships. robots.txt
+      allows everything for our agent. Scholarships are one page per country; the Nigeria
+      page is a later html source. Verified 2026-10-13.
