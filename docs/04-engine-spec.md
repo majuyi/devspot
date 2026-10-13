@@ -33,7 +33,7 @@ Dispatch on `Source.kind`:
 |---|---|---|
 | `feed` | `fetchers/feed.ts`: GET with conditional headers (`If-None-Match`, `If-Modified-Since` from `Source.etag` and `Source.lastModified`), parse with feedsmith, map entries | feed entry, text = entry content or summary, stripped of HTML |
 | `sitemap` | `fetchers/sitemap.ts`: GET sitemap or sitemap index, keep URLs matching the source's `include` glob, diff against known `RawItem.canonicalUrl`, fetch only new URLs, extract readable text with a Readability-style extractor | new URL |
-| `html` | `fetchers/html.ts` loads `adapters/<adapter>.ts` and calls `adapter.fetch(source, http)` | whatever the adapter returns |
+| `html` | `fetchers/html.ts` looks up `Source.adapter` in `adapters/index.ts` and calls `adapter.fetch(source, http)` | whatever the adapter returns |
 | `api` | same as `html` with a JSON-speaking adapter | same |
 | `manual` | no-op; items arrive through `/admin/new` (M2.10) or `/submit` (M4.3) | never |
 
@@ -101,6 +101,16 @@ Rules for adapters: return every currently listed item, do not filter by date, d
 extract structure beyond `title`, `text`, `publishedAt` and `meta`, do not import `db`, do
 not call the LLM. One file per organization. A recorded fixture is part of the definition of
 done.
+
+Built in M1.5. Each adapter is listed in `adapters/index.ts`, a static map, so a missing
+import fails the build rather than a run. `fetchers/html.ts` checks every returned item
+against `RawItemInput` and throws `AdapterOutputInvalid` naming the item and field; a
+registry `adapter` with no entry throws `AdapterNotFound`. An adapter that cannot find what
+it reads (no container, a changed API shape) throws `AdapterLayoutChanged` rather than
+returning nothing, so `/status` shows a broken source instead of a quiet one. When the
+listing gives more than a title, `text` is built from its fields; fields that change every
+day (time left, registration counts) stay out of `text` so the content hash moves only when
+the opportunity does.
 
 ### Stage 2 · Dedupe
 
@@ -197,8 +207,9 @@ Copied from CLIST's design.
 - Fixture size: keep bodies under 300 KB each; truncate HTML after the relevant container in
   the adapter's `fetch` before recording where possible.
 - Every `Source` with kind `feed`, `sitemap`, `html` or `api` must have a fixture; a test
-  enumerates the registry and fails for any missing one (lands with the adapter loader in
-  M1.5, once every kind has a fetcher to record with).
+  enumerates the registry and fails for any missing one, and for any adapter in
+  `adapters/index.ts` without one. Sources whose adapter is not written yet are named in
+  that test, so the list only shrinks on purpose.
 
 ## 4. Scheduling (GitHub Actions)
 
