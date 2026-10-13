@@ -49,7 +49,7 @@ cp .env.example .env            # if 5432 is taken, set DB_PORT=5433 and use 543
 docker compose up -d db
 pnpm db:migrate
 pnpm db:sync-registry
-pnpm test                        # runs with the network disabled
+pnpm test                        # network disabled; database tests use .env and skip without it
 pnpm dev                         # web app on http://localhost:3000 (from M2)
 ```
 

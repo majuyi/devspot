@@ -71,7 +71,7 @@ the Actions job.
 - [x] **M1.5 Adapter loader and two adapters.** `src/adapter.ts` contract, `fetchers/html.ts`,
   adapters for `hng` and one more org without a feed, with fixtures. Check: enumeration test
   fails if an adapter has no fixture.
-- [ ] **M1.6 Dedupe.** URL canonicalization, content hash, `RawItem` upsert semantics. Spec:
+- [x] **M1.6 Dedupe.** URL canonicalization, content hash, `RawItem` upsert semantics. Spec:
   `04` §1 stage 2. Check: table tests for canonicalization; upsert behaviour tests against
   the Docker database.
 - [ ] **M1.7 Rules extractor.** `extract/rules.ts` per `05` §1 with table-driven tests (10+

@@ -9,6 +9,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@devspot/db": "workspace:*",
     "@devspot/schema": "workspace:*",
     "@mozilla/readability": "0.6.0",
     "cheerio": "1.2.0",
