@@ -91,7 +91,8 @@ for (const org of organizations) {
         adapter: s.adapter,
         cadence: s.cadence,
         enabled: s.enabled,
-        notes: s.include ? JSON.stringify({ include: s.include, notes: s.notes }) : s.notes,
+        include: s.include,
+        notes: s.notes,
       },
       update: {
         kind: s.kind,
@@ -99,7 +100,8 @@ for (const org of organizations) {
         adapter: s.adapter,
         cadence: s.cadence,
         enabled: s.enabled,
-        notes: s.include ? JSON.stringify({ include: s.include, notes: s.notes }) : s.notes,
+        include: s.include ?? null,
+        notes: s.notes ?? null,
       },
     });
     sources++;

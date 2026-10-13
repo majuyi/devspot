@@ -31,7 +31,7 @@ Dispatch on `Source.kind`:
 
 | kind | Implementation | Produces one RawItemInput per |
 |---|---|---|
-| `feed` | `fetchers/feed.ts`: GET with conditional headers (`If-None-Match`, `If-Modified-Since` stored in `Source.notes` JSON), parse with feedsmith, map entries | feed entry, text = entry content or summary, stripped of HTML |
+| `feed` | `fetchers/feed.ts`: GET with conditional headers (`If-None-Match`, `If-Modified-Since` from `Source.etag` and `Source.lastModified`), parse with feedsmith, map entries | feed entry, text = entry content or summary, stripped of HTML |
 | `sitemap` | `fetchers/sitemap.ts`: GET sitemap or sitemap index, keep URLs matching the source's `include` glob, diff against known `RawItem.canonicalUrl`, fetch only new URLs, extract readable text with a Readability-style extractor | new URL |
 | `html` | `fetchers/html.ts` loads `adapters/<adapter>.ts` and calls `adapter.fetch(source, http)` | whatever the adapter returns |
 | `api` | same as `html` with a JSON-speaking adapter | same |
