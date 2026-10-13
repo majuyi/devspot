@@ -148,12 +148,22 @@ Static content pages. `/api` embeds the OpenAPI document with a lightweight rend
 
 - `/admin/login`: token form; sets the signed cookie.
 - `/admin`: review queue. Tabs: Opportunities in review (sorted by confidence asc), Submissions
-  (new), Duplicates suggested (pairs sharing an `identityKey`), Sources erroring.
+  (new), Duplicates suggested (pairs sharing an `identityKey`), Sources erroring, and All
+  (every opportunity in any status, searchable by title, organization and URL, so a published
+  item can be found and corrected).
+- `/admin/new`: create an opportunity by hand, for `manual` sources and anything the engine
+  missed. The same form as the review item view, without the source-text pane; the
+  organization is chosen from the registry. Before saving, an existing row with the same
+  `canonicalUrl` or `identityKey` is shown and the action becomes "Open existing". A deadline
+  is entered only as the organization's page states it; the field defaults to `unknown`. The
+  row gets `discoveredVia = manual`, `extractionMethod = manual`, `confidence = 1`,
+  `rawItemId = null`, and `reviewedAt`; Publish and Save without publishing work as below.
 - Review item view: left, the source text (`RawItem.text`) with highlights for matched dates
   and location words; right, an editable form of every `Opportunity` field with its
   confidence. Actions: Publish, Reject (with reason), Mark duplicate of (search), Save
   without publishing. Publishing sets `reviewedAt`, `publishedAt`, `extractionMethod = manual`
-  when any field was edited.
+  when any field was edited. On a published item, Publish reads "Save changes" and Reject
+  reads "Unpublish" (back to `review`).
 - Every action is a server action guarded by the admin middleware and logged to the console
   in JSON (Vercel logs are the audit trail in v1).
 
@@ -190,3 +200,5 @@ Specified in `docs/06-api-spec.md`. In short: `GET /api/v1/opportunities`,
 - [ ] Sharing an opportunity URL on WhatsApp shows the generated image, title and deadline.
 - [ ] Grep of `apps/web` for "eligible" finds only the verbatim-requirements heading.
 - [ ] `/admin` is inaccessible without the cookie, including `/api/admin/*`.
+- [ ] An opportunity created at `/admin/new` for a `manual` source publishes and appears on `/` and `/org/[slug]`; a second one with the same `canonicalUrl` is refused with a link to the first.
+- [ ] A published opportunity can be found from the All tab and its deadline corrected.

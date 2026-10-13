@@ -17,3 +17,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - M1.2: fixture record and replay. `pnpm engine record` and `pnpm engine replay [--update]` (sources read from the registry YAML); credential scrubbing that refuses bodies with secrets; `UnexpectedNetworkAccess` and a global no-network dispatcher in engine tests; root `engine` script no longer passes a literal `--`.
 - Fix: `pnpm check` (and so CI) now runs Biome. It called `turbo run lint`, which ran nothing because no package has a `lint` script. `.claude/settings.local.json` is git-ignored.
 - Registry: AfriLabs (Abuja), blog feed. Verified 2026-10-13.
+- Spec: `/admin/new` for hand-entered opportunities (manual sources had no way in before `/submit` in M4) and an All tab in `/admin`, so published items can be found and corrected (the runbook relied on it). M2.10 check updated.
