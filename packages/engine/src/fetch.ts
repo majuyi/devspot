@@ -1,5 +1,6 @@
 import type { FetchResult, SourceKind, Validators } from "@devspot/schema";
 import { fetchFeed } from "./fetchers/feed.js";
+import { fetchWithAdapter } from "./fetchers/html.js";
 import { fetchSitemap } from "./fetchers/sitemap.js";
 import type { HttpClient } from "./http.js";
 
@@ -19,13 +20,6 @@ export type FetchSource = {
 
 export type FetchFn = (source: FetchSource, http: HttpClient) => Promise<FetchResult>;
 
-export class FetcherNotImplemented extends Error {
-  override readonly name = "FetcherNotImplemented";
-  constructor(readonly kind: SourceKind) {
-    super(`no fetcher for kind "${kind}" yet (html and api M1.5)`);
-  }
-}
-
 /** Stage 1 (docs/04 §1): dispatch on kind. Manual sources produce nothing by design. */
 export const fetchSource: FetchFn = async (source, http) => {
   switch (source.kind) {
@@ -35,7 +29,8 @@ export const fetchSource: FetchFn = async (source, http) => {
       return fetchFeed(source, http);
     case "sitemap":
       return fetchSitemap(source, http);
-    default:
-      throw new FetcherNotImplemented(source.kind);
+    case "html":
+    case "api":
+      return fetchWithAdapter(source, http);
   }
 };

@@ -1,5 +1,6 @@
 import { readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { ADAPTERS } from "../src/adapters/index.js";
 import { fetchSource } from "../src/fetch.js";
 import { FIXTURES_DIR } from "../src/fixtures/fixture.js";
 import { replaySource } from "../src/fixtures/replay.js";
@@ -18,11 +19,29 @@ describe("golden output", () => {
   });
 
   it("every fetchable source has a fixture", () => {
-    // html and api sources join this list as their adapters land in M1.5.
     const fetchable = sources
-      .filter((s) => s.kind === "feed" || s.kind === "sitemap")
+      .filter((s) => s.kind !== "manual" && (!s.adapter || ADAPTERS.has(s.adapter)))
       .map((s) => s.key);
     expect(fetchable.filter((k) => !recorded.includes(k))).toEqual([]);
+  });
+
+  it("every adapter is used by a source that has a fixture", () => {
+    const covered = new Set(
+      sources.filter((s) => s.adapter && recorded.includes(s.key)).map((s) => s.adapter),
+    );
+    expect([...ADAPTERS.keys()].filter((k) => !covered.has(k))).toEqual([]);
+  });
+
+  it("only the known adapters are still unwritten", () => {
+    // Registry sources whose adapter does not exist yet; they fail at run time with
+    // AdapterNotFound. Remove a name here when its adapter and fixture land.
+    const unwritten = sources.filter((s) => s.adapter && !ADAPTERS.has(s.adapter));
+    expect(unwritten.map((s) => s.adapter).sort()).toEqual([
+      "bamboohr",
+      "bevy",
+      "mlh",
+      "outreachy",
+    ]);
   });
 
   it.each(recorded)("%s replays to expected.json", async (key) => {

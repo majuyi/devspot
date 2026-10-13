@@ -13,7 +13,9 @@ not extract structure, do not import `@devspot/db`, do not call any LLM.
    the container that lists items and the per-item link. Prefer stable hooks: `<article>`,
    `[data-*]`, semantic headings. Avoid utility class names.
 2. Create `packages/engine/src/adapters/<slug>.ts` exporting a default `Adapter` with
-   `key: "<slug>"`. Use `cheerio`. Resolve relative URLs against `source.url`. Produce
+   `key: "<slug>"`, and add it to the map in `src/adapters/index.ts`. Throw
+   `AdapterLayoutChanged` when the container or API shape is missing; never return `[]`
+   for a page you could not read. Use `cheerio`. Resolve relative URLs against `source.url`. Produce
    `text` from the item's own detail page when the list only has titles (one extra request per
    new item is fine; the HTTP client rate-limits).
 3. Record the fixture: `pnpm engine record --source <org>/<name>`. Confirm with the user
@@ -21,6 +23,7 @@ not extract structure, do not import `@devspot/db`, do not call any LLM.
    are titles clean, is text readable?
 4. Add a test in `packages/engine/test/adapters/<slug>.test.ts` that replays the fixture and
    asserts item count and one known title.
-5. Run `pnpm --filter @devspot/engine test`. The enumeration test must pass.
+5. Run `pnpm --filter @devspot/engine test`. The enumeration test must pass; if the
+   adapter was in its "not yet written" list, remove it there.
 6. When fixing an existing adapter: run `pnpm engine replay --source <key>` first, read the
    diff, change the selector, re-record, and explain in the PR what changed on the site.

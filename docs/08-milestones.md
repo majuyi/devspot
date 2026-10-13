@@ -68,7 +68,7 @@ the Actions job.
   Spec: `04` §1. Check: fixtures for three real feeds (record them), golden output tests.
 - [x] **M1.4 Sitemap fetcher.** Sitemap and index parsing, `include` glob, readable-text
   extraction. Check: fixture for one real sitemap source.
-- [ ] **M1.5 Adapter loader and two adapters.** `src/adapter.ts` contract, `fetchers/html.ts`,
+- [x] **M1.5 Adapter loader and two adapters.** `src/adapter.ts` contract, `fetchers/html.ts`,
   adapters for `hng` and one more org without a feed, with fixtures. Check: enumeration test
   fails if an adapter has no fixture.
 - [ ] **M1.6 Dedupe.** URL canonicalization, content hash, `RawItem` upsert semantics. Spec:
