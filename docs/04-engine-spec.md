@@ -122,6 +122,19 @@ the opportunity does.
   `lastSeenAt`, `seenCount`; different hash → update text and hash and mark changed.
 - Output: new and changed items only. Unchanged items cost nothing downstream.
 
+Built in M1.6: `src/dedupe.ts` (pure: `canonicalizeUrl`, `normalizeText`, `contentHash`) and
+`src/raw-items.ts` (`upsertRawItems(db, sourceId, items)`, one transaction per batch).
+Tracking parameters are matched case-insensitively (`utm_*`, `fbclid`, `ref`; not
+`referrer`), and the rest of the query is kept byte for byte, order included. Items in one
+batch that share a canonical URL collapse to the first. "Last updated" means the labels
+*last updated*, *last modified*, *last reviewed*, *updated on* and *page updated* followed
+by a date within 30 characters; a deadline sentence is never touched. On a changed hash,
+title, text, meta and `publishedAt` are all replaced; on the same hash, none of them are,
+even if the title moved. The result is `{ found, fresh: [{ status, rawItem }], unchanged }`,
+which M1.10 turns into `FetchRun.nFound`, `nNew` and `nChanged`. The sitemap fetcher
+canonicalizes sitemap URLs before checking them against `knownUrls`, which hold canonical
+URLs.
+
 ### Stage 3 · Extract
 
 See `docs/05-extraction-spec.md`. Rules always run. LLM runs when `EXTRACTION_LLM=1` and the

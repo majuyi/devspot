@@ -54,6 +54,9 @@ importers:
 
   packages/engine:
     dependencies:
+      '@devspot/db':
+        specifier: workspace:*
+        version: link:../db
       '@devspot/schema':
         specifier: workspace:*
         version: link:../schema

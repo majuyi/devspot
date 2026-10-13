@@ -91,7 +91,8 @@ describe("fetchSitemap", () => {
     pool.intercept({ path: "/programme/new/" }).reply(200, page("New Fellowship", article("New.")));
     pool.intercept({ path: "/programme/old/" }).reply(200, page("Old Fellowship", article("Old.")));
     const result = await fetchSitemap(
-      { ...source, knownUrls: new Set([`${ORIGIN}/programme/known/`]) },
+      // knownUrls hold RawItem.canonicalUrl, so no trailing slash.
+      { ...source, knownUrls: new Set([`${ORIGIN}/programme/known`]) },
       http(),
     );
     expect(result.error).toBeUndefined();

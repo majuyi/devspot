@@ -1,5 +1,6 @@
 import type { FetchResult, RawItemInput } from "@devspot/schema";
 import { load } from "cheerio";
+import { canonicalizeUrl } from "../dedupe.js";
 import type { FetchSource } from "../fetch.js";
 import { type HttpClient, HttpStatusError, RobotsDisallowed } from "../http.js";
 import { globToRegExp } from "./glob.js";
@@ -44,7 +45,7 @@ export async function fetchSitemap(source: FetchSource, http: HttpClient): Promi
 
   const listed = await listUrls(source.url, http);
   const fresh = dedupeByUrl(listed)
-    .filter((l) => include.test(l.url) && !known.has(l.url))
+    .filter((l) => include.test(l.url) && !known.has(canonicalizeUrl(l.url)))
     .sort(newestFirst)
     .slice(0, SITEMAP_PAGE_LIMIT);
 
