@@ -130,7 +130,12 @@ model Source {
   adapter        String?    // module name under packages/engine/src/adapters, html/api only
   cadence        Cadence    @default(unpredictable)
   enabled        Boolean    @default(true)
-  notes          String?
+  include        String?    // sitemap URL glob, from the YAML
+  notes          String?    // human notes, from the YAML
+
+  // HTTP validators from the last 200, written by the engine for the next conditional GET
+  etag           String?
+  lastModified   String?    // the Last-Modified header, verbatim
 
   // health, updated by the engine after every run
   lastRunAt            DateTime?
