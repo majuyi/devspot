@@ -15,7 +15,7 @@ Types come from `@devspot/schema`. Each stage is a function in its own file with
 sources: Source[]
    │
    ▼  fetch(source, http): Promise<FetchResult>        // stage 1
-   │     FetchResult = { items: RawItemInput[], httpStatus?: number, error?: string }
+   │     FetchResult = { items: RawItemInput[], httpStatus?: number, validators?: Validators, error?: string }
    ▼  dedupe(source, items, db): Promise<DedupeResult> // stage 2
    │     DedupeResult = { newItems: RawItem[], changedItems: RawItem[], unchanged: number }
    ▼  extract(rawItem, org, opts): Promise<OpportunityDraft>   // stage 3 (rules, then optional llm)
@@ -48,6 +48,25 @@ are followed (5 hops) with `robots.txt` checked on every hop. A disallowed path 
 `RobotsDisallowed` and the run records it. `get` returns any status, so the feed fetcher can
 read a 304; `text` and `json` throw `HttpStatusError` on non-2xx and `HttpRequestFailed` when
 retries run out.
+
+The feed fetcher (built in M1.3) takes the source's last `validators` (`etag`, `lastModified`)
+and sends them as `If-None-Match` and `If-Modified-Since`. A 304 returns no items, the same
+validators and `httpStatus: 304`; a 200 returns the response's validators for the caller to
+store. feedsmith 2.x reads RSS 2.0, Atom, RDF and JSON Feed. Per entry:
+
+- `url`: the entry's link (Atom: the `alternate` link), else an RSS `guid` or Atom `id`
+  that is itself an absolute http(s) URL. Entries without one are dropped.
+- `text`: `content:encoded`, Atom `content` or JSON `content_html`, falling back to the
+  summary or description, then the title. HTML becomes plain text with one blank line
+  between blocks (paragraphs, headings), list items as `- ` lines and `<br>` as a newline,
+  because the rules extractor reads "first paragraph" and "the block under a Requirements
+  heading" from that structure. Scripts, styles and images are dropped. WordPress's "The
+  post … appeared first on …" trailer is removed.
+- `meta.links`: `{ text, href }` for every link in the content, resolved and deduplicated,
+  for the `applyUrl` rule (`05` §2). A textless link that wraps only an image is dropped.
+  `meta.categories`: the entry's categories or tags.
+- `publishedAt`: `pubDate`, Atom `published` (else `updated`) or JSON `date_published`, as
+  ISO 8601 UTC; an unparseable date is left out rather than guessed.
 
 ### Adapter contract
 

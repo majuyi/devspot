@@ -88,7 +88,7 @@ export async function replaySource(options: {
   // Replay is instant: no rate limit and no backoff waits, the responses are already here.
   const http = new HttpClient({ dispatcher, minIntervalMs: 0, sleep: async () => {} });
   try {
-    const items = await options.fetch(options.source, http);
+    const { items } = await options.fetch(options.source, http);
     const actual: ExpectedFixture = { sourceKey: options.source.key, items };
     const want = `${JSON.stringify(readExpected(dir), null, 2)}\n`;
     const got = `${JSON.stringify(actual, null, 2)}\n`;

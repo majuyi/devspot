@@ -19,3 +19,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - Registry: AfriLabs (Abuja), blog feed. Verified 2026-10-13.
 - Spec: `/admin/new` for hand-entered opportunities (manual sources had no way in before `/submit` in M4) and an All tab in `/admin`, so published items can be found and corrected (the runbook relied on it). M2.10 check updated.
 - Registry: CcHUB (Lagos), blog feed. Verified 2026-10-13.
+- M1.3: feed fetcher (feedsmith 2.9.6 for RSS, Atom, RDF and JSON Feed) with conditional GET (`validators` in and out of `FetchResult`; 304 means no items); HTML to text that keeps paragraph breaks and lists, links in `meta.links`. `FetchFn` returns `FetchResult` as `04` §1 says. Fixtures and golden output for gsoc, afrilabs and cchub; a golden test replays every fixture and fails when a feed source has none.
