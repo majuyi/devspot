@@ -45,6 +45,7 @@ worker, no websocket, no background service. When that stops being true, write a
 | HTTP (engine) | undici | 8.x | Node's own fetch implementation with `MockAgent`, which is the record/replay seam |
 | Feeds | feedsmith | 2.x | RSS 2.0, Atom, JSON Feed with typed output; falls back to rss-parser only if a feed breaks it |
 | HTML | cheerio | 1.x | jQuery-style selection for adapter modules |
+| Readable text | @mozilla/readability, linkedom | 0.6, 0.18 | Firefox Reader View's content picker for sitemap pages on templates we have never seen; linkedom is the light DOM it runs on (no jsdom) |
 | Map | MapLibre GL + OpenFreeMap tiles | 6.x | Free vector tiles, no API key, no usage cap, permissive terms |
 | LLM | `@anthropic-ai/sdk` | 0.126+ | Structured outputs via `client.messages.parse` with a Zod schema; model `claude-opus-5` |
 | Tests | Vitest | 5.x | Workspace-aware, fast, one runner for all packages |

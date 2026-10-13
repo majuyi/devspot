@@ -66,7 +66,7 @@ the Actions job.
   containing `Bearer abc` is refused.
 - [x] **M1.3 Feed fetcher.** feedsmith-based, conditional headers, HTML stripping to text.
   Spec: `04` §1. Check: fixtures for three real feeds (record them), golden output tests.
-- [ ] **M1.4 Sitemap fetcher.** Sitemap and index parsing, `include` glob, readable-text
+- [x] **M1.4 Sitemap fetcher.** Sitemap and index parsing, `include` glob, readable-text
   extraction. Check: fixture for one real sitemap source.
 - [ ] **M1.5 Adapter loader and two adapters.** `src/adapter.ts` contract, `fetchers/html.ts`,
   adapters for `hng` and one more org without a feed, with fixtures. Check: enumeration test

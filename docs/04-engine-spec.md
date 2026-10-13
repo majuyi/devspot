@@ -68,6 +68,18 @@ store. feedsmith 2.x reads RSS 2.0, Atom, RDF and JSON Feed. Per entry:
 - `publishedAt`: `pubDate`, Atom `published` (else `updated`) or JSON `date_published`, as
   ISO 8601 UTC; an unparseable date is left out rather than guessed.
 
+The sitemap fetcher (built in M1.4) reads a `<urlset>`, or a `<sitemapindex>` one level
+down (at most 10 children; point the source at the child sitemap when an index is bigger).
+It keeps URLs that match the source's `include` glob, matched against the whole URL (`*`
+stays within a path segment, `**` crosses segments, `?` is one character), and drops those
+in `knownUrls`, which the caller loads from the source's `RawItem.canonicalUrl` because
+fetchers never read the database. It fetches the 20 newest by `<lastmod>`; the rest wait for
+the next run. Each page goes through Readability (navigation, footers and asides removed
+first; the whole body if Readability finds no article) and then the same HTML-to-text as
+feeds, so `text` and `meta.links` have one shape. `meta.lastmod` keeps the sitemap date;
+`publishedAt` is set only from the page's own published-time metadata. A page that returns
+an HTTP error or that `robots.txt` disallows is skipped and named in `FetchResult.error`.
+
 ### Adapter contract
 
 ```ts
