@@ -16,3 +16,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - M1.1: `@devspot/engine` package with `HttpClient`: per-host rate limit (Crawl-delay honoured), 20s timeout, retries with jitter on 5xx and network errors, robots.txt cache with RFC 9309 status handling, redirects checked hop by hop, typed errors.
 - M1.2: fixture record and replay. `pnpm engine record` and `pnpm engine replay [--update]` (sources read from the registry YAML); credential scrubbing that refuses bodies with secrets; `UnexpectedNetworkAccess` and a global no-network dispatcher in engine tests; root `engine` script no longer passes a literal `--`.
 - Fix: `pnpm check` (and so CI) now runs Biome. It called `turbo run lint`, which ran nothing because no package has a `lint` script. `.claude/settings.local.json` is git-ignored.
+- Registry: AfriLabs (Abuja), blog feed. Verified 2026-10-13.

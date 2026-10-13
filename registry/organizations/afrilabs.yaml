@@ -1,0 +1,18 @@
+slug: afrilabs
+name: AfriLabs
+category: community
+homepageUrl: https://www.afrilabs.com
+description: >
+  Pan-African network of innovation hubs, headquartered in Abuja. Announces innovation
+  challenges, startup programmes and calls for applications run with partners.
+country: NG
+city: abuja
+sources:
+  - name: blog
+    kind: feed
+    url: https://www.afrilabs.com/feed/
+    cadence: unpredictable
+    notes: >
+      WordPress RSS with ETag and Last-Modified. Mostly press releases and articles; calls
+      for applications (for example the NASENI InnovateNaija challenge) arrive among them.
+      robots.txt allows everything. The bare domain redirects here. Verified 2026-10-13.
