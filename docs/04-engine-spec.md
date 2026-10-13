@@ -112,6 +112,12 @@ listing gives more than a title, `text` is built from its fields; fields that ch
 day (time left, registration counts) stay out of `text` so the content hash moves only when
 the opportunity does.
 
+An adapter that needs a request per item does what the sitemap fetcher does: it skips
+`knownUrls` and fetches a capped number of new items per run. The devpost adapter lists open
+and upcoming online hackathons, then opens at most 10 new ones for the deadline line (with
+its time zone) and "Who can participate", country exclusions spelled out from the tooltip or
+the modal that holds them.
+
 ### Stage 2 · Dedupe
 
 - Canonicalize URL: lowercase host, strip `utm_*`, `fbclid`, `ref`, trailing slash, fragment;

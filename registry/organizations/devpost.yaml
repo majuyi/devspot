@@ -12,4 +12,7 @@ sources:
     url: https://devpost.com/api/hackathons
     adapter: devpost
     cadence: rolling
-    notes: Public JSON behind devpost.com/hackathons; robots.txt allows it. Verified 2026-10-09.
+    notes: >
+      Public JSON behind devpost.com/hackathons; robots.txt allows it. Online hackathons only.
+      Each new hackathon's own page gives the deadline and "Who can participate"; those pages
+      answer 403 unless the request sends `Accept: */*`. Verified 2026-10-13.

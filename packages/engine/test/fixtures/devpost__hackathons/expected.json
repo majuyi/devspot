@@ -4,8 +4,54 @@
     {
       "url": "https://amazonappdev2026.devpost.com/",
       "title": "Build, Ship, Shape: Amazon Developer Hackathon",
-      "text": "Host: Amazon\nStatus: open\nSubmission period: Aug 31 - Oct 23, 2026\nLocation: Online\nPrizes: $138,000 (1 cash, 0 other)\nThemes: Machine Learning/AI, Open Ended, Productivity",
+      "text": "Host: Amazon\nStatus: open\nSubmission period: Aug 31 - Oct 23, 2026\nDeadline: Oct 23, 2026 @ 12:00pm PDT\nLocation: Online\nPrizes: $138,000 (1 cash, 0 other)\nThemes: Machine Learning/AI, Open Ended, Productivity\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nWelcome to the Amazon Developer Hackathon\n\nFor the first time, Fire TV, Alexa+, Ring, and Bee are all part of one global hackathon. Build for one product or use several to connect the living room, the front door, and the cloud. Get started now with our SDKs, simulators, and sample code.\n\nNew to building for Amazon devices and services? We'll help you get from idea to submission with documentation and live office hours. Use our AI tools to prototype and troubleshoot along the way.\n\nChoose a track and show off what you build! 🚀\n\nWhy join?\n\n-\n\nBe part of the first hackathon where Fire TV, Alexa+, Ring, and Bee are all open to outside developers at once\n\n-\n\nYour product feedback goes directly to the teams building Fire TV, Alexa+, Ring, and Bee\n\n-\n\nCompete for a share of $190K value of cash and AWS credits, plus a 1:1 meeting with the Amazon Developer team for track winners\n\nGet Started\n\n-\n\nPick your track: Fire TV, Alexa+, Bee, or Ring\n\n-\n\nSet up the developer environment for your track (see Resources)\n\n-\n\nReview the track details and requirements to start building\n\n-\n\nSubmit your working demo, code repo, and product feedback by the deadline\n\nRequirements\n\nWhat to Build\n\nPick a primary track and ship a working demo. You can layer a mini challenge onto the same project for extra ways to win, but each project can only win one track prize and one mini challenge prize.\n\nBuild or significantly update working applications using Amazon Developer tools into the following primary tracks:\n\n- Fire TV\nLaunch a demo-ready app on Fire OS or Vega OS. Use React Native, web technologies, or Android (Kotlin/Java), any framework is fine, as long as it runs on Fire OS or Vega OS.\n\n- Priority categories: AI-enhanced viewing, sports, fitness, family entertainment, multi-modal UX, and computer vision.\n\n- Alexa+\nExperience how brands in Preview are building and shipping experiences on Alexa+ that our customers love:\n\n- Build a self-hosted MCP server (spec 2025-11-25 or later, Streamable HTTP) or an Agent Skill. MCP is the open standard that powers Alexa+ integrations.\n- New to MCP? Build a simulated Alexa+ experience in a web app using your preferred agentic tool.\n\n- Bee (Wearable AI)\nBuild a project that connects to real data recorded and processed through a Bee device or an Apple Watch running Bee software, using Bee's CLI, MCP, or Agent Skills. Your demo needs to show your project actually using that data to do something useful for a person.\n\n- Priority use cases: education, developer experience, and personal productivity.\n\n- Ring\nBuild a new app or extend an existing one using Ring APIs, SDKs, simulators, or devices. A physical Ring device is not required.\n\n- Priority categories: access control, business systems, IoT home automation, accessibility, and caretaking.\n\nMini Challenges (additional opportunities alongside your primary track)\n\n- AWS Builder\nUse AWS services (Bedrock, AgentCore, Strands SDK, Kiro Crew, SageMaker, etc.) in your project with documented integrations, and you're in.\n\n- Building with Kiro Crew qualifies on its own, you don't also need to call a separate AWS runtime service.\n\n- Open Source\nShip a new, additional open-source project (include an open-source license) or a contribution (a branch, a fork, or a pull request) to a public repository during the hackathon window, alongside your primary-track submission. PRs don't need to be merged; a forked, unmerged version is fine.\n\n- Include the contribution URL, your repo URL, your GitHub username, and a short description of what you did, how it works, and why it matters.\n\nWhat to Submit\n\n-\n\nA text description of your project: explain what it does and how it works.\n\n-\n\nA GitHub code repository: must contain all source code, assets, and instructions needed to run your project. The repository must be either public and open source by including an open source license file OR private and shared with [email protected] and the Amazon team (info below).\n\n-\n\nTo share your project with the Amazon team, open your repo’s Settings > Collaborators > Add people and add the usernames below. GitHub walk through here.\n\n-\n\nAmazon Developer Relations GitHub profiles:\nKourtney Meiss: https://github.com/knmeiss\nGiovanni Laquidara: https://github.com/giolaq\nAnisha Malde: https://github.com/anishamalde\nMoses Roth: https://github.com/mosesroth\nEmerson Sklar: https://github.com/emersonsklar\n\n-\n\nMake sure this repo is private, then add these GitHub users as collaborators so they can review my submission: chris-trag, knmeiss, giolaq, anishamalde, mosesroth, emersonsklar.\n\n-\n\nOne thing to watch: each person has to accept the invitation, and GitHub invitations expire after 7 days. Add the reviewers when you submit rather than weeks in advance, and if you added anyone earlier and the invitation has lapsed, re-send it from the same Collaborators page.\n\n-\n\nFor Alexa+, Bee, and Ring: your repo needs to actually call your track's required technology in code, an import, an entry point, a loaded agent/flow/MCP config, not just a mention in the README.\n\n-\n\nFire TV is the exception: any framework works, as long as your demo video shows the project running on an actual Fire TV device or the Fire TV/Vega simulator.\n\n-\n\nAlexa+: show your Agent Skill or MCP server (spec 2025-11-25+, Streamable HTTP) in action. Took the simulated-experience path instead? No specific framework or SDK required, but your repo still needs to include the simulation's source code, and your demo needs to clearly show it working.\n\n-\n\nBee: your video and code need to show your project actually using live Bee data to do something for a user, mentioning Bee isn't enough. You don't need to let other users connect to Bee through your project.\n\n-\n\nRing: show your project working through a simulator or an actual Ring device.\n\n-\n\nA demo video under 3 minutes: YouTube or Vimeo, public and in English.\n\n-\n\nJudges aren't required to watch past the 3-minute mark, so lead with your best material. Don't include third-party trademarks or copyrighted music/footage unless you have permission.\n\n-\n\nProduct feedback on every tool, API, or SDK you used: what you used it for, what worked well, what needs work, how onboarding felt, and whether you'd build with it again. Building with AWS services? Describe which ones and how, right here in your feedback answer.\n\n-\n\nWhich track(s) and mini challenge(s) you're entering.\n\n-\n\nOpen Source and AWS Builder each have their own extra required fields, see Mini Challenges above.\n\n-\n\nIf your project existed before the hackathon, a clear explanation of what you built or changed during the submission window.\n\n-\n\nOptional: Feature requests: what you'd want built, why it matters, and how urgent it is (critical / important / nice-to-have).\n\n-\n\nOptional: Friction log entries for each one: the task you attempted, the steps you took, what you expected vs. what actually happened, a severity rating, any workaround you used, and an actionable suggestion. Submissions with friction logs can earn up to a 10% judging bonus.\n\nHackathon Sponsors\n\nPrizes\n\n$138,000 in prizes\n\nFire Track - 1st Place\n\n$25,000 in cash\n\n1 winner\n\n• $15,000 AWS Credits\n• Meeting with Amazon Developer team\n• Project featured on Amazon Developer channels\n\nFire TV Track - 2nd Place\n\n$15,000 in cash\n\n1 winner\n\n• $5,000 AWS Credits\n• Project featured on Amazon Developer channels\n\nFire TV Track - 3rd Place\n\n$4,000 in cash\n\n1 winner\n\n• $1,000 AWS Credits\n• Project featured on Amazon Developer channels\n\nAlexa+ Track - 1st Place\n\n$25,000 in cash\n\n1 winner\n\n• $15,000 AWS Credits\n• Meeting with Amazon Developer team\n• Project featured on Amazon Developer channels\n\nAlexa+ Track - 2nd Place\n\n$15,000 in cash\n\n1 winner\n\n• $5,000 AWS Credits\n• Project featured on Amazon Developer channels\n\nAlexa+ Track - 3rd Place\n\n$4,000 in cash\n\n1 winner\n\n• $1,000 AWS Credits\n• Project featured on Amazon Developer channels\n\nBee Track - 1st Place\n\n$12,000 in cash\n\n1 winner\n\n• Meeting with Amazon Developer team\n• Project featured on Amazon Developer channels\n\nBee Track - 2nd Place\n\n$8,000 in cash\n\n1 winner\n\n• Project featured on Amazon Developer channels\n\nRing Track - 1st Place\n\n$12,000 in cash\n\n1 winner\n\n• Meeting with Amazon Developer team\n• Project featured on Amazon Developer channels\n\nRing Track - 2nd Place\n\n$8,000 in cash\n\n1 winner\n\n• Project featured on Amazon Developer channels\n\nAWS Builder Mini Challenge Winner\n\n$5,000 in cash\n\n1 winner\n\n• $5,000 AWS Credits\n• Meeting with Amazon Developer team\n• Project featured on Amazon Developer channels\n\nOpen Source Mini Challenge Winner\n\n$5,000 in cash\n\n1 winner\n\n• $5,000 AWS Credits\n• Meeting with Amazon Developer team\n• Project featured on Amazon Developer channels\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nJon Kirk\nVice President, Amazon Devices\n\nJoshua Danovitz\nVice President, Fire TV Experience\n\nDawn Martynuik\nSenior Manager, Fire TV Voice & AI\n\nMacy Armstrong\nDirector, Fire TV Devices\n\nKarthik Ragubathy\nSenior Solutions Architect, Alexa\n\nEmerson Sklar\nChief Evangelist, Alexa\n\nSaylee Joshi\nSenior Solutions Architect, Alexa\n\nMaria de Lourdes Zollo\nCo-founder & GM, Bee\n\nEthan Sutin\nCo-founder, Head of Software & AI, Bee\n\nKourtney Meiss\nDeveloper Evangelist\n\nAlex Clausen\nSenior Manager, Ring Appstore\n\nRoman Alekseenkov\nDirector of Engineering, Ring\n\nHarish Komaragiri\nPrincipal Product Manager, Ring Developers\n\nBrittney Hurst\nPrincipal Technical Business Development Manager, AWS\n\nChris Melissinos\nPrincipal Evangelist, AWS\n\nMike Grabowski\nFounding partner, Vega OS (Callstack)\n\nMo Gorhom\nSenior Software Development Engineer\n\nMatt Engler\nSenior Technical Product Manager, NBA\n\nJudging Criteria\n\n- Tech Implementation\nHow well is the project built, and how effectively does it use the required tech? Does it effectively leverage the required APIs, SDKs, or device capabilities for the specified track or mini-challenge?\n- Design\nDoes the project deliver a complete, coherent product experience? Is the interaction model intuitive and well-considered for the target device or platform?\n- Potential Impact\nDoes the project make a credible, specific case for solving customer needs? Could it realistically serve an audience beyond the hackathon?\n- Quality of the Idea\nIs this a creative, imaginative use of the required tools? Does the team demonstrate a genuine understanding of the developer ecosystem and the end-user needs within their chosen track?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "Resources",
+            "href": "https://amazonappdev2026.devpost.com/resources"
+          },
+          {
+            "text": "[email protected]",
+            "href": "https://amazonappdev2026.devpost.com/cdn-cgi/l/email-protection#98ecfdebecf1f6ffd8fcfdeee8f7ebecb6fbf7f5"
+          },
+          {
+            "text": "GitHub walk through here",
+            "href": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository"
+          },
+          {
+            "text": "https://github.com/knmeiss",
+            "href": "https://github.com/knmeiss"
+          },
+          {
+            "text": "https://github.com/giolaq",
+            "href": "https://github.com/giolaq"
+          },
+          {
+            "text": "https://github.com/anishamalde",
+            "href": "https://github.com/anishamalde"
+          },
+          {
+            "text": "https://github.com/mosesroth",
+            "href": "https://github.com/mosesroth"
+          },
+          {
+            "text": "https://github.com/emersonsklar",
+            "href": "https://github.com/emersonsklar"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://amazonappdev2026.devpost.com/cdn-cgi/l/email-protection#4329222d263703272635332c30376d202c2e"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "Machine Learning/AI",
           "Open Ended",
@@ -16,8 +62,30 @@
     {
       "url": "https://nebiusglobalaihackathon.devpost.com/",
       "title": "Nebius x NVIDIA Global AI Hackathon",
-      "text": "Host: nebius\nStatus: open\nSubmission period: Aug 26 - Oct 30, 2026\nLocation: Online\nPrizes: $50,000 (6 cash, 4 other)\nThemes: Machine Learning/AI, Beginner Friendly, Robotic Process Automation",
+      "text": "Host: nebius\nStatus: open\nSubmission period: Aug 26 - Oct 30, 2026\nDeadline: Oct 30, 2026 @ 10:00am PDT\nLocation: Online\nPrizes: $50,000 (6 cash, 4 other)\nThemes: Machine Learning/AI, Beginner Friendly, Robotic Process Automation\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nWelcome to the Nebius x NVIDIA Global AI Hackathon\n\nBuild a working AI system on open, independent infrastructure, and own the whole thing. The NVIDIA x Nebius Global AI Hackathon is for AI builders, ML engineers, founders, and anyone shipping practical, high-performance AI. You'll build with NVIDIA open source models served on Nebius through Nebius Token Factory, on high performance GPU infrastructure. Experiment with new ideas, push the boundaries of open source AI, and submit a project for a chance to win prizes and recognition.\n\nJoin fellow builders for technical onboarding, casual workshops, team formation, focused build time, and feedback as you participate in the Global AI Hackathon. Find your nearby city/event here!\n\nRequirements\n\nThe Challenge\n\nAll submissions must run on either Nebius Token Factory or Nebius AI Cloud and use at least one NVIDIA open source model. Everything else is up to you.\n\nWhat to Build\n\nWhether it is an app, agent, or something entirely new, your project should fit into one of the following tracks:\n\n- Coding and Agentic Engineering Track\nBuild coding agents and developer tools: agents that write, run, and test code in Token Factory.\n- Best Apps and Agents Track\nBuild any app or agent someone would actually use, from a productivity tool or copilot to a workflow that runs itself. Power it with Nemotron models on Nebius through Token Factory. Reach for Nemotron 3 Ultra when you need serious reasoning, and let Nano or Super handle the fast, everyday calls, so your app stays responsive and your credits stretch further. We encourage you to deploy your application with Nebius Serverless Endpoints, or use Nebius Serverless Jobs for background processing and asynchronous workflows, though neither is required.\n- Personal AI Track\nBuild an always-on, private assistant that works for you while keeping your data under your control. Give it persistent memory, reusable skills, access to the tools and information you choose, and the ability to carry out tasks across your daily workflows. Use at least one NVIDIA open source model, and use tools such as NVIDIA NemoClaw, OpenShell, Hermes Agent, and Nebius Serverless to bring personal AI to assemble, secure, and run your own personal AI system.\n- Physical AI Track\nBuild embodied and edge agents that sense and act in the real world: robotics, IoT, and on-device intelligence, powered by Nemotron, GROOT, Cosmos and Sonic models and coordinated through an agent runtime. Use Nebius Serverless Jobs to run simulations, generate synthetic data, evaluate robot policies, or process sensor data at scale, and Nebius Serverless Endpoints to serve real-time inference when needed. Your demonstration video must include at least a 1-minute clip showing the physical hardware/robot actually operating, or — if your project has no physical hardware component — the key application modules in action.\n\nWhat to Submit\n\n- A working project. Build something with NVIDIA Nemotron or other NVIDIA open source models on either Nebius Token Factory or Nebius AI Cloud that meets the track requirements.\n- A category. Pick the track that is the best fit for your project.\n- A project description. Tell us what you created, why you created it, and how it works.\n- A working demo. Provide a URL to a working demo, hosted application, or test build of your project.\n\n- Not required for Physical AI submissions.\n\n- A demo video. Upload a 3-minute or shorter public YouTube video showing your project working — how you used Nebius Token Factory and NVIDIA Nemotron or other NVIDIA open source models.\n\n- Physical AI submissions should include at least one minute of footage showing the physical hardware/robot actually operating, or — if your project has no physical hardware component — the key application modules in action.\n\n- A public code repository. Submit a publicly accessible code repository URL (GitHub, GitLab, or Bitbucket) for judging and testing. The repository must include an open source license (such as Apache 2.0, MIT, or MPL 2.0), visible at the top of the repository page.\n\n- Include a README with setup instructions and clear guidance for running your project.\n- Make sure to highlight how you've used NVIDIA Nemotron or other NVIDIA open source models, where Token Factory accelerated your workflow, and any other Nebius Tools or Services used.\n\n- Feedback on Nebius Token Factory, AI Cloud, and any NVIDIA tools, models, or technologies used.\n- If your project existed before the Submission Period, include a written explanation of what was significantly updated during the Submission Period.\n- If you participated in one of the IRL Builders & Brews events, choose the city you attended for a chance to win the City Winner Award.\n- Review the complete Official Rules.\n\nHackathon Sponsors\n\nPrizes\n\n$50,000+ in prizes\n\n+ other prizes\n\nGrand Prize\n\n$20,000 in cash\n\n1 winner\n\n2nd Place\n\n$10,000 in cash\n\n1 winner\n\n3rd Place\n\n$6,000 in cash\n\n1 winner\n\nCoding and Agentic Engineering Track Winner\n\n1 winner\n\n1 NVIDIA Jetson Orin Nano\n\nBest Apps and Agents Track Winner\n\n1 winner\n\n1 NVIDIA Jetson Orin Nano\n\nPersonal AI Track Winner\n\n1 winner\n\n1 NVIDIA Jetson Orin Nano\n\nPhysical AI Track Winner\n\n1 winner\n\n1 NVIDIA Jetson Orin Nano\n\nBest Use of Tavily\n\n$3,000 in cash\n\n1 winner\n\nCity Winner Awards\n\n$500 in cash\n\n20 winners\n\nMost Valuable Feedback\n\n$100 in cash\n\n10 winners\n\nNVIDIA swag pack\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nNancy Agarwal\nSenior Software Engineer, NVIDIA\n\nAbhinav Balasubramanian\nStaff AI Engineer, NVIDIA\n\nDylan Bristot\nFounding PMM, Nebius Token Factory\n\nAbdulMajed Raja\nDeveloper Relations Lead (Token Factory) - APJ, Nebius\n\nRob Spectre\nDeveloper Relations Advisor, Nebius\n\nEvan Rimer\nForward Deployed Engineer, Tavily\n\nLakshmi Rameish\nSenior System Software Engineer, NVIDIA\n\nSurbhi Jha\nSenior Software Engineer, NVIDIA\n\nJoe Sarabia\nDirector of Product, Ecosystem, Nebius\n\nMarouane Khoukh\nTechnical Developer Advocate, Nebius\n\nRicky Johnson\nDeveloper Relations, Tavily\n\nSelena Williams\nSystem Software Engineer, NVIDIA\n\nAleksandr Patrushev\nHead of Product Management, ML/AI, Nebius\n\nUnmesh Kurup\nChief ML Researcher, Product, Nebius\n\nDaniel Myers\nDirector of Developer Relations, Nebius\n\nJacquie Capur\nSenior Developer Advocate, Nebius\n\nLakshya Prakash Agarwal\nForward Deployed Engineer, Tavily\n\nJohnny Nunez\nAI Developer Advocate - Physical AI & Robotics, NVIDIA\n\nEvan Helda\nHead of GTM Physical AI, Nebius\n\nMikhail Rozhkov\nTechnical Product Manager - Serverless AI, Nebius\n\nDhruv Diddi\nPrincipal - Physical AI Ecosystem, Nebius\n\nAditya Sahu\nTME, Jetson Platform, NVIDIA\n\nSayali Kandarkar\nSenior AI/ML Engineer, NVIDIA\n\nJudging Criteria\n\n- Technological Implementation\nHow well is the project built, and how effectively does it use Nebius Token Factory or AI Cloud model(s), and NVIDIA Nemotron as part of the solution?\n- Design\nDoes the project deliver a complete, coherent product experience not just a technical proof of concept?\n- Potential Impact\nDoes the project make a credible, specific case for solving a real problem for a real audience and does the solution actually address it based on what's demonstrated?\n- Quality of the Idea\nIs this a creative, non-obvious use of Nebius Token Factory or AI Cloud model(s), and NVIDIA Nemotron and does the team show genuine understanding of the problem space?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "Find your nearby city/event here",
+            "href": "https://luma.com/builderandbrews?k=c"
+          },
+          {
+            "text": "Official Rules",
+            "href": "https://nebiusglobalaihackathon.devpost.com/rules"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://nebiusglobalaihackathon.devpost.com/cdn-cgi/l/email-protection#482229262d3c082c2d3e38273b3c662b2725"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "Machine Learning/AI",
           "Beginner Friendly",
@@ -28,8 +96,90 @@
     {
       "url": "https://paypalaihackathon.devpost.com/",
       "title": "PayPal AI Hackathon",
-      "text": "Host: PayPal\nStatus: open\nSubmission period: Oct 01 - Nov 12, 2026\nLocation: Online\nPrizes: $67,500 (1 cash, 0 other)\nThemes: Low/No Code, Machine Learning/AI, Web",
+      "text": "Host: PayPal\nStatus: open\nSubmission period: Oct 01 - Nov 12, 2026\nDeadline: Nov 12, 2026 @ 12:00pm PST\nLocation: Online\nPrizes: $67,500 (14 cash, 3 other)\nThemes: Low/No Code, Machine Learning/AI, Web\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nAbout the challenge\n\nPayPal already moves money for millions of people and businesses, every day, all over the world. This hackathon is us opening that platform up and asking what happens when you put AI behind the wheel. New agents, new ways to pay and get paid, tools nobody's built yet. We want to see what you make of it.\n\nAI is changing how people build, buy, sell, work, connect, and move money. Now it's your turn to imagine what comes next.\n\nBuild What's Next with PayPal and AI is a global online hackathon inviting developers, designers, founders, students, and builders to create something new using PayPal and AI.\n\nThere are no prescribed problem statements and no set of tracks. Build an agent, an app, an automation, a new payment experience, a business tool, a social product, or something we haven't thought of yet.\n\nThe only fundamental requirement: your project must meaningfully use both PayPal and AI.\n\nWhy Join?\n\n-\n\nBuild something ambitious — Turn an idea into a working project using PayPal and AI.\n\n-\n\nExplore what’s next — Experiment with new ways people, businesses, and AI agents can interact with money and payments.\n\n-\n\nWin part of $69,750 in total prizes — Compete for overall prizes and special awards across creativity, impact, execution, and more.\n\n-\n\nShow what you can build — Put your project in front of PayPal judges, developers, and the wider hackathon community.\n\n-\n\nLearn by building — Explore PayPal APIs, AI tools, agents, automations, and emerging development workflows.\n\n-\n\nBuild your way — Join individually or as a team, and start something new or meaningfully advance an existing project.\n\nGet started\n\n-\n\nGet a PayPal Developer account (5 minutes)\n\n-\n\nReview example projects and brainstorm your own (30 minutes)\n\nWebinars\n\n-\n\nOct 6th 9am PT - 9:45am PT ~ Start building with PayPal Recording\n\n-\n\nOct 7th 9am PT - 9:30am PT ~ Power Your PayPal Hackathon Project with APIMatic Context Plugins\n\n-\n\nOct 12th 7am PT - 7:45am PT ~ Build a payments dashboard without building a dashboard\n\n-\n\nOct 13th 1am PT - 2am PT ~ Start building with PayPal\n\nRequirements\n\nWhat to Build\n\nBuild or update an application that integrates the PayPal developer platform (using the free sandbox environment) along with an AI tool, model, or platform of your choice.\n\nYou may also use one of our sponsors' tools:\n\n- AG Grid\n- APIMatic\n- Astropods\n- Bryntum\n- Channel3\n- Elastic\n- KERNEL\n- Postman\n- Render\n- Zapier\n\nNote: PayPal will provide access to select AI sponsor tools that you are welcome to use, though using one of these partner tools is not required. Any AI tool works, as long as PayPal integration is central to the project.\n\nYour project should:\n\n- Meaningfully integrate at least one PayPal technology, API, SDK, product, or developer capability\n- Meaningfully incorporate AI into the experience or functionality\n- Demonstrate a working prototype or proof of concept\n- Be sufficiently documented for the judges to understand and evaluate it\n- Comply with the Official Rules\n\nProjects can be built individually or as a team. They can be new or existing projects, as long as you make meaningful progress on the project during the course of the hackathon.\n\nWhat to Submit\n\n-\n\nProject - built with the required developer tools and meeting the Project Requirements above.\n\n-\n\nText description - explain your project's features and functionality.\n\n-\n\nFunctional demo - judges must be able to actually run or interact with a working build. Satisfy this with either:\n\n-\n\nClear, complete setup and run instructions in your code repository, so judges can build and run it themselves, or\n\n-\n\nA hosted demo URL.\n\n-\n\nA design mockup, static prototype, or non-functional demo does not meet this requirement.\n\n- Tools - identify which tools (model or AI service) were used and explain how the tools were used in your project.\n-\n\nPublic code repository on GitHub, Gitlab or Bitbucket.\n\n-\n\nMust contain all source code, assets, and instructions needed to run the project.\n\n-\n\nMust be public and open source, with a license file visible at the top of the repo (in the About section).\n\n-\n\nDemo video\n\n-\n\nUnder 3 minutes (judges aren't required to watch past that).\n\n-\n\nMust show the project functioning on the device it was built for.\n\n-\n\nMust be uploaded to YouTube, publicly visible, with the link on the submission form.\n\n-\n\nMust not include third-party trademarks or copyrighted music/material without permission.\n\nHackathon Sponsors\n\nPrizes\n\n$67,500+ in prizes\n\n+ other prizes\n\n1st Place\n\n$12,000 in cash\n\n1 winner\n\n2nd Place\n\n$8,000 in cash\n\n1 winner\n\n3rd Place\n\n$5,000 in cash\n\n1 winner\n\nMost Creative\n\n$5,000 in cash\n\n1 winner\n\nMost Impactful\n\n$5,000 in cash\n\n1 winner\n\nBest Demo Delivery\n\n$5,000 in cash\n\n1 winner\n\nBest Use of PayPal + AI\n\n$5,000 in cash\n\n1 winner\n\nBest Use of Agentic Commerce\n\n$5,000 in cash\n\n1 winner\n\nBest Use of AG Grid - 1st Place\n\n$5,000 in cash\n\n1 winner\n\nBest Use of AG Grid - 2nd Place\n\n$2,000 in cash\n\n1 winner\n\nBest Use of AG Grid - 3rd Place\n\n$1,000 in cash\n\n3 winners\n\nBest Use of APIMatic\n\n$1,000 in cash\n\n3 winners\n\n6 months of APIMatic business subscription\n\nBest Use of Bryntum\n\n$1,000 in cash\n\n3 winners\n\nBest Use of Channel3\n\n$1,500 in cash\n\n1 winner\n\nBest Use of Render - 1st Place\n\n1 winner\n\n$1,000 Render Credits\n\nBest Use of Render - 2nd Place\n\n1 winner\n\n$750 Render Credits\n\nBest Use of Render - 3rd Place\n\n1 winner\n\n$500 Render Credits\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nJo Franchetti\nDeveloper Advocate - PayPal\n\nEddie Jaoude\nDeveloper Advocate - PayPal\n\nMarco Podien\nDeveloper Advocate - PayPal\n\nKarthik Ravi\nSoftware Engineer - PayPal\n\nHimraj Singh\nEngineering Manager - PayPal\n\nNathaniel Olson\nSenior Product Manager - PayPal\n\nSylwia Vargas\nSenior Technical Community Manager - AG Grid\n\nAmeer Hassan\nCo-Founder - APIMatic\n\nMats Bryntse\nCEO - Bryntum\n\nIgnacio Valdez Bicard\nFounding Engineer - Channel3\n\nCarly Richmond\nSenior Manager, Developer Advocacy - Elastic\n\nPooja Mistry\nSr. Developer Advocate - Postman\n\nShifra Williams\nFounding Developer Relations Engineer - Render\n\nJudging Criteria\n\n- Technological Implementation\nHow thoroughly and skillfully does the project use PayPal Developer Platform and AI tool(s)? Does the project reflect genuine effort and a working, non-trivial implementation?\n- Design\nDoes the project deliver a complete, coherent product experience — not just a technical proof of concept?\n- Potential Impact\nDoes the project make a credible, specific case for solving a real problem for a real audience — and does the solution actually address that problem based on what's demonstrated?\n- Innovation/Idea\nHow creative and novel is the concept and does the project differ from existing concepts?\n- Presentation\nDoes the video clearly demonstrate the project working end-to-end? Does the pitch communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "PayPal Developer",
+            "href": "https://developer.paypal.com/?utm_source=Devpost&utm_medium=LP&utm_campaign=PayPalAIHackathon"
+          },
+          {
+            "text": "Review example projects",
+            "href": "https://paypalaihackathon.devpost.com/resources"
+          },
+          {
+            "text": "Oct 6th 9am PT - 9:45am PT ~ Start building with PayPal Recording",
+            "href": "https://www.google.com/url?q=https://www.youtube.com/watch?v%3DFFJfCW9z3Do&sa=D&source=docs&ust=1791396304192764&usg=AOvVaw1QmtU6wBI4IolP_DEXnkwB"
+          },
+          {
+            "text": "Oct 7th 9am PT - 9:30am PT ~ Power Your PayPal Hackathon Project with APIMatic Context Plugins",
+            "href": "https://youtu.be/zRWixN68tDg"
+          },
+          {
+            "text": "Oct 12th 7am PT - 7:45am PT ~ Build a payments dashboard without building a dashboard",
+            "href": "https://events.teams.microsoft.com/event/4f91e1d9-eb30-42b9-ac36-e6b0eaefc4ae@fb007914-6020-4374-977e-21bac5f3f4c8"
+          },
+          {
+            "text": "Oct 13th 1am PT - 2am PT ~ Start building with PayPal",
+            "href": "https://events.teams.microsoft.com/event/bad9d43c-0044-41ef-afaf-cbb1fddaef4f@fb007914-6020-4374-977e-21bac5f3f4c8?source=copyLinkLegacyShareLinkDialog"
+          },
+          {
+            "text": "PayPal developer platform",
+            "href": "https://developer.paypal.com/?utm_source=Devpost&utm_medium=LP&utm_campaign=PayPalAIHackathon"
+          },
+          {
+            "text": "AG Grid",
+            "href": "https://paypalaihackathon.devpost.com/details/aggrid"
+          },
+          {
+            "text": "APIMatic",
+            "href": "https://paypalaihackathon.devpost.com/details/apimatic"
+          },
+          {
+            "text": "Astropods",
+            "href": "https://paypalaihackathon.devpost.com/details/astropods"
+          },
+          {
+            "text": "Bryntum",
+            "href": "https://paypalaihackathon.devpost.com/details/bryntum"
+          },
+          {
+            "text": "Channel3",
+            "href": "https://paypalaihackathon.devpost.com/details/channel3"
+          },
+          {
+            "text": "Elastic",
+            "href": "https://paypalaihackathon.devpost.com/details/elastic"
+          },
+          {
+            "text": "KERNEL",
+            "href": "https://paypalaihackathon.devpost.com/details/kernel"
+          },
+          {
+            "text": "Postman",
+            "href": "https://paypalaihackathon.devpost.com/details/postman"
+          },
+          {
+            "text": "Render",
+            "href": "https://paypalaihackathon.devpost.com/details/render"
+          },
+          {
+            "text": "Zapier",
+            "href": "https://paypalaihackathon.devpost.com/details/zapier"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://paypalaihackathon.devpost.com/cdn-cgi/l/email-protection#6208030c071622060714120d11164c010d0f"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "Low/No Code",
           "Machine Learning/AI",
@@ -40,8 +190,50 @@
     {
       "url": "https://opencv26.devpost.com/",
       "title": "OpenCV AI Competition 2026, powered by AWS",
-      "text": "Host: OpenCV\nStatus: open\nSubmission period: Aug 26 - Oct 27, 2026\nLocation: Online\nPrizes: $20,250 (6 cash, 0 other)\nThemes: IoT, Machine Learning/AI, Serverless",
+      "text": "Host: OpenCV\nStatus: open\nSubmission period: Aug 26 - Oct 27, 2026\nDeadline: Oct 26, 2026 @ 11:45pm PDT\nLocation: Online\nPrizes: $20,250 (6 cash, 0 other)\nThemes: IoT, Machine Learning/AI, Serverless\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nAbout The Competition\n\n• Competition launch, registration, and proposal submission—runs August 12- 2026; proposals are accepted starting August 13.\n\n• 50 teams will be selected to receive a cloud compute grant valued at $150. All other teams, including those that submit the cloud compute grant proposal remain eligible to continue to the two-month build phase. Apply for your grant here.\n\n• Final projects are due October 26, 2026, at 11:59 p.m. Pacific Time.\n\n• Every entry must use OpenCV 5 for substantive image or video analysis and run a meaningful component on AWS.\n\n• Two optional featured paths offer separate $1,000 awards: the Best Use of COOL Award and the Agentic Vision Award.\n\nSponsor: Amazon Web Services (“Amazon” or “Sponsor”)\n\nAdministrator: OpenCV Foundation (OpenCV or Administrator, and together with Amazon, the “organizers”)\n\nJoin, Build, and Win\n\nTurn an ambitious idea into a working vision application, demonstrate measurable value, and share it with the global OpenCV community.\n\nThe competition emphasizes Physical AI and Generative AI systems in which visual understanding drives useful decisions, actions, predictions, or interactions. Entries may pursue either featured path below, combine both, or take another approach and remain fully eligible to win a prize..\n\nProjects may use any programming language or supporting hardware, provided they meet the core OpenCV 5 and AWS requirements on this page.\n\nBuild Phase — Two Months\n\nFrom August 26 through October 26, teams will build, evaluate, document, and submit their final projects.\n\n• Teams are encouraged to join the official Slack channel to collaborate with others, and to use the #OpenCVComp26 hashtag on social media to share progress and milestones.\n\n• Teams who received a cloud compute grant must complete one 30-minute Zoom check-in with an organizing committee member during October 7-14 to receive the other 50% of their grant.\n\n• Teams must maintain active development and provide a concise progress update at the check-in.\n\n• Final submissions are due on October 26 at 11:59 p.m. Pacific Time.\n\nFinal Judging and Winners\n\nFinal judging will take place from October 27 through November 9. Winners are scheduled to be announced on November 10 during an OpenCV Live! webinar or another announced OpenCV channel.\n\nWhat AWS Grant Proposals Must Include\n\nEach proposal must include:\n\n- A team name\n- A clear problem statement and intended real-world impact.\n- The planned OpenCV 5 image or video analysis.\n- The planned AWS architecture and services.\n- A high-level architecture diagram or technical description.\n- The target users or beneficiaries.\n- The proposed evaluation method and judge demonstration.\n- Whether the team intends to pursue the COOL path, the Agentic Vision path, both, or neither.\n- Team Bio: A short team bio of all team members and their participation in any hackathons or competitions. Team strength will be used to judge the recipients of the cloud compute grant.\n\nApply For an AWS Compute Grant Here\n\nFree AWS Credits for New Members\n\nNew AWS customers are eligible to receive $100 in AWS Free Tier credits when they sign up for a Free Plan account and may earn up to $100 more through eligible activities. Teams may use these credits for eligible AWS services in this competition, subject to current AWS Free Tier terms, service availability, and expiration rules. Use of the Free Tier Credits is subject to the AWS Promotional Credit Terms & Conditions. AWS Promotional Credits are not redeemable for cash and can only be applied to AWS Services.\n\nRequirements\n\nSuggested Project Areas\n\nProjects are not limited to these areas, but the organizers especially welcome:\n\n• Active perception for autonomous inspection with agentic orchestration or MCP.\n\n• Physics-informed video prediction for process control.\n\n• Multi-agent visual SLAM with distributed context.\n\n• Real-time spatial digital twins.\n\n• COOL-based server, serverless, container, or hybrid x86/Arm vision pipelines.\n\n• Developer agents that integrate COOL with tools such as Codex, Claude Code, Kiro, or MCP-compatible systems.\n\n• Healthcare, safety, accessibility, agriculture, environmental monitoring, smart cities, education, retail, and sports analytics.\n\nFinal Submission Requirements\n\n• A technical report describing the problem, users, architecture, OpenCV 5 implementation, AWS deployment, evaluation, limitations, and responsible-use considerations.\n\n• A public or private judge-accessible code repository or archive. The code does not have to be open source.\n\n• Pinned dependencies plus clear build, deployment, and test instructions.\n\n• An architecture diagram showing the OpenCV 5 and AWS components and, where relevant, COOL or agent components.\n\n• A working web endpoint or an arranged live screen-share demonstration.\n\n• A public or unlisted judge-accessible video of no more than five minutes that shows the team, the application working, its architecture, and its principal results.\n\n• Evaluation evidence appropriate to the project, including failure cases or limitations.\n\nFocus Paths (Special Prizes)\n\nCloud-Optimized Vision with COOL\n\nUse the Cloud-Optimized OpenCV Library (COOL), available through AWS Marketplace and optimized for AWS Graviton, to accelerate widely used vision operations and move from prototype to scalable cloud deployment. For Best Use of COOL Award eligibility, COOL must execute the claimed core workload on AWS Graviton or the Arm component of a documented hybrid architecture. Strong submissions will document a reproducible deployment and comparison against an appropriate baseline. Strong submissions will:\n\n• Show that COOL executes the core image or video workload on the Arm path.\n\n• Report reproducible measurements such as latency, throughput, utilization, cost, or developer productivity against an appropriate baseline.\n\n• Explain any x86 and Arm coexistence, container, server, or serverless architecture.\n\nAgentic Vision with OpenCV 5\n\nBuild a workflow in which an agent uses OpenCV 5 tools within a multi-step perception-decision-action loop. To qualify, image or video results must influence a subsequent plan, tool call, action, or request for human approval. A chatbot that only explains a fixed vision result is not enough—the visual evidence must change what the system does next.\n\n• Examples include autonomous inspection, visual troubleshooting, embodied assistants, active perception, safety monitoring, and human-in-the-loop operations.\n\n• The agent may use any framework or model and may invoke OpenCV 5 and, where applicable, COOL through APIs, tools, or Model Context Protocol (MCP).\n\n• A developer-agent workflow qualifies only when it iteratively invokes, evaluates, and adjusts an OpenCV 5 workload, with COOL where applicable—for example, by using visual test outputs or runtime measurements to change a later tool call, configuration, or deployment—and culminates in a running image or video workload.\n\n• Using an AI coding assistant to write the entry does not qualify as an agentic workflow.\n\nAdditional Evidence for the Best Use of COOL Award\n\n• The COOL version and AWS instance or deployment configuration.\n\n• A reproducible evaluation method, inputs, baselines, and results.\n\n• Evidence that COOL executes the claimed core workload.\n\nAdditional Evidence for the Agentic Vision Award\n\n• An agent workflow diagram showing perception, decision or orchestration, and action.\n\n• A trace or demonstration showing that OpenCV 5 output changes a later decision, tool call, or action.\n\n• Evaluation of task success, failure handling, observability, and appropriate human control.\n\nHackathon Sponsors\n\nPrizes\n\n$20,250 in prizes\n\nFirst Place Grand Prize\n\n$5,000 in cash\n\n1 winner\n\nSecond Place\n\n$3,000 in cash\n\n1 winner\n\nThird Place\n\n$2,000 in cash\n\n1 winner\n\nBest Use of COOL Award\n\n$1,000 in cash\n\n1 winner\n\nAgentic Vision Award\n\n$1,000 in cash\n\n1 winner\n\nCompute Grant for AWS\n\n$150 in cash\n\n55 winners\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nPhil Nelson\nDirector of Content & Creative, OpenCV\n\nGary Bradski\nFounder, OpenCV\n\nJudging Criteria\n\n- Technical execution\nweighted 30%: correctness and depth of the OpenCV 5\n- Innovation\nweighted 20%: originality and thoughtful use of computer vision or AI.\n- Real-world impact\nweighted 20%: importance of the problem, usefulness, and evidence of potential benefit.\n- User experience\nweighted 10%: usability, accessibility, and quality of interaction.\n- Documentation and presentation\nweighted 10%: clarity of the report, code, architecture, instructions, and video.\n- Cloud delivery, reproducibility, and responsible operation\nweighted 10%: AWS deployment quality, repeatability, observability, security, and responsible-use practices.\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "Apply for your grant here.",
+            "href": "https://www.jotform.com/form/262145877145059"
+          },
+          {
+            "text": "Apply For an AWS Compute Grant Here",
+            "href": "https://www.jotform.com/form/262145877145059"
+          },
+          {
+            "text": "AWS Free Tier credits",
+            "href": "https://aws.amazon.com/free/"
+          },
+          {
+            "text": "AWS Free Tier terms",
+            "href": "https://aws.amazon.com/free/terms/?p=ft&z=subnav&loc=6"
+          },
+          {
+            "text": "AWS Promotional Credit Terms & Conditions",
+            "href": "https://aws.amazon.com/awscredits/"
+          },
+          {
+            "text": "",
+            "href": "http://aws.amazon.com/"
+          },
+          {
+            "text": "",
+            "href": "https://opencv.org/"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://opencv26.devpost.com/cdn-cgi/l/email-protection#44272b293421302d302d2b2a042b34212a27326a2b3623"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "IoT",
           "Machine Learning/AI",
@@ -52,8 +244,62 @@
     {
       "url": "https://learn-ai-basics.devpost.com/",
       "title": "Build With AI: Basics",
-      "text": "Host: Devpost\nStatus: open\nSubmission period: Sep 22 - Oct 26, 2026\nLocation: Online\nPrizes: $2,500 (3 cash, 0 other)\nThemes: Machine Learning/AI, Beginner Friendly, Education",
+      "text": "Host: Devpost\nStatus: open\nSubmission period: Sep 22 - Oct 26, 2026\nDeadline: Oct 26, 2026 @ 5:00pm EDT\nLocation: Online\nPrizes: $2,500 (3 cash, 0 other)\nThemes: Machine Learning/AI, Beginner Friendly, Education\n\nWho can participate\n\n- Ages 18+ only\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nBuild With AI: Basics\n\nBuild a working first draft of an app in an afternoon using AI best practices, with a set of reusable skills in your coding agent. Learn with a live build session, office hours, community, and a $2,500 prize pool, while creating something useful to your work or your life.\n\nAbout the challenge\n\nDevpost has launched a new kind of hackathon: shorter, built around learning, and open to join every month.\n\nHave you ever asked an AI to help you code something, only to watch it repeat a mistake you already fixed, forget a decision you made ten prompts ago, or hand back code that \"works\" but you can't explain? It happens to almost everyone who starts building with AI. Nobody showed you the basics.\n\nThis hackathon does. You'll build a proof of concept: a small app that runs and does one thing end to end. To get there, you'll install the Devpost Learn Skill Pack, step-by-step guides that live inside your coding agent (Claude Code, Codex, Cursor, or any agent that supports skills). The skills interview you about your idea, help you plan it before any code gets written, build it with you, and get it ready to submit. You'll finish with a running app, the plan that got you there, and a habit you can reuse on every project after this one.\n\nWhy join\n\n- Learn to plan before you build, by letting the AI interview you. It's the habit that keeps AI-built projects from turning into a mess.\n- Try skills in your coding agent: reusable, step-by-step guides that work across Claude Code, Codex, Cursor, and others.\n- Get help from real people: a live build session, office hours, and a live project review.\n- Win a share of $2,500. First place takes $1,250 plus a feature in the Devpost newsletter and on Devpost's socials. Everyone who submits an eligible project gets a Devpost Learn badge.\n\nGet started\n\nYou'll need Node.js and Git installed, a coding agent that supports skills, and an empty folder for your project.\n\n- In your empty project folder, run npx skills add challengepost/learn-ai-basics --all -y\n- Open your coding agent in that folder and say \"run 1-start.\" It takes it from there.\n- Join the Devpost Discord for questions, office hours, and other builders' projects.\n- Register for the Live Build Session, Thursday, Oct 1 at 1:00 pm ET, where we run the whole process start to finish. Recorded if you can't make it.\n- RSVP for Cup of Joe office hours: Tuesday, Oct 6 and Tuesday, Oct 13, 3:00 pm ET, in Discord voice. Bring your project and your questions, and get live feedback from Joe and other builders. Just drop in, no Zoom needed.\n- Register for Will It Ship, Thursday, Oct 22 at 3:00 pm ET. A live review of about five submissions against the judging criteria, before the deadline, so you can still act on what you hear. Submit early to the Devpost Discord's Build with AI Basics forum if you want yours in the mix.\n\nStuck? Ask in Discord or come to Cup of Joe office hours (Tuesdays Oct 6 and Oct 13, 3:00 pm ET, Discord voice). Setup help and all event details are on the Resources tab.\n\nWhat to build\n\nA new app, built with the Devpost Learn Skill Pack. The skills will help you find an idea if you don't have one, and cut it down if you have too much of one.\n\nThree requirements, all checked at submission:\n\n- New project, started from an empty folder during the submission period. Old ideas are fine, old code is not.\n- Built with the skills. Run them in your coding agent.\n- Planning docs in the repo. Your public repository must include the scope.md, prd.md, and spec.md files the skills generate.\n\nRequirements\n\nWhat to Submit\n\n- Your project: a short demo video (1 to 3 minutes, a screen recording is fine) and a public GitHub, GitLab, or BitBucket repo URL. Reviewers won't clone or run code, so the video has to show it working.\n- A short description: what it does, who it's for, what you learned.\n\nHackathon Sponsors\n\nPrizes\n\n$2,500 in prizes\n\nFirst Place\n\n$1,250 in cash\n\n1 winner\n\nSecond Place\n\n$750 in cash\n\n1 winner\n\nThird Place\n\n$500 in cash\n\n1 winner\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nDarlyze Calixte\nDeveloper Marketing Manager | Devpost\n\nJoe Holmes\nAI Learning Hackathon Architect | Devpost\n\nMichelle Brain\nHead of Project Management and Customer Success | Devpost\n\nJudging Criteria\n\n- Design\nDoes the project deliver a complete, coherent product experience — not just a technical proof of concept?\n- Innovation/Idea\nHow creative and novel is the concept and does the project differ from existing concepts?\n- Presentation\nDoes the video clearly demonstrate the project working end-to-end? Does the pitch communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "Devpost Learn Skill Pack",
+            "href": "https://github.com/challengepost/learn-ai-basics"
+          },
+          {
+            "text": "Node.js",
+            "href": "https://nodejs.org/"
+          },
+          {
+            "text": "Git",
+            "href": "https://git-scm.com/"
+          },
+          {
+            "text": "Devpost Discord",
+            "href": "https://discord.gg/a6dupZNNAF"
+          },
+          {
+            "text": "Register for the Live Build Session",
+            "href": "https://us02web.zoom.us/webinar/register/4817900044710/WN_q5wrkaKESfaF99PWy9j4rw"
+          },
+          {
+            "text": "Tuesday, Oct 6",
+            "href": "https://discord.gg/devpost?event=1552340641596579880"
+          },
+          {
+            "text": "Tuesday, Oct 13",
+            "href": "https://discord.gg/devpost?event=1552341115234160702"
+          },
+          {
+            "text": "Register for Will It Ship",
+            "href": "https://us02web.zoom.us/webinar/register/8917900853133/WN_3tidiPZSR3qyJaZdLvuv3Q#/registration"
+          },
+          {
+            "text": "Oct 6",
+            "href": "https://discord.gg/devpost?event=1552340641596579880"
+          },
+          {
+            "text": "Oct 13",
+            "href": "https://discord.gg/devpost?event=1552341115234160702"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://learn-ai-basics.devpost.com/cdn-cgi/l/email-protection#ff95979093929a8cbf9b9a898f908c8bd19c9092"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "Machine Learning/AI",
           "Beginner Friendly",
@@ -64,8 +310,154 @@
     {
       "url": "https://start-developer-competition-26.devpost.com/",
       "title": "Meta VR Start Developer Competition 2026",
-      "text": "Host: Meta\nStatus: open\nSubmission period: Sep 24 - Nov 18, 2026\nLocation: Online\nPrizes: $1,000,000 (19 cash, 0 other)\nThemes: AR/VR, Machine Learning/AI, Web",
+      "text": "Host: Meta\nStatus: open\nSubmission period: Sep 24 - Nov 18, 2026\nDeadline: Nov 18, 2026 @ 12:00pm PST\nLocation: Online\nPrizes: $1,000,000 (19 cash, 0 other)\nThemes: AR/VR, Machine Learning/AI, Web\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- Specific countries/territories excluded (Brazil, Crimea, Cuba, Iran Islamic Republic of, Korea Democratic People's Republic of, Quebec, Russia, Syrian Arab Republic)\n\nTHE META VR START DEVELOPER COMPETITION IS BACK!\n\nThis year’s eight-week challenge calls on Start program members to build the next generation of Entertainment, Gaming, and Productivity experiences for Meta VR devices – including Meta VR Glasses and Meta Quest. We’re looking for hands-first apps that make interaction more natural and gameplay more intuitive than ever before.\n\nLast year, over 2,900 developers joined the competition and delivered more than 650 submissions that pushed the boundaries of immersive technology. This year, we’re raising the bar again.\n\nWhether you’re a first-time Start developer with a breakthrough idea or a seasoned creator ready to showcase what’s possible with the latest platform capabilities, this is your moment to help redefine the future of VR.\n\nHere’s what’s waiting for you:\n\n- 🤝 Build hands-first. Design experiences powered by hand interactions that feel natural, responsive, and deeply immersive—no controllers required.\n- 🛠️ Explore new tech. Take advantage of the latest OS capabilities and device features across Meta VR Glasses and Meta Quest, accelerate your development with AI tooling, including Meta VR CLI.\n- 🌍 Join a global community. Boost your skills through mentor programming, collaborate with fellow developers, share insights, and learn from a thriving network of experienced VR developers.\n- 🏆 Compete for $1M in cash prizes with top prizes of $100,000.\n\nThe future of VR is in your hands literally.\n\nWe can’t wait to see what you build.\n\nGETTING STARTED\n\n- If you’re not already a member of the Start program, apply now to join the competition.\nEstimated time: 5 minutes\n- Explore last year’s winning submissions and Sample Use Cases for Inspiration\nEstimated time: 30 minutes\n\n- Entertainment\n- Gaming I ​​Quest Gamer Segments\n- Productivity: AnExplorer\n- Hands: Hands Physics Lab I ​​Table Troopers\n\n- Follow a Quickstart Tutorial (below)\nEstimated time: 30 minutes\n\n- Unity: VR 101 I VR 102\n- Unreal: How to Make VR Games in UE5\n- Android: From Mobile to VR Overview\n- Immersive Web SDK: Your First Steps into Immersive Web Development\n- Getting Started with Hands & Eyes\n\nCheck out the Resources tab for more technical documentation and visit the Meta Developer Forum for ongoing support and access to upcoming competition events and workshops.\n\nRequirements\n\nWHAT TO BUILD\n\nAn experience built for Meta VR devices, aligned to at least one of three tracks. Top awards go to the strongest entries in each track, with special awards recognizing standout craft across all of them.\n\nPick Your Track\n\n- Entertainment: Lean-back media and content experiences—spatial cinema, interactive video, music visualization, immersive storytelling, spatial audio, media companion apps (e.g., commentary tracks, popup production notes, social comments. Content designed to be consumed in any environment.\n- Gaming: Games designed for hands-first or eyes and hands. Puzzle, strategy, casual, social, narrative—genres that thrive seated, without controllers.\n- Productivity: Apps that make you more effective anywhere or are designed around specific daily moments—multi-panel workspaces, task management, creative tools, or habits tied to a recurring context (morning routine, commute, wind-down).\n\nPick Your Division\n\n- New Experience: Start from a blank slate. The Project is conceived of and built within the competition window, beginning September 24, 2026. No pre-existing codebases, no shipped titles, no early access builds repurposed.\n- Adapted/Significantly Updated Experience: Already have something out there? Take it further. This is a pre-existing project—any build, prototype, or published app that existed prior to September 24, 2026—with a meaningful new feature, mode, or platform integration shipped during the competition window. Sponsor will determine in its own discretion if an update qualifies as significant.\n\n- Examples of significant updates include, but are not limited to: implementing hand interactions as a new feature; adding multiplayer support; introducing a mixed reality (MR) interaction mode as a new feature; releasing a new user generated content creation tool.\n- Not significant updates, including but not limited to: bug fixes or minor UI tweaks; cosmetic changes such as a new color scheme; performance optimization without new user-facing features.\n\nHard Requirements\n\n- Hands-first: Your experience must be fully usable with hands, end-to-end. Controller support is welcome, but not required. The test is simple: can someone complete the entire experience without ever pairing a controller?\n- Policy Compliance: Your experience must adhere to all relevant Meta VR/Start policies and terms (i.e., Meta VR Start Program Terms, Community Standards, Code of Conduct in VR Policy, Developer App Policies, Developer Content Guidelines, and all other Developer Policies).\n\nDesign Guidelines\n\n- Seated-optimized: Design for seated, stationary use. Limit roomscale, no large physical movement. Apply the airplane seat test: does every interaction work in a two-foot radius?\n- Easy to get into and out of: Fast cold start, clean pause/resume, and something satisfying in 10 minutes or less. Apply the one bus stop test: can someone have a complete moment in a short ride?\n- Original, not a wrapper: Core experience is Entrant-built. Thin wrappers around existing platforms or services (YouTube, ChatGPT, etc.) are highly discouraged. Apply the take it away test: if you remove the third-party service, is there still a Project?\n\nSuggested SDKs:\n\n- Unity: Meta XR SDKs v81+ (v207) All-in-One XR\n- Unreal: Unreal Engine 5.8 and Oculus Integration SDK v207+\n- Android apps: React Native via Expo, or Jetpack Compose via Meta VR Plugin for Android Studio\n- Immersive Web SDK: Node.js (v20.19.0 or higher); IWSDK (run npm create @iwsdk@latest for the latest version)\n\nWHAT TO SUBMIT\n\nThree things: a playable build, a short video, and the submission form. Get the build access right—judges can’t score what they can’t launch.\n\n1. Your Project, as defined in What to Build.\n\n- Built with Unity, Unreal, Godot, Android/Native or similar custom engine: upload an APK to a new release channel named “Competition” in the Meta VR Developer Dashboard. Create and submit an Invite URL so judges can access and test your Project.\n- Built with IWSDK (WebXR): see Deploying to GitHub Pages for how to share a link. You may also use your preferred hosting solution (e.g., Vercel, Digital Ocean, AWS, Azure).\n- Once the Entry Period has ended, you may not make changes or alterations to your submission. Judging is based on the state of the Entry at the submission deadline. Ensure your Project remains available and accessible throughout judging.\n\n2. A demonstration video—under three (3) minutes, showcasing footage of your Project as viewed on a Meta VR device, via XR Simulator, or another equivalent emulator. Upload it to YouTube or Vimeo, make it publicly visible, and provide the link on the submission form. Judges are not required to watch beyond three minutes, so lead with your best material.\n\n3. A complete Submission Form, which includes but is not limited to:\n\n- Submission name\n- Submission tagline (140 characters)\n- Track: Entertainment, Gaming, or Productivity\n- Division: New Experience, or Adapted / Significantly Updated Experience\n- A text description covering your inspiration, how you built it, and future plans for improvement (suggested length: 500 words or less)\n- If your Project is an Adapted / Significantly Updated build, a summary of the new features and capabilities added during the competition window. Screenshots, changelogs, and demo videos are highly recommended.\n- Describe how Hand Interactions are implemented into your experience and what excites you about the future of VR (optional)\n- Target launch date, if not already published\n- Name(s), email(s), and role(s) for each team member, if applicable\n\nView full competition rules.\n\nJudging Criteria and Process\n\nPlease see the full details on the Judging Criteria and process here.\n\nHackathon Sponsors\n\nPrizes\n\n$1,000,000 in prizes\n\nBest New Gaming Experience\n\n$100,000 in cash\n\n1 winner\n\nBest New Gaming Experience Runner-up\n\n$50,000 in cash\n\n1 winner\n\nBest New Entertainment Experience\n\n$100,000 in cash\n\n1 winner\n\nBest New Entertainment Experience Runner-up\n\n$50,000 in cash\n\n1 winner\n\nBest New Productivity Experience\n\n$70,000 in cash\n\n1 winner\n\nBest New Productivity Experience Runner-Up\n\n$35,000 in cash\n\n1 winner\n\nBest Adapted / Significantly Updated Gaming Experience\n\n$100,000 in cash\n\n1 winner\n\nBest Adapted / Significantly Updated Gaming Experience Runner-Up\n\n$50,000 in cash\n\n1 winner\n\nBest Adapted / Significantly Updated Entertainment Experience\n\n$100,000 in cash\n\n1 winner\n\nBest Adapted / Significantly Updated Entertainment Experience Runner-Up\n\n$50,000 in cash\n\n1 winner\n\nBest Adapted / Significantly Updated Productivity Experience\n\n$70,000 in cash\n\n1 winner\n\nBest Adapted / Significantly Updated Productivity Experience Runner-Up\n\n$35,000 in cash\n\n1 winner\n\nBest Social & Multiplayer Experience\n\n$25,000 in cash\n\n1 winner\n\nBest Agentic Interaction\n\n$25,000 in cash\n\n1 winner\n\nBest Reason to Come Back\n\n$25,000 in cash\n\n1 winner\n\nBest First Five Minutes\n\n$25,000 in cash\n\n1 winner\n\nBest Accessibility Forward Experience\n\n$25,000 in cash\n\n1 winner\n\nBoldest Original Concept\n\n$25,000 in cash\n\n1 winner\n\nJudge's Choice\n\n$20,000 in cash\n\n2 winners\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nDilmer V\n\nJudging Criteria\n\n- Innovation & Creativity\nMeasures originality, creative ambition, and relevance to the chosen track.\n- Experience Design\nEvaluates the quality of design, mechanics, and user journey tailored to the intended audience, emphasizing seated, hands-first, or specific context use.\n- Technical Implementation\nAssesses technical expertise, reliability, and strategic use of platform tools, particularly the features that define hands-first experiences: gaze interactions, hand tracking, passthrough, spatial anchoring, and FoV-aware design.\n- Polish & Presentation\nAssesses the overall quality of UI/UX, art direction, and sound design.\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "apply now",
+            "href": "https://developers.meta.com/vr/discover/programs/start/"
+          },
+          {
+            "text": "last year’s winning submissions",
+            "href": "https://developers.meta.com/horizon/blog/meta-horizon-start-developer-competition-meet-the-winners/"
+          },
+          {
+            "text": "Sample Use Cases",
+            "href": "https://developers.meta.com/horizon/discover/use-cases/"
+          },
+          {
+            "text": "Entertainment",
+            "href": "https://developers.meta.com/horizon/discover/use-cases/entertainment"
+          },
+          {
+            "text": "Gaming",
+            "href": "https://developers.meta.com/horizon/discover/use-cases/gaming"
+          },
+          {
+            "text": "​​Quest Gamer Segments",
+            "href": "https://developers.meta.com/horizon/blog/know-your-players-understanding-your-audience-with-2025-quest-gamer-segments/"
+          },
+          {
+            "text": "AnExplorer",
+            "href": "https://developers.meta.com/horizon/discover/success-stories/an-explorer/"
+          },
+          {
+            "text": "Hands Physics Lab",
+            "href": "https://developers.meta.com/horizon/discover/success-stories/hand-physics-lab-holonautic/"
+          },
+          {
+            "text": "​​",
+            "href": "https://developers.meta.com/horizon/blog/know-your-players-understanding-your-audience-with-2025-quest-gamer-segments/"
+          },
+          {
+            "text": "Table Troopers",
+            "href": "https://developers.meta.com/vr/discover/success-stories/table-troopers/"
+          },
+          {
+            "text": "VR 101",
+            "href": "https://www.youtube.com/watch?v=QXiR_GHQ5U0"
+          },
+          {
+            "text": "VR 102",
+            "href": "https://www.youtube.com/watch?v=V7VGbt55VBE"
+          },
+          {
+            "text": "How to Make VR Games in UE5",
+            "href": "https://www.youtube.com/watch?v=i3xNb5R_xos"
+          },
+          {
+            "text": "From Mobile to VR Overview",
+            "href": "https://www.youtube.com/watch?v=gEIksIz0vVE"
+          },
+          {
+            "text": "Your First Steps into Immersive Web Development",
+            "href": "https://www.youtube.com/watch?v=Ijpb6gteOrw"
+          },
+          {
+            "text": "Getting Started with Hands & Eyes",
+            "href": "https://developers.meta.com/vr/essentials/getting-started-with-hands-and-eyes/"
+          },
+          {
+            "text": "Resources tab",
+            "href": "https://start-developer-competition-26.devpost.com/resources"
+          },
+          {
+            "text": "Meta Developer Forum",
+            "href": "https://communityforums.atmeta.com/category/horizon-developer-forum"
+          },
+          {
+            "text": "special awards",
+            "href": "https://start-developer-competition-26.devpost.com/details/special-awards"
+          },
+          {
+            "text": "Meta VR Start Program Terms",
+            "href": "https://developers.meta.com/horizon/start/terms/"
+          },
+          {
+            "text": "Community Standards",
+            "href": "https://transparency.fb.com/policies/community-standards/"
+          },
+          {
+            "text": "Code of Conduct in VR Policy",
+            "href": "https://support.oculus.com/articles/accounts/privacy-information-and-settings/conduct-in-vr-policy"
+          },
+          {
+            "text": "Developer App Policies",
+            "href": "https://developers.meta.com/horizon/policy/#app-policies"
+          },
+          {
+            "text": "Developer Content Guidelines",
+            "href": "https://developers.meta.com/horizon/policy/#content-guidelines"
+          },
+          {
+            "text": "Developer Policies",
+            "href": "https://developers.meta.com/horizon/policy/"
+          },
+          {
+            "text": "v81+",
+            "href": "https://developers.meta.com/horizon/downloads/package/meta-xr-sdk-all-in-one-upm/81.0"
+          },
+          {
+            "text": "Expo",
+            "href": "https://reactnative.dev/blog/2026/02/24/react-native-comes-to-meta-quest"
+          },
+          {
+            "text": "Meta VR Plugin for Android Studio",
+            "href": "https://developers.meta.com/horizon/documentation/android-apps/meta-horizon-android-studio-plugin"
+          },
+          {
+            "text": "IWSDK",
+            "href": "https://developers.meta.com/horizon/documentation/web/iwsdk-guide-project-setup"
+          },
+          {
+            "text": "Invite URL",
+            "href": "https://l.facebook.com/l.php?u=https%3A%2F%2Fdevelopers.meta.com%2Fhorizon%2Fresources%2Fpublish-release-channels-add-users%2F%23invite-users-via-url&h=AUBjSNS1oKwp-F4V3cSxiLH8IaT_UxF3naHfp1vASAR4p138qwWXCkiCXsydC0ylcvC_zKcCbwnrsWDLCpPVphBHx_bqB1IW3mWemH1B_nzrheDPouEPQFJ2EJpC9o8N5SaEFH2PPK7Ekg"
+          },
+          {
+            "text": "Deploying to GitHub Pages",
+            "href": "https://l.facebook.com/l.php?u=https%3A%2F%2Fdevelopers.meta.com%2Fhorizon%2Fdocumentation%2Fweb%2Fiwsdk-guide-build-deploy%23deploying-to-github-pages&h=AUABHGfNlrrGrDryBIK4Lvw6-VgfenFh3TnrPNgdC8B0kAY63oUmtKFebnuCYTu-FQKRADzQsFJzMKplPioNHZg_4SagsY-IDa_0gbJOap_E3mIhk3GOTAp2UlRB4nGrm7S83c0-yaN6Bg"
+          },
+          {
+            "text": "View full competition rules",
+            "href": "https://start-developer-competition-26.devpost.com/rules"
+          },
+          {
+            "text": "Judging Criteria and process here",
+            "href": "https://start-developer-competition-26.devpost.com/details/judging"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://start-developer-competition-26.devpost.com/cdn-cgi/l/email-protection#9bf0fee8f3e2fadbfffeedebf4e8efb5f8f4f6"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "AR/VR",
           "Machine Learning/AI",
@@ -76,8 +468,38 @@
     {
       "url": "https://multimodal-ai-hackathon-2026-7.devpost.com/",
       "title": "Multimodal AI Hackathon 2026",
-      "text": "Host: Kamand Prompt, IIT Mandi\nStatus: open\nSubmission period: Sep 29 - Oct 14, 2026\nLocation: Online\nPrizes: ₹ 100,000 (8 cash, 0 other)\nThemes: Machine Learning/AI",
+      "text": "Host: Kamand Prompt, IIT Mandi\nStatus: open\nSubmission period: Sep 29 - Oct 14, 2026\nDeadline: Oct 15, 2026 @ 12:15am IST\nLocation: Online\nPrizes: ₹ 100,000 (8 cash, 0 other)\nThemes: Machine Learning/AI\n\nWho can participate\n\n- Ages 14+ only\n- Students only\n- Companies/professional organizations excluded from participation\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nAbout the challenge\n\nWelcome to the Multimodal AI Hackathon 2026, organized by KamandPrompt, the Programming Club of IIT Mandi, Augli.ai, PurpleRain Tech, and LDV Labs. This nationwide hackathon invites students to work at the intersection of Generative AI, Agentic AI, and real-world problem-solving, applying these emerging technologies to domains where they can create genuine impact.\n\nMultimodal AI systems, ones that can reason across text, images, data, and more, are increasingly capable of tackling problems that were previously out of reach for automated systems. Yet in fields like Space research, BioTech, and Education, this potential remains largely untapped. Building solutions in these domains requires not just technical skill but a genuine understanding of the problems being solved, which is exactly the gap this hackathon is designed to close.\n\nThis hackathon offers participants the opportunity to design and build solutions that could meaningfully improve how problems are approached in Space, BioTech, and Education. Whether it's a tool that accelerates research, an application that improves access to learning, or a system that solves an overlooked operational bottleneck, your work here has the potential to extend well beyond a submission page.\n\nGet started\n\n- Mode: Fully online, nationwide\n\n- Team Size: Solo/Upto 4 members (inter-college teams allowed)\n\n- Duration: 15 days\n\n- Tracks: 4 tracks across Space, BioTech, and Education\n\n- Registration: Free, no fees\n\n- Submissions to be made on devpost\n\n- All further information will be shared in the official Discord community post-registration\n\nPlease note that this hackathon have a well defined set of Problem Statements and Judging criteria and the submissions will be evaluated on the same basis\n\nProblem statements: click here\n\nJoin Discord community: https://discord.gg/UD8EVcdcq\n\nRequirements\n\nSubmisson Requirements will be shared with problem statements.\n\nHackathon Sponsors\n\nPrizes\n\n₹ 100,000 in prizes\n\n1st prize - Track A\n\n₹ 15,000 in cash\n\n1 winner\n\n1st prize - Track B\n\n₹ 15,000 in cash\n\n1 winner\n\n1st prize - Track C\n\n₹ 15,000 in cash\n\n1 winner\n\n1st prize - Track D\n\n₹ 15,000 in cash\n\n1 winner\n\n2nd prize - Track A\n\n₹ 10,000 in cash\n\n1 winner\n\n2nd prize - Track B\n\n₹ 10,000 in cash\n\n1 winner\n\n2nd prize - Track C\n\n₹ 10,000 in cash\n\n1 winner\n\n2nd prize - Track D\n\n₹ 10,000 in cash\n\n1 winner\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nTo be announced\n\nJudging Criteria\n\n- Overalll Judging Criteria\nThe Judging criteria of each and every problem statement can be found in the respective problem statement document\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "click here",
+            "href": "https://drive.google.com/file/d/1sPrF1CWyJMGk8c3JOwu08_sboeaAE5xc/view?usp=sharing"
+          },
+          {
+            "text": "https://discord.gg/UD8EVcdcq",
+            "href": "https://discord.gg/UD8EVcdcq"
+          },
+          {
+            "text": "",
+            "href": "https://www.augli.ai/"
+          },
+          {
+            "text": "",
+            "href": "https://www.purplerain.tech/"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://multimodal-ai-hackathon-2026-7.devpost.com/cdn-cgi/l/email-protection#2555466556515041404b51560b4c4c5148444b414c0b44460b4c4b"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "Machine Learning/AI"
         ]
@@ -86,8 +508,106 @@
     {
       "url": "https://gitlab-transcend.devpost.com/",
       "title": "Life After Code",
-      "text": "Host: GitLab\nStatus: open\nSubmission period: Oct 05 - 27, 2026\nLocation: Online\nPrizes: $45,000 (9 cash, 0 other)\nThemes: DevOps, Machine Learning/AI, Productivity",
+      "text": "Host: GitLab\nStatus: open\nSubmission period: Oct 05 - 27, 2026\nDeadline: Oct 27, 2026 @ 1:00pm UTC\nLocation: Online\nPrizes: $45,000 (9 cash, 0 other)\nThemes: DevOps, Machine Learning/AI, Productivity\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- Specific countries/territories excluded (Brazil, China, Crimea, Cuba, Donetsk People’s Republic, Iran Islamic Republic of, Korea Democratic People's Republic of, Luhansk People’s Republic, Quebec, Russia, Syrian Arab Republic)\n\nCode generation is solved. What happens next is the challenge.\n\nLife After Code is the GitLab Transcend Hackathon. Build agents and flows that take over the rest of the DevSecOps lifecycle: code review, security scanning, testing, compliance, deployment, monitoring, and more. You pick how much control you hand over. Then you show us how far your automation goes.\n\nWhy join?\n\n-\n\nUse agents,flows, triggers, and MCP servers - as many features of the GitLab Duo Agent Platform and see how much of your software development lifecycle you can automate.\n\n-\n\nCompete for $45,000 in cash.\n\n-\n\nGet your work in front of judges from GitLab, Google, and Anthropic.\n\nGet Started\n\n-\n\nRegister for the hackathon here on Devpost\n\n-\n\nStart GitLab Transcend Hackathon contributor onboarding (5 minutes, plus about 24 hours for approval)\n\n-\n\nBuild your first agent with the Duo Agent Platform quickstart (45 minutes)\n\n-\n\nRead the two Paths below and pick yours, then browse the DevSecOps lifecycle stages and plan how many your agents and flows can reach (30 minutes)\n\n-\n\nWatch the Build Session with Missy Davies and Dennis Meister on Oct 9, 10am ET. It’ll be a live walkthrough of GitLab Duo Agent Platform automating what happens after the code is written.\n\nRequirements\n\nWhat to Build\n\nPick one Path. Then build a project that fits one of three levels of autonomy.\n\nEvery project must use GitLab Duo Agent Platform features, such as agents, flows, or MCP clients.\n\n-\n\nPath A: Start Fresh\nBuild a new AI-powered project on GitLab that shows agentic automation of the post-code lifecycle. You create the app, the CI/CD pipeline, and the automation from scratch. Your project must be new work, created for this hackathon. Deployment is optional. Deploy on Google Cloud to be eligible for up to 0.2 bonus points. Existing projects are not allowedd for this track.\n\n-\n\nPath B: Bring Your Own\nTake an existing MIT-licensed open-source project. It can be yours or a fork. Import it to GitLab, build the AI-powered post-code automation around it, and deploy it. You must build the automation and deploy the project on or after October 5th. Deploy anywhere. Deploy on Google Cloud to be eligible for up to 0.2 bonus points. Read the Official Rules for details.\n\nChoose your level of autonomy\n\n-\n\nAssisted: You approve every step. Your agents and flows propose actions and wait for your go-ahead before they proceed. You stay in the loop at every stage.\n\n-\n\nExample: An agent reviews your MR and flags a security vulnerability. It suggests a fix and waits for you to approve before committing. Then it runs the pipeline and waits for you to approve the deployment.\n\n-\n\nSupervised: You approve the outcome, not the individual steps. Your agents execute a multi-step workflow on their own, clearing gates and making decisions along the way. You review the end result, not every individual action.\n\n-\n\nExample: You push code. Agents handle code review, fix a failing pipeline, remediate a security finding, and deploy to staging. You get a summary and approve the production deployment.\n\n-\n\nHands-off: You set the intent and walk away. A full loop from code to production with no human in the middle. You push code or create an issue, and the next time you check in, it's live.\n\n-\n\nExample: You create an issue. Agents review it, create 1+ MRs, run security scans, fix what they find, merge when everything passes, deploy to staging, validate, promote to production, and post a summary on the original issue. You touched nothing.\n\n**The examples above are here to get you thinking. We expect submissions that go well beyond them.\n\nPrizes for every level of autonomy.\n\nCover as many lifecycle stages as you can\n\nThis is the heart of the challenge. Build automation that reaches across GitLab’s DevSecOps lifecycle, not just one corner of it. There are nine stages:\n\nplan · create · verify · package · secure · release · configure · monitor · govern\n\nYou do not have to use every feature inside a stage. Touching the stage counts.\n\nPrizes for the Most Stages Covered\n\nBonus points for deploying on Google Cloud\n\nDeployment is only a requirement for Path B. Deploy anywhere you like. Google Cloud is not required for either Path.\n\nIf you deploy on Google Cloud, your project is eligible for up to 0.2 bonus points. We add these points once, after judges score your project. The highest possible final score is 5.2.\n\nTo be eligible, you must:\n\n-\n\nInclude your Google Cloud deployment code in your public GitLab repository.\n\n-\n\nProvide a link to your live project on Google Cloud. It must be public and available to judges.\n\nSee Resources Tab for how to get started on Google Cloud. Read the Official Rules for details.\n\nWhat to Submit\n\n-\n\nYour project, built with the required technologies.\n\n-\n\nA text description of what your project does, the problem it solves, and how you used GitLab to automate the post-code lifecycle.\n\n-\n\nA public GitLab Project with all source code, assets, and instructions needed to run the project. It must include an MIT License file, visible at the top of the repository page in the About section.\n\n-\n\nVisible CI/CD pipeline history showing your automation running.\n\n-\n\nA demo video under three minutes, uploaded to YouTube and publicly visible. Show your automation running. Do not include third-party trademarks or copyrighted music.\n\nPath B: Bring Your Own also requires:\n\n-\n\nExplain what you added or changed during the Submission Period. The agentic automation and the deployment must be new work, done on or after October 5th.\n\n-\n\nA URL to your deployed project.\n\n-\n\nYour deployed project should stay live until winners are announced on or around November 16th.\n\n-\n\nA URL to the original MIT-licensed open-source project you started from.\n\nIf your project existed before October 5th, use the submission form to explain what you added or changed during the Submission Period. The agentic automation and the deployment must be new work, done on or after October 5th.\n\nOptional: Google Cloud bonus. A link to your live project on Google Cloud. Your deployment code must be in your repository.\n\nOptional: Most Environmentally Impactful prize. To be considered for the Environmentally Impactful Prize, explain how your Project demonstrates exceptional sustainability practices in its design, from model and pipeline optimization to energy-efficient architecture choices. It should quantify the sustainability gain using the latest public measurement methodologies and SCI frameworks.\n\nHackathon Sponsors\n\nPrizes\n\n$45,000 in prizes\n\nPath A: Start Fresh | Best Assisted Agent\n\n$4,000 in cash\n\n1 winner\n\nPath A: Start Fresh | Best Supervised Agent\n\n$4,000 in cash\n\n1 winner\n\nPath A: Start Fresh | Best Hands-off Agent\n\n$5,000 in cash\n\n1 winner\n\nPath B: Bring Your Own | Best Assisted Agent\n\n$4,000 in cash\n\n1 winner\n\nPath B: Bring Your Own | Best Supervised Agent\n\n$4,000 in cash\n\n1 winner\n\nPath B: Bring Your Own | Best Hands-off Agent\n\n$5,000 in cash\n\n1 winner\n\nMost Stages Covered (one from each Path)\n\n$5,000 in cash\n\n2 winners\n\nThe Projects from each Path which touch the most post-code DevSecOps lifecycle stages in the most creative way.\n\nMost Environmentally Impactful (either Path)\n\n$5,000 in cash\n\n1 winner\n\n(Opt-in) To be considered, opt in on the submission form. Explain how your project \"demonstrates exceptional sustainability practices in its design, from model and pipeline optimization to energy-efficient architecture choices. The submission should quantify the sustainability gain using the latest public measurement methodologies and SCI frameworks.\" (SCI means Software Carbon Intensity.)\n\nMost Creative (either Path)\n\n$4,000 in cash\n\n1 winner\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nBill Staples\nCEO | GitLab\n\nMissy Davies\nFullstack Engineer | GitLab\n\nMattias Michaux\nFullstack Engineer | GitLab\n\nDennis Meister\nFull Stack Engineer | GitLab\n\nLee Tickett\nPrincipal Fullstack Engineer | GitLab\n\nRajesh Agadi\nPrincipal Architect | Google\n\nLuca Chun Lun Lit\nApplied AI Engineer\n\nAlan Zhang\nMember of Technical Staff\n\nJackson Dolphin\nCustomer Success\n\nJudging Criteria\n\n- Technological Implementation\nHow thoroughly and skillfully does the project use GitLab to automate the post-code DevSecOps lifecycle? Does the code and pipeline config reflect genuine effort and a working, non-trivial implementation?\n- Design\nDoes the project deliver a complete, coherent end-to-end workflow, not just a technical proof of concept?\n- Potential Impact\nDoes the project make a credible, specific case for solving a real problem for a real audience — and does the solution actually address that problem based on what's demonstrated?\n- Innovation / Idea\nHow creative and novel is the concept and how inventively does it apply agentic automation compared to existing concepts?\n- Presentation\nDoes the video clearly demonstrate the automation running end-to-end? Does it communicate what problem is solved, who it's for, and why it matters? Is the overall presentation easy to follow?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "GitLab Duo Agent Platform",
+            "href": "https://docs.gitlab.com/user/duo_agent_platform/?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=duo_agent_platform_x_x"
+          },
+          {
+            "text": "Start GitLab Transcend Hackathon contributor onboarding",
+            "href": "https://contributors.gitlab.com/transcend-hackathon?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=contributors_x_x"
+          },
+          {
+            "text": "Build your first agent",
+            "href": "https://docs.gitlab.com/user/get_started/get_started_agent_platform/?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=get_started_agent_platform_x_x"
+          },
+          {
+            "text": "DevSecOps lifecycle stages",
+            "href": "https://about.gitlab.com/topics/devops/#the-dev-ops-lifecycle-and-how-dev-ops-works?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=stages-devops-lifecycle_x_x"
+          },
+          {
+            "text": "Watch the Build Session",
+            "href": "https://youtu.be/b8RfR6v7-Ig"
+          },
+          {
+            "text": "agents",
+            "href": "https://docs.gitlab.com/user/duo_agent_platform/agents/"
+          },
+          {
+            "text": "flows",
+            "href": "https://docs.gitlab.com/user/duo_agent_platform/flows/"
+          },
+          {
+            "text": "MCP clients",
+            "href": "https://docs.gitlab.com/user/gitlab_duo/model_context_protocol/mcp_clients/"
+          },
+          {
+            "text": "DevSecOps lifecycle",
+            "href": "https://about.gitlab.com/topics/devops/#the-dev-ops-lifecycle-and-how-dev-ops-works?utm_medium=sponsorship&utm_source=devpost&utm_campaign=eg_global_devrel_x_ai_en_transcend_hackathon&utm_content=stages-devops-lifecycle_x_x"
+          },
+          {
+            "text": "plan",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/plan/"
+          },
+          {
+            "text": "create",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/create/"
+          },
+          {
+            "text": "verify",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/verify/"
+          },
+          {
+            "text": "package",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/package/"
+          },
+          {
+            "text": "secure",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/secure/"
+          },
+          {
+            "text": "release",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/release/"
+          },
+          {
+            "text": "configure",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/configure/"
+          },
+          {
+            "text": "monitor",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/monitor/"
+          },
+          {
+            "text": "govern",
+            "href": "https://about.gitlab.com/stages-devops-lifecycle/govern/"
+          },
+          {
+            "text": "Resources Tab",
+            "href": "https://gitlab-transcend.devpost.com/resources"
+          },
+          {
+            "text": "Official Rules",
+            "href": "https://gitlab-transcend.devpost.com/rules"
+          },
+          {
+            "text": "DevSecOps lifecycle stages",
+            "href": "https://about.gitlab.com/topics/devops/#the-dev-ops-lifecycle-and-how-dev-ops-works"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://gitlab-transcend.devpost.com/cdn-cgi/l/email-protection#27544f4650494e67434251574854530944484a"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "DevOps",
           "Machine Learning/AI",
@@ -98,8 +618,42 @@
     {
       "url": "https://warriorhacks-2-0.devpost.com/",
       "title": "WarriorHacks 2.0",
-      "text": "Host: Westwood Computer Science Club\nStatus: open\nSubmission period: Sep 28 - Oct 14, 2026\nLocation: Online\nPrizes: $0 (0 cash, 8 other)\nThemes: Beginner Friendly, Machine Learning/AI, Open Ended",
+      "text": "Host: Westwood Computer Science Club\nStatus: open\nSubmission period: Sep 28 - Oct 14, 2026\nDeadline: Oct 13, 2026 @ 11:45pm CDT\nLocation: Online\nPrizes: $0 (0 cash, 8 other)\nThemes: Beginner Friendly, Machine Learning/AI, Open Ended\n\nWho can participate\n\n- Ages 13+ only\n- Students only\n- Companies/professional organizations excluded from participation\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nWho Are We?\n\nWestwood Computer Science Club is located at Westwood High School in Austin, Texas. We've won the Spike App Prediction Competition hosted by Harvard students and generated millions of views on our Instagram reels and posts.\n\nHackathon Tracks\n\nThis hackathon is split into two tracks: hackathon and ideathon.\n\nParticipants who select the hackathon track are required to submit a project involving code related to the hackathon theme.\n\nParticipants who select the ideathon track are not required to submit a project involving code. Instead, you will be tasked with conceptually developing a solution to the given theme.\n\nTheme\n\nCreate a project that solves an issue in your community, county, state, or nation.\n\nQuick Links\n\n- WarriorHacks 2.0 Site\n- Westwood CS Club Discord\n- Westwood CS Club Instagram\n\nRequirements\n\nWhat to Submit\n\nHackathon: Please submit a GitHub repository, a 2-3 minute demo video, and pictures of your project. If your project is a website, we recommend submitting a demo link as well.\n\nIdeathon: Please submit any presentations, flowcharts, Figma designs, or other materials that may be helpful for presenting the project idea, as well as a 2-3 minute presentation video.\n\nREQUIRED FOR BOTH TRACKS: Please fill out the WarriorHacks 2.0 Track Selection Form.\n\nHackathon Sponsors\n\nPrizes\n\n8 non-cash prizes\n\n1st Place - Hackathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n2-year VIP CodeCrafters membership ($720)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n1st Place - Ideathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n2-year VIP CodeCrafters membership ($720)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n2nd Place - Hackathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n1-year VIP CodeCrafters membership ($360)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n2nd Place - Ideathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n1-year VIP CodeCrafters membership ($360)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n3rd Place - Hackathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n6-month VIP CodeCrafters membership ($180)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\n3rd Place - Ideathon Track\n\n1 winner\n\nAdaption Credits ($1000)\n6-month VIP CodeCrafters membership ($180)\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\nArt of Problem Solving Coupon ($25)\n\nTop Warrior\n\n2 winners\n\nTier I AI Mock Interview Credits with Unlimited Attempts ($70)\nCleanShot X License ($29)\n\nAll Participants\n\n2,500 winners\n\nAdaption Credits ($500)\nTier II AI Mock Interview Credits with Unlimited Attempts ($45)\n1-year .xyz domain ($15)\n1-month DevSwarm Pro ($8)\n14-day Balsamiq Free Trial\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nPrayash Gyawali\n\nNischal Kotamraju\n\nAditya Bhadra\n\nAarav Karumanchi\n\nLeif Ramirez\n\nLucas Janssen\n\nArun Arunachalam\n\nJudging Criteria\n\n- Impact\nAddresses a meaningful problem; clear audience & value.\n- Feasibility\nTechnically achievable and sustainable.\n- User Experience\nAccessible, intuitive, and user‑friendly.\n- Technical Craft\nArchitecture, code quality, originality, innovation.\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nHackathon sponsors\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "WarriorHacks 2.0 Site",
+            "href": "https://warriorhacks.vercel.app/"
+          },
+          {
+            "text": "Westwood CS Club Discord",
+            "href": "https://discord.gg/zNtaTNm58"
+          },
+          {
+            "text": "Westwood CS Club Instagram",
+            "href": "https://www.instagram.com/westwoodcompsciclub/"
+          },
+          {
+            "text": "WarriorHacks 2.0 Track Selection Form",
+            "href": "https://docs.google.com/forms/d/e/1FAIpQLScYxGmIowiwkZsbmJwWhoc5kPi2_gbJAgeGBAuoMiNPPD_kbA/viewform?usp=dialog"
+          },
+          {
+            "text": "",
+            "href": "https://artofproblemsolving.com/"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://warriorhacks-2-0.devpost.com/cdn-cgi/l/email-protection#b0c7c7d8c3d3dfddc0c5c4d5c2c3d3d9d5ded3d5f0d7ddd1d9dc9ed3dfdd"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "Beginner Friendly",
           "Machine Learning/AI",
@@ -110,1810 +664,54 @@
     {
       "url": "https://aws-cds-partner.devpost.com/",
       "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
-      "text": "Host: AWS\nStatus: open\nSubmission period: Sep 14 - Oct 28, 2026\nLocation: Online\nPrizes: $40,000 (4 cash, 0 other)\nThemes: Communication, Mobile, Machine Learning/AI",
+      "text": "Host: AWS\nStatus: open\nSubmission period: Sep 14 - Oct 28, 2026\nDeadline: Oct 28, 2026 @ 1:00pm PDT\nLocation: Online\nPrizes: $40,000 (4 cash, 0 other)\nThemes: Communication, Mobile, Machine Learning/AI\n\nWho can participate\n\n- Above legal age of majority in country of residence\n- Professionals/Post grads only\n- All countries/territories, excluding standard exceptions (Brazil, Crimea, Cuba, Iran, North Korea, Quebec, Russia)\n\nCalling all AWS Partners! We are inviting you to build the next wave of conversational solutions on AWS Communication Developer Services (CDS)! AWS CDS enables AWS Partners to help customers engage users at a global scale through AWS End User Messaging (EUM) which includes Rich Communication Services (RCS), Short Message Services (SMS), and WhatsApp. It also includes Amazon Simple Email Service (SES). AWS CDS is the infrastructure that powers messaging across Amazon.com, Amazon Cognito, SNS, and Amazon Connect.\n\nAWS CDS is often used for one-time passwords (OTP), notifications, and rules-based chatbots that follow rigid scripts. We challenge you to think beyond this. The future of customer engagement is conversational: reaching customers in the channel (i.e. email vs. RCS vs. WhatsApp) they prefer, picking up right where the last conversation left off, and using two-way communication so customers tell you directly what they want and share signals that improve your products and services.\n\nPicture omnichannel experiences where a conversation starts in one channel and completes an action in another: a prescription refill reminder via SMS that lets the patient find and schedule the nearest pharmacy pickup through RCS with a tap, then sends dosage instructions via email, all without leaving the messaging experience.\n\nPush the boundaries. Build agentic solutions where AWS CDS is the communications backbone, powered by AI such as Amazon Bedrock AgentCore.\n\nSurprise us with your real customer and industry solutions!\n\nWhy You Should Participate\n\n- Innovate with AWS CDS. Get hands-on with AWS CDS combined with agentic AI powered by Amazon Bedrock AgentCore.\n- Solve Real Customer Problems. Create agentic solutions tied to customer and industry use cases that can scale across your customer base. Package your hackathon submission into a repeatable offering, list it on AWS Marketplace, and win AWS Specialist GTM and enablement support to accelerate real customer deals.\n- Win Big. Compete for your share of $40,000 USD in cash prizes, in addition to an opportunity for a joint case study and 1:1 access to AWS Specialists to build and grow your AWS CDS practice and hackathon solution.\n- Visibility for Your Organization. Winners will be announced via Devpost and the top winner will be offered a joint case study with AWS. Drive awareness and new leads to your practice.\n- Direct Access to AWS Specialists. Join live webinars and weekly office hours to ask questions, get feedback, and shape the services roadmap.\n\nHow to Get Started Now\n\n- Brainstorm Your Idea. Think outside the box to improve customer communication experience through AWS CDS.\n- Review the Tech Stack. Familiarize yourself with the AWS CDS services and how to pair them with agentic AI frameworks such as Amazon Bedrock AgentCore. See the Requirements below.\n- Form Your Team (Optional). Find collaborators within the same AWS Partner organization who are excited to improve customer problems through AWS CDS. Diverse skillsets in development, architecture, and customer engagement can go a long way.\n- Start Building. Stand up an RCS agent within 5 minutes to develop an entire solution, decide later to use RCS or phone numbers for each country you’re serving, and expand from there.\n\nRequirements\n\nWhat to Build\n\nEntrants must build, develop, and deploy an AI solution on AWS to address a real-world customer use-case that uses at least one AWS Communication Developer Service (CDS) (each a “Project”):\n\n- AWS End User Messaging (EUM) that includes Rich Communication Services (RCS) and Short Message Service (SMS)\n- AWS End User Messaging Social (WhatsApp)\n- Amazon Simple Email Service (SES)\n- Recommended but not required: Incorporate Amazon Bedrock AgentCore to combine for an agentic AI powered solution. AWS End User Messaging Push does not count as CDS usage for eligibility.\n\nFunctionality: The Project must be capable of being successfully installed and running consistently on the platform for which it is intended and must function as depicted in the video and/or expressed in the text description.\n\nWe will provide $50 in AWS Credits (1 per team) on a first come, first serve basis to support build cost. We will also provide Kiro access codes for participants (1 per individual) on a first come, first serve basis to support build cost. Refer to the FAQ page for code request form.\n\nWhat to Submit\n\nInclude a Project built with the required developer tools and meets the above Project Requirements.\n\n- URL to your private or public code repository for judging and testing on either GitHub or GitLab. It must contain all source code, assets, and instructions needed for the project to run, and must demonstrate the use of AWS Communication Developer Services at runtime in your code. The repository may be public or private. If the repository is public, the repository must be open source by including an open source license file. This license should be detectable and visible at the top of the repository page (in the About section). If the repository is private, share it with [email protected] and [email protected]. More information provided in this GitHub README.\n- Architecture Diagram\n- Text description.\n- ~3- minute demonstration video of your Project.\n- URL to your deployed project or instructions on how to interact with it, if not a web application.\n- Created opportunity ID through AWS Partner Central’s AWS Customer Engagement (ACE). It must include the Marketing Campaign code \"AWS CDS Agentic AI Hackathon -Sept. 2026.\" See FAQ page on how to create an opportunity in ACE.\n\nTo be considered for the Meta WhatsApp Prize:\n\n- Description of how AWS End User Messaging Social (WhatsApp) was used\n\nSee Full Rules for Details\n\nHackathon Sponsors\n\nPrizes\n\n$40,000 in prizes\n\n1st Place\n\n$18,000 in cash\n\n1 winner\n\n• $18,000 USD\n• White-glove enablement support for AWS Marketplace listings if desired\n• GTM support for solutions aligned with AWS CDS if desired\n• Joint case study with AWS\n\n2nd Place\n\n$8,000 in cash\n\n1 winner\n\n• $8,000 USD\n• White-glove enablement support for AWS Marketplace listings if desired\n• GTM support for solutions aligned with AWS CDS if desired\n• Case study/marketing support if desired\n\n3rd Place\n\n$4,000 in cash\n\n1 winner\n\n• $4,000 USD\n• White-glove enablement support for AWS Marketplace listings if desired\n• GTM support for solutions aligned with AWS CDS if desired\n• Case study/marketing support if desired\n\nBest of WhatsApp - Sponsored by Meta\n\n$10,000 in cash\n\n1 winner\n\n• $10,000 USD\n\nDevpost Achievements\n\nSubmitting to this hackathon could earn you:\n\nJudges\n\nMarie Carlton\nDirector, Applied AI Solutions, Amazon Web Services\n\nSara Caleffi\nDirector, Applied AI Solutions, Amazon Web Services\n\nTom Sly\nDirector, Communication Developer Services, Amazon Web Services\n\nMorgan Pomerantz\nSr. Mgr, Workspaces & Communication Developer Services Partner BD, Amazon Web Services\n\nYaniv Bossem\nSr Mgr, Applied AI Solutions Partner SA, Amazon Web Services\n\nKathleen Winder\nSr Mgr PMT, Communication Developer Services, Amazon Web Services\n\nJimmy Nimo\nSenior Manager Software Dev, Communication Developer Services, Amazon Web Services\n\nRobert Gray\nSenior Manager Development, Communication Developer Services, Amazon Web Services\n\nRaman Dhillon\nSr. Manager, Communication Developer Services GTM, Amazon Web Services\n\nMedha Karri\nSenior PMT, Communication Developer Services, Amazon Web Services\n\nMatt Burdick\nPrincipal PMT, Communication Developer Services, Amazon Web Services\n\nAlexis Perry\nPrincipal GTM BD Specialist, Communication Developer Services, Amazon Web Services\n\nZip Zieper\nSr. Applied AI SA, Communication Developer Services, Amazon Web Services\n\nEnrique Rodriguez\nSr PSA, Applied AI Solutions, Amazon Web Services\n\nSandeep Akhouri\nSr WW Specialist, GenAI, Amazon Web Services\n\nJudging Criteria\n\n- Potential Value/Impact - 20%\nWhat customer problem/process is it solving/improving? What (measurable) impact does it have?\n- Creativity - 10%\nNovelty of problem Novelty of approach\n- Technical Execution - 40%\nMust use the technology/technologies mentioned in the What to Build section. Is the solution well-architected? Is it reproducible? Are there multiple AWS CDS services utilized, and well integrated into broader AWS services, specific AI services?\n- Functionality - 10%\nAre the AWS CDS services and other AWS services working as expected? Is the solution scalable? Is the solution leveraging AI to improve existing processes or experiences?\n- Demo Presentation - 20%\nDoes it include the end-to-end agentic workflow? How is the demo quality and clarity?\n\nQuestions? Email the hackathon manager\n\nInvite others to compete\n\n-\n\n-\n\n-\n\nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.",
       "meta": {
+        "links": [
+          {
+            "text": "Amazon.com",
+            "href": "http://amazon.com/"
+          },
+          {
+            "text": "Kiro",
+            "href": "https://kiro.dev/"
+          },
+          {
+            "text": "FAQ page",
+            "href": "https://aws-cds-partner.devpost.com/details/faq"
+          },
+          {
+            "text": "[email protected]",
+            "href": "https://aws-cds-partner.devpost.com/cdn-cgi/l/email-protection#5d29382e2934333a1d39382b2d322e29733e3230"
+          },
+          {
+            "text": "[email protected]",
+            "href": "https://aws-cds-partner.devpost.com/cdn-cgi/l/email-protection#a8c9dfdb85cbccdb85d8c9dadcc6cddae8c9c5c9d2c7c686cbc7c5"
+          },
+          {
+            "text": "GitHub README",
+            "href": "https://github.com/aws-cds-partner/aws-cds-agentic-ai-partner-hackathon-private/blob/main/README.md"
+          },
+          {
+            "text": "Full Rules",
+            "href": "https://aws-cds-partner.devpost.com/rules"
+          },
+          {
+            "text": "Email the hackathon manager",
+            "href": "https://aws-cds-partner.devpost.com/cdn-cgi/l/email-protection#b8d9cfcb95dbdccb95c8d9caccd6ddcaf8d9d5d9c2d7d696dbd7d5"
+          },
+          {
+            "text": "Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "text": "Terms of Service",
+            "href": "https://policies.google.com/terms"
+          }
+        ],
         "categories": [
           "Communication",
           "Mobile",
           "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://qloo.devpost.com/",
-      "title": "Qloo Agentic Hackathon",
-      "text": "Host: Qloo\nStatus: open\nSubmission period: Sep 30 - Oct 30, 2026\nLocation: Online\nPrizes: $25,000 (3 cash, 0 other)\nThemes: Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://mlai-hackathon.devpost.com/",
-      "title": "MLAI Hackathon 2026",
-      "text": "Host: Mạng Lưới AI\nStatus: open\nSubmission period: Sep 18 - Oct 16, 2026\nLocation: Online\nPrizes: $0 (0 cash, 4 other)\nThemes: Databases, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Databases",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://galuxium-nexus-v2-29411.devpost.com/",
-      "title": "Galuxium Nexus V2",
-      "text": "Host: Galuxium\nStatus: open\nSubmission period: Jul 15 - Oct 31, 2026\nLocation: Online\nPrizes: $14,644 (3 cash, 0 other)\nThemes: Enterprise, Machine Learning/AI, Productivity",
-      "meta": {
-        "categories": [
-          "Enterprise",
-          "Machine Learning/AI",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://youcam-api-skin-ai-ecommerce.devpost.com/",
-      "title": "YouCam API Skin AI & eCommerce VTO Hackathon",
-      "text": "Host: Perfect Corp\nStatus: open\nSubmission period: Sep 29 - Nov 02, 2026\nLocation: Online\nPrizes: $6,000 (5 cash, 0 other)\nThemes: AR/VR, E-commerce/Retail, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "AR/VR",
-          "E-commerce/Retail",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://hackapertus.devpost.com/",
-      "title": "Hack Apertus",
-      "text": "Host: aiLights Association\nStatus: open\nSubmission period: Oct 01 - 16, 2026\nLocation: Grand Finals 2027 \nPrizes: €10,680 (4 cash, 8 other)\nThemes: Education, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Education",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://univabio.devpost.com/",
-      "title": "UnivaBio ($40,000 in prizes)",
-      "text": "Host: BioCataalysis\nStatus: open\nSubmission period: Aug 07 - Oct 20, 2026\nLocation: Online\nPrizes: $0 (0 cash, 5 other)\nThemes: Beginner Friendly, Health, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Health",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://next-founders.devpost.com/",
-      "title": "Next Founders Hackathon",
-      "text": "Host: Student Organization\nStatus: open\nSubmission period: Aug 16 - Oct 15, 2026\nLocation: Online\nPrizes: $275 (3 cash, 0 other)\nThemes: Beginner Friendly, Low/No Code, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://ieee-climatechain-hack.devpost.com/",
-      "title": "IEEE ClimateChain Global Hackathon",
-      "text": "Host: IEEE Turkey\nStatus: open\nSubmission period: Oct 05 - 25, 2026\nLocation: Online\nPrizes: $3,000 (3 cash, 3 other)\nThemes: Blockchain, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Blockchain",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://code-for-humanity.devpost.com/",
-      "title": "Code for Humanity",
-      "text": "Host: nill\nStatus: open\nSubmission period: Jul 16, 2026 - Jan 15, 2027\nLocation: Online\nPrizes: $0 (0 cash, 5 other)\nThemes: Education, Machine Learning/AI, Web",
-      "meta": {
-        "categories": [
-          "Education",
-          "Machine Learning/AI",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://dsh-hacks-v2.devpost.com/",
-      "title": "DSH Hacks V2 ($100k+ in prizes!)",
-      "text": "Host: STEMise\nStatus: open\nSubmission period: Jun 24 - Nov 15, 2026\nLocation: Online\nPrizes: $0 (0 cash, 5 other)\nThemes: Beginner Friendly, Low/No Code, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://hyperbloom-october.devpost.com/",
-      "title": "Hyperbloom October- UI/UX and Web Design",
-      "text": "Host: hyperbloom hacks\nStatus: open\nSubmission period: Oct 01 - 19, 2026\nLocation: Online\nPrizes: $9,117 (3 cash, 1 other)\nThemes: Design, Productivity, Web",
-      "meta": {
-        "categories": [
-          "Design",
-          "Productivity",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://eurekadev.devpost.com/",
-      "title": "EurekaDev 2026",
-      "text": "Host: Eureka Institute and UnivaDev\nStatus: open\nSubmission period: Sep 27 - Oct 20, 2026\nLocation: Online\nPrizes: $19,122 (9 cash, 0 other)\nThemes: Beginner Friendly, Open Ended, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://next-gen-hackathon.devpost.com/",
-      "title": "Next Gen Hackathon 2026 -Bengaluru",
-      "text": "Host: RAAIF\nStatus: open\nSubmission period: Sep 01 - Oct 23, 2026\nLocation: Tripura Vasini Palace Grounds, Bengaluru\nPrizes: ₹ 50,000 (1 cash, 0 other)\nThemes: AR/VR, IoT, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "AR/VR",
-          "IoT",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://syntax-summit.devpost.com/",
-      "title": "Syntax Summit",
-      "text": "Host: Student Organization\nStatus: open\nSubmission period: Jul 18, 2026 - Jan 14, 2027\nLocation: Online\nPrizes: $0 (0 cash, 6 other)\nThemes: DevOps, Machine Learning/AI, Robotic Process Automation",
-      "meta": {
-        "categories": [
-          "DevOps",
-          "Machine Learning/AI",
-          "Robotic Process Automation"
-        ]
-      }
-    },
-    {
-      "url": "https://codesprint-by-elitecoders.devpost.com/",
-      "title": "CodeSprint by Elite Coders",
-      "text": "Host: elite coders\nStatus: open\nSubmission period: Sep 25 - Oct 15, 2026\nLocation: Online\nPrizes: ₹ 30,000 (3 cash, 2 other)\nThemes: Beginner Friendly, Open Ended, Web",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://hack47-offgrid.devpost.com/",
-      "title": "HACK47: OFFGRID",
-      "text": "Host: Hack47\nStatus: open\nSubmission period: Sep 15 - Oct 15, 2026\nLocation: Online\nPrizes: $0 (0 cash, 1 other)\nThemes: Enterprise, Open Ended, Robotic Process Automation",
-      "meta": {
-        "categories": [
-          "Enterprise",
-          "Open Ended",
-          "Robotic Process Automation"
-        ]
-      }
-    },
-    {
-      "url": "https://indux-5-0-2026.devpost.com/",
-      "title": "INDUX 5.0-2026",
-      "text": "Host: vikrant university, gwalior\nStatus: open\nSubmission period: Sep 22 - Oct 15, 2026\nLocation: Vikrant University , Gwalior\nPrizes: ₹ 225,000 (3 cash, 0 other)\nThemes: Cybersecurity, Design, Robotic Process Automation",
-      "meta": {
-        "categories": [
-          "Cybersecurity",
-          "Design",
-          "Robotic Process Automation"
-        ]
-      }
-    },
-    {
-      "url": "https://innovart2027.devpost.com/",
-      "title": "InnovArt 2027: Art and Technology Hack Day",
-      "text": "Host: Binnovative\nStatus: open\nSubmission period: Aug 23, 2026 - Jan 02, 2027\nLocation: Online\nPrizes: $0 (0 cash, 12 other)\nThemes: Music/Art, Beginner Friendly, Open Ended",
-      "meta": {
-        "categories": [
-          "Music/Art",
-          "Beginner Friendly",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://next-byte-hacks-v5.devpost.com/",
-      "title": "Next Byte Hacks V5",
-      "text": "Host: Next Byte Hacks\nStatus: open\nSubmission period: Oct 06 - 31, 2026\nLocation: Online\nPrizes: $100 (3 cash, 0 other)\nThemes: Beginner Friendly, Low/No Code, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://codethecure-hackathon-26.devpost.com/",
-      "title": "2026 International CodeTheCure Hackathon",
-      "text": "Host: CodeTheCure\nStatus: open\nSubmission period: Oct 10 - 28, 2026\nLocation: Online\nPrizes: $0 (0 cash, 8 other)\nThemes: Beginner Friendly, Education, Health",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Health"
-        ]
-      }
-    },
-    {
-      "url": "https://htcj-aviation-futures.devpost.com/",
-      "title": "HTCJ × PROOF Aviation Futures Challenge",
-      "text": "Host: hacktheconcretejungle \nStatus: open\nSubmission period: Jun 25 - Oct 27, 2026\nLocation: Boston Venture Week\nPrizes: $0 (0 cash, 3 other)\nThemes: Enterprise, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Enterprise",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://hackfw.devpost.com/",
-      "title": "HackFW: MADE Challenge",
-      "text": "Host: Fort Worth DAO\nStatus: open\nSubmission period: Oct 01 - 30, 2026\nLocation: Fort Worth\nPrizes: $1,900 (3 cash, 0 other)\nThemes: IoT, Machine Learning/AI, Robotic Process Automation",
-      "meta": {
-        "categories": [
-          "IoT",
-          "Machine Learning/AI",
-          "Robotic Process Automation"
-        ]
-      }
-    },
-    {
-      "url": "https://interwell-hack2-0.devpost.com/",
-      "title": "InternWell Hack2.0",
-      "text": "Host: InternWell-SLIET\nStatus: open\nSubmission period: Oct 03 - 31, 2026\nLocation: Online\nPrizes: ₹ 1,000 (1 cash, 0 other)\nThemes: Communication, Machine Learning/AI, Web",
-      "meta": {
-        "categories": [
-          "Communication",
-          "Machine Learning/AI",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://ese4500f26.devpost.com/",
-      "title": "2026-2027 Fall ESE Senior Design",
-      "text": "Host: university of pennsylvania\nStatus: open\nSubmission period: Sep 22 - Dec 07, 2026\nLocation: Amy Gutman Hall\nPrizes: $0 (0 cash, 1 other)\nThemes: AR/VR, Fintech, Quantum",
-      "meta": {
-        "categories": [
-          "AR/VR",
-          "Fintech",
-          "Quantum"
-        ]
-      }
-    },
-    {
-      "url": "https://ai-lodge-hackathon-2026.devpost.com/",
-      "title": "AI Lodge Hackathon 2026",
-      "text": "Host: SMU Business Intelligence & Analytics\nStatus: open\nSubmission period: Sep 22 - Oct 18, 2026\nLocation: Online\nPrizes: $0 (0 cash, 5 other)\nThemes: Beginner Friendly\nInvite only. SMU BIA members",
-      "meta": {
-        "categories": [
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://respawn.devpost.com/",
-      "title": "RESPAWN",
-      "text": "Host: MS Ramaiah University of Applied Science\nStatus: open\nSubmission period: Oct 12 - 15, 2026\nLocation: Online\nPrizes: ₹ 15,000 (3 cash, 0 other)\nThemes: Beginner Friendly, Design, Gaming",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Design",
-          "Gaming"
-        ]
-      }
-    },
-    {
-      "url": "https://mca-2026-projects.devpost.com/",
-      "title": "MCA 2026 projects",
-      "text": "Host: Mizzou Computing Association\nStatus: open\nSubmission period: Feb 27 - Dec 25, 2026\nLocation: Online\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly\nInvite only. Mizzou Computing Association members",
-      "meta": {
-        "categories": [
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://pumpkin-playground.devpost.com/",
-      "title": "Pumpkin Playground",
-      "text": "Host: ACM Long Beach\nStatus: open\nSubmission period: Oct 12 - 23, 2026\nLocation: Online\nPrizes: $30 (2 cash, 1 other)\nThemes: Design, Gaming, Web",
-      "meta": {
-        "categories": [
-          "Design",
-          "Gaming",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://ieee-ai-hack-for-humanity.devpost.com/",
-      "title": "IEEE Hack For Humanity",
-      "text": "Host: IEEE Charlotte Section\nStatus: open\nSubmission period: Oct 11 - 18, 2026\nLocation: Online\nPrizes: $0 (0 cash, 6 other)\nThemes: Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://hackathon-agentico-2026b.devpost.com/",
-      "title": "Hackathon Agéntico SoftwareChido 2026B",
-      "text": "Host: ITESO\nStatus: open\nSubmission period: Oct 05 - Nov 25, 2026\nLocation: Online\nPrizes: $0 (0 cash, 1 other)\nThemes: Education, Machine Learning/AI\nInvite only. ITESO Students",
-      "meta": {
-        "categories": [
-          "Education",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://ntu-x-st-engineering-hackathon.devpost.com/",
-      "title": "NTU x ST Engineering Hackathon",
-      "text": "Host: nanyang technological university\nStatus: open\nSubmission period: Oct 12 - 17, 2026\nLocation: Online\nPrizes: $2,500 (3 cash, 0 other)\nThemes: Cybersecurity, Education, Machine Learning/AI\nInvite only. Students Of Nanyang Technological University Only",
-      "meta": {
-        "categories": [
-          "Cybersecurity",
-          "Education",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://svycay4e.devpost.com/",
-      "title": "SVYCA Youth for Earth (Y4E) Hackathon",
-      "text": "Host: Silicon Valley Youth Climate Action\nStatus: open\nSubmission period: Sep 20 - Oct 18, 2026\nLocation: Stanford University\nPrizes: $2,700 (3 cash, 0 other)\nThemes: Social Good",
-      "meta": {
-        "categories": [
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://child-safety-in-ai.devpost.com/",
-      "title": "Child Safety in AI",
-      "text": "Host: STEMSisterz\nStatus: open\nSubmission period: Oct 12 - 14, 2026\nLocation: Online\nPrizes: $0 (0 cash, 2 other)\nThemes: Machine Learning/AI, Beginner Friendly, Low/No Code",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Beginner Friendly",
-          "Low/No Code"
-        ]
-      }
-    },
-    {
-      "url": "https://hackit-2026.devpost.com/",
-      "title": "HackIT 2026",
-      "text": "Host: NP Overflow\nStatus: open\nSubmission period: Sep 14 - Oct 20, 2026\nLocation: Ngee Ann Polytechnic School of ICT\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Open Ended\nInvite only. Polytechnic Students from Ngee Ann Polytechnic",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://bcc-hacktoberfest.devpost.com/",
-      "title": "Black Code Collective Hacktoberfest",
-      "text": "Host: Black Code Collective\nStatus: open\nSubmission period: Oct 12 - 24, 2026\nLocation: Washington DC\nPrizes: $1,000 (3 cash, 0 other)\nThemes: Education, Health, Social Good",
-      "meta": {
-        "categories": [
-          "Education",
-          "Health",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://icc-proyecto-destacado-2026.devpost.com/",
-      "title": "ICC - Proyecto Destacado 2026",
-      "text": "Host: CETYS\nStatus: open\nSubmission period: Oct 13 - Nov 03, 2026\nLocation: Centro de enseñanza técnica y superior\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly\nInvite only. CETYS Students",
-      "meta": {
-        "categories": [
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://arbiter-hacks-v1.devpost.com/",
-      "title": "Arbiter Hacks V1",
-      "text": "Host: Arbiter \nStatus: upcoming\nSubmission period: Oct 20 - Dec 21, 2026\nLocation: Online\nPrizes: $3,800 (5 cash, 0 other)\nThemes: Beginner Friendly, Machine Learning/AI, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://neighborhood-hacks-2026.devpost.com/",
-      "title": "Neighborhood Hacks",
-      "text": "Host: Student Organization\nStatus: upcoming\nSubmission period: Oct 16 - 24, 2026\nLocation: Online\nPrizes: $57,866 (13 cash, 2 other)\nThemes: Beginner Friendly, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://cosmohacks.devpost.com/",
-      "title": "Cosmo Hacks",
-      "text": "Host: Cosmo Hacks\nStatus: upcoming\nSubmission period: Dec 18 - 21, 2026\nLocation: Online\nPrizes: $142,605 (24 cash, 6 other)\nThemes: Beginner Friendly, Open Ended, Education",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Education"
-        ]
-      }
-    },
-    {
-      "url": "https://unitedhacksv8.devpost.com/",
-      "title": "United Hacks V8",
-      "text": "Host: Hack United\nStatus: upcoming\nSubmission period: Jan 08 - 10, 2027\nLocation: Online\nPrizes: $13,700 (5 cash, 2 other)\nThemes: Beginner Friendly, Design, Education",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Design",
-          "Education"
-        ]
-      }
-    },
-    {
-      "url": "https://developerweek-2027-hackathon.devpost.com/",
-      "title": "DeveloperWeek 2027 Hackathon",
-      "text": "Host: DevNetwork\nStatus: upcoming\nSubmission period: Jan 25 - Feb 11, 2027\nLocation: Santa Clara Convention Center + Online\nPrizes: $6,000 (4 cash, 1 other)\nThemes: Enterprise, IoT, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Enterprise",
-          "IoT",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://hacktitan.devpost.com/",
-      "title": "HackTitan",
-      "text": "Host: IWU\nStatus: upcoming\nSubmission period: Feb 02 - 04, 2027\nLocation: Online\nPrizes: $10,000 (1 cash, 0 other)\nThemes: Beginner Friendly, Databases, DevOps",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Databases",
-          "DevOps"
-        ]
-      }
-    },
-    {
-      "url": "https://larphacks.devpost.com/",
-      "title": "LarpHacks",
-      "text": "Host: larphacks\nStatus: upcoming\nSubmission period: Nov 01, 2026\nLocation: Toronto\nPrizes: $21,394 (4 cash, 0 other)\nThemes: Beginner Friendly, Machine Learning/AI, Web",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://hacktoberfest-teens.devpost.com/",
-      "title": "MLH Hacktoberfest Hack Day Teens Delhi X ElevenLabs",
-      "text": "Host: MLH\nStatus: upcoming\nSubmission period: Oct 17, 2026\nLocation: The Grandeur By Lavanya-Moti Nagar\nPrizes: $0 (0 cash, 5 other)\nThemes: Beginner Friendly, Low/No Code, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://evensonarisnord.devpost.com/",
-      "title": "evensonarisnord",
-      "text": "Host: HoustonHacks2026\nStatus: upcoming\nSubmission period: Dec 31, 2026\nLocation: Online\nPrizes: $150 (1 cash, 0 other)\nThemes: Communication, Databases",
-      "meta": {
-        "categories": [
-          "Communication",
-          "Databases"
-        ]
-      }
-    },
-    {
-      "url": "https://gatorhack2026.devpost.com/",
-      "title": "Gator Hack V - AI Days 2026",
-      "text": "Host: University of Florida\nStatus: upcoming\nSubmission period: Oct 23 - 25, 2026\nPrizes: $3,500 (3 cash, 0 other)\nThemes: Education",
-      "meta": {
-        "categories": [
-          "Education"
-        ]
-      }
-    },
-    {
-      "url": "https://arm-executorch.devpost.com/",
-      "title": "Arm + ExecuTorch: Edge AI Challenge",
-      "text": "Host: arm\nStatus: upcoming\nSubmission period: Oct 17 - 18, 2026\nLocation: San Francisco State University\nPrizes: $0 (0 cash, 4 other)\nThemes: AR/VR, IoT, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "AR/VR",
-          "IoT",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://huskyhack2026.devpost.com/",
-      "title": "HuskyHack 2026: Phase 1",
-      "text": "Host: SoundCreditUnion and UW Tacoma\nStatus: upcoming\nSubmission period: Oct 17, 2026\nLocation: Milgard Hall \nPrizes: $18,000 (2 cash, 0 other)\nThemes: Fintech",
-      "meta": {
-        "categories": [
-          "Fintech"
-        ]
-      }
-    },
-    {
-      "url": "https://stemergent-hacks.devpost.com/",
-      "title": "STEMergent Hacks 2026",
-      "text": "Host: STEMergent\nStatus: upcoming\nSubmission period: Oct 31 - Nov 15, 2026\nLocation: Online\nPrizes: $0 (0 cash, 4 other)\nThemes: Low/No Code, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Low/No Code",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://girls-hoo-hack-2026.devpost.com/",
-      "title": "Girls Hoo Hack 2026",
-      "text": "Host: Girls Who Code UVA\nStatus: upcoming\nSubmission period: Oct 17 - 18, 2026\nLocation: University of Virginia - Rice Hall\nPrizes: $0 (1 cash, 0 other)\nThemes: Beginner Friendly, Open Ended, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://techtotreasure.devpost.com/",
-      "title": "Tech to Treasure Hackathon",
-      "text": "Host: bin to better\nStatus: upcoming\nSubmission period: Mar 03 - 10, 2027\nLocation: Tully Community Branch Library\nPrizes: $450 (3 cash, 5 other)\nThemes: Beginner Friendly, Education, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://sinceai2026.devpost.com/",
-      "title": "Since AI 2026",
-      "text": "Host: Since AI ry\nStatus: upcoming\nSubmission period: Nov 06 - 08, 2026\nLocation: Kupittaa Campus, Turku\nPrizes: €50,000 (5 cash, 0 other)\nThemes: Machine Learning/AI, Open Ended, Enterprise",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Open Ended",
-          "Enterprise"
-        ]
-      }
-    },
-    {
-      "url": "https://brewing-codes-4-0.devpost.com/",
-      "title": "Brewing Codes 4.0",
-      "text": "Host: HARD MODE\nStatus: upcoming\nSubmission period: Mar 12 - 27, 2028\nLocation: Online\nPrizes: ₹ 100,000 (3 cash, 0 other)\nThemes: Low/No Code, Machine Learning/AI, Web",
-      "meta": {
-        "categories": [
-          "Low/No Code",
-          "Machine Learning/AI",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://six-sigma-hackathon.devpost.com/",
-      "title": "Cornell Six Sigma Hackathon",
-      "text": "Host: Cornell University\nStatus: upcoming\nSubmission period: Oct 16 - 17, 2026\nLocation: Upson Hall 116\nPrizes: $0 (0 cash, 2 other)\nThemes: Machine Learning/AI, Social Good, Beginner Friendly\nInvite only. On-campus Cornell SYSEN MEng/MS + SYSEN 5300, 5900",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Social Good",
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://stupideas-ottawa-f26.devpost.com/",
-      "title": "Stupid Ideas Hackathon (Ottawa F26)",
-      "text": "Host: stupid ideas hackathon\nStatus: upcoming\nSubmission period: Nov 07, 2026\nLocation: Ottawa, Canada\nPrizes: $CAD 917 (4 cash, 4 other)\nThemes: Beginner Friendly, Open Ended, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://ethnohack2026.devpost.com/",
-      "title": "EthnoHack",
-      "text": "Host: ETHCSTWIN\nStatus: upcoming\nSubmission period: Nov 02 - 08, 2026\nLocation: Online\nPrizes: €0 (0 cash, 10 other)\nThemes: Databases, Health, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Databases",
-          "Health",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://la-ai-hackathon-2026.devpost.com/",
-      "title": "AI Hackathon 2026 by LA Hacks",
-      "text": "Host: LA Hacks\nStatus: upcoming\nSubmission period: Oct 17 - 18, 2026\nLocation: James West Alumni Center\nPrizes: $0 (0 cash, 1 other)\nThemes: Machine Learning/AI\nInvite only. Visit ai.lahacks.com to learn more and apply!",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://ai-agents-founders-hetic-26.devpost.com/",
-      "title": "AI Agents for Founders Challenge — HETIC 2026",
-      "text": "Host: HETIC\nStatus: upcoming\nSubmission period: Nov 04 - Dec 18, 2026\nLocation: Online\nPrizes: €997 (3 cash, 0 other)\nThemes: Low/No Code, Machine Learning/AI, Productivity",
-      "meta": {
-        "categories": [
-          "Low/No Code",
-          "Machine Learning/AI",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-the-valley-11.devpost.com/",
-      "title": "Hack the Valley 11",
-      "text": "Host: University of Toronto\nStatus: upcoming\nSubmission period: Oct 16 - 18, 2026\nLocation: University of Toronto Scarborough\nPrizes: $CAD 0 (0 cash, 5 other)\nThemes: Beginner Friendly, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://hackpsu-fall-2026.devpost.com/",
-      "title": "HackPSU Fall 2026",
-      "text": "Host: HackPSU\nStatus: upcoming\nSubmission period: Oct 24 - 25, 2026\nLocation: ECoRE Building\nPrizes: $3,500 (1 cash, 8 other)\nThemes: Beginner Friendly, Education, Open Ended\nInvite only. College students whose applications are accepted",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://biohacksmcmaster.devpost.com/",
-      "title": "BioHacks",
-      "text": "Host: BioEng4Youth\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: McMaster University - PGCLL\nPrizes: $CAD 0 (0 cash, 3 other)\nThemes: Health, Machine Learning/AI, Open Ended",
-      "meta": {
-        "categories": [
-          "Health",
-          "Machine Learning/AI",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://sq-hacks.devpost.com/",
-      "title": "Bridge The Gap Hacks",
-      "text": "Host: Bridge The Gap Hacks\nStatus: upcoming\nSubmission period: Nov 15 - 21, 2026\nLocation: Online\nPrizes: $0 (1 cash, 0 other)\nThemes: Beginner Friendly, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://healthhack-48.devpost.com/",
-      "title": "HEALTHHACK 48",
-      "text": "Host: HealthHack\nStatus: upcoming\nSubmission period: Oct 17 - 19, 2026\nLocation: Online\nPrizes: $0 (0 cash, 4 other)\nThemes: Beginner Friendly, Health, Productivity",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Health",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://daytona-hacksprint-nyc.devpost.com/",
-      "title": "Daytona HackSprint w/ Arize AI - NYC, October 2026",
-      "text": "Host: daytona\nStatus: upcoming\nSubmission period: Oct 16, 2026\nLocation: AWS, JFK27\nPrizes: $7,000 (1 cash, 0 other)\nThemes: Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-like-wacc-26.devpost.com/",
-      "title": "Hack Like W@CC 2026",
-      "text": "Host: Women at College of Computing @ GT\nStatus: upcoming\nSubmission period: Oct 17 - 18, 2026\nLocation: Georgia Tech – Klaus Atrium, Klaus 1116\nPrizes: $0 (0 cash, 1 other)\nThemes: Health, Machine Learning/AI, Open Ended\nInvite only. U.S. University students with invitation",
-      "meta": {
-        "categories": [
-          "Health",
-          "Machine Learning/AI",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://bearhacks2027.devpost.com/",
-      "title": "BearHacks 2027",
-      "text": "Host: BearHacks\nStatus: upcoming\nSubmission period: Apr 23 - 25, 2027\nLocation: Sheridan College Hazel McCallion Campus\nPrizes: $CAD 10,000 (1 cash, 0 other)\nThemes: Machine Learning/AI, Mobile, Web",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Mobile",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://2026ai4goodhackathon.devpost.com/",
-      "title": "2026 AI for Good Hackathon",
-      "text": "Host: Florida Data Science for Social Good\nStatus: upcoming\nSubmission period: Oct 23 - 25, 2026\nLocation: The Link\nPrizes: $0 (0 cash, 3 other)\nThemes: Machine Learning/AI, Social Good, Music/Art",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Social Good",
-          "Music/Art"
-        ]
-      }
-    },
-    {
-      "url": "https://checkpoint-1.devpost.com/",
-      "title": "checkpoint 1 — games for good",
-      "text": "Host: Checkpoint\nStatus: upcoming\nSubmission period: Jan 08 - 10, 2027\nLocation: Online\nPrizes: $1,400 (7 cash, 0 other)\nThemes: Gaming, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Gaming",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://harborhack-2026.devpost.com/",
-      "title": "HarborHack 2026 - Agent In The Loop",
-      "text": "Host: Charlestonhacks\nStatus: upcoming\nSubmission period: Oct 23 - 25, 2026\nLocation: College of Charleston, Harbor Walk\nPrizes: $1,500 (2 cash, 1 other)\nThemes: Machine Learning/AI, Open Ended, Beginner Friendly",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Open Ended",
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://communihacks.devpost.com/",
-      "title": "CommuniHacks",
-      "text": "Host: CommuniHacks\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: Builders Club\nPrizes: $CAD 5,000 (1 cash, 0 other)\nThemes: Design, Education, Social Good\nInvite only. Accepted Hackers",
-      "meta": {
-        "categories": [
-          "Design",
-          "Education",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-the-change-2026.devpost.com/",
-      "title": "Hack the Change 2026",
-      "text": "Host: Code the Change YYC\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: University of Calgary\nPrizes: $CAD 5,000 (3 cash, 0 other)\nThemes: Education, Social Good, Web",
-      "meta": {
-        "categories": [
-          "Education",
-          "Social Good",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://vibecode-animated-maps.devpost.com/",
-      "title": "Vibe Code Animated Maps",
-      "text": "Host: Mappi Studio\nStatus: upcoming\nSubmission period: Dec 20, 2026\nLocation: South Plainfield Library\nPrizes: $0 (0 cash, 1 other)\nThemes: Design, Education, Web\nInvite only. Invite only (limited space)",
-      "meta": {
-        "categories": [
-          "Design",
-          "Education",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://yunet-aignite26.devpost.com/",
-      "title": "Ostad Presents YUNet AIgnite Buildathon 2026",
-      "text": "Host: Youth Upskill Network - YUNet\nStatus: upcoming\nSubmission period: Nov 01 - 05, 2026\nLocation: Online\nPrizes: $0 (0 cash, 1 other)\nThemes: Education, Low/No Code, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Education",
-          "Low/No Code",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://sheridandatathon2026.devpost.com/",
-      "title": "Sheridan Datathon 2026",
-      "text": "Host: GDG on Campus Sheridan College\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: Sheridan College Hazel McCallion Campus\nPrizes: $CAD 10,000 (1 cash, 8 other)\nThemes: Beginner Friendly, Databases, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Databases",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://hackstorm3.devpost.com/",
-      "title": "HackStorm 3.0: Sense, Think and Act",
-      "text": "Host: HackStorm\nStatus: upcoming\nSubmission period: Jan 15 - 17, 2027\nLocation: San Francisco, California, USA\nPrizes: $5,200 (3 cash, 0 other)\nThemes: DevOps, IoT, Robotic Process Automation",
-      "meta": {
-        "categories": [
-          "DevOps",
-          "IoT",
-          "Robotic Process Automation"
-        ]
-      }
-    },
-    {
-      "url": "https://sustain-a-thon-2-0-31534.devpost.com/",
-      "title": "SUSTAIN-A-THON 2.0",
-      "text": "Host: Sharda University Greater Noida\nStatus: upcoming\nSubmission period: Oct 27 - 28, 2026\nLocation: Block 45, Sharda University, \nPrizes: $150,000 (1 cash, 0 other)\nThemes: Blockchain, Cybersecurity, IoT",
-      "meta": {
-        "categories": [
-          "Blockchain",
-          "Cybersecurity",
-          "IoT"
-        ]
-      }
-    },
-    {
-      "url": "https://hoya-hacks-2027.devpost.com/",
-      "title": "Hoya Hacks 2027",
-      "text": "Host: Hoya Hacks\nStatus: upcoming\nSubmission period: Jan 22 - 24, 2027\nLocation: Healey Family Student Center\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Open Ended, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://hackrpi-2026.devpost.com/",
-      "title": "HackRPI 2026",
-      "text": "Host: HackRPI\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: Darrin Communications Center\nPrizes: $3,550 (8 cash, 6 other)\nThemes: Beginner Friendly",
-      "meta": {
-        "categories": [
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-the-harvest.devpost.com/",
-      "title": "Hack the Harvest",
-      "text": "Host: HMCI\nStatus: upcoming\nSubmission period: Nov 14 - 15, 2026\nLocation: Aggie Square\nPrizes: $0 (0 cash, 2 other)\nThemes: Education, Enterprise\nInvite only. UC Davis students. Use UCD Email for Registration.",
-      "meta": {
-        "categories": [
-          "Education",
-          "Enterprise"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-a-ton-with-friends.devpost.com/",
-      "title": "Hack-a-ton with Friends",
-      "text": "Host: naitsa\nStatus: upcoming\nSubmission period: Nov 14 - 15, 2026\nLocation: DOW Theatre\nPrizes: $0 (0 cash, 1 other)\nThemes: Education, Beginner Friendly\nInvite only. Invitees who have purchased a $0 Eventbrite ticket",
-      "meta": {
-        "categories": [
-          "Education",
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://icehacks.devpost.com/",
-      "title": "IceHacks",
-      "text": "Host: CodeStarters\nStatus: upcoming\nSubmission period: Nov 08 - 15, 2026\nLocation: Online\nPrizes: $0 (0 cash, 5 other)\nThemes: Beginner Friendly, Low/No Code, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://goathacks-2027.devpost.com/",
-      "title": "GoatHacks 2027",
-      "text": "Host: WPI ACM\nStatus: upcoming\nSubmission period: Jan 29 - 31, 2027\nLocation: WPI - Campus Center\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Low/No Code, IoT",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "IoT"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-western-13.devpost.com/",
-      "title": "Hack Western 13",
-      "text": "Host: Hack Western\nStatus: upcoming\nSubmission period: Nov 20 - 22, 2026\nLocation: London, Canada\nPrizes: $CAD 0 (0 cash, 1 other)\nThemes: Beginner Friendly, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://h-a-r-d-hack-2027.devpost.com/",
-      "title": "H.A.R.D. Hack 2027",
-      "text": "Host: HKN (Eta Kappa Nu)\nStatus: upcoming\nSubmission period: Jan 30 - 31, 2027\nLocation: University of California - Jacobs Hall\nPrizes: $300 (1 cash, 0 other)\nThemes: Beginner Friendly, Education, Health",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Health"
-        ]
-      }
-    },
-    {
-      "url": "https://804hacks.devpost.com/",
-      "title": "804 Hacks",
-      "text": "Host: UW Blockchain Society\nStatus: upcoming\nSubmission period: Oct 18, 2026\nLocation: Randolph-Macon College - Birdsong Hall\nPrizes: $650 (3 cash, 0 other)\nThemes: Beginner Friendly, Design, Web",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Design",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://hackcamp-2026.devpost.com/",
-      "title": "HackCamp 2026",
-      "text": "Host: nwPlus\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: Vancouver, Canada\nPrizes: $0 (0 cash, 15 other)\nThemes: Beginner Friendly, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://tripleh.devpost.com/",
-      "title": "Teens Hack Houston Hackathon",
-      "text": "Host: HackClub  ✓⃝\nStatus: upcoming\nSubmission period: Nov 14 - 21, 2026\nLocation: The Post\nPrizes: $300 (7 cash, 1 other)\nThemes: Beginner Friendly, Low/No Code, Productivity",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://agentic-ai-hackathon-box-aws.devpost.com/",
-      "title": "Agentic Enterprise AI Hackathon — Box + AWS",
-      "text": "Host: box\nStatus: upcoming\nSubmission period: Oct 16 - 17, 2026\nLocation: Amazon Day 1 Building\nPrizes: $0 (0 cash, 1 other)\nThemes: DevOps, Enterprise, Machine Learning/AI\nInvite only. Register and get a conformation invite!",
-      "meta": {
-        "categories": [
-          "DevOps",
-          "Enterprise",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://programmatic-rendering-contest.devpost.com/",
-      "title": "RenderJuice Blender Animation & Programmatic Rendering Contest",
-      "text": "Host: RenderJuice\nStatus: upcoming\nSubmission period: Oct 14 - 31, 2026\nLocation: New York, NY\nPrizes: $1,500 (9 cash, 0 other)\nThemes: Design, Music/Art, Open Ended",
-      "meta": {
-        "categories": [
-          "Design",
-          "Music/Art",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://wwu-sj-hack.devpost.com/",
-      "title": "WWU Social Justice Hackathon",
-      "text": "Host: Western Washington University\nStatus: upcoming\nSubmission period: Nov 07, 2026\nLocation: WWU - Kaiser Borsari Building\nPrizes: $0 (0 cash, 1 other)\nThemes: Social Good\nInvite only. College students and recent alumni",
-      "meta": {
-        "categories": [
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://devfest-ai-hackathon.devpost.com/",
-      "title": "DevFest Münster 2026: Agentic AI Hackathon",
-      "text": "Host: GDG Münster\nStatus: upcoming\nSubmission period: Nov 21, 2026\nLocation: Volkshochschule\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Low/No Code, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://kuk-virtual-hackathon.devpost.com/",
-      "title": "KUK VIRTUAL HACKATHON",
-      "text": "Host: Kelab UMNO Korea\nStatus: upcoming\nSubmission period: Nov 15 - 22, 2026\nLocation: Online\nPrizes: $800 (4 cash, 0 other)\nThemes: Databases, Machine Learning/AI, Productivity",
-      "meta": {
-        "categories": [
-          "Databases",
-          "Machine Learning/AI",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://crownhacks.devpost.com/",
-      "title": "CrownHacks",
-      "text": "Host: Club for AI Research - Charlotte\nStatus: upcoming\nSubmission period: Nov 06 - 08, 2026\nLocation: UNC Charlotte - Woodward Hall Room 106\nPrizes: $0 (0 cash, 3 other)\nThemes: Machine Learning/AI, Robotic Process Automation, Cybersecurity",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Robotic Process Automation",
-          "Cybersecurity"
-        ]
-      }
-    },
-    {
-      "url": "https://cutie-hack-2026.devpost.com/",
-      "title": "Cutie Hack 2026",
-      "text": "Host: ACM at UCR\nStatus: upcoming\nSubmission period: Nov 21, 2026\nLocation: UC Riverside - Winston Chung Hall\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Open Ended, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://build-beyond.devpost.com/",
-      "title": "Build Beyond Hackathon",
-      "text": "Host: OSC\nStatus: upcoming\nSubmission period: Mar 01 - 15, 2027\nLocation: Online\nPrizes: $5,000 (1 cash, 0 other)\nThemes: Beginner Friendly, Open Ended, Productivity",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://youtube-automation-hackathon.devpost.com/",
-      "title": "hacks test",
-      "text": "Host: n/a\nStatus: upcoming\nSubmission period: Sep 09 - Dec 10, 2027\nLocation: Vancouver, Canada\nPrizes: $1 (1 cash, 0 other)\nThemes: Beginner Friendly, Open Ended, Web",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://build-a-thon-30568.devpost.com/",
-      "title": "Build-A-Thon",
-      "text": "Host: Major League Hacking\nStatus: upcoming\nSubmission period: Oct 16 - 17, 2026\nLocation: NCC Digital Park, University of Ibadan\nPrizes: $0 (0 cash, 2 other)\nThemes: E-commerce/Retail, Health, Low/No Code",
-      "meta": {
-        "categories": [
-          "E-commerce/Retail",
-          "Health",
-          "Low/No Code"
-        ]
-      }
-    },
-    {
-      "url": "https://swamphacks-xii.devpost.com/",
-      "title": "SwampHacks XII",
-      "text": "Host: SwampHacks\nStatus: upcoming\nSubmission period: Oct 16 - 18, 2026\nLocation: University of Florida - Reitz Union\nPrizes: $11,900 (1 cash, 0 other)\nThemes: Beginner Friendly, Fintech, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Fintech",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://makeuc-2026-30884.devpost.com/",
-      "title": "MakeUC 2026",
-      "text": "Host: IEEE@UC\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: 1819 Innovation Hub\nPrizes: $0 (0 cash, 1 other)\nThemes: DevOps, IoT, Web",
-      "meta": {
-        "categories": [
-          "DevOps",
-          "IoT",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://central-hacks.devpost.com/",
-      "title": "Central Hacks",
-      "text": "Host: Central Michigan University\nStatus: upcoming\nSubmission period: Nov 14 - 15, 2026\nLocation: Central Michigan University Pearce Hall\nPrizes: $1,200 (3 cash, 1 other)\nThemes: Beginner Friendly, Open Ended\nInvite only. Central Michigan University students only",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://innovate-in-windsor-hackathon.devpost.com/",
-      "title": "Build with Gemma - Innovate in Windsor",
-      "text": "Host: Google Developer Groups Windsor\nStatus: upcoming\nSubmission period: Nov 13 - 20, 2026\nLocation: University of Windsor\nPrizes: $CAD 0 (3 cash, 0 other)\nThemes: Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://lehigh-hacks.devpost.com/",
-      "title": "Lehigh Fall 2026 Collegiate Hackathon",
-      "text": "Host: CSBA\nStatus: upcoming\nSubmission period: Oct 17 - 18, 2026\nLocation: Online\nPrizes: $0 (0 cash, 5 other)\nThemes: Beginner Friendly, Productivity, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Productivity",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://geauxhack-2026.devpost.com/",
-      "title": "GeauxHack 2026",
-      "text": "Host: SASE-LSU\nStatus: upcoming\nSubmission period: Oct 23 - 25, 2026\nLocation: Patrick F. Taylor Hall\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Mobile, Web\nInvite only. USA Students (Highschool, Undergraduate, Graduate)",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Mobile",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://sierra-hacks-2026.devpost.com/",
-      "title": "Sierra Hacks 2026",
-      "text": "Host: CodeCatalyst\nStatus: upcoming\nSubmission period: Oct 24, 2026\nLocation: Sierra High School\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Machine Learning/AI, Web",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://ntu-matlab-2026.devpost.com/",
-      "title": "Learn to Hack: MATLAB Edition 2026",
-      "text": "Host: CCEB ANATA\nStatus: upcoming\nSubmission period: Oct 30, 2026\nLocation: Online\nPrizes: $0 (0 cash, 2 other)\nThemes: Beginner Friendly, Education, Machine Learning/AI\nInvite only. Nanyang Technological University students only",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://futureforge-hacks.devpost.com/",
-      "title": "FutureForge Hacks",
-      "text": "Host: Future Forge\nStatus: upcoming\nSubmission period: Nov 21, 2026\nLocation: Pleasanton, CA\nPrizes: $0 (1 cash, 0 other)\nThemes: Education, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Education",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://spartahack-12.devpost.com/",
-      "title": "SpartaHack 12",
-      "text": "Host: SpartaHack\nStatus: upcoming\nSubmission period: Feb 06 - 07, 2027\nLocation: MSU - STEM Building\nPrizes: $0 (1 cash, 0 other)\nThemes: Beginner Friendly, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://ntu-beyond-binary-2027.devpost.com/",
-      "title": "NTU Beyond Binary Techathon 2027",
-      "text": "Host: NTU Women In Tech\nStatus: upcoming\nSubmission period: Feb 09 - 13, 2027\nLocation: Singapore\nPrizes: $10,000 (1 cash, 0 other)\nThemes: Beginner Friendly, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://wics-hackathon.devpost.com/",
-      "title": "WiCS Hackathon",
-      "text": "Host: MLH\nStatus: upcoming\nSubmission period: Feb 28 - Mar 02, 2027\nLocation: Online\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Design, Education",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Design",
-          "Education"
-        ]
-      }
-    },
-    {
-      "url": "https://seattle-givecamp-2026.devpost.com/",
-      "title": "Seattle GiveCamp 2026",
-      "text": "Host: Seattle GiveCamp\nStatus: upcoming\nSubmission period: Oct 16 - 18, 2026\nLocation: Microsoft Building 122\nPrizes: $0 (0 cash, 1 other)\nThemes: Design, Social Good, Web",
-      "meta": {
-        "categories": [
-          "Design",
-          "Social Good",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://tbd-hackathon.devpost.com/",
-      "title": "GSD Hackathon - Get Shit Done",
-      "text": "Host: Pennovation Works\nStatus: upcoming\nSubmission period: Jan 23, 2027\nLocation: Pennovation Works\nPrizes: $100 (1 cash, 0 other)\nThemes: Machine Learning/AI, Mobile, Web",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Mobile",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://sdc-hackathon-2026.devpost.com/",
-      "title": "SDC Hackathon 2026",
-      "text": "Host: Xiamen University Malaysia\nStatus: upcoming\nSubmission period: Oct 19 - 24, 2026\nLocation: Xiamen University Malaysia\nPrizes: $5,500 (3 cash, 0 other)\nThemes: Beginner Friendly, Machine Learning/AI, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://buildyourownwebsite.devpost.com/",
-      "title": "BuildyourOwnWebsite",
-      "text": "Host: Roxten Studios\nStatus: upcoming\nSubmission period: Nov 16 - 25, 2026\nLocation: Online\nPrizes: ₹ 0 (0 cash, 2 other)\nThemes: Beginner Friendly, Education, Web",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-peel.devpost.com/",
-      "title": "hack::peel 2026",
-      "text": "Host: Absolute Robotics #4308\nStatus: upcoming\nSubmission period: Dec 12 - 13, 2026\nLocation: The Woodlands Secondary School\nPrizes: $CAD 100 (1 cash, 3 other)\nThemes: Design, Education, Open Ended",
-      "meta": {
-        "categories": [
-          "Design",
-          "Education",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://ticket-to-hack.devpost.com/",
-      "title": "Ticket to Hack",
-      "text": "Host: university of virginia\nStatus: upcoming\nSubmission period: Feb 27 - 28, 2027\nLocation: Rice Hall\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly",
-      "meta": {
-        "categories": [
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://human-ai-hackathon.devpost.com/",
-      "title": "Human + AI Hackathon ($1750 Prize Pool)",
-      "text": "Host: Juniper Websites\nStatus: upcoming\nSubmission period: Oct 14, 2026\nLocation: Online\nPrizes: $0 (0 cash, 3 other)\nThemes: Beginner Friendly, Low/No Code, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Low/No Code",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://blankpage.devpost.com/",
-      "title": "Blank Page",
-      "text": "Host: Blank Page\nStatus: upcoming\nSubmission period: Oct 17, 2026\nLocation: Microsoft NERD Center\nPrizes: $1,000 (1 cash, 0 other)\nThemes: Design, Productivity",
-      "meta": {
-        "categories": [
-          "Design",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://dubhacks-2026.devpost.com/",
-      "title": "DubHacks '26",
-      "text": "Host: University of Washington\nStatus: upcoming\nSubmission period: Oct 17 - 18, 2026\nLocation: UW Seattle- Husky Union Building\nPrizes: $9,200 (7 cash, 10 other)\nThemes: Beginner Friendly, Social Good, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Social Good",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://neeley-ai-forward.devpost.com/",
-      "title": "Neeley AI Forward: AI Innovation Competition",
-      "text": "Host: Texas Christian University\nStatus: upcoming\nSubmission period: Oct 16 - 18, 2026\nLocation: Online\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Education, Machine Learning/AI\nInvite only. TCU Students Only ",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://devhacks-2027.devpost.com/",
-      "title": ".devHacks 2027",
-      "text": "Host: .devClub\nStatus: upcoming\nSubmission period: Feb 19 - 21, 2027\nLocation: EITC Building, University of Manitoba\nPrizes: $CAD 0 (0 cash, 1 other)\nThemes: Beginner Friendly, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://khe-2027.devpost.com/",
-      "title": "Kent Hack Enough 2027",
-      "text": "Host: HacKSU\nStatus: upcoming\nSubmission period: Mar 06 - 07, 2027\nLocation: Kent State University - DI Hub\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://ai-content-engine-hackathon.devpost.com/",
-      "title": "N/A",
-      "text": "Host: NA\nStatus: upcoming\nSubmission period: Feb 02 - Apr 06, 2027\nLocation: Online\nPrizes: $2 (1 cash, 0 other)\nThemes: Design, DevOps, Health\nInvite only. N/A",
-      "meta": {
-        "categories": [
-          "Design",
-          "DevOps",
-          "Health"
-        ]
-      }
-    },
-    {
-      "url": "https://hackitsnova-2026-31640.devpost.com/",
-      "title": "HacKITSnova 2026",
-      "text": "Host: karunya University\nStatus: upcoming\nSubmission period: Oct 15, 2026\nLocation: Madawarayapuram, India\nPrizes: ₹ 14,998 (1 cash, 0 other)\nThemes: Beginner Friendly, Cybersecurity, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Cybersecurity",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://gear-up-hacks-2026.devpost.com/",
-      "title": "Gear Up Hacks 2026",
-      "text": "Host: Gear Up Foundation\nStatus: upcoming\nSubmission period: Oct 24, 2026\nLocation: Lincoln on Geer\nPrizes: $0 (0 cash, 2 other)\nThemes: Mobile, Social Good, Web",
-      "meta": {
-        "categories": [
-          "Mobile",
-          "Social Good",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://ds-x-hackathon-2026.devpost.com/",
-      "title": "DS+X Hackathon 2026",
-      "text": "Host: Boston University Spark!\nStatus: upcoming\nSubmission period: Oct 24 - 25, 2026\nLocation: Boston University- CDS\nPrizes: $5,000 (6 cash, 1 other)\nThemes: Databases, Health, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Databases",
-          "Health",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://action-space-hacks.devpost.com/",
-      "title": "Action Space",
-      "text": "Host: university of pennsylvania\nStatus: upcoming\nSubmission period: Oct 24 - 25, 2026\nLocation: Fab Lab\nPrizes: $0 (0 cash, 1 other)\nThemes: Machine Learning/AI, Robotic Process Automation",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Robotic Process Automation"
-        ]
-      }
-    },
-    {
-      "url": "https://code-for-dfw.devpost.com/",
-      "title": "Code For DFW",
-      "text": "Host: n/a\nStatus: upcoming\nSubmission period: Oct 20 - 27, 2026\nLocation: Online\nPrizes: $0 (0 cash, 1 other)\nThemes: Open Ended, Social Good, Beginner Friendly",
-      "meta": {
-        "categories": [
-          "Open Ended",
-          "Social Good",
-          "Beginner Friendly"
-        ]
-      }
-    },
-    {
-      "url": "https://arr-hackathon-co-creation.devpost.com/",
-      "title": "Asymmetric Reframed Reality Hackathon & Co-Creation Workshop",
-      "text": "Host: Goldsmiths, University of London\nStatus: upcoming\nSubmission period: Nov 04 - 06, 2026\nLocation: Caroline Graveson Building\nPrizes: £0 (0 cash, 3 other)\nThemes: AR/VR, Health, Music/Art",
-      "meta": {
-        "categories": [
-          "AR/VR",
-          "Health",
-          "Music/Art"
-        ]
-      }
-    },
-    {
-      "url": "https://haven-asbury-park.devpost.com/",
-      "title": "Haven Princeton Game Jam - High School",
-      "text": "Host: Hack Club\nStatus: upcoming\nSubmission period: Nov 14, 2026\nLocation: 1435 Capital\nPrizes: $3,551 (4 cash, 0 other)\nThemes: Beginner Friendly, Design, Gaming",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Design",
-          "Gaming"
-        ]
-      }
-    },
-    {
-      "url": "https://nsh-rpi-2027.devpost.com/",
-      "title": "NSH @RPI 2027",
-      "text": "Host: NSBE-SHPE RPI\nStatus: upcoming\nSubmission period: Jan 30 - 31, 2027\nLocation: RPI DCC \nPrizes: $0 (0 cash, 6 other)\nThemes: Beginner Friendly, Productivity, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Productivity",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://svchackathon2027.devpost.com/",
-      "title": "SVC Hackathon 2027",
-      "text": "Host: Skagit Valley College\nStatus: upcoming\nSubmission period: May 08, 2027\nLocation:  Gary Knutzen Cardinal Center\nPrizes: $0 (0 cash, 1 other)\nThemes: Low/No Code, Serverless, Web\nInvite only. Students 16+ ",
-      "meta": {
-        "categories": [
-          "Low/No Code",
-          "Serverless",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://sbuhacks-2026.devpost.com/",
-      "title": "SBUHacks 2026",
-      "text": "Host: Stony Brook Computing Society\nStatus: upcoming\nSubmission period: Oct 23 - 25, 2026\nLocation:  Frank Melville Jr. Memorial Library\nPrizes: $1,000 (1 cash, 0 other)\nThemes: Beginner Friendly, Social Good, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Social Good",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://the-top-500-uh-v2.devpost.com/",
-      "title": "The Top 500 (UH v2)",
-      "text": "Host: noclue\nStatus: upcoming\nSubmission period: Oct 23 - 25, 2026\nLocation: Online\nPrizes: $0 (1 cash, 0 other)\nThemes: Low/No Code, Open Ended, Social Good",
-      "meta": {
-        "categories": [
-          "Low/No Code",
-          "Open Ended",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://makeuc-2026-30881.devpost.com/",
-      "title": "Meow",
-      "text": "Host: meower@outlook.com\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: Cincinnati, OH, USA\nPrizes: $0 (0 cash, 1 other)\nThemes: Communication\nInvite only. ME",
-      "meta": {
-        "categories": [
-          "Communication"
-        ]
-      }
-    },
-    {
-      "url": "https://atomiq-hackathon-qff-26-iem.devpost.com/",
-      "title": "The Atomiq Hackathon | Qiskit Fall Fest 2026 at IEM",
-      "text": "Host: Institute of Engineering & Management\nStatus: upcoming\nSubmission period: Nov 10 - 11, 2026\nLocation: Online\nPrizes: ₹ 10,000 (3 cash, 1 other)\nThemes: Quantum",
-      "meta": {
-        "categories": [
-          "Quantum"
-        ]
-      }
-    },
-    {
-      "url": "https://onhacks.devpost.com/",
-      "title": "ONHacks",
-      "text": "Host: ONHack Organization\nStatus: upcoming\nSubmission period: Nov 21, 2026\nLocation: Polish Combatant's Hall\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Education, Open Ended\nInvite only. High School Students who applied",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://revolution-mty2026.devpost.com/",
-      "title": "Revolution",
-      "text": "Host: Hack Club Monterrey and High Coders MTY\nStatus: upcoming\nSubmission period: Dec 05 - 06, 2026\nLocation: Museo Del Acero Horno 3\nPrizes: MEX$0 (0 cash, 1 other)\nThemes: Beginner Friendly, IoT, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "IoT",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://hook-em-hacks-2027.devpost.com/",
-      "title": "Hook Em Hacks 2027",
-      "text": "Host: Hook Em Hacks\nStatus: upcoming\nSubmission period: Feb 27 - 28, 2027\nLocation: Austin, TX, USA\nPrizes: $1,000 (1 cash, 0 other)\nThemes: Open Ended",
-      "meta": {
-        "categories": [
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://desert-dev-lab-2027.devpost.com/",
-      "title": "Desert Dev Lab 2027",
-      "text": "Host: NM Tech Talks\nStatus: upcoming\nSubmission period: Apr 24 - 25, 2027\nLocation: Albuquerque, NM, USA\nPrizes: $1,000 (1 cash, 0 other)\nThemes: Beginner Friendly, Health, Social Good",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Health",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://ai-at-work-hack-the-everyday.devpost.com/",
-      "title": "AI At Work - Hack the Everyday",
-      "text": "Host: Snowflake\nStatus: upcoming\nSubmission period: Oct 16, 2026\nLocation: College for Creative Studies - Taubman\nPrizes: $0 (0 cash, 3 other)\nThemes: Databases, Machine Learning/AI, Productivity\nInvite only. Data in The D Attendees",
-      "meta": {
-        "categories": [
-          "Databases",
-          "Machine Learning/AI",
-          "Productivity"
-        ]
-      }
-    },
-    {
-      "url": "https://hack-for-humanity-taipei.devpost.com/",
-      "title": "Hack For Humanity (Taipei)",
-      "text": "Host: The AI Collective\nStatus: upcoming\nSubmission period: Oct 17, 2026\nLocation: Collaplay\nPrizes: $0 (0 cash, 4 other)\nThemes: Databases, Machine Learning/AI, Social Good\nInvite only. People who have been approved on the Luma page.",
-      "meta": {
-        "categories": [
-          "Databases",
-          "Machine Learning/AI",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://zoftware-agenthack.devpost.com/",
-      "title": "Zoftware AgentHack",
-      "text": "Host: zoftwarehub\nStatus: upcoming\nSubmission period: Oct 17, 2026\nLocation: Spring House Workspaces SHGU001\nPrizes: $500 (1 cash, 1 other)\nThemes: Enterprise",
-      "meta": {
-        "categories": [
-          "Enterprise"
-        ]
-      }
-    },
-    {
-      "url": "https://cambridge-creator-lab.devpost.com/",
-      "title": "CapCut x EAST2046 University of Cambridge Creator Lab Free Learning Campus",
-      "text": "Host: east2046\nStatus: upcoming\nSubmission period: Oct 22, 2026\nLocation: IfM, University of Cambridge\nPrizes: $0 (0 cash, 4 other)\nThemes: Machine Learning/AI, Music/Art, Web",
-      "meta": {
-        "categories": [
-          "Machine Learning/AI",
-          "Music/Art",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://hackohio2026.devpost.com/",
-      "title": "HackOHI/O 2026",
-      "text": "Host: OHI/O\nStatus: upcoming\nSubmission period: Oct 24 - 25, 2026\nLocation: The Ohio State University - Ohio Union\nPrizes: $0 (0 cash, 8 other)\nThemes: Beginner Friendly, Machine Learning/AI, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://ugahacks-cadathon.devpost.com/",
-      "title": "UGAHacks CADathon",
-      "text": "Host: UGAHacks\nStatus: upcoming\nSubmission period: Oct 24 - 25, 2026\nLocation: UGA - Driftmier Engineering Center\nPrizes: $0 (0 cash, 4 other)\nThemes: Beginner Friendly, Design, Web\nInvite only. UGA Students Only",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Design",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://powerhack.devpost.com/",
-      "title": "PowerHack",
-      "text": "Host: ColorStack @ Lehman College\nStatus: upcoming\nSubmission period: Nov 06, 2026\nLocation: Lehman College - East Dining Hall/MU-102\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Databases, Design\nInvite only. Lehman College, Hostos College, Bronx College",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Databases",
-          "Design"
-        ]
-      }
-    },
-    {
-      "url": "https://a10-x-aws-hack-26.devpost.com/",
-      "title": "AWS x A10 Hack 2026",
-      "text": "Host: Santa Clara University ACM\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: Heafey Hall\nPrizes: $7,500 (4 cash, 0 other)\nThemes: Beginner Friendly, Cybersecurity, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Cybersecurity",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://ocsefhacks3.devpost.com/",
-      "title": "OCSEFHacks 3",
-      "text": "Host: HackPac\nStatus: upcoming\nSubmission period: Nov 14 - 15, 2026\nLocation: Westminster High School\nPrizes: $0 (0 cash, 1 other)\nThemes: Beginner Friendly, Machine Learning/AI, Open Ended",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Machine Learning/AI",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://business-battkefuekd.devpost.com/",
-      "title": "Business Battlefield 2027",
-      "text": "Host: Stripe\nStatus: upcoming\nSubmission period: Feb 20, 2027\nLocation:  Virginia De Land Theatre\nPrizes: $0 (0 cash, 1 other)\nThemes: Low/No Code, Voice skills, Design",
-      "meta": {
-        "categories": [
-          "Low/No Code",
-          "Voice skills",
-          "Design"
-        ]
-      }
-    },
-    {
-      "url": "https://hybrid-micro-mouse-challenge.devpost.com/",
-      "title": "Hybrid Micro Mouse Challenge",
-      "text": "Host: Alliance University\nStatus: upcoming\nSubmission period: Oct 29, 2026\nLocation: Online\nPrizes: ₹ 55,000 (8 cash, 0 other)\nThemes: Education, IoT, Open Ended",
-      "meta": {
-        "categories": [
-          "Education",
-          "IoT",
-          "Open Ended"
-        ]
-      }
-    },
-    {
-      "url": "https://redhawk-builds-2026.devpost.com/",
-      "title": "Redhawk Builds 2026",
-      "text": "Host: Miami\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: McVey Data Science Building\nPrizes: $3,500 (3 cash, 0 other)\nThemes: Fintech, Machine Learning/AI",
-      "meta": {
-        "categories": [
-          "Fintech",
-          "Machine Learning/AI"
-        ]
-      }
-    },
-    {
-      "url": "https://ktphacks-2.devpost.com/",
-      "title": "KTPHacks 2",
-      "text": "Host: Kappa Theta Pi\nStatus: upcoming\nSubmission period: Nov 07 - 08, 2026\nLocation: Virginia Tech - DDS\nPrizes: $0 (0 cash, 10 other)\nThemes: Beginner Friendly, Open Ended, Social Good\nInvite only. Must be a student at Virginia Tech",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Social Good"
-        ]
-      }
-    },
-    {
-      "url": "https://hackperimeter.devpost.com/",
-      "title": "Hackperimeter",
-      "text": "Host: Georgia State University\nStatus: upcoming\nSubmission period: Nov 13, 2026\nLocation: GSU Perimeter College - Clarkston Campus\nPrizes: $1,000 (3 cash, 0 other)\nThemes: Beginner Friendly, Open Ended, Web",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Open Ended",
-          "Web"
-        ]
-      }
-    },
-    {
-      "url": "https://haven-richmond.devpost.com/",
-      "title": "Haven Richmond",
-      "text": "Host: HackClub  ✓⃝\nStatus: upcoming\nSubmission period: Nov 14 - 15, 2026\nLocation: Richmond, Virginia, USA\nPrizes: $500 (1 cash, 0 other)\nThemes: Beginner Friendly, Education, Gaming",
-      "meta": {
-        "categories": [
-          "Beginner Friendly",
-          "Education",
-          "Gaming"
         ]
       }
     }
