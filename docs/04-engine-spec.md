@@ -35,7 +35,7 @@ Dispatch on `Source.kind`:
 | `sitemap` | `fetchers/sitemap.ts`: GET sitemap or sitemap index, keep URLs matching the source's `include` glob, diff against known `RawItem.canonicalUrl`, fetch only new URLs, extract readable text with a Readability-style extractor | new URL |
 | `html` | `fetchers/html.ts` loads `adapters/<adapter>.ts` and calls `adapter.fetch(source, http)` | whatever the adapter returns |
 | `api` | same as `html` with a JSON-speaking adapter | same |
-| `manual` | no-op; items arrive through `/submit` or the admin | never |
+| `manual` | no-op; items arrive through `/admin/new` (M2.10) or `/submit` (M4.3) | never |
 
 `http` is `HttpClient` in `src/http.ts`, an undici `Dispatcher`-backed wrapper with: one
 request per second per host (or the host's `Crawl-delay` when longer), a 20s timeout, 3

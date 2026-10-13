@@ -120,9 +120,10 @@ refreshes it.
   share link. Spec: `01` §2. Check: acceptance items.
 - [ ] **M2.9 Status page.** `/status` from `Source` and `FetchRun`. Check: matches
   `engine health` output.
-- [ ] **M2.10 Admin.** Login, middleware, queue tabs, review form, actions, JSON logging.
-  Spec: `01` §4, `02` §7. Check: unauthenticated requests to `/admin/*` and `/api/admin/*`
-  are redirected or 401.
+- [ ] **M2.10 Admin.** Login, middleware, queue tabs (including All), review form, actions,
+  `/admin/new` for hand-entered opportunities, JSON logging. Spec: `01` §4, `02` §7. Check:
+  unauthenticated requests to `/admin/*` and `/api/admin/*` are redirected or 401; an item
+  created at `/admin/new` for Paystack publishes and a duplicate `canonicalUrl` is refused.
 - [ ] **M2.11 API v1.** Route handlers per `06` §3, DTO validation tests, rate limiting,
   OpenAPI document and `/api` page. Check: acceptance items in `06`.
 - [ ] **M2.12 Deploy.** Vercel project, env vars, `POST /api/revalidate` wired from

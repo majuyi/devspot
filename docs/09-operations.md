@@ -98,9 +98,9 @@ then verify the keepalive workflow ran; the usual cause is the workflow being di
 **Actions disabled the schedules.** Re-enable each workflow from the Actions tab. Make a
 commit. Check that `keepalive.yml` is enabled first.
 
-**A wrong deadline was published.** Fix in `/admin` (which sets `reviewedAt` so the machine
-will not overwrite it), then add the case to `packages/engine/test/eval/` so the extractor
-is tested against it.
+**A wrong deadline was published.** Find it in the All tab of `/admin` and fix it there
+(which sets `reviewedAt` so the machine will not overwrite it), then add the case to
+`packages/engine/test/eval/` so the extractor is tested against it.
 
 **The engine run is slow or times out.** The job has a 30-minute limit. Check for a source
 with many new URLs (a sitemap that changed shape). Run with `--limit` to confirm. Consider
