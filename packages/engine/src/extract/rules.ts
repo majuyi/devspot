@@ -26,9 +26,6 @@ export type RulesInput = {
 
 export type RulesResult = { draft: OpportunityDraft; confidence: number };
 
-/** At M1 an item publishes on rules alone at this overall confidence (docs/05 §1). */
-export const RULES_PUBLISH_THRESHOLD = 0.75;
-
 type Field<T> = { value: T; confidence: number; quote?: string };
 const none = <T>(value: T): Field<T> => ({ value, confidence: 0 });
 

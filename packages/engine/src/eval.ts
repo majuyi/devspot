@@ -6,10 +6,11 @@ import {
   OpportunityKind,
   OrgCategory,
   RawItemInput,
+  RULES_ONLY_PUBLISH_THRESHOLD,
 } from "@devspot/schema";
 import { z } from "zod";
 import { canonicalizeUrl } from "./dedupe.js";
-import { ELIGIBILITY_WORDS, extractRules, RULES_PUBLISH_THRESHOLD } from "./extract/rules.js";
+import { ELIGIBILITY_WORDS, extractRules } from "./extract/rules.js";
 
 export const EVAL_FILE = resolve(import.meta.dirname, "../test/eval/items.json");
 
@@ -80,7 +81,7 @@ export function runEval(set: EvalSet): EvalReport {
     if (draft.summary && ELIGIBILITY_WORDS.test(draft.summary))
       report.eligibilityWordViolations.push(id);
     if (!expected.isOpportunity) {
-      if (confidence >= RULES_PUBLISH_THRESHOLD) report.falsePublishes.push(id);
+      if (confidence >= RULES_ONLY_PUBLISH_THRESHOLD) report.falsePublishes.push(id);
       continue;
     }
     report.opportunities++;
