@@ -51,12 +51,16 @@ export function baseSlug(orgSlug: string, title: string, firstSeenAt: Date): str
 }
 
 /**
- * Invariant 3 (docs/03 §4). The required fields are enforced by `OpportunityInput`, so what
- * is left is confidence and, for rules alone, a stated date: rolling never publishes on rules.
+ * Invariant 3 (docs/03 §4). Kind and location mode must be known. Then it is confidence and,
+ * for rules alone, a stated date: rolling never publishes on rules.
  */
 export function meetsPublishRule(
-  input: Pick<OpportunityInput, "confidence" | "extractionMethod" | "deadlineAt" | "startsAt">,
+  input: Pick<
+    OpportunityInput,
+    "kind" | "locationMode" | "confidence" | "extractionMethod" | "deadlineAt" | "startsAt"
+  >,
 ): boolean {
+  if (!input.kind || !input.locationMode) return false;
   if (input.extractionMethod !== "rules") return input.confidence >= PUBLISH_THRESHOLD;
   return (
     input.confidence >= RULES_ONLY_PUBLISH_THRESHOLD && Boolean(input.deadlineAt ?? input.startsAt)
@@ -86,6 +90,7 @@ export async function load(
   });
   const mutable = {
     title: input.title,
+    kind: input.kind ?? null,
     summary: input.summary ?? null,
     opensAt: date(input.opensAt),
     deadlineAt: date(input.deadlineAt),
@@ -93,6 +98,11 @@ export async function load(
     deadlineTimezone: input.deadlineTimezone ?? null,
     startsAt: date(input.startsAt),
     endsAt: date(input.endsAt),
+    locationMode: input.locationMode ?? null,
+    country: input.country ?? null,
+    city: input.city ?? null,
+    venueName: input.venueName ?? null,
+    venueAddress: input.venueAddress ?? null,
     requirementsText: input.requirementsText ?? null,
     tags: normalizeTags(input.tags),
     extracted: json(input.extracted),
@@ -139,14 +149,8 @@ export async function load(
       organizationId: input.organizationId,
       ...(input.rawItemId ? { rawItemId: input.rawItemId } : {}),
       ...(input.submissionId ? { submissionId: input.submissionId } : {}),
-      kind: input.kind,
       canonicalUrl: input.canonicalUrl,
       applyUrl: input.applyUrl ?? null,
-      locationMode: input.locationMode,
-      country: input.country ?? null,
-      city: input.city ?? null,
-      venueName: input.venueName ?? null,
-      venueAddress: input.venueAddress ?? null,
       regionsTags: input.regionsTags,
       extractionMethod: input.extractionMethod,
       discoveredVia: input.discoveredVia,

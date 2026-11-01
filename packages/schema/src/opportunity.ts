@@ -44,7 +44,10 @@ export const OpportunityDraft = z.object({
 });
 export type OpportunityDraft = z.infer<typeof OpportunityDraft>;
 
-/** What the loader accepts. Required fields are enforced here, not in the draft. */
+/**
+ * What the loader accepts. `kind` and `locationMode` stay optional: an item without them goes
+ * to review, because dropping it would lose a real opportunity. The publish rule needs both.
+ */
 export const OpportunityInput = OpportunityDraft.omit({
   isOpportunity: true,
   evidence: true,
@@ -52,8 +55,6 @@ export const OpportunityInput = OpportunityDraft.omit({
   organizationId: z.string(),
   rawItemId: z.string().optional(),
   submissionId: z.string().optional(),
-  kind: OpportunityKind,
-  locationMode: LocationMode,
   confidence: Confidence,
   extractionMethod: ExtractionMethod,
   discoveredVia: DiscoveredVia,

@@ -16,7 +16,7 @@ Runs first, always. Each rule returns a value and a confidence in [0, 1].
 | `kind` | Keyword scoring over title then text. Weighted phrase lists per kind (`internship`, `graduate programme`, `fellowship`, `scholarship`, `grant`, `hackathon`, `open source`/`GSoC`/`Outreachy`, `meetup`/`conference`/`summit`, `competition`/`challenge`, `accelerator`, `bootcamp`). The organization's category sets a prior (an `ossProgram` org defaults to `ossProgram`). | 0.9 when title matches one kind only; 0.6 when text-only; 0.4 when prior-only |
 | `deadlineAt`, `deadlineKind` | Regex families anchored on `deadline`, `closes`, `apply by`, `applications close`, `last date`, within 80 characters of a parseable date (`3 October 2026`, `Oct 3, 2026`, `03/10/2026` interpreted day-first, ISO). `rolling` when "rolling" or "until filled" appears near "applications". `multiRound` when "round" and two dates appear. Else `unknown`. Dates in the past relative to `publishedAt` are discarded. | 0.85 anchored with year; 0.6 anchored without year (year inferred as next occurrence); 0 otherwise |
 | `startsAt`, `endsAt` | For `event` and `bootcamp` kinds: date ranges (`3–5 Oct 2026`, `October 3 to 5`), single dates near `on`/`date:` | 0.8 with year; 0.5 without |
-| `locationMode`, `city`, `country` | Dictionary: city names and aliases from `CITIES` (Lagos, Ikeja, Yaba → lagos; Abuja, FCT → abuja …), "remote", "virtual", "online", "hybrid", "Nigeria", "nationwide", "Africa", "global". `remote` wins if "remote"/"virtual"/"online" appears in title; hybrid if "hybrid"; onsite when a city matched and no remote word. | 0.9 title, 0.7 text, 0.3 org default |
+| `locationMode`, `city`, `country` | Dictionary: city names and aliases from `CITIES` (Lagos, Ikeja, Yaba → lagos; Abuja, FCT → abuja …), "remote", "virtual", "online", "hybrid", "Nigeria", "nationwide", "Africa", "global". `remote` wins if "remote"/"virtual"/"online" appears in title; hybrid if "hybrid"; onsite when a city matched and no remote word. | 0.9 title, 0.85 a `Location:` or `Venue:` line, 0.7 text, 0.3 org default |
 | `venueName`, `venueAddress` | Lines following `venue:`, `location:`, `at ` followed by a proper noun, for events | 0.6 |
 | `requirementsText` | The block under a heading matching `requirements`, `eligibility`, `who can apply`, `criteria`, up to the next heading or 1,500 characters. Copied verbatim, including line breaks. | 0.9 heading match; 0 otherwise (left null, never synthesized) |
 | `applyUrl` | First link whose text matches `apply`, `register`, `submit`, `sign up`, or whose href contains `apply`, `register`, `forms.`, `airtable`, `typeform`. | 0.8 |
@@ -26,7 +26,8 @@ Runs first, always. Each rule returns a value and a confidence in [0, 1].
 
 Overall confidence at rules-only: `min(kind, max(deadline, startsAt), locationMode)` with a
 0.15 penalty when `requirementsText` is null. At M1, publish threshold for rules-only items is
-0.75, which in practice means kind found in the title and a dated deadline or start.
+0.75, which in practice means kind found in the title, a dated deadline or start, and a
+location in the title or on a `Location:` or `Venue:` line.
 
 **Dates with no time (decided 2026-10-13).** A deadline stated as a date only ("Applications
 close 31 October 2026") means 23:59 that day. The time zone is the one the source states
