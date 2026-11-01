@@ -187,6 +187,13 @@ the response is 404 or 410, when the text matches a closed-signal list ("applica
 closed", "registration has ended", "no longer accepting"), or when `deadlineAt`/`endsAt` is
 more than 24 hours in the past. Otherwise set `lastVerifiedAt`. Never reopen automatically.
 
+Built in M1.9: `src/verify.ts`, writing through `applyVerification` in `src/load.ts`. Invariant
+7 is checked first, with no request, and the pass also picks up any older past date. An event
+is over at `endsAt`, else `startsAt`, else `deadlineAt`, so a one-day meetup closes; anything
+else at `deadlineAt`, else `endsAt`. Reviewed rows close too: a past date is not the machine's
+opinion. Any other non-2xx, a network failure or a `robots.txt` refusal changes nothing and is
+counted as unreachable. Closing records the reason in `statusReason`.
+
 ### Stage 7 · Health
 
 After each run, per source:
@@ -199,6 +206,13 @@ After each run, per source:
   baseline over 1/week; `erroring` if `consecutiveErrors >= 3`; `new` if fewer than 4 runs.
 - Alerts: the run's summary lists every `stale` and `erroring` source. In Actions, the job
   fails (exit 1) when a source turns `erroring`, so the maintainer gets an email.
+
+Built in M1.9: `health` and `runSummary` in `src/health.ts`; `sourceHealth` in
+`packages/schema` because `/status` needs it too. States are checked worst first, so `erroring`
+beats `new`, as a source failing from its first run must. A source that fits none of the rules
+above (one or two errors, or a quiet spell short of `stale`) is `healthy`. One run scales to a
+week as `nNew * 28`, the six-hour cadence. A failed run counts as empty but leaves the baseline
+alone.
 
 ## 2. CLI
 

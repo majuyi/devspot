@@ -1,18 +1,21 @@
 /**
  * `pnpm engine <command>`. Logs are JSON lines on stdout; the human summary goes to stderr.
- * record, replay and eval exist so far; run, verify, health and snapshot arrive in M1.10.
+ * record, replay, eval and verify exist so far; run, health and snapshot arrive in M1.10.
  */
 import { parseArgs } from "node:util";
 import { formatReport, loadEvalSet, runEval } from "./eval.js";
 import { fetchSource } from "./fetch.js";
 import { recordSource } from "./fixtures/record.js";
 import { acceptReplay, replaySource } from "./fixtures/replay.js";
+import { HttpClient } from "./http.js";
 import { findSource } from "./registry.js";
+import { verifyPublished } from "./verify.js";
 
 const USAGE = `usage:
   pnpm engine record --source <key>            record a fixture from the live network
   pnpm engine replay --source <key> [--update] diff the fetcher's output against the fixture
-  pnpm engine eval                             score the rules extractor on test/eval/items.json`;
+  pnpm engine eval                             score the rules extractor on test/eval/items.json
+  pnpm engine verify [--all]                   re-check published opportunities, close finished ones`;
 
 function log(event: string, fields: Record<string, unknown>): void {
   console.log(JSON.stringify({ event, ...fields }));
@@ -22,13 +25,28 @@ async function main(argv: string[]): Promise<number> {
   const { positionals, values } = parseArgs({
     args: argv,
     allowPositionals: true,
-    options: { source: { type: "string" }, update: { type: "boolean", default: false } },
+    options: {
+      source: { type: "string" },
+      update: { type: "boolean", default: false },
+      all: { type: "boolean", default: false },
+    },
   });
   const [command] = positionals;
   if (command === "eval") {
     const report = runEval(loadEvalSet());
     log("eval.finished", report);
     console.error(formatReport(report));
+    return 0;
+  }
+  if (command === "verify") {
+    // Imported here because importing it needs DATABASE_URL, which the other commands do not.
+    const { db } = await import("@devspot/db");
+    const summary = await verifyPublished(db, new HttpClient(), { all: values.all });
+    await db.$disconnect();
+    log("verify.finished", summary);
+    console.error(
+      `verified ${summary.verified}, closed ${summary.closed}, unreachable ${summary.unreachable} of ${summary.checked}`,
+    );
     return 0;
   }
   if ((command !== "record" && command !== "replay") || !values.source) {

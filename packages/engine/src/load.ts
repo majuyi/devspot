@@ -6,6 +6,7 @@ import {
   PUBLISH_THRESHOLD,
   RULES_ONLY_PUBLISH_THRESHOLD,
 } from "@devspot/schema";
+import type { VerifyResult } from "./verify.js";
 
 const SLUG_TITLE_MAX = 60;
 
@@ -162,6 +163,24 @@ export async function load(
     },
   });
   return { id: created.id, status, created: true };
+}
+
+/** Stage 6's writes, here so the loader stays the only writer of `Opportunity`. */
+export async function applyVerification(
+  db: PrismaClient,
+  id: string,
+  result: VerifyResult,
+  now: Date,
+): Promise<void> {
+  if (result.outcome === "unreachable") return;
+  // updateMany: a row a reviewer changed or removed mid-pass is skipped, not an error.
+  await db.opportunity.updateMany({
+    where: { id, status: "published" },
+    data:
+      result.outcome === "closed"
+        ? { status: "closed", statusReason: result.reason, closedAt: now, lastVerifiedAt: now }
+        : { lastVerifiedAt: now },
+  });
 }
 
 /** A collision takes a 4-character suffix drawn from the URL, so reruns pick the same one. */

@@ -80,7 +80,7 @@ the Actions job.
 - [x] **M1.8 Validate and load.** `identityKey`, slug generation, publish rule at M1
   threshold, reviewed-row protection, duplicate handling. Spec: `04` §1 stage 5, `03` §4.
   Check: invariant tests 3, 4, 6 pass.
-- [ ] **M1.9 Verify and health.** `engine verify`, health counters and state computation,
+- [x] **M1.9 Verify and health.** `engine verify`, health counters and state computation,
   run summary JSON. Spec: `04` §1 stages 6–7. Check: state transitions tested; a 500 source
   reaches `erroring` after 3 runs.
 - [ ] **M1.10 CLI and run orchestration.** `engine run` with flags, per-source isolation

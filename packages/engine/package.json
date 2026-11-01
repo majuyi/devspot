@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "cli": "tsx src/cli.ts",
+    "cli": "tsx --env-file-if-exists=../../.env src/cli.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
   },
