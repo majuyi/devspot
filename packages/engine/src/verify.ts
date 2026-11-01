@@ -77,10 +77,17 @@ export type VerifySummary = {
 export async function verifyPublished(
   db: PrismaClient,
   http: HttpClient,
-  { all = false, now = new Date() }: { all?: boolean; now?: Date } = {},
+  {
+    all = false,
+    now = new Date(),
+    organizationId,
+  }: { all?: boolean; now?: Date; organizationId?: string } = {},
 ): Promise<VerifySummary> {
   const rows = await db.opportunity.findMany({
-    where: all ? { status: "published" } : dueForVerify(now),
+    where: {
+      ...(all ? { status: "published" } : dueForVerify(now)),
+      ...(organizationId ? { organizationId } : {}),
+    },
   });
   const summary: VerifySummary = { checked: rows.length, verified: 0, closed: 0, unreachable: 0 };
   for (const row of rows) {

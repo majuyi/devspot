@@ -165,6 +165,7 @@ describe("invariant 4: the engine writes Opportunity only through the loader", (
     expect(matching(/from "@devspot\/db"/).sort()).toEqual([
       "load.ts",
       "raw-items.ts",
+      "run.ts",
       "verify.ts",
     ]);
   });

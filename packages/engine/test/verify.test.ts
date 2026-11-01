@@ -194,7 +194,7 @@ describe.skipIf(!hasDb)("verifyPublished against Postgres", () => {
     const quiet = await add("quiet");
     const http = httpFor({ gone: 404, down: 500 });
 
-    const summary = await verifyPublished(db, http, { now: NOW });
+    const summary = await verifyPublished(db, http, { now: NOW, organizationId });
     expect(summary).toEqual({ checked: 3, verified: 1, closed: 1, unreachable: 1 });
     expect(await statusOf(gone.id)).toMatchObject({
       status: "closed",
@@ -206,7 +206,7 @@ describe.skipIf(!hasDb)("verifyPublished against Postgres", () => {
     expect(await statusOf(down.id)).toMatchObject({ status: "published", lastVerifiedAt: null });
     expect((await statusOf(quiet.id)).lastVerifiedAt).toEqual(ago(1));
 
-    await verifyPublished(db, http, { all: true, now: NOW });
+    await verifyPublished(db, http, { all: true, now: NOW, organizationId });
     expect((await statusOf(quiet.id)).lastVerifiedAt).toEqual(NOW);
   });
 
@@ -218,7 +218,9 @@ describe.skipIf(!hasDb)("verifyPublished against Postgres", () => {
         return { url: "", status: 404, headers: {}, body: "" };
       },
     } as unknown as HttpClient;
-    await expect(verifyPublished(db, http, { now: NOW })).resolves.toMatchObject({ checked: 1 });
+    await expect(verifyPublished(db, http, { now: NOW, organizationId })).resolves.toMatchObject({
+      checked: 1,
+    });
   });
 
   it("leaves a row a reviewer pulled from the site mid-pass", async () => {
@@ -229,7 +231,7 @@ describe.skipIf(!hasDb)("verifyPublished against Postgres", () => {
         return { url: "", status: 404, headers: {}, body: "" };
       },
     } as unknown as HttpClient;
-    await verifyPublished(db, http, { now: NOW });
+    await verifyPublished(db, http, { now: NOW, organizationId });
     expect(await statusOf(row.id)).toMatchObject({ status: "review", closedAt: null });
   });
 
@@ -239,7 +241,7 @@ describe.skipIf(!hasDb)("verifyPublished against Postgres", () => {
       closedAt: ago(5),
       lastVerifiedAt: null,
     });
-    await verifyPublished(db, httpFor({}), { all: true, now: NOW });
+    await verifyPublished(db, httpFor({}), { all: true, now: NOW, organizationId });
     expect(await statusOf(closed.id)).toMatchObject({ status: "closed", closedAt: ago(5) });
   });
 });

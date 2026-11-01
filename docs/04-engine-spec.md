@@ -230,6 +230,15 @@ pnpm engine eval                           # score the rules extractor on the la
 `--dry-run` prints drafts and skips the loader. All commands log JSON lines to stdout and a
 human summary to stderr.
 
+Built in M1.10: `src/run.ts` and `src/dry-run.ts`. `run` syncs the registry, then takes each
+enabled source in turn; a failure is written to its `FetchRun` and the next source starts.
+The exit code is 1 only on the run a source turns `erroring`, not on every run after.
+`--limit N` is items per source, cut before dedupe so nothing is stored unread. `--dry-run`
+reads the registry, needs no database and sees every item as new. A source whose adapter is
+not written yet is skipped and logged, because it would otherwise fail the job for good.
+`--llm` arrives with the LLM extractor in M3. `snapshot` arrives in M4.4. An item stored by
+dedupe that then fails validation or loading is logged, and waits for its page to change.
+
 ## 3. Record and replay fixtures
 
 Copied from CLIST's design.
@@ -314,7 +323,7 @@ sources:
 nothing if any file fails, throwing `RegistryValidationError` with one `file: field: message`
 line per problem. It then computes the file hash,
 upserts `Organization` and `Source` by slug and key, disables sources removed from the file,
-and never deletes rows (history stays). It runs at the start of `engine run` and in CI as a
+and never deletes rows (history stays). It runs at the start of `engine run` (`syncRegistry` in `@devspot/db`) and in CI as a
 check.
 
 ## 6. Observability

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
+  type OrgCategory,
   type RegistryFile,
   RegistryValidationError,
   sourceKey,
@@ -18,11 +19,17 @@ export class UnknownSource extends Error {
   }
 }
 
+/** A source as the YAML has it, with what extraction needs to know of its organization. */
+export type RegistrySource = FetchSource & {
+  enabled: boolean;
+  organization: { category: OrgCategory; country: string; city?: string };
+};
+
 /**
  * Reads sources straight from the YAML, so `record` and `replay` work without a database.
  * The same validation as `pnpm registry:check`.
  */
-export function loadRegistrySources(dir = REGISTRY_DIR): FetchSource[] {
+export function loadRegistrySources(dir = REGISTRY_DIR): RegistrySource[] {
   const files: RegistryFile[] = readdirSync(dir)
     .filter((f) => f.endsWith(".yaml") && !f.startsWith("_"))
     .map((file) => {
@@ -42,11 +49,17 @@ export function loadRegistrySources(dir = REGISTRY_DIR): FetchSource[] {
       url: s.url,
       ...(s.adapter ? { adapter: s.adapter } : {}),
       ...(s.include ? { include: s.include } : {}),
+      enabled: org.enabled && s.enabled,
+      organization: {
+        category: org.category,
+        country: org.country,
+        ...(org.city ? { city: org.city } : {}),
+      },
     })),
   );
 }
 
-export function findSource(key: string, dir = REGISTRY_DIR): FetchSource {
+export function findSource(key: string, dir = REGISTRY_DIR): RegistrySource {
   const source = loadRegistrySources(dir).find((s) => s.key === key);
   if (!source) throw new UnknownSource(key);
   return source;

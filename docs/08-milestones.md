@@ -83,7 +83,7 @@ the Actions job.
 - [x] **M1.9 Verify and health.** `engine verify`, health counters and state computation,
   run summary JSON. Spec: `04` §1 stages 6–7. Check: state transitions tested; a 500 source
   reaches `erroring` after 3 runs.
-- [ ] **M1.10 CLI and run orchestration.** `engine run` with flags, per-source isolation
+- [x] **M1.10 CLI and run orchestration.** `engine run` with flags, per-source isolation
   (one failing source never stops the run), JSON lines logging. Check: `--dry-run` against
   a fixture prints drafts; exit code 1 when a source turns `erroring`.
 - [ ] **M1.11 Actions.** `engine.yml`, `keepalive.yml`, `backup.yml`, `migrate.yml`; the
