@@ -8,4 +8,5 @@ export * from "./preferences.js";
 export * from "./raw-item.js";
 export * from "./registry.js";
 export * from "./snapshot.js";
+export * from "./source-health.js";
 export * from "./tags.js";

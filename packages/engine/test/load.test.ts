@@ -162,7 +162,11 @@ describe("invariant 4: the engine writes Opportunity only through the loader", (
     expect(matching(write)).toEqual(["load.ts"]);
   });
   it("only the database stages import @devspot/db", () => {
-    expect(matching(/from "@devspot\/db"/).sort()).toEqual(["load.ts", "raw-items.ts"]);
+    expect(matching(/from "@devspot\/db"/).sort()).toEqual([
+      "load.ts",
+      "raw-items.ts",
+      "verify.ts",
+    ]);
   });
 });
 
