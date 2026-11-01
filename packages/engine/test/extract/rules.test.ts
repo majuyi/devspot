@@ -1,8 +1,8 @@
+import { RULES_ONLY_PUBLISH_THRESHOLD } from "@devspot/schema";
 import { describe, expect, it } from "vitest";
 import {
   ELIGIBILITY_WORDS,
   extractRules,
-  RULES_PUBLISH_THRESHOLD,
   ruleApplyUrl,
   ruleDeadline,
   ruleKind,
@@ -399,7 +399,7 @@ describe("extractRules", () => {
       ),
     );
     expect(confidence).toBe(0.85);
-    expect(confidence).toBeGreaterThanOrEqual(RULES_PUBLISH_THRESHOLD);
+    expect(confidence).toBeGreaterThanOrEqual(RULES_ONLY_PUBLISH_THRESHOLD);
     expect(draft).toMatchObject({
       kind: "internship",
       deadlineKind: "fixed",
@@ -442,7 +442,7 @@ describe("extractRules", () => {
     );
     expect(draft.deadlineKind).toBe("unknown");
     expect(draft.deadlineAt).toBeUndefined();
-    expect(confidence).toBeLessThan(RULES_PUBLISH_THRESHOLD);
+    expect(confidence).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
   });
 
   it("does not publish a closed listing whose date has passed", () => {

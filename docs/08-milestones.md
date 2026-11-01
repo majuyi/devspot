@@ -77,7 +77,7 @@ the Actions job.
 - [x] **M1.7 Rules extractor.** `extract/rules.ts` per `05` §1 with table-driven tests (10+
   cases per field, negatives included). Check: eval harness skeleton `engine eval` runs on
   20 hand-labelled items with reported accuracy.
-- [ ] **M1.8 Validate and load.** `identityKey`, slug generation, publish rule at M1
+- [x] **M1.8 Validate and load.** `identityKey`, slug generation, publish rule at M1
   threshold, reviewed-row protection, duplicate handling. Spec: `04` §1 stage 5, `03` §4.
   Check: invariant tests 3, 4, 6 pass.
 - [ ] **M1.9 Verify and health.** `engine verify`, health counters and state computation,

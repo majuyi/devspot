@@ -165,6 +165,17 @@ with the field path and counted on the run; they never throw.
   otherwise `review`.
 - Slug generation as in the product spec. Collisions get a 4-char suffix.
 
+Built in M1.8: `src/validate.ts` (`validateDraft`) and `src/load.ts` (`load`, the only writer
+of `Opportunity`). `normalizeTitle` drops years, numbered cohorts, batches, seasons, editions,
+classes and intakes, and a trailing number; two cycles in one year therefore share an
+`identityKey` and the later one waits for a reviewer. `identityKey` and `slug` are set once.
+A second row with the same key points at the earliest original, so duplicates never chain.
+On an update, an unreviewed row also gets `lastVerifiedAt`, fields the page no longer states
+are cleared, and status moves between `review` and `published` so invariant 3 holds for the
+row's life; `closed` never reopens and a duplicate stays in `review`. Rules alone publish only
+with `deadlineAt` or `startsAt`, so a rolling item goes to review. The title part of a slug is
+cut to 60 characters at a word; the collision suffix comes from the URL.
+
 ### Stage 6 · Verify (command `engine verify`)
 
 For published opportunities where `deadlineAt` is within the next 3 days or passed within the
