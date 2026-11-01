@@ -1,0 +1,127 @@
+import { createHash } from "node:crypto";
+import { readdirSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import {
+  type RegistryFile,
+  RegistryValidationError,
+  sourceKey,
+  validateRegistry,
+} from "@devspot/schema";
+import { parse } from "yaml";
+import type { PrismaClient } from "./generated/prisma/client";
+
+const REGISTRY_DIR = resolve(import.meta.dirname, "../../../registry/organizations");
+
+export type RegistrySyncResult = {
+  files: number;
+  organizationsUpserted: number;
+  sourcesUpserted: number;
+  unchanged: number;
+};
+
+/**
+ * Reconcile registry/organizations/*.yaml into Organization and Source rows.
+ * The YAML is the source of truth. Never deletes rows; disables sources removed from a file.
+ */
+export async function syncRegistry(
+  client: PrismaClient,
+  dir = REGISTRY_DIR,
+): Promise<RegistrySyncResult> {
+  const files = readdirSync(dir).filter((f) => f.endsWith(".yaml") && !f.startsWith("_"));
+  const texts = new Map(files.map((file) => [file, readFileSync(resolve(dir, file), "utf8")]));
+  const parsed: RegistryFile[] = files.map((file) => {
+    try {
+      return { file, raw: parse(texts.get(file) as string) };
+    } catch (e) {
+      return { file, parseError: e instanceof Error ? e.message : String(e) };
+    }
+  });
+
+  // Validate the whole registry before writing anything, so one bad file never leaves a
+  // half-synced database.
+  const { organizations, issues } = validateRegistry(parsed);
+  if (issues.length) throw new RegistryValidationError(issues);
+
+  let orgs = 0;
+  let sources = 0;
+  let unchanged = 0;
+
+  for (const org of organizations) {
+    const registryHash = createHash("sha256")
+      .update(texts.get(org.file) as string)
+      .digest("hex");
+
+    const existing = await client.organization.findUnique({
+      where: { slug: org.slug },
+      select: { id: true, registryHash: true },
+    });
+    if (existing?.registryHash === registryHash) {
+      unchanged++;
+      continue;
+    }
+
+    const row = await client.organization.upsert({
+      where: { slug: org.slug },
+      create: {
+        slug: org.slug,
+        name: org.name,
+        category: org.category,
+        homepageUrl: org.homepageUrl,
+        description: org.description,
+        country: org.country,
+        city: org.city,
+        logoUrl: org.logoUrl,
+        enabled: org.enabled,
+        registryHash,
+      },
+      update: {
+        name: org.name,
+        category: org.category,
+        homepageUrl: org.homepageUrl,
+        description: org.description,
+        country: org.country,
+        city: org.city,
+        logoUrl: org.logoUrl,
+        enabled: org.enabled,
+        registryHash,
+      },
+    });
+    orgs++;
+
+    const keys = new Set<string>();
+    for (const s of org.sources) {
+      const key = sourceKey(org, s);
+      keys.add(key);
+      await client.source.upsert({
+        where: { key },
+        create: {
+          organizationId: row.id,
+          key,
+          kind: s.kind,
+          url: s.url,
+          adapter: s.adapter,
+          cadence: s.cadence,
+          enabled: s.enabled,
+          include: s.include,
+          notes: s.notes,
+        },
+        update: {
+          kind: s.kind,
+          url: s.url,
+          adapter: s.adapter,
+          cadence: s.cadence,
+          enabled: s.enabled,
+          include: s.include ?? null,
+          notes: s.notes ?? null,
+        },
+      });
+      sources++;
+    }
+    await client.source.updateMany({
+      where: { organizationId: row.id, key: { notIn: [...keys] }, enabled: true },
+      data: { enabled: false },
+    });
+  }
+
+  return { files: files.length, organizationsUpserted: orgs, sourcesUpserted: sources, unchanged };
+}
