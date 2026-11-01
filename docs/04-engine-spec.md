@@ -149,15 +149,18 @@ budget allows. Output is an `OpportunityDraft` with `fieldConfidence`.
 ### Stage 4 · Validate
 
 `OpportunityInput.safeParse` with the organization context merged in. Failures are logged
-with the field path and counted on the run; they never throw.
+with the field path and counted on the run; they never throw. A draft with no `kind` or
+`locationMode` passes and goes to review (decided 2026-11-01): a real opportunity the rules
+could not place must reach a person, because its raw item is not retried until the page
+changes.
 
 ### Stage 5 · Load
 
 - Compute `identityKey = slugify(org.slug + " " + normalizeTitle(title) + " " + cycleYear)`,
   where `normalizeTitle` strips years, cohort numbers and punctuation, and `cycleYear` is the
   year of `deadlineAt ?? startsAt ?? firstSeenAt`.
-- If an `Opportunity` with the same `canonicalUrl` exists: update mutable fields (title,
-  dates, requirements, summary, tags, extracted, confidence) unless `reviewedAt` is set, in
+- If an `Opportunity` with the same `canonicalUrl` exists: update mutable fields (title, kind,
+  dates, location, requirements, summary, tags, extracted, confidence) unless `reviewedAt` is set, in
   which case only `lastVerifiedAt` changes. Reviewed rows are never overwritten by the machine.
 - Else if one with the same `identityKey` exists: create with `duplicateOfId` pointing at it
   and `status = review` (a reviewer decides).

@@ -132,9 +132,9 @@ describe("location", () => {
     [
       "Meetup",
       "Venue: Co-creation Hub, Yaba",
-      { mode: "onsite", city: "lagos", country: "NG", confidence: 0.7 },
+      { mode: "onsite", city: "lagos", country: "NG", confidence: 0.85 },
     ],
-    ["Hackathon", "Location: Online", { mode: "remote", confidence: 0.7 }],
+    ["Hackathon", "Location: Online", { mode: "remote", confidence: 0.85 }],
     [
       "Bootcamp",
       "A 12-week online cohort for Nigerian graduates.",
@@ -151,6 +151,16 @@ describe("location", () => {
       { mode: "hybrid", city: "ibadan", country: "NG", confidence: 0.7 },
     ],
     ["Programme", "Open to applicants nationwide.", { country: "NG", confidence: 0 }],
+    ["Programme", "Host: GDG\nLocation: Online\nThemes: AI", { mode: "remote", confidence: 0.85 }],
+    [
+      "Programme",
+      "Venue: Yaba Tech Hub\nWe also run remote sessions.",
+      { mode: "onsite", city: "lagos", confidence: 0.85 },
+    ],
+    ["Programme", "Location: Hybrid", { mode: "hybrid", confidence: 0.85 }],
+    // A place the dictionary does not know says nothing about the mode.
+    ["Programme", "Location: Windhoek\nStart here.", { confidence: 0 }],
+    ["Programme", "Our location: is secret. Join online sessions.", { confidence: 0.7 }],
   ] as const)("%j %j", (title, text, expected) => {
     expect(ruleLocation(title, text, { category: "community", country: "GB" })).toMatchObject(
       expected,

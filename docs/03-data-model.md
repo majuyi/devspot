@@ -243,7 +243,7 @@ model Opportunity {
   submissionId   String?           @unique
 
   title          String
-  kind           OpportunityKind
+  kind           OpportunityKind?  // null only in review: the publish rule needs it
   summary        String?           // <= 280 chars, plain text, no claims about eligibility
   canonicalUrl   String            @unique // the organization's own page for this opportunity
   applyUrl       String?
@@ -255,7 +255,7 @@ model Opportunity {
   startsAt         DateTime?         // events and programmes
   endsAt           DateTime?
 
-  locationMode  LocationMode
+  locationMode  LocationMode?       // null only in review: the publish rule needs it
   country       String?             // ISO alpha-2; null means not location-bound
   city          String?             // city slug; null with a country means nationwide
   venueName     String?
@@ -375,7 +375,7 @@ same name (`OpportunityDraft` is both), so there is no `*Schema` suffix.
 | `OrganizationYaml` | registry validation, `db:sync-registry` | The YAML shape; includes nested `sources[]` |
 | `RawItemInput` | engine fetch stage output | `url`, `title?`, `text`, `publishedAt?`, `meta?` |
 | `OpportunityDraft` | extract stage output, LLM structured output | Every field optional except `title` and `canonicalUrl`; per-field confidence in `fieldConfidence`, quotes in `evidence` |
-| `OpportunityInput` | loader input after validation | Required fields enforced here |
+| `OpportunityInput` | loader input after validation | Draft plus organization and method. `kind` and `locationMode` may be missing: such an item goes to review, never live |
 | `OpportunityDto` | API response, snapshot | Public fields only; never confidence, `extracted` or raw ids |
 | `Preferences` | `/feed` cookie and query params | `{ v: 1, kinds: Kind[], city?: City, tags: string[], remoteOnly?: boolean }` |
 | `ApiListParams` | `/api/v1/*` query parsing | cursor, limit (max 100), filters |

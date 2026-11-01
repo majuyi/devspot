@@ -201,7 +201,7 @@ model Opportunity {
   submissionId   String?           @unique
 
   title          String
-  kind           OpportunityKind
+  kind           OpportunityKind?  // null only in review: the publish rule needs it
   summary        String?           // <= 280 chars, plain text, no claims about eligibility
   canonicalUrl   String            @unique // the organization's own page for this opportunity
   applyUrl       String?
@@ -213,7 +213,7 @@ model Opportunity {
   startsAt         DateTime?         // events and programmes
   endsAt           DateTime?
 
-  locationMode  LocationMode
+  locationMode  LocationMode?       // null only in review: the publish rule needs it
   country       String?             // ISO alpha-2; null means not location-bound
   city          String?             // city slug; null with a country means nationwide
   venueName     String?

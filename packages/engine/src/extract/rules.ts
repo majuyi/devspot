@@ -300,17 +300,21 @@ function findCity(text: string): { slug: string; quote: string } | undefined {
   return hit && { slug: hit.slug, quote: hit.quote };
 }
 
+/** A line whose whole job is to state the place, as Devpost's "Location: Online". */
+const LOCATION_LINE = /^(?:location|venue)\s*:\s*(.+)$/im;
+
 export function ruleLocation(title: string, text: string, org: RulesInput["org"]): LocationField {
   const nigeria = /\bnigerian?s?\b|\bnationwide\b/i.test(`${title}\n${text}`);
   const country = nigeria ? { country: "NG" } : {};
-  for (const [source, confidence] of [
-    [title, 0.9],
-    [text, 0.7],
+  const stated = text.match(LOCATION_LINE)?.[1] ?? "";
+  for (const [source, confidence, short] of [
+    [title, 0.9, true],
+    [stated, 0.85, true],
+    [text, 0.7, false],
   ] as const) {
-    const remote =
-      source === title
-        ? source.match(REMOTE_TITLE)
-        : REMOTE_TEXT.map((re) => source.match(re)).find(Boolean);
+    const remote = short
+      ? source.match(REMOTE_TITLE)
+      : REMOTE_TEXT.map((re) => source.match(re)).find(Boolean);
     const hybrid = source.match(HYBRID);
     const city = findCity(source);
     if (hybrid)

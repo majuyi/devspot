@@ -133,9 +133,13 @@ describe("OpportunityInput", () => {
   it("accepts a draft with the loader's required fields", () => {
     expect(OpportunityInput.safeParse(valid).success).toBe(true);
   });
-  it("requires kind, which the draft leaves optional", () => {
-    const { kind: _, ...withoutKind } = valid;
-    expect(OpportunityInput.safeParse(withoutKind).success).toBe(false);
+  it("leaves kind and locationMode optional: such an item goes to review", () => {
+    const { kind: _k, locationMode: _l, ...incomplete } = valid;
+    expect(OpportunityInput.safeParse(incomplete).success).toBe(true);
+  });
+  it("requires confidence, which the draft does not carry", () => {
+    const { confidence: _, ...withoutConfidence } = valid;
+    expect(OpportunityInput.safeParse(withoutConfidence).success).toBe(false);
   });
 });
 

@@ -109,6 +109,8 @@ describe("baseSlug", () => {
 
 describe("invariant 3: what may publish", () => {
   const base = {
+    kind: "internship",
+    locationMode: "remote",
     confidence: 0.75,
     extractionMethod: "rules",
     deadlineAt: "2026-11-30T22:59:00.000Z",
@@ -128,13 +130,22 @@ describe("invariant 3: what may publish", () => {
     expect(meetsPublishRule({ ...base, extractionMethod: "llm", confidence: 0.8 })).toBe(true);
     expect(meetsPublishRule({ ...base, extractionMethod: "manual", confidence: 0.8 })).toBe(true);
   });
-  it("validation refuses a draft with no kind or no location mode, without throwing", () => {
-    const { kind: _k, ...noKind } = draft();
-    const { locationMode: _l, ...noMode } = draft();
-    const paths = (d: OpportunityDraft) =>
-      validateDraft(d, ctx).error?.issues.map((i) => i.path.join("."));
-    expect(paths(noKind)).toEqual(["kind"]);
-    expect(paths(noMode)).toEqual(["locationMode"]);
+  it("not without a kind or a location mode, whatever the confidence", () => {
+    const sure = { ...base, confidence: 1 };
+    expect(meetsPublishRule({ ...sure, kind: undefined })).toBe(false);
+    expect(meetsPublishRule({ ...sure, locationMode: undefined })).toBe(false);
+    expect(meetsPublishRule({ ...sure, extractionMethod: "llm", kind: undefined })).toBe(false);
+  });
+  it("validation passes a draft with no kind or location mode, for review", () => {
+    expect(validateDraft(draft({ kind: undefined, locationMode: undefined }), ctx).success).toBe(
+      true,
+    );
+  });
+  it("validation reports a bad draft without throwing", () => {
+    const bad = { ...draft(), canonicalUrl: "not a url" };
+    expect(validateDraft(bad, ctx).error?.issues.map((i) => i.path.join("."))).toEqual([
+      "canonicalUrl",
+    ]);
   });
 });
 
@@ -227,6 +238,25 @@ describe.skipIf(!hasDb)("load against Postgres", () => {
     expect(up.status).toBe("published");
     // Still the first publication.
     expect((await row(id)).publishedAt).toEqual(T0);
+  });
+
+  it("sends an item with no kind or location to review, and publishes it once the page says", async () => {
+    const { id, status } = await run(input({ kind: undefined, locationMode: undefined }));
+    expect(status).toBe("review");
+    expect(await row(id)).toMatchObject({ kind: null, locationMode: null, publishedAt: null });
+
+    const filled = await run(input({ city: "lagos", locationMode: "onsite" }), T1);
+    expect(filled).toEqual({ id, status: "published", created: false });
+    expect(await row(id)).toMatchObject({
+      kind: "internship",
+      locationMode: "onsite",
+      city: "lagos",
+      publishedAt: T1,
+    });
+
+    const lost = await run(input({ kind: undefined }), T1);
+    expect(lost.status).toBe("review");
+    expect((await row(id)).kind).toBeNull();
   });
 
   it("stores the whole row on create, requirements verbatim", async () => {
