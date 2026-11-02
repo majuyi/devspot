@@ -36,3 +36,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - Source item filter (`filter` in the registry, `Source.filter` in the database): job boards keep listed departments or title keywords and drop senior titles before anything is stored (docs/04 §1).
 - `bamboohr` adapter for any BambooHR careers board; Flutterwave's careers source now runs, filtered to tech roles.
 - Rules extractor: a stated location it does not recognise no longer falls back to a city named elsewhere in the text or to the organization's city.
+- `workable` adapter for any Workable board; Kuda added. The item filter gained `countries`, and `seniority: early` also reads a board's stated level.

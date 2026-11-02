@@ -1,0 +1,24 @@
+slug: kuda
+name: Kuda
+category: employer
+homepageUrl: https://kuda.com
+description: >
+  Lagos-founded digital bank. Hires engineers, data analysts and product people in Lagos,
+  with some roles in South Africa and the UK.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: api
+    url: https://apply.workable.com/api/v1/widget/accounts/kuda
+    adapter: workable
+    cadence: rolling
+    filter:
+      departments: [Engineering, Data, Data Science, Data & Decisioning, Product, Design,
+        Technology]
+      titles: [engineer, developer, programmer, software, data scientist, data analyst,
+        data engineer, analytics, machine learning, ai, designer, ux, ui, product, devops,
+        sre, qa, cloud, mobile, android, ios, frontend, backend, full stack, fullstack]
+      countries: [NG]
+    notes: >
+      Workable public board (apply.workable.com/kuda). Verified 2026-11-02.

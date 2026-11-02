@@ -123,6 +123,17 @@ describe("applyItemFilter", () => {
     expect(itemMatcher({ countries: ["NG"], seniority: "any" })({ country: "ng" })).toBe(true);
   });
 
+  it("reads a board's stated level like a title", () => {
+    const keep = itemMatcher({ seniority: "early" });
+    expect(keep({ title: "Data Analyst", level: "Mid-Senior level" })).toBe(false);
+    expect(keep({ title: "Data Analyst", level: "Entry level" })).toBe(true);
+    expect(keep({ title: "Junior Data Analyst", level: "Mid-Senior level" })).toBe(true);
+    expect(keep({ title: "Lead Analyst", level: "Associate" })).toBe(true);
+    expect(itemMatcher({ seniority: "any" })({ title: "Analyst", level: "Director" })).toBe(true);
+    const item = { ...job("Data Analyst"), meta: { level: "Director" } };
+    expect(applyItemFilter([item], { seniority: "early" }).dropped).toBe(1);
+  });
+
   it("answers for listing data alone, so an adapter can ask before fetching detail", () => {
     const keep = itemMatcher({ departments: ["Engineering"], seniority: "early" });
     expect(keep({ title: "Backend Engineer", department: "engineering" })).toBe(true);

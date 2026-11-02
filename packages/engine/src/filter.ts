@@ -17,6 +17,8 @@ export type Listed = {
   department?: string | undefined;
   /** ISO alpha-2. */
   country?: string | undefined;
+  /** The board's own seniority label ("Entry level", "Mid-Senior level"), when it has one. */
+  level?: string | undefined;
 };
 
 /** Compiled once per source: keyword regexes and a department set. */
@@ -30,25 +32,29 @@ export function itemMatcher(filter: ItemFilter | undefined): (item: Listed) => b
       "iu",
     );
   const countries = filter.countries && new Set(filter.countries);
-  return ({ title = "", department, country }) => {
+  return ({ title = "", department, country, level = "" }) => {
     if (countries && country && !countries.has(country.toUpperCase())) return false;
     if (departments || titles) {
       const byDepartment = Boolean(departments && department && departments.has(norm(department)));
       const byTitle = Boolean(titles?.test(norm(title)));
       if (!byDepartment && !byTitle) return false;
     }
-    if (filter.seniority === "early" && SENIOR_TITLE.test(title) && !ENTRY_TITLE.test(title))
-      return false;
+    if (filter.seniority === "early") {
+      const senior = SENIOR_TITLE.test(title) || SENIOR_TITLE.test(level);
+      if (senior && !ENTRY_TITLE.test(title) && !ENTRY_TITLE.test(level)) return false;
+    }
     return true;
   };
 }
 
 const listed = (item: RawItemInput): Listed => {
-  const { department, country } = item.meta ?? {};
+  const { department, country, level } = item.meta ?? {};
+  const str = (v: unknown) => (typeof v === "string" ? v : undefined);
   return {
     title: item.title,
-    department: typeof department === "string" ? department : undefined,
-    country: typeof country === "string" ? country : undefined,
+    department: str(department),
+    country: str(country),
+    level: str(level),
   };
 };
 
