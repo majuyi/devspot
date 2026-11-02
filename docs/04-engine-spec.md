@@ -130,6 +130,12 @@ per run at `/api/v2/accounts/<company>/jobs/<shortcode>` for the description, re
 benefits and on-site, hybrid or remote. It sets `meta.department`, `meta.country` and
 `meta.level`.
 
+The zindi adapter reads `api.zindi.world/v1/competitions`, which lists open competitions
+first and reports `open_count`, so it reads pages until it has them all (at most 5). Each new
+one costs a request for its description pages and rules ("Who can compete"). Start, end and
+entry-close instants are written as "13 December 2026, 12:00 UTC" so the rules read them
+exactly; when entries close before the end, `Deadline:` is the entry close.
+
 ### Item filter
 
 A job board lists every role an employer has, and most are outside the audience (docs/00
