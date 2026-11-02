@@ -1,0 +1,17 @@
+slug: gdg-enugu
+name: GDG Enugu
+category: community
+homepageUrl: https://gdg.community.dev/gdg-enugu/
+description: >
+  Google Developer Group for Enugu. Free meetups, study jams and DevFest Enugu.
+country: NG
+city: enugu
+sources:
+  - name: events
+    kind: html
+    url: https://gdg.community.dev/gdg-enugu/
+    adapter: bevy
+    cadence: monthly
+    notes: >
+      Bevy chapter page; upcoming events from its server-rendered data, venue and times from
+      each event's page. Verified 2026-11-02.
