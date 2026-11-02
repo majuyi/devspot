@@ -26,6 +26,7 @@ describe("applyItemFilter", () => {
       "Tech Lead",
       "Principal Engineer",
       "Staff Engineer",
+      "Software Architect",
       "VP, Product",
       "Associate Product Manager",
       "Product Design Intern",
@@ -40,7 +41,7 @@ describe("applyItemFilter", () => {
       "Graduate Trainee, Software",
       "Junior Data Analyst",
     ]);
-    expect(dropped).toBe(8);
+    expect(dropped).toBe(9);
   });
 
   it("matches whole words only", () => {

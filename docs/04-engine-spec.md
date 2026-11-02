@@ -142,7 +142,8 @@ patterns. With either set, an item is kept when its department or its title matc
 item with no department can still match by title. Employers file roles inconsistently
 (Flutterwave lists "Data Scientist, Risk" under Risk), so titles usually do the work.
 `seniority: early` drops
-titles naming Senior, Sr, Lead, Principal, Head, Manager, Director, VP, Chief or Staff,
+titles naming Senior, Sr, Lead, Principal, Head, Manager, Director, VP, Chief, Staff or
+Architect,
 unless the title also names Intern, Graduate, Junior, Jr, Entry-level, Trainee, Associate or
 Apprentice. `engine run` and `--dry-run` apply it right after fetch, before `--limit` and
 dedupe, so a dropped item is never stored; the `source.finished` log line counts them as
