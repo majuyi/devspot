@@ -284,10 +284,11 @@ jobs:
     steps:
       - checkout; setup-node 22 with pnpm cache; corepack enable; pnpm install --frozen-lockfile
       - run: pnpm --filter @devspot/db generate
+      - run: pnpm db:sync-registry          # YAML changes reach production on the next run
       - run: pnpm engine run ${{ inputs.source && format('--source {0}', inputs.source) }}
         env: { DATABASE_URL: ${{ secrets.ENGINE_DATABASE_URL }}, EXTRACTION_LLM: ${{ vars.EXTRACTION_LLM }}, ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} }
-      - run: pnpm engine verify
-      - run: curl -fsS -X POST "$SITE/api/revalidate" -H "x-revalidate-secret: $SECRET"
+      - run: pnpm engine verify             # also after a failed run
+      - run: curl -fsS -X POST "$SITE/api/revalidate" -H "x-revalidate-secret: $SECRET"   # from M2
       - upload-artifact: engine-log (the JSON lines)
 ```
 

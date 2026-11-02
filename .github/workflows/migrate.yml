@@ -1,0 +1,28 @@
+name: Migrate
+on:
+  push:
+    branches: [main]
+    paths: ["packages/db/prisma/migrations/**", "packages/db/prisma/grants.sql"]
+  workflow_dispatch:
+concurrency: { group: migrate, cancel-in-progress: false }
+permissions: { contents: read }
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DIRECT_URL: ${{ secrets.DIRECT_URL }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with: { node-version-file: .nvmrc }
+      - run: corepack enable
+      - uses: actions/cache@v6
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @devspot/db exec prisma migrate deploy
+      # Re-applied every time so a new table never misses the engine grants or keeps
+      # Supabase's default anon access.
+      - run: psql "$DIRECT_URL" -v ON_ERROR_STOP=1 -f packages/db/prisma/grants.sql
