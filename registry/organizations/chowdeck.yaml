@@ -1,0 +1,24 @@
+slug: chowdeck
+name: Chowdeck
+category: employer
+homepageUrl: https://chowdeck.com
+description: >
+  Lagos food and grocery delivery company operating in Nigeria and Ghana. Hires engineers,
+  data and product people in Lagos.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: api
+    url: https://chowdeck.bamboohr.com/careers/list
+    adapter: bamboohr
+    cadence: rolling
+    filter:
+      departments: [Engineering, Data, Data Science, Product, Product and Engineering, Design,
+        Technology]
+      titles: [engineer, developer, programmer, software, data scientist, data analyst,
+        data engineer, analytics, machine learning, ai, designer, ux, ui, product, devops,
+        sre, qa, cloud, mobile, android, ios, frontend, backend, full stack, fullstack]
+    notes: >
+      BambooHR public job list (JSON). Product and design roles sit under "Product and
+      Engineering". Verified 2026-11-02.
