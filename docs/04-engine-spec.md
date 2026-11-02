@@ -123,6 +123,13 @@ The bamboohr adapter reads `https://<company>.bamboohr.com/careers/list`, asks t
 source's filter, then opens at most 15 new roles per run at `/careers/<id>/detail` for the
 description, department, employment type, location and posting date.
 
+The workable adapter reads the public widget list
+(`https://apply.workable.com/api/v1/widget/accounts/<company>`, which has departments,
+countries and levels but no descriptions), asks the filter, then opens at most 15 new roles
+per run at `/api/v2/accounts/<company>/jobs/<shortcode>` for the description, requirements,
+benefits and on-site, hybrid or remote. It sets `meta.department`, `meta.country` and
+`meta.level`.
+
 ### Item filter
 
 A job board lists every role an employer has, and most are outside the audience (docs/00
@@ -144,10 +151,10 @@ item with no department can still match by title. Employers file roles inconsist
 (Flutterwave lists "Data Scientist, Risk" under Risk), so titles usually do the work.
 `countries` drops items whose `meta.country` (ISO alpha-2, set by the adapter) is not listed
 and keeps items that state no country; employers post one role per country, and the launch
-is Nigeria only (ADR 0011). `seniority: early` drops
-titles naming Senior, Sr, Lead, Principal, Head, Manager, Director, VP, Chief, Staff or
-Architect,
-unless the title also names Intern, Graduate, Junior, Jr, Entry-level, Trainee, Associate or
+is Nigeria only (ADR 0011). `seniority: early` drops an item whose title, or level when the
+board states one (`meta.level`, such as Workable's "Mid-Senior level"), names Senior, Sr,
+Lead, Principal, Head, Manager, Director, VP, Chief, Staff or Architect, unless the title or
+level also names Intern, Graduate, Junior, Jr, Entry-level, Trainee, Associate or
 Apprentice. `engine run` and `--dry-run` apply it right after fetch, before `--limit` and
 dedupe, so a dropped item is never stored; the `source.finished` log line counts them as
 `filtered`. Adapters still return every listed item, so fixtures stay complete, with one
