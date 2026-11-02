@@ -173,6 +173,7 @@ model Source {
   cadence        Cadence    @default(unpredictable)
   enabled        Boolean    @default(true)
   include        String?    // sitemap URL glob, from the YAML
+  filter         Json?      // ItemFilter from the YAML: which listed items to keep
   notes          String?    // human notes, from the YAML
 
   // HTTP validators from the last 200, written by the engine for the next conditional GET

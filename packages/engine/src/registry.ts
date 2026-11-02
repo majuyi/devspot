@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
+  type ItemFilter,
   type OrgCategory,
   type RegistryFile,
   RegistryValidationError,
@@ -22,6 +23,7 @@ export class UnknownSource extends Error {
 /** A source as the YAML has it, with what extraction needs to know of its organization. */
 export type RegistrySource = FetchSource & {
   enabled: boolean;
+  filter?: ItemFilter;
   organization: { category: OrgCategory; country: string; city?: string };
 };
 
@@ -49,6 +51,7 @@ export function loadRegistrySources(dir = REGISTRY_DIR): RegistrySource[] {
       url: s.url,
       ...(s.adapter ? { adapter: s.adapter } : {}),
       ...(s.include ? { include: s.include } : {}),
+      ...(s.filter ? { filter: s.filter } : {}),
       enabled: org.enabled && s.enabled,
       organization: {
         category: org.category,

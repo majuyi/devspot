@@ -4,6 +4,7 @@ import { ERRORING_AFTER, sourceHealth } from "@devspot/schema";
 import { hasFetcher, type SourceFilter, selectSources } from "./dry-run.js";
 import { extractRules } from "./extract/rules.js";
 import { type FetchFn, type FetchSource, fetchSource } from "./fetch.js";
+import { applyItemFilter, parseItemFilter } from "./filter.js";
 import { health, type RunSummary, runSummary, type SourceRun } from "./health.js";
 import { type HttpClient, HttpStatusError } from "./http.js";
 import { load } from "./load.js";
@@ -86,13 +87,14 @@ async function runSource(
 ): Promise<SourceRun & { turned: boolean }> {
   const { db, http, fetch, now, log, limit } = ctx;
   const startedAt = now();
-  const outcome = { nFound: 0, nNew: 0, nChanged: 0, published: 0, review: 0 };
+  const outcome = { nFound: 0, nNew: 0, nChanged: 0, published: 0, review: 0, filtered: 0 };
   let error: string | undefined;
   let httpStatus: number | undefined;
   let ok = true;
   let validators: FetchSource["validators"];
 
   try {
+    const itemFilter = parseItemFilter(row.filter);
     const known = await db.rawItem.findMany({
       where: { sourceId: row.id },
       select: { canonicalUrl: true },
@@ -102,13 +104,10 @@ async function runSource(
     validators = result.validators;
     // A partial fetch still counts as a run that worked; the note goes on the FetchRun.
     error = result.error;
+    const { kept, dropped } = applyItemFilter(result.items, itemFilter);
+    outcome.filtered = dropped;
     // Cut before dedupe: a stored item is never looked at again unless its page changes.
-    const { found, fresh } = await upsertRawItems(
-      db,
-      row.id,
-      result.items.slice(0, limit),
-      startedAt,
-    );
+    const { found, fresh } = await upsertRawItems(db, row.id, kept.slice(0, limit), startedAt);
     outcome.nFound = found;
     outcome.nNew = fresh.filter((f) => f.status === "new").length;
     outcome.nChanged = fresh.length - outcome.nNew;

@@ -13,6 +13,20 @@ export const CountryCode = z
   .length(2)
   .regex(/^[A-Z]{2}$/, "ISO 3166-1 alpha-2, uppercase");
 
+/**
+ * Which listed items a source keeps (docs/04 §1, "Item filter"). For job boards whose roles
+ * are mostly outside the audience: software, data, design and product, 0 to 2 years.
+ */
+export const ItemFilter = z
+  .object({
+    /** Keep items whose `meta.department` is one of these, compared case-insensitively. */
+    departments: z.array(z.string().min(1)).min(1).optional(),
+    /** `early` drops senior titles unless the title also names an entry-level role. */
+    seniority: z.enum(["early", "any"]).default("early"),
+  })
+  .strict();
+export type ItemFilter = z.infer<typeof ItemFilter>;
+
 export const SourceYaml = z
   .object({
     name: Slug,
@@ -21,6 +35,7 @@ export const SourceYaml = z
     adapter: Slug.optional(),
     cadence: Cadence.default("unpredictable"),
     include: z.string().optional(), // sitemap glob
+    filter: ItemFilter.optional(),
     enabled: z.boolean().default(true),
     notes: z.string().max(500).optional(),
   })

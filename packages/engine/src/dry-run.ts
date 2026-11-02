@@ -2,6 +2,7 @@ import { ADAPTERS } from "./adapters/index.js";
 import { canonicalizeUrl } from "./dedupe.js";
 import { extractRules } from "./extract/rules.js";
 import { type FetchFn, fetchSource } from "./fetch.js";
+import { applyItemFilter } from "./filter.js";
 import type { HttpClient } from "./http.js";
 import { log as jsonLog } from "./log.js";
 import { loadRegistrySources, type RegistrySource, UnknownSource } from "./registry.js";
@@ -55,7 +56,9 @@ export async function dryRun({
     }
     result.sources++;
     try {
-      const { items } = await fetch(source, http);
+      const fetched = await fetch(source, http);
+      const { kept: items, dropped } = applyItemFilter(fetched.items, source.filter);
+      if (dropped) log("source.filtered", { source: source.key, dropped, kept: items.length });
       for (const item of items.slice(0, filter.limit)) {
         const { draft, confidence } = extractRules({
           item: {
