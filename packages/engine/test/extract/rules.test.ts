@@ -177,6 +177,22 @@ describe("location", () => {
     ).toBeUndefined();
   });
 
+  it("does not put a role in the organization's city when it states somewhere unknown", () => {
+    const text =
+      "Department: Brand & Marketing\nLocation: Accra, Ghana\n\nChowdeck is a Lagos-based delivery company.";
+    expect(ruleLocation("Brand & Graphic Designer", text, { ...NG_ORG, city: "lagos" })).toEqual({
+      confidence: 0,
+    });
+  });
+
+  it("still reads remote from the text past an unknown stated location", () => {
+    const text = "Location: Accra, Ghana\n\nThis role is fully remote. Our office is in Lagos.";
+    expect(ruleLocation("Designer", text, { ...NG_ORG, city: "lagos" })).toMatchObject({
+      mode: "remote",
+      confidence: 0.7,
+    });
+  });
+
   it("falls back to the organization's city at 0.3", () => {
     expect(ruleLocation("Programme", "Nothing here.", { ...NG_ORG, city: "lagos" })).toEqual({
       mode: "onsite",

@@ -51,6 +51,9 @@ leaves room:
 - `locationMode` in body text: "online" counts only in phrases such as "held online",
   "Location: Online" or "online cohort", so "apply online" does not make a programme remote.
   Only Nigerian cities are known, so a programme abroad gets no location from the text.
+  When a `Location:` line names a place the dictionary does not know ("Accra, Ghana"), no
+  city is taken from the body text (usually the organization's own address) and the org
+  default does not apply; a remote or hybrid statement in the body still counts.
 - `venue`: only `Venue:` and `Location:` lines. "at" followed by a proper noun is not used;
   it matched too much.
 - `requirementsText` headings also include "who we're looking for" and "qualifications".
