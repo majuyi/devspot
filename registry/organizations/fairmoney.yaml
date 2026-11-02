@@ -1,0 +1,23 @@
+slug: fairmoney
+name: FairMoney
+category: employer
+homepageUrl: https://fairmoney.io
+description: >
+  Lagos digital bank and lender (FairMoney Microfinance Bank). Hires Android, iOS, backend and
+  data people in Lagos.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: api
+    url: https://apply.workable.com/api/v1/widget/accounts/fairmoney
+    adapter: workable
+    cadence: rolling
+    filter:
+      departments: [Engineering, Data, Data Science, Product, Design, Technology]
+      titles: [engineer, developer, programmer, software, data scientist, data analyst,
+        data engineer, analytics, machine learning, ai, designer, ux, ui, product, devops,
+        sre, qa, cloud, mobile, android, ios, frontend, backend, full stack, fullstack]
+      countries: [NG]
+    notes: >
+      Workable public board (apply.workable.com/fairmoney). Verified 2026-11-02.
