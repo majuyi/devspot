@@ -283,7 +283,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - checkout; setup-node 22 with pnpm cache; corepack enable; pnpm install --frozen-lockfile
-      - run: pnpm --filter @devspot/db generate
+      - run: pnpm turbo build --filter "@devspot/engine^..."   # schema dist, Prisma client
       - run: pnpm db:sync-registry          # YAML changes reach production on the next run
       - run: pnpm engine run ${{ inputs.source && format('--source {0}', inputs.source) }}
         env: { DATABASE_URL: ${{ secrets.ENGINE_DATABASE_URL }}, EXTRACTION_LLM: ${{ vars.EXTRACTION_LLM }}, ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }} }

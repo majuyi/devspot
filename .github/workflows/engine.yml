@@ -27,7 +27,9 @@ jobs:
           path: ~/.local/share/pnpm/store
           key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm db:generate
+      # Builds the engine's dependencies: @devspot/schema is consumed from dist, and db
+      # generates the Prisma client.
+      - run: pnpm turbo build --filter "@devspot/engine^..."
       # The YAML is the source of truth; a registry change reaches production on the next run.
       - run: pnpm --silent db:sync-registry | tee sync.log
       # Exits 1 only on the run where a source turns erroring, which emails the maintainer.
