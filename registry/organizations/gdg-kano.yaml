@@ -1,0 +1,17 @@
+slug: gdg-kano
+name: GDG Kano
+category: community
+homepageUrl: https://gdg.community.dev/gdg-kano/
+description: >
+  Google Developer Group for Kano. Free meetups, study jams and DevFest Kano.
+country: NG
+city: kano
+sources:
+  - name: events
+    kind: html
+    url: https://gdg.community.dev/gdg-kano/
+    adapter: bevy
+    cadence: monthly
+    notes: >
+      Bevy chapter page; upcoming events from its server-rendered data, venue and times from
+      each event's page. Verified 2026-11-02.
