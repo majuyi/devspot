@@ -1,0 +1,24 @@
+slug: renmoney
+name: Renmoney
+category: employer
+homepageUrl: https://renmoney.com
+description: >
+  Lagos lender and microfinance bank. Hires developers, analysts and designers in Lagos,
+  including junior business analyst roles.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: api
+    url: https://apply.workable.com/api/v1/widget/accounts/renmoney
+    adapter: workable
+    cadence: rolling
+    filter:
+      departments: [Engineering, Data, Data Science, Product, Product Development, Design, Technology]
+      titles: [engineer, developer, programmer, software, data scientist, data analyst,
+        data engineer, analytics, machine learning, ai, designer, ux, ui, product, devops,
+        sre, qa, cloud, mobile, android, ios, frontend, backend, full stack, fullstack]
+      countries: [NG]
+    notes: >
+      Workable public board (apply.workable.com/renmoney). Also posts engineering roles in Eastern Europe and Central
+      Asia, which `countries` drops. Verified 2026-11-02.
