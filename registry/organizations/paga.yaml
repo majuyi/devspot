@@ -1,0 +1,24 @@
+slug: paga
+name: Paga
+category: employer
+homepageUrl: https://www.mypaga.com
+description: >
+  Lagos payments and mobile money company. Hires software, database and product people in
+  Yaba.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: api
+    url: https://paga.bamboohr.com/careers/list
+    adapter: bamboohr
+    cadence: rolling
+    filter:
+      departments: [Engineering, Data, Data Science, Product, Product Development, Design,
+        Technology]
+      titles: [engineer, developer, programmer, software, data scientist, data analyst,
+        data engineer, analytics, machine learning, ai, designer, ux, ui, product, devops,
+        sre, qa, cloud, mobile, android, ios, frontend, backend, full stack, fullstack]
+    notes: >
+      BambooHR public job list (JSON). Engineers sit under "Product Development". Verified
+      2026-11-02.
