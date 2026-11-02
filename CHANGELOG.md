@@ -40,3 +40,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - `zindi` adapter and Zindi added: open data science and AI competitions.
 - Dates: an ISO time with `Z` or an offset keeps it (it was read as Lagos time, an hour out).
 - `bevy` adapter for Google Developer Group chapters on gdg.community.dev; GDG Lagos runs, GDG Ibadan added. `utcLine` moved to `fetchers/util.ts`.
+- M1.12: registry at 26 organizations (Paga, Chowdeck, Kuda, FairMoney, Renmoney, Zindi and GDG Ibadan, Port Harcourt, Enugu, Kano, Uyo, Calabar and Ilorin added); 20 yield opportunities in production.

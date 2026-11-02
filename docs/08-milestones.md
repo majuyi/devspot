@@ -89,7 +89,7 @@ the Actions job.
 - [x] **M1.11 Actions.** `engine.yml`, `keepalive.yml`, `backup.yml`, `migrate.yml`; the
   `engine` database role in Supabase; secrets set. Spec: `09`. Check: manual dispatch of each
   succeeds; `/status` (M2) will read the results, so for now confirm `FetchRun` rows appear.
-- [ ] **M1.12 Registry to 20.** Add and verify 10 more organizations with fixtures. Check:
+- [x] **M1.12 Registry to 20.** Add and verify 10 more organizations with fixtures. Check:
   gate condition on yield.
 
 ## M2 · Web app v1
