@@ -13,6 +13,11 @@ sources:
     url: https://flutterwavego.bamboohr.com/careers/list
     adapter: bamboohr
     cadence: rolling
+    filter:
+      departments: [Engineering, Data, Data Science, Product, Design, Technology]
+      titles: [engineer, developer, programmer, software, data scientist, data analyst,
+        data engineer, analytics, machine learning, ai, designer, ux, ui, product, devops,
+        sre, qa, cloud, mobile, android, ios, frontend, backend, full stack, fullstack]
     notes: >
       BambooHR public job list (JSON) behind flutterwave.com/us/careers/vacancies. The adapter
-      is generic to BambooHR boards. Verified 2026-10-09.
+      is generic to BambooHR boards. Verified 2026-10-09; filter added 2026-11-02.

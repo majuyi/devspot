@@ -99,8 +99,9 @@ export default adapter;
 
 Rules for adapters: return every currently listed item, do not filter by date, do not
 extract structure beyond `title`, `text`, `publishedAt` and `meta`, do not import `db`, do
-not call the LLM. One file per organization. A recorded fixture is part of the definition of
-done.
+not call the LLM. One file per organization, or per hosted platform when many organizations
+publish through the same one (`bamboohr` serves any BambooHR careers board; the registry
+source's `url` names the company). A recorded fixture is part of the definition of done.
 
 Built in M1.5. Each adapter is listed in `adapters/index.ts`, a static map, so a missing
 import fails the build rather than a run. `fetchers/html.ts` checks every returned item
@@ -117,6 +118,10 @@ An adapter that needs a request per item does what the sitemap fetcher does: it 
 and upcoming online hackathons, then opens at most 10 new ones for the deadline line (with
 its time zone) and "Who can participate", country exclusions spelled out from the tooltip or
 the modal that holds them.
+
+The bamboohr adapter reads `https://<company>.bamboohr.com/careers/list`, asks the
+source's filter, then opens at most 15 new roles per run at `/careers/<id>/detail` for the
+description, department, employment type, location and posting date.
 
 ### Item filter
 
