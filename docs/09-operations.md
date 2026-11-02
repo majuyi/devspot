@@ -25,7 +25,8 @@ loaded by `dotenv` in `prisma.config.ts` and by Next.js.
 ## 2. Supabase setup
 
 1. Create a project in the region closest to Lagos that Supabase offers (Frankfurt or
-   London today). Note the reference and password.
+   London today). Production is `devspot`, reference `rlfppkooucslfyajxnan`, London
+   (`eu-west-2`), pooler host `aws-0-eu-west-2.pooler.supabase.com`.
 2. Settings → Database → Connection string: copy the transaction pooler (6543) as
    `DATABASE_URL` and the session pooler (5432) as `DIRECT_URL`. The direct host may be blocked
    on some networks; the session pooler works everywhere.
@@ -39,20 +40,27 @@ loaded by `dotenv` in `prisma.config.ts` and by Next.js.
 
 ## 3. Database roles
 
-Create a restricted role for the engine so an Actions secret cannot damage the app:
+Create a restricted role for the engine once, so an Actions secret cannot damage the app.
+Pass a SCRAM verifier rather than the password, so the password never appears in SQL or
+logs (production's passwords live in the maintainer's Keychain under `devspot-supabase`):
 
 ```sql
-create role engine login password '<generated>';
-grant connect on database postgres to engine;
-grant usage on schema public to engine;
-grant select, insert, update on organizations, sources, fetch_runs, raw_items,
-  opportunities, extractions, usage_meters to engine;
-grant select on submissions to engine;
-grant usage, select on all sequences in schema public to engine;
+create role engine login password 'SCRAM-SHA-256$4096:<salt>$<storedKey>:<serverKey>';
 ```
 
-Migrations run as the default `postgres` role. Re-run the grants after any migration that
-adds a table (the `migrate:deploy` script prints a reminder).
+The grants live in `packages/db/prisma/grants.sql`, which `migrate.yml` runs as `postgres`
+after every `prisma migrate deploy`, so a new table never misses them. The file also takes
+away Supabase's default Data API access: by default `anon` and `authenticated` get full
+read and write on every new table in `public`, which would let anyone holding the public
+key edit the data. They keep only `select` on `usage_meters`, for the keepalive. Supabase's
+advisor reports "RLS disabled" on these tables; with no grants, that is expected.
+
+Migrations run as the default `postgres` role.
+
+**Connection strings.** Through the pooler the user is `<role>.<project ref>`. The pooler's
+certificate is not in Node's trust store, so `ENGINE_DATABASE_URL` (read by node-postgres)
+ends `?uselibpqcompat=true&sslmode=require`: encrypted, certificate not verified, as libpq's
+`require`. `DIRECT_URL` (read by Prisma's migrate, psql and pg_dump) ends `?sslmode=require`.
 
 ## 4. Vercel setup
 
@@ -70,11 +78,11 @@ adds a table (the `migrate:deploy` script prints a reminder).
 | Workflow | Cron | Secrets | Notes |
 |---|---|---|---|
 | `ci.yml` | on push and PR | none | lint, typecheck, test, build, `prisma validate`, OpenAPI validate |
-| `engine.yml` | `17 */6 * * *` | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET` | fails when a source turns `erroring` |
-| `keepalive.yml` | `0 5 * * *` | `SUPABASE_URL`, `SUPABASE_ANON_KEY` | `GET /rest/v1/usage_meters?select=period&limit=1` with the anon key resets the pause timer; then `keepalive` marker commit if no commit in 41 days |
+| `engine.yml` | `17 */6 * * *` | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET` (from M2) | syncs the registry, runs, verifies, uploads the JSON-line logs; fails when a source turns `erroring` |
+| `keepalive.yml` | `0 5 * * *` | `SUPABASE_URL`, `SUPABASE_ANON_KEY` | `GET /rest/v1/usage_meters?select=period&limit=1` with the publishable key resets the pause timer; then `keepalive` marker commit if no commit in 41 days |
 | `snapshot.yml` | `0 6 * * 0` | `GITHUB_TOKEN` (default), `ENGINE_DATABASE_URL` | release `data-YYYY-WW` |
-| `backup.yml` | `0 4 * * 0` | `DIRECT_URL`, `BACKUP_PASSPHRASE` | `pg_dump | gpg --symmetric` → artifact |
-| `migrate.yml` | on push to `main` touching `packages/db/prisma/migrations/**` | `DIRECT_URL` | `prisma migrate deploy`, then prints the role grants reminder |
+| `backup.yml` | `0 4 * * 0` | `DIRECT_URL`, `BACKUP_PASSPHRASE` | `pg_dump` (17, in Docker: the runner's client is older than the server) of `public`, `gpg --symmetric` → artifact; the passphrase is in the Keychain |
+| `migrate.yml` | on push to `main` touching `packages/db/prisma/migrations/**` or `grants.sql`, and by hand | `DIRECT_URL` | `prisma migrate deploy`, then `grants.sql` (section 3) |
 
 Scheduled workflows in a public repo are disabled after 60 days without a commit. The
 keepalive commit prevents that; if it ever happens, re-enable from the Actions tab and check

@@ -1,0 +1,43 @@
+name: Engine
+on:
+  schedule: [{ cron: "17 */6 * * *" }]
+  workflow_dispatch:
+    inputs:
+      source: { type: string, required: false, description: "Source key, e.g. devpost/hackathons" }
+concurrency: { group: engine, cancel-in-progress: false }
+permissions: { contents: read }
+defaults:
+  run: { shell: bash }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # The engine role can insert and update, never delete (docs/09 §3).
+      DATABASE_URL: ${{ secrets.ENGINE_DATABASE_URL }}
+      EXTRACTION_LLM: ${{ vars.EXTRACTION_LLM || '0' }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with: { node-version-file: .nvmrc }
+      - run: corepack enable
+      - uses: actions/cache@v6
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+      # The YAML is the source of truth; a registry change reaches production on the next run.
+      - run: pnpm --silent db:sync-registry | tee sync.log
+      # Exits 1 only on the run where a source turns erroring, which emails the maintainer.
+      - run: pnpm --silent engine run ${{ inputs.source && format('--source {0}', inputs.source) || '' }} | tee run.log
+      - if: success() || failure()
+        run: pnpm --silent engine verify | tee verify.log
+      # The /api/revalidate call is added with the site in M2.
+      - if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: engine-log
+          path: "*.log"
+          retention-days: 30
