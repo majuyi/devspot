@@ -86,7 +86,7 @@ the Actions job.
 - [x] **M1.10 CLI and run orchestration.** `engine run` with flags, per-source isolation
   (one failing source never stops the run), JSON lines logging. Check: `--dry-run` against
   a fixture prints drafts; exit code 1 when a source turns `erroring`.
-- [ ] **M1.11 Actions.** `engine.yml`, `keepalive.yml`, `backup.yml`, `migrate.yml`; the
+- [x] **M1.11 Actions.** `engine.yml`, `keepalive.yml`, `backup.yml`, `migrate.yml`; the
   `engine` database role in Supabase; secrets set. Spec: `09`. Check: manual dispatch of each
   succeeds; `/status` (M2) will read the results, so for now confirm `FetchRun` rows appear.
 - [ ] **M1.12 Registry to 20.** Add and verify 10 more organizations with fixtures. Check:

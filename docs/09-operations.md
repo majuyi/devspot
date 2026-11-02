@@ -78,7 +78,7 @@ ends `?uselibpqcompat=true&sslmode=require`: encrypted, certificate not verified
 | Workflow | Cron | Secrets | Notes |
 |---|---|---|---|
 | `ci.yml` | on push and PR | none | lint, typecheck, test, build, `prisma validate`, OpenAPI validate |
-| `engine.yml` | `17 */6 * * *` | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET` (from M2) | syncs the registry, runs, verifies, uploads the JSON-line logs; fails when a source turns `erroring` |
+| `engine.yml` | `17 */6 * * *` | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET` (from M2) | runs (which syncs the registry first), verifies, uploads the JSON-line logs; fails when a source turns `erroring` |
 | `keepalive.yml` | `0 5 * * *` | `SUPABASE_URL`, `SUPABASE_ANON_KEY` | `GET /rest/v1/usage_meters?select=period&limit=1` with the publishable key resets the pause timer; then `keepalive` marker commit if no commit in 41 days |
 | `snapshot.yml` | `0 6 * * 0` | `GITHUB_TOKEN` (default), `ENGINE_DATABASE_URL` | release `data-YYYY-WW` |
 | `backup.yml` | `0 4 * * 0` | `DIRECT_URL`, `BACKUP_PASSPHRASE` | `pg_dump` (17, in Docker: the runner's client is older than the server) of `public`, `gpg --symmetric` → artifact; the passphrase is in the Keychain |

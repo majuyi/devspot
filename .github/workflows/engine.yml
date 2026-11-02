@@ -30,8 +30,7 @@ jobs:
       # Builds the engine's dependencies: @devspot/schema is consumed from dist, and db
       # generates the Prisma client.
       - run: pnpm turbo build --filter "@devspot/engine^..."
-      # The YAML is the source of truth; a registry change reaches production on the next run.
-      - run: pnpm --silent db:sync-registry | tee sync.log
+      # Syncs the registry first, so a YAML change reaches production on the next run.
       # Exits 1 only on the run where a source turns erroring, which emails the maintainer.
       - run: pnpm --silent engine run ${{ inputs.source && format('--source {0}', inputs.source) || '' }} | tee run.log
       - if: success() || failure()
