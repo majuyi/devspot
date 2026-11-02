@@ -1,0 +1,17 @@
+slug: gdg-calabar
+name: GDG Calabar
+category: community
+homepageUrl: https://gdg.community.dev/gdg-calabar/
+description: >
+  Google Developer Group for Calabar. Free meetups, study jams and DevFest Calabar.
+country: NG
+city: calabar
+sources:
+  - name: events
+    kind: html
+    url: https://gdg.community.dev/gdg-calabar/
+    adapter: bevy
+    cadence: monthly
+    notes: >
+      Bevy chapter page; upcoming events from its server-rendered data, venue and times from
+      each event's page. Verified 2026-11-02.
