@@ -136,6 +136,13 @@ one costs a request for its description pages and rules ("Who can compete"). Sta
 entry-close instants are written as "13 December 2026, 12:00 UTC" so the rules read them
 exactly; when entries close before the end, `Deadline:` is the entry close.
 
+The bevy adapter reads a chapter page on a Bevy community site (gdg.community.dev). robots.txt
+disallows `/api/`, so it reads the server-rendered `__NEXT_DATA__`: the chapter page lists up
+to four upcoming events, and each new event's own page gives the venue, the end time and
+whether it is virtual. A stated venue wins over the virtual flag, which Bevy sets on
+in-person DevFests with external registration. The pages are 500 to 750 KB, over the
+fixture body limit; they are kept gzipped.
+
 ### Item filter
 
 A job board lists every role an employer has, and most are outside the audience (docs/00

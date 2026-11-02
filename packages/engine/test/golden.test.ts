@@ -36,7 +36,7 @@ describe("golden output", () => {
     // Registry sources whose adapter does not exist yet; they fail at run time with
     // AdapterNotFound. Remove a name here when its adapter and fixture land.
     const unwritten = sources.filter((s) => s.adapter && !ADAPTERS.has(s.adapter));
-    expect(unwritten.map((s) => s.adapter).sort()).toEqual(["bevy", "mlh", "outreachy"]);
+    expect(unwritten.map((s) => s.adapter).sort()).toEqual(["mlh", "outreachy"]);
   });
 
   it.each(recorded)("%s replays to expected.json", async (key) => {

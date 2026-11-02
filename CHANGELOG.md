@@ -39,3 +39,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - `workable` adapter for any Workable board; Kuda added. The item filter gained `countries`, and `seniority: early` also reads a board's stated level.
 - `zindi` adapter and Zindi added: open data science and AI competitions.
 - Dates: an ISO time with `Z` or an offset keeps it (it was read as Lagos time, an hour out).
+- `bevy` adapter for Google Developer Group chapters on gdg.community.dev; GDG Lagos runs, GDG Ibadan added. `utcLine` moved to `fetchers/util.ts`.

@@ -1,0 +1,18 @@
+slug: gdg-ibadan
+name: GDG Ibadan
+category: community
+homepageUrl: https://gdg.community.dev/gdg-ibadan/
+description: >
+  Google Developer Group for Ibadan. Free meetups, Road to DevFest tracks and DevFest
+  Ibadan.
+country: NG
+city: ibadan
+sources:
+  - name: events
+    kind: html
+    url: https://gdg.community.dev/gdg-ibadan/
+    adapter: bevy
+    cadence: monthly
+    notes: >
+      Bevy chapter page; upcoming events from its server-rendered data, venue and times from
+      each event's page. Verified 2026-11-02.

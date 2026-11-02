@@ -3,6 +3,7 @@ import { z } from "zod";
 import { type Adapter, AdapterLayoutChanged } from "../adapter.js";
 import { canonicalizeUrl } from "../dedupe.js";
 import { htmlToText } from "../fetchers/html-text.js";
+import { utcLine } from "../fetchers/util.js";
 import { HttpStatusError, RobotsDisallowed } from "../http.js";
 
 /** Open competitions sit on the first page; this bounds a run if the ordering ever changes. */
@@ -81,31 +82,6 @@ const adapter: Adapter = {
     return items;
   },
 };
-
-const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-/** "13 December 2026, 12:00 UTC": the API's own instant, written so the rules read it exactly. */
-export function utcLine(iso: string | null | undefined): string | undefined {
-  if (!iso) return undefined;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return undefined;
-  const hh = String(d.getUTCHours()).padStart(2, "0");
-  const mm = String(d.getUTCMinutes()).padStart(2, "0");
-  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}, ${hh}:${mm} UTC`;
-}
 
 function rulesText(c: Competition): string {
   return (c.rules?.content?.blocks ?? [])
