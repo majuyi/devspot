@@ -1,9 +1,10 @@
 import { MockAgent } from "undici";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { AdapterLayoutChanged } from "../../src/adapter.js";
-import zindi, { utcLine, ZINDI_PER_PAGE } from "../../src/adapters/zindi.js";
+import zindi, { ZINDI_PER_PAGE } from "../../src/adapters/zindi.js";
 import { extractRules } from "../../src/extract/rules.js";
 import { fetchSource } from "../../src/fetch.js";
+import { utcLine } from "../../src/fetchers/util.js";
 import { replaySource } from "../../src/fixtures/replay.js";
 import { HttpClient } from "../../src/http.js";
 import { findSource } from "../../src/registry.js";

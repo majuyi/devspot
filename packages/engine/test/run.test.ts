@@ -50,7 +50,7 @@ describe("hasFetcher", () => {
     expect(hasFetcher({ key: "x", organizationSlug: "x", adapter: "hng" })).toBe(true);
   });
   it("is false for an adapter nobody has written", () => {
-    expect(hasFetcher({ key: "x", organizationSlug: "x", adapter: "bevy" })).toBe(false);
+    expect(hasFetcher({ key: "x", organizationSlug: "x", adapter: "not-written" })).toBe(false);
   });
 });
 
@@ -105,7 +105,7 @@ describe("dry run against a fixture", () => {
       sources: [
         { ...hng, key: "bad/site", organizationSlug: "bad", adapter: undefined },
         { ...hng, key: "off/site", enabled: false },
-        { ...hng, key: "todo/site", adapter: "bevy" },
+        { ...hng, key: "todo/site", adapter: "not-written" },
         { ...hng, key: "good/site", adapter: undefined },
       ],
       http: new HttpClient(),
@@ -146,7 +146,12 @@ describe.skipIf(!hasDb)("engine run against Postgres", () => {
             { key: key("broken"), kind: "feed", url: "https://example.org/broken" },
             { key: key("good"), kind: "feed", url: "https://example.org/good" },
             { key: key("off"), kind: "feed", url: "https://example.org/off", enabled: false },
-            { key: key("todo"), kind: "html", url: "https://example.org/t", adapter: "bevy" },
+            {
+              key: key("todo"),
+              kind: "html",
+              url: "https://example.org/t",
+              adapter: "not-written",
+            },
             { key: key("hand"), kind: "manual", url: "https://example.org/h" },
           ],
         },
