@@ -268,4 +268,35 @@ describe.skipIf(!hasDb)("engine run against Postgres", () => {
     await run(fetch, { limit: 1 });
     expect(await db.rawItem.count({ where: { source: { key: key("good") } } })).toBe(1);
   });
+
+  it("drops what the source's filter excludes before it is stored, then applies --limit", async () => {
+    await db.source.update({
+      where: { key: key("good") },
+      data: { filter: { departments: ["Engineering"], seniority: "early" } },
+    });
+    const role = (path: string, department: string, title = `${path} Engineer`) =>
+      hackathon(path, { title, meta: { department } });
+    const fetch: FetchFn = async (s) =>
+      s.key === key("good")
+        ? {
+            items: [
+              role("sales", "Sales", "Sales Associate"),
+              role("senior", "Engineering", "Senior Backend Engineer"),
+              role("backend", "Engineering"),
+              role("mobile", "Engineering"),
+            ],
+          }
+        : { items: [] };
+    await run(fetch, { limit: 1 });
+    const stored = await db.rawItem.findMany({ where: { source: { key: key("good") } } });
+    expect(stored.map((r) => r.title)).toEqual(["backend Engineer"]);
+    expect((await source("good")).fetchRuns).toMatchObject([{ ok: true, nFound: 1, nNew: 1 }]);
+  });
+
+  it("fails the source, not the run, when its stored filter does not parse", async () => {
+    await db.source.update({ where: { key: key("good") }, data: { filter: { departments: [] } } });
+    const { summary } = await run(failing);
+    expect(summary).toMatchObject({ ok: 0, errors: 2 });
+    expect((await source("good")).fetchRuns[0]?.error).toContain("Source.filter does not parse");
+  });
 });

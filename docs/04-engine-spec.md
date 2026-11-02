@@ -118,6 +118,28 @@ and upcoming online hackathons, then opens at most 10 new ones for the deadline 
 its time zone) and "Who can participate", country exclusions spelled out from the tooltip or
 the modal that holds them.
 
+### Item filter
+
+A job board lists every role an employer has, and most are outside the audience (docs/00
+§2: software, data, design and product, 0 to 2 years). A source can say which items it
+keeps:
+
+```yaml
+filter:
+  departments: [Engineering, Data Science, Product, Design]   # optional
+  seniority: early                                            # default; or any
+```
+
+`departments` keeps items whose `meta.department` (set by the adapter) matches one of the
+names, case-insensitively, and drops items with no department. `seniority: early` drops
+titles naming Senior, Sr, Lead, Principal, Head, Manager, Director, VP, Chief or Staff,
+unless the title also names Intern, Graduate, Junior, Jr, Entry-level, Trainee, Associate or
+Apprentice. `engine run` and `--dry-run` apply it right after fetch, before `--limit` and
+dedupe, so a dropped item is never stored; the `source.finished` log line counts them as
+`filtered`. Adapters still return every listed item, so fixtures stay complete. The filter is
+stored as `Source.filter` (JSON); a stored value that fails to parse fails the source
+(`InvalidItemFilter`) rather than letting it run unfiltered.
+
 ### Stage 2 · Dedupe
 
 - Canonicalize URL: lowercase host, strip `utm_*`, `fbclid`, `ref`, trailing slash, fragment;

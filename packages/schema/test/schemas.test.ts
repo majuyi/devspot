@@ -95,6 +95,18 @@ describe("OrganizationYaml", () => {
   it("rejects an unknown city", () => {
     expect(OrganizationYaml.safeParse({ ...valid, city: "atlantis" }).success).toBe(false);
   });
+  it("accepts a source filter and defaults seniority to early", () => {
+    const withFilter = (filter: unknown) =>
+      OrganizationYaml.safeParse({ ...valid, sources: [{ ...valid.sources[0], filter }] });
+    const r = withFilter({ departments: ["Engineering"] });
+    expect(r.success && r.data.sources[0]?.filter).toEqual({
+      departments: ["Engineering"],
+      seniority: "early",
+    });
+    expect(withFilter({ departments: [] }).success).toBe(false);
+    expect(withFilter({ seniority: "mid" }).success).toBe(false);
+    expect(withFilter({ titles: ["Engineer"] }).success).toBe(false);
+  });
 });
 
 describe("OpportunityDraft", () => {

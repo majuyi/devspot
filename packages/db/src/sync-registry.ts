@@ -8,7 +8,7 @@ import {
   validateRegistry,
 } from "@devspot/schema";
 import { parse } from "yaml";
-import type { PrismaClient } from "./generated/prisma/client";
+import { Prisma, type PrismaClient } from "./generated/prisma/client";
 
 const REGISTRY_DIR = resolve(import.meta.dirname, "../../../registry/organizations");
 
@@ -103,6 +103,7 @@ export async function syncRegistry(
           cadence: s.cadence,
           enabled: s.enabled,
           include: s.include,
+          filter: s.filter,
           notes: s.notes,
         },
         update: {
@@ -112,6 +113,7 @@ export async function syncRegistry(
           cadence: s.cadence,
           enabled: s.enabled,
           include: s.include ?? null,
+          filter: s.filter ?? Prisma.DbNull,
           notes: s.notes ?? null,
         },
       });
