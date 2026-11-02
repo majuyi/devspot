@@ -1,4 +1,4 @@
-import type { FetchResult, SourceKind, Validators } from "@devspot/schema";
+import type { FetchResult, ItemFilter, SourceKind, Validators } from "@devspot/schema";
 import { fetchFeed } from "./fetchers/feed.js";
 import { fetchWithAdapter } from "./fetchers/html.js";
 import { fetchSitemap } from "./fetchers/sitemap.js";
@@ -12,6 +12,8 @@ export type FetchSource = {
   url: string;
   adapter?: string;
   include?: string;
+  /** Which items the source keeps (docs/04 §1); applied after fetch, readable by adapters. */
+  filter?: ItemFilter;
   /** From the last successful run, for a conditional GET. Absent on the first run. */
   validators?: Validators;
   /**

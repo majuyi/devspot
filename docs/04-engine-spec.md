@@ -126,17 +126,25 @@ keeps:
 
 ```yaml
 filter:
-  departments: [Engineering, Data Science, Product, Design]   # optional
-  seniority: early                                            # default; or any
+  departments: [Engineering, Data Science]                 # optional
+  titles: [engineer, developer, data scientist, designer]  # optional
+  seniority: early                                         # default; or any
 ```
 
-`departments` keeps items whose `meta.department` (set by the adapter) matches one of the
-names, case-insensitively, and drops items with no department. `seniority: early` drops
+`departments` matches `meta.department` (set by the adapter) case-insensitively; `titles`
+matches keywords as whole words in the title, case-insensitively, as text rather than
+patterns. With either set, an item is kept when its department or its title matches; an
+item with no department can still match by title. Employers file roles inconsistently
+(Flutterwave lists "Data Scientist, Risk" under Risk), so titles usually do the work.
+`seniority: early` drops
 titles naming Senior, Sr, Lead, Principal, Head, Manager, Director, VP, Chief or Staff,
 unless the title also names Intern, Graduate, Junior, Jr, Entry-level, Trainee, Associate or
 Apprentice. `engine run` and `--dry-run` apply it right after fetch, before `--limit` and
 dedupe, so a dropped item is never stored; the `source.finished` log line counts them as
-`filtered`. Adapters still return every listed item, so fixtures stay complete. The filter is
+`filtered`. Adapters still return every listed item, so fixtures stay complete, with one
+exception: an adapter that spends a request per item reads `source.filter` and asks
+`itemMatcher` before fetching detail, because a dropped role is never stored and would
+otherwise use up the per-run cap on every run. The filter is
 stored as `Source.filter` (JSON); a stored value that fails to parse fails the source
 (`InvalidItemFilter`) rather than letting it run unfiltered.
 

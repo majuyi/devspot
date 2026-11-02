@@ -8,35 +8,50 @@ export const SENIOR_TITLE =
 export const ENTRY_TITLE =
   /\b(?:intern|internship|graduate|junior|jr|entry[- ]level|trainee|associate|apprentice)\b/i;
 
-const norm = (s: string) => s.trim().toLowerCase();
+const norm = (s: string) => s.replace(/\s+/g, " ").trim().toLowerCase();
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-function department(item: RawItemInput): string | undefined {
-  const d = item.meta?.department;
-  return typeof d === "string" && d.trim() ? norm(d) : undefined;
+/** What the filter reads of an item: enough that an adapter can ask before fetching detail. */
+export type Listed = { title?: string | undefined; department?: string | undefined };
+
+/** Compiled once per source: keyword regexes and a department set. */
+export function itemMatcher(filter: ItemFilter | undefined): (item: Listed) => boolean {
+  if (!filter) return () => true;
+  const departments = filter.departments && new Set(filter.departments.map(norm));
+  const titles =
+    filter.titles &&
+    new RegExp(
+      `(?<![\\p{L}\\p{N}])(?:${filter.titles.map((t) => escapeRegExp(norm(t))).join("|")})(?![\\p{L}\\p{N}])`,
+      "iu",
+    );
+  return ({ title = "", department }) => {
+    if (departments || titles) {
+      const byDepartment = Boolean(departments && department && departments.has(norm(department)));
+      const byTitle = Boolean(titles?.test(norm(title)));
+      if (!byDepartment && !byTitle) return false;
+    }
+    if (filter.seniority === "early" && SENIOR_TITLE.test(title) && !ENTRY_TITLE.test(title))
+      return false;
+    return true;
+  };
 }
+
+const listed = (item: RawItemInput): Listed => {
+  const d = item.meta?.department;
+  return { title: item.title, department: typeof d === "string" ? d : undefined };
+};
 
 /**
  * Applied right after fetch, so a dropped item is never stored. Adapters still return every
- * listed item (docs/04 §1), which keeps fixtures complete and the filter testable on its own.
- * A department filter drops items with no department: the adapter could not say.
+ * listed item (docs/04 §1), except that an adapter spending a request per item may ask
+ * `itemMatcher` first so dropped roles do not use up its per-run cap.
  */
 export function applyItemFilter(
   items: readonly RawItemInput[],
   filter: ItemFilter | undefined,
 ): { kept: RawItemInput[]; dropped: number } {
-  if (!filter) return { kept: [...items], dropped: 0 };
-  const departments = filter.departments && new Set(filter.departments.map(norm));
-  const kept = items.filter((item) => {
-    if (departments) {
-      const d = department(item);
-      if (!d || !departments.has(d)) return false;
-    }
-    if (filter.seniority === "early") {
-      const title = item.title ?? "";
-      if (SENIOR_TITLE.test(title) && !ENTRY_TITLE.test(title)) return false;
-    }
-    return true;
-  });
+  const keep = itemMatcher(filter);
+  const kept = items.filter((item) => keep(listed(item)));
   return { kept, dropped: items.length - kept.length };
 }
 
