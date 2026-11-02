@@ -68,7 +68,26 @@ const TIME = String.raw`(?:\s*,?\s*(?:@|at|by)?\s*(?=\d{1,2}(?:[:.]\d{2}|\s*[ap]
 const ZONE = String.raw`(?:\s*(?:GMT|UTC)\s*([+-]\d{1,2})(?::?(\d{2}))?|\s*\(?\b(${Object.keys(ZONES).join("|")})\b\)?)?`;
 
 type Pattern = { re: RegExp; read: (m: RegExpExecArray) => Parts };
-type Parts = { day: number; month: number; year?: number; time?: [number, number]; zone?: string };
+type Parts = {
+  day: number;
+  month: number;
+  year?: number;
+  time?: [number, number];
+  zone?: string;
+  /** An ISO offset in minutes east of UTC; fixes the instant even with no IANA name. */
+  offset?: number;
+};
+
+/** "Z" or "+05:30" to an offset, and to an IANA zone when one names it exactly. */
+function isoOffset(s: string): Pick<Parts, "zone" | "offset"> {
+  if (s.toUpperCase() === "Z") return { zone: "UTC", offset: 0 };
+  const m = s.match(/^([+-])(\d{2}):?(\d{2})$/);
+  if (!m) return {};
+  const sign = m[1] === "-" ? -1 : 1;
+  const offset = sign * (Number(m[2]) * 60 + Number(m[3]));
+  const named = zone(undefined, `${m[1]}${m[2]}`, m[3]);
+  return { offset, ...(named ? { zone: named } : {}) };
+}
 
 function time(h?: string, min?: string, ampm?: string): [number, number] | undefined {
   if (h === undefined) return undefined;
@@ -94,14 +113,18 @@ function zone(abbr?: string, sign?: string, mins?: string): string | undefined {
 }
 
 const PATTERNS: Pattern[] = [
-  // 2026-10-31, 2026-10-31T23:59
+  // 2026-10-31, 2026-10-31T23:59, 2026-10-31T23:59:00.000Z, 2026-10-31T23:59+05:30
   {
-    re: new RegExp(String.raw`\b${YEAR}-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2}))?`, "gi"),
+    re: new RegExp(
+      String.raw`\b${YEAR}-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::\d{2}(?:\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?)?`,
+      "gi",
+    ),
     read: (m) => ({
       year: Number(m[1]),
       month: Number(m[2]),
       day: Number(m[3]),
       ...(m[4] ? { time: [Number(m[4]), Number(m[5])] as [number, number] } : {}),
+      ...(m[6] ? isoOffset(m[6]) : {}),
     }),
   },
   // Friday, 31st October 2026 · 31 Oct, 2026 at 11:59pm WAT · 31 October
@@ -193,6 +216,8 @@ function toInstant(p: Parts, reference: Date, endOfDay: boolean): Date | undefin
     // Reject 31 February and friends rather than letting Date roll them over.
     const probe = new Date(Date.UTC(year, p.month - 1, p.day));
     if (probe.getUTCMonth() !== p.month - 1) return undefined;
+    if (p.offset !== undefined)
+      return new Date(Date.UTC(year, p.month - 1, p.day, hour, minute) - p.offset * 60_000);
     return zonedTime(year, p.month, p.day, hour, minute, zoneName);
   };
   if (p.year !== undefined) return at(p.year);

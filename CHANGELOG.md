@@ -38,3 +38,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - Rules extractor: a stated location it does not recognise no longer falls back to a city named elsewhere in the text or to the organization's city.
 - `workable` adapter for any Workable board; Kuda added. The item filter gained `countries`, and `seniority: early` also reads a board's stated level.
 - `zindi` adapter and Zindi added: open data science and AI competitions.
+- Dates: an ISO time with `Z` or an offset keeps it (it was read as Lagos time, an hour out).
