@@ -21,6 +21,11 @@ export const ItemFilter = z
   .object({
     /** Keep items whose `meta.department` is one of these, compared case-insensitively. */
     departments: z.array(z.string().min(1)).min(1).optional(),
+    /**
+     * Keep items whose title contains one of these as whole words, case-insensitively.
+     * With `departments` too, an item is kept when either matches.
+     */
+    titles: z.array(z.string().min(1)).min(1).optional(),
     /** `early` drops senior titles unless the title also names an entry-level role. */
     seniority: z.enum(["early", "any"]).default("early"),
   })

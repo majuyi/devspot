@@ -1,6 +1,6 @@
 import type { RawItemInput } from "@devspot/schema";
 import { describe, expect, it } from "vitest";
-import { applyItemFilter, InvalidItemFilter, parseItemFilter } from "../src/filter.js";
+import { applyItemFilter, InvalidItemFilter, itemMatcher, parseItemFilter } from "../src/filter.js";
 
 const job = (title: string, department?: string): RawItemInput => ({
   url: `https://jobs.example/${encodeURIComponent(title)}`,
@@ -65,6 +65,59 @@ describe("applyItemFilter", () => {
     ]);
   });
 
+  it("keeps titles containing a keyword as whole words, case-insensitively", () => {
+    const items = [
+      job("Enterprise Integration Engineer"),
+      job("Data Scientist, Risk"),
+      job("Machine  Learning Engineer"),
+      job("Settlement Analyst"),
+      job("Engineering Relations Partner"),
+      job("Telesales Agent"),
+    ];
+    const filter = {
+      titles: ["engineer", "Data Scientist", "machine learning"],
+      seniority: "any" as const,
+    };
+    expect(titles(applyItemFilter(items, filter).kept)).toEqual([
+      "Enterprise Integration Engineer",
+      "Data Scientist, Risk",
+      "Machine  Learning Engineer",
+    ]);
+  });
+
+  it("keeps an item when its department or its title matches", () => {
+    const items = [
+      job("Database Administrator", "Engineering"),
+      job("Data Scientist, Risk", "Risk"),
+      job("Data Scientist (no department)"),
+      job("Collections Specialist", "Risk"),
+    ];
+    const filter = {
+      departments: ["Engineering"],
+      titles: ["data scientist"],
+      seniority: "any" as const,
+    };
+    expect(titles(applyItemFilter(items, filter).kept)).toEqual([
+      "Database Administrator",
+      "Data Scientist, Risk",
+      "Data Scientist (no department)",
+    ]);
+  });
+
+  it("treats keywords as text, not patterns", () => {
+    const items = [job("C++ Developer"), job("C Developer"), job("Cx Developer")];
+    const filter = { titles: ["c++"], seniority: "any" as const };
+    expect(titles(applyItemFilter(items, filter).kept)).toEqual(["C++ Developer"]);
+  });
+
+  it("answers for listing data alone, so an adapter can ask before fetching detail", () => {
+    const keep = itemMatcher({ departments: ["Engineering"], seniority: "early" });
+    expect(keep({ title: "Backend Engineer", department: "engineering" })).toBe(true);
+    expect(keep({ title: "Senior Backend Engineer", department: "Engineering" })).toBe(false);
+    expect(keep({ title: "Backend Engineer" })).toBe(false);
+    expect(itemMatcher(undefined)({})).toBe(true);
+  });
+
   it("applies both rules together", () => {
     const items = [
       job("Senior Android Engineer", "Engineering"),
@@ -90,6 +143,6 @@ describe("parseItemFilter", () => {
   });
   it("fails loudly rather than running unfiltered", () => {
     expect(() => parseItemFilter({ departments: [] })).toThrow(InvalidItemFilter);
-    expect(() => parseItemFilter({ titles: ["x"] })).toThrow(InvalidItemFilter);
+    expect(() => parseItemFilter({ roles: ["x"] })).toThrow(InvalidItemFilter);
   });
 });

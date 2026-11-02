@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { Organization, PrismaClient, Source } from "@devspot/db";
-import { ERRORING_AFTER, sourceHealth } from "@devspot/schema";
+import { ERRORING_AFTER, type ItemFilter, sourceHealth } from "@devspot/schema";
 import { hasFetcher, type SourceFilter, selectSources } from "./dry-run.js";
 import { extractRules } from "./extract/rules.js";
 import { type FetchFn, type FetchSource, fetchSource } from "./fetch.js";
@@ -24,13 +24,18 @@ export type RunDeps = {
 
 type RunContext = Required<RunDeps> & { limit?: number };
 
-const asFetchSource = (row: SourceRow, knownUrls: ReadonlySet<string>): FetchSource => ({
+const asFetchSource = (
+  row: SourceRow,
+  knownUrls: ReadonlySet<string>,
+  filter: ItemFilter | undefined,
+): FetchSource => ({
   key: row.key,
   organizationSlug: row.organization.slug,
   kind: row.kind,
   url: row.url,
   ...(row.adapter ? { adapter: row.adapter } : {}),
   ...(row.include ? { include: row.include } : {}),
+  ...(filter ? { filter } : {}),
   ...(row.etag || row.lastModified
     ? {
         validators: {
@@ -99,7 +104,8 @@ async function runSource(
       where: { sourceId: row.id },
       select: { canonicalUrl: true },
     });
-    const result = await fetch(asFetchSource(row, new Set(known.map((r) => r.canonicalUrl))), http);
+    const knownUrls = new Set(known.map((r) => r.canonicalUrl));
+    const result = await fetch(asFetchSource(row, knownUrls, itemFilter), http);
     httpStatus = result.httpStatus;
     validators = result.validators;
     // A partial fetch still counts as a run that worked; the note goes on the FetchRun.

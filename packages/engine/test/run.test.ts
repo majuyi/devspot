@@ -287,7 +287,18 @@ describe.skipIf(!hasDb)("engine run against Postgres", () => {
             ],
           }
         : { items: [] };
-    await run(fetch, { limit: 1 });
+    const seen: FetchSource[] = [];
+    await run(
+      async (s, h) => {
+        seen.push(s);
+        return fetch(s, h);
+      },
+      { limit: 1 },
+    );
+    expect(seen.find((s) => s.key === key("good"))?.filter).toEqual({
+      departments: ["Engineering"],
+      seniority: "early",
+    });
     const stored = await db.rawItem.findMany({ where: { source: { key: key("good") } } });
     expect(stored.map((r) => r.title)).toEqual(["backend Engineer"]);
     expect((await source("good")).fetchRuns).toMatchObject([{ ok: true, nFound: 1, nNew: 1 }]);
