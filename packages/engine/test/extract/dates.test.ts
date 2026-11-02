@@ -24,6 +24,12 @@ describe("findDates", () => {
     ["03/10/2026", "2026-10-03T22:59:00.000Z", undefined, true, false],
     ["2026-10-31", "2026-10-31T22:59:00.000Z", undefined, true, false],
     ["2026-10-31T09:30", "2026-10-31T08:30:00.000Z", undefined, true, true],
+    ["2026-12-13T12:00:00Z", "2026-12-13T12:00:00.000Z", "UTC", true, true],
+    ["2026-12-13T12:00:00.000Z", "2026-12-13T12:00:00.000Z", "UTC", true, true],
+    ["2026-12-13T12:00+01:00", "2026-12-13T11:00:00.000Z", "Etc/GMT-1", true, true],
+    ["2026-10-21T09:47:20-04:00", "2026-10-21T13:47:00.000Z", "Etc/GMT+4", true, true],
+    // No IANA name for a half-hour offset, but the instant is still exact.
+    ["2026-11-10T23:59+05:30", "2026-11-10T18:29:00.000Z", undefined, true, true],
     ["3 March", "2027-03-03T22:59:00.000Z", undefined, false, false],
     ["October 20", "2026-10-20T22:59:00.000Z", undefined, false, false],
   ])("%s", (text, at, zone, hasYear, hasTime) => {
