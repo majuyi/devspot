@@ -1,0 +1,17 @@
+slug: zindi
+name: Zindi
+category: hackathonHost
+homepageUrl: https://zindi.africa
+description: >
+  African data science and AI competition platform. Runs online competitions with cash
+  prizes, many open to students and early-career practitioners across Africa.
+country: ZA
+sources:
+  - name: competitions
+    kind: api
+    url: https://api.zindi.world/v1/competitions
+    adapter: zindi
+    cadence: rolling
+    notes: >
+      JSON behind zindi.africa/competitions (api.zindi.africa redirects here). Open
+      competitions only. Verified 2026-11-02.
