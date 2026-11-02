@@ -2,7 +2,7 @@ import { ItemFilter, type RawItemInput } from "@devspot/schema";
 
 /** Titles that say the role is beyond 0 to 2 years. */
 export const SENIOR_TITLE =
-  /\b(?:senior|sr|lead|principal|head|manager|director|vp|vice[- ]president|chief|staff)\b/i;
+  /\b(?:senior|sr|lead|principal|head|manager|director|vp|vice[- ]president|chief|staff|architect)\b/i;
 
 /** Titles that say the role is entry-level, which wins over SENIOR_TITLE ("Associate Product Manager"). */
 export const ENTRY_TITLE =
