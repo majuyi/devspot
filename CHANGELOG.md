@@ -35,3 +35,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - M1.11: production Supabase project (London) with the `engine` role. Workflows `engine.yml` (every 6 hours: run, then verify), `migrate.yml` (migrate deploy, then `grants.sql`), `backup.yml` (weekly encrypted `pg_dump`) and `keepalive.yml`. `grants.sql` also removes Supabase's default `anon` access to public tables.
 - Source item filter (`filter` in the registry, `Source.filter` in the database): job boards keep listed departments or title keywords and drop senior titles before anything is stored (docs/04 §1).
 - `bamboohr` adapter for any BambooHR careers board; Flutterwave's careers source now runs, filtered to tech roles.
+- Rules extractor: a stated location it does not recognise no longer falls back to a city named elsewhere in the text or to the organization's city.

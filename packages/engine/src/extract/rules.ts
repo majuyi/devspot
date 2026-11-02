@@ -316,13 +316,17 @@ export function ruleLocation(title: string, text: string, org: RulesInput["org"]
       ? source.match(REMOTE_TITLE)
       : REMOTE_TEXT.map((re) => source.match(re)).find(Boolean);
     const hybrid = source.match(HYBRID);
-    const city = findCity(source);
+    // Past a stated location we did not recognise ("Location: Accra, Ghana"), a city named
+    // elsewhere in the text is usually the organization's own address, not the role's.
+    const city = !short && stated ? undefined : findCity(source);
     if (hybrid)
       return { mode: "hybrid", ...cityOf(city), ...country, confidence, quote: hybrid[0] };
     if (remote) return { mode: "remote", ...country, confidence, quote: remote[0] };
     if (city) return { mode: "onsite", ...cityOf(city), confidence, quote: city.quote };
   }
-  if (org.city) return { mode: "onsite", city: org.city, country: org.country, confidence: 0.3 };
+  // Nor is the organization's city a fallback when the item states somewhere else.
+  if (org.city && !stated)
+    return { mode: "onsite", city: org.city, country: org.country, confidence: 0.3 };
   return { ...country, confidence: 0 };
 }
 
