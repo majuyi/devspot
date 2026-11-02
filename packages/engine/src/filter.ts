@@ -12,7 +12,12 @@ const norm = (s: string) => s.replace(/\s+/g, " ").trim().toLowerCase();
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /** What the filter reads of an item: enough that an adapter can ask before fetching detail. */
-export type Listed = { title?: string | undefined; department?: string | undefined };
+export type Listed = {
+  title?: string | undefined;
+  department?: string | undefined;
+  /** ISO alpha-2. */
+  country?: string | undefined;
+};
 
 /** Compiled once per source: keyword regexes and a department set. */
 export function itemMatcher(filter: ItemFilter | undefined): (item: Listed) => boolean {
@@ -24,7 +29,9 @@ export function itemMatcher(filter: ItemFilter | undefined): (item: Listed) => b
       `(?<![\\p{L}\\p{N}])(?:${filter.titles.map((t) => escapeRegExp(norm(t))).join("|")})(?![\\p{L}\\p{N}])`,
       "iu",
     );
-  return ({ title = "", department }) => {
+  const countries = filter.countries && new Set(filter.countries);
+  return ({ title = "", department, country }) => {
+    if (countries && country && !countries.has(country.toUpperCase())) return false;
     if (departments || titles) {
       const byDepartment = Boolean(departments && department && departments.has(norm(department)));
       const byTitle = Boolean(titles?.test(norm(title)));
@@ -37,8 +44,12 @@ export function itemMatcher(filter: ItemFilter | undefined): (item: Listed) => b
 }
 
 const listed = (item: RawItemInput): Listed => {
-  const d = item.meta?.department;
-  return { title: item.title, department: typeof d === "string" ? d : undefined };
+  const { department, country } = item.meta ?? {};
+  return {
+    title: item.title,
+    department: typeof department === "string" ? department : undefined,
+    country: typeof country === "string" ? country : undefined,
+  };
 };
 
 /**

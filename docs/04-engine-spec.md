@@ -133,6 +133,7 @@ keeps:
 filter:
   departments: [Engineering, Data Science]                 # optional
   titles: [engineer, developer, data scientist, designer]  # optional
+  countries: [NG]                                          # optional
   seniority: early                                         # default; or any
 ```
 
@@ -141,7 +142,9 @@ matches keywords as whole words in the title, case-insensitively, as text rather
 patterns. With either set, an item is kept when its department or its title matches; an
 item with no department can still match by title. Employers file roles inconsistently
 (Flutterwave lists "Data Scientist, Risk" under Risk), so titles usually do the work.
-`seniority: early` drops
+`countries` drops items whose `meta.country` (ISO alpha-2, set by the adapter) is not listed
+and keeps items that state no country; employers post one role per country, and the launch
+is Nigeria only (ADR 0011). `seniority: early` drops
 titles naming Senior, Sr, Lead, Principal, Head, Manager, Director, VP, Chief, Staff or
 Architect,
 unless the title also names Intern, Graduate, Junior, Jr, Entry-level, Trainee, Associate or

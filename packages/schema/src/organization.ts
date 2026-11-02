@@ -26,6 +26,11 @@ export const ItemFilter = z
      * With `departments` too, an item is kept when either matches.
      */
     titles: z.array(z.string().min(1)).min(1).optional(),
+    /**
+     * Drop items whose `meta.country` (ISO alpha-2, set by the adapter) is not one of these.
+     * Items with no stated country are kept: the adapter could not say.
+     */
+    countries: z.array(CountryCode).min(1).optional(),
     /** `early` drops senior titles unless the title also names an entry-level role. */
     seniority: z.enum(["early", "any"]).default("early"),
   })

@@ -111,6 +111,18 @@ describe("applyItemFilter", () => {
     expect(titles(applyItemFilter(items, filter).kept)).toEqual(["C++ Developer"]);
   });
 
+  it("drops items stated to be in another country and keeps those that state none", () => {
+    const at = (title: string, country?: string): RawItemInput => ({
+      ...job(title),
+      ...(country ? { meta: { country } } : {}),
+    });
+    const items = [at("Java Developer", "NG"), at("Java Developer", "RU"), at("Java Developer")];
+    const { kept, dropped } = applyItemFilter(items, { countries: ["NG"], seniority: "any" });
+    expect(kept.map((i) => i.meta?.country)).toEqual(["NG", undefined]);
+    expect(dropped).toBe(1);
+    expect(itemMatcher({ countries: ["NG"], seniority: "any" })({ country: "ng" })).toBe(true);
+  });
+
   it("answers for listing data alone, so an adapter can ask before fetching detail", () => {
     const keep = itemMatcher({ departments: ["Engineering"], seniority: "early" });
     expect(keep({ title: "Backend Engineer", department: "engineering" })).toBe(true);

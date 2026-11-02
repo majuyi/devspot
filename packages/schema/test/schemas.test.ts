@@ -107,6 +107,8 @@ describe("OrganizationYaml", () => {
     expect(withFilter({ seniority: "mid" }).success).toBe(false);
     expect(withFilter({ roles: ["Engineer"] }).success).toBe(false);
     expect(withFilter({ titles: [] }).success).toBe(false);
+    expect(withFilter({ countries: ["NG"] }).success).toBe(true);
+    expect(withFilter({ countries: ["Nigeria"] }).success).toBe(false);
   });
 });
 
