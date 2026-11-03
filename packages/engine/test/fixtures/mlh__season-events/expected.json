@@ -1,0 +1,20 @@
+{
+  "sourceKey": "mlh/season-events",
+  "items": [
+    {
+      "url": "https://events.mlh.com/events/15200-solana-hackathon",
+      "title": "Solana Hackathon",
+      "text": "Host: Major League Hacking (MLH member event)\nDate: 6 November 2026, 01:11 UTC\nEnds: 8 November 2026, 23:59 UTC\nLocation: Online\nFocus: Software"
+    },
+    {
+      "url": "https://makeuc.io/",
+      "title": "MakeUC",
+      "text": "Host: Major League Hacking (MLH member event)\nDate: 7 November 2026, 14:30 UTC\nEnds: 8 November 2026, 22:00 UTC\nLocation: Hybrid, online or in person in Cincinnati, Ohio"
+    },
+    {
+      "url": "https://www.spaceappschallenge.org/2026/local-events/new-york/",
+      "title": "NASA's Space Apps Challenge NYC",
+      "text": "Host: Major League Hacking (MLH member event)\nDate: 13 November 2026, 21:30 UTC\nEnds: 15 November 2026, 21:30 UTC\nLocation: Hybrid, online or in person in Brooklyn, New York\nFocus: Software"
+    }
+  ]
+}

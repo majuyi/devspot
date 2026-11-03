@@ -41,3 +41,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - Dates: an ISO time with `Z` or an offset keeps it (it was read as Lagos time, an hour out).
 - `bevy` adapter for Google Developer Group chapters on gdg.community.dev; GDG Lagos runs, GDG Ibadan added. `utcLine` moved to `fetchers/util.ts`.
 - M1.12: registry at 26 organizations (Paga, Chowdeck, Kuda, FairMoney, Renmoney, Zindi and GDG Ibadan, Port Harcourt, Enugu, Kano, Uyo, Calabar and Ilorin added); 20 yield opportunities in production.
+- `mlh` adapter: online and hybrid hackathons from MLH's season page; Major League Hacking now runs.

@@ -13,6 +13,6 @@ sources:
     adapter: mlh
     cadence: rolling
     notes: >
-      Server-rendered list (also as JSON in the data-page attribute). Most events are
-      in-person in North America; the adapter keeps online ones. The URL carries the season
-      year and moves each summer. Verified 2026-10-09.
+      Server-rendered; every event is JSON in <script data-page="app">. Most events are
+      in-person in North America; the adapter keeps online and hybrid ones. The URL carries
+      the season year and moves each summer. Verified 2026-11-03.

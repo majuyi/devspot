@@ -143,6 +143,13 @@ whether it is virtual. A stated venue wins over the virtual flag, which Bevy set
 in-person DevFests with external registration. The pages are 500 to 750 KB, over the
 fixture body limit; they are kept gzipped.
 
+The mlh adapter reads a season page (mlh.com/seasons/<year>/events), which renders every
+event as JSON in `<script data-page="app">`. MLH's own event pages have no description, so
+items come from the listing alone: name, start and end in UTC, location, focus and diversity
+focus. Only online (`digital`) and hybrid events are kept; in-person ones are campus events
+abroad. The item URL is the event's own site. MLH states when an event runs, not when
+registration closes, so the deadline is `unknown`.
+
 ### Item filter
 
 A job board lists every role an employer has, and most are outside the audience (docs/00
