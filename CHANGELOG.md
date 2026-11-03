@@ -43,3 +43,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - M1.12: registry at 26 organizations (Paga, Chowdeck, Kuda, FairMoney, Renmoney, Zindi and GDG Ibadan, Port Harcourt, Enugu, Kano, Uyo, Calabar and Ilorin added); 20 yield opportunities in production.
 - `mlh` adapter: online and hybrid hackathons from MLH's season page; Major League Hacking now runs.
 - `outreachy` adapter: the current round from `/apply/project-selection/`, with the initial application deadline as the deadline. Every registry source now has an adapter and a fixture.
+- M1 gate passed: 22 of 26 organizations yield in production, every source has a fixture, and a deliberately broken source turned `erroring` and failed the Actions job.
