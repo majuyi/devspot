@@ -150,6 +150,15 @@ focus. Only online (`digital`) and hybrid events are kept; in-person ones are ca
 abroad. The item URL is the event's own site. MLH states when an event runs, not when
 registration closes, so the deadline is `unknown`.
 
+The outreachy adapter reads `outreachy.org/apply/project-selection/`, one page about the
+current round, and returns one item (as hng does). The timeline has two deadlines, and only
+the initial application deadline is one a new applicant can meet: the final application is
+open only to those whose initial application was approved. So the initial one becomes the
+`Deadline:` line and the final one is written in words the rules do not read as a deadline;
+otherwise a closed round would show the final date as open. The notice above the round
+("Initial applications are closed") is kept, which verify also reads. A timeline without an
+initial deadline throws `AdapterLayoutChanged`.
+
 ### Item filter
 
 A job board lists every role an employer has, and most are outside the audience (docs/00

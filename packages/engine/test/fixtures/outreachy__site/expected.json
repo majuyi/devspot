@@ -1,0 +1,10 @@
+{
+  "sourceKey": "outreachy/site",
+  "items": [
+    {
+      "url": "https://www.outreachy.org/apply/project-selection/",
+      "title": "Outreachy December 2026 to March 2027 Internships",
+      "text": "Host: Outreachy\nLocation: Remote\nDeadline: Aug. 31, 2026 at 4pm UTC (initial application)\n\nInitial applications are closed\n\nThe deadline to create an initial application has passed for the December 2026 Outreachy internship cohort. We are no longer accepting initial applications for internships. We encourage you to sign up for the announcements mailing list to get an email when the next round opens.\n\nTimeline\n\nInitial applications open: Aug. 24, 2026 at 4pm UTC\nProject list finalized: Oct. 2, 2026\nInitial application results available: Oct. 12, 2026 at 4pm UTC\nContribute to projects: Oct. 12, 2026 to Nov. 9, 2026\nFinal application, for applicants whose initial application was approved: Nov. 9, 2026 at 4pm UTC\nAccepted interns announced: Nov. 30, 2026 at 4pm UTC\nInternships period: Dec. 7, 2026 to March 8, 2027\n\nInternship projects are offered in these areas:\n- Git - 6 projects\n- C programming - 4 projects\n- Rust - 3 projects\n- Python - 3 projects\n- Shell scripting - 3 projects\n- humanities-style text-based research, coding, Android app development, Android, Kotlin, Markdown, Documentation, Cybersecurity Fundamentals, C++, Type systems, Consensus building, API design, Linux, Kotlin development, Functional Programming"
+    }
+  ]
+}
