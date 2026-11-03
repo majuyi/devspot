@@ -9,7 +9,11 @@ country: US
 sources:
   - name: site
     kind: html
-    url: https://www.outreachy.org/apply/
+    url: https://www.outreachy.org/apply/project-selection/
     adapter: outreachy
     cadence: annual
-    notes: Server-rendered. Two rounds a year (applications open around January and August). Verified 2026-10-09.
+    notes: >
+      Server-rendered page for the current round: its timeline, a notice when initial
+      applications are closed, and the project areas. Two rounds a year (applications open
+      around January and August). /apply/ has no dates. robots.txt is a 404 page, so no
+      rules. Verified 2026-11-03.

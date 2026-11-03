@@ -32,11 +32,10 @@ describe("golden output", () => {
     expect([...ADAPTERS.keys()].filter((k) => !covered.has(k))).toEqual([]);
   });
 
-  it("only the known adapters are still unwritten", () => {
-    // Registry sources whose adapter does not exist yet; they fail at run time with
-    // AdapterNotFound. Remove a name here when its adapter and fixture land.
+  it("every adapter the registry names exists", () => {
+    // A source naming a missing adapter fails at run time with AdapterNotFound.
     const unwritten = sources.filter((s) => s.adapter && !ADAPTERS.has(s.adapter));
-    expect(unwritten.map((s) => s.adapter).sort()).toEqual(["outreachy"]);
+    expect(unwritten.map((s) => s.adapter).sort()).toEqual([]);
   });
 
   it.each(recorded)("%s replays to expected.json", async (key) => {
