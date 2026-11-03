@@ -56,6 +56,12 @@ Gate: 20 organizations yield real opportunities through the pipeline into the da
 a fixture; a deliberately broken source shows `erroring` on the health report and fails
 the Actions job.
 
+Passed 2026-11-03. 22 of 26 organizations yield in production (engine run 41669004994);
+every registry source has an adapter or fetcher and a fixture. A temporary source on a
+throwaway branch, a feed that answers 404, failed three dispatched runs (41732663921,
+41732785430, 41733178067): the third reported it `erroring` in the run summary and failed the
+job. Its rows were then deleted from production and the branch removed.
+
 - [x] **M1.1 HTTP client and robots.** `src/http.ts` over undici with per-host rate limit,
   timeout, retries, user agent, `robots.txt` cache; `RobotsDisallowed` error. Spec: `04` §1.
   Check: unit tests with a `MockAgent` for retry, rate limit timing, robots deny.
