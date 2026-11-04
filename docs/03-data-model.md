@@ -412,7 +412,8 @@ These are product rules enforced in code and stated in tests:
    "rolling".
 3. `status = published` requires: `title`, `kind`, `canonicalUrl`, `locationMode`,
    `organizationId`, and `confidence >= PUBLISH_THRESHOLD` (0.8 at M3; rules-only items at M1
-   publish only when kind and one date are found by deterministic rules).
+   publish only when kind and one date are found by deterministic rules), and, for engine
+   items, a title that does not mark the listing as a test ("Test Hackathon…", "(test)").
 4. The engine writes `Opportunity` only through the loader. Fetchers and extractors return
    values; they do not import `db`.
 5. `city` and `country` are filters; `regionsTags` are display hints and never filter.

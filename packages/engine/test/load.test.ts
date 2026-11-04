@@ -109,6 +109,7 @@ describe("baseSlug", () => {
 
 describe("invariant 3: what may publish", () => {
   const base = {
+    title: "Product Design Internship",
     kind: "internship",
     locationMode: "remote",
     confidence: 0.75,
@@ -135,6 +136,26 @@ describe("invariant 3: what may publish", () => {
     expect(meetsPublishRule({ ...sure, kind: undefined })).toBe(false);
     expect(meetsPublishRule({ ...sure, locationMode: undefined })).toBe(false);
     expect(meetsPublishRule({ ...sure, extractionMethod: "llm", kind: undefined })).toBe(false);
+  });
+  it("not when the title marks a test listing, unless a maintainer entered it", () => {
+    const sure = { ...base, confidence: 1 };
+    for (const title of [
+      "Test Hackathon - Didit KYC",
+      "  test",
+      "Dummy listing",
+      "Didit KYC test hackathon",
+      "DevFest Lagos (test)",
+    ])
+      expect(meetsPublishRule({ ...sure, title }), title).toBe(false);
+    for (const title of ["Testnet Builders Hackathon", "Contest 2026", "QA and Testing Internship"])
+      expect(meetsPublishRule({ ...sure, title }), title).toBe(true);
+    expect(
+      meetsPublishRule({
+        ...sure,
+        extractionMethod: "manual",
+        title: "Test Hackathon - Didit KYC",
+      }),
+    ).toBe(true);
   });
   it("validation passes a draft with no kind or location mode, for review", () => {
     expect(validateDraft(draft({ kind: undefined, locationMode: undefined }), ctx).success).toBe(
