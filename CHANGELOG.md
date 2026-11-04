@@ -44,3 +44,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - `mlh` adapter: online and hybrid hackathons from MLH's season page; Major League Hacking now runs.
 - `outreachy` adapter: the current round from `/apply/project-selection/`, with the initial application deadline as the deadline. Every registry source now has an adapter and a fixture.
 - M1 gate passed: 22 of 26 organizations yield in production, every source has a fixture, and a deliberately broken source turned `erroring` and failed the Actions job.
+- Publish rule: an engine item whose title marks it as a test ("Test Hackathon - Didit KYC") waits for review. Hand-entered rows are exempt.
