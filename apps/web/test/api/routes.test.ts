@@ -45,6 +45,7 @@ describe("OpenAPI document", () => {
       "public, s-maxage=900, stale-while-revalidate=3600",
     );
     expect(res.headers.get("x-ratelimit-limit")).toBe("60");
+    expect(res.headers.get("vercel-cache-tag")).toBe("api-v1");
     const pre = route.OPTIONS();
     expect(pre.status).toBe(204);
     expect(pre.headers.get("access-control-allow-methods")).toBe("GET, OPTIONS");

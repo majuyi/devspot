@@ -9,6 +9,19 @@ grant select, insert, update on organizations, sources, fetch_runs, raw_items,
 grant select on submissions to engine;
 grant usage, select on all sequences in schema public to engine;
 
+-- The web role (created once by hand, docs/09 §3) reads what the public pages and API show.
+-- /admin (M2.10) and /submit (M4.3) add their writes here. Guarded so the file still runs
+-- before the role exists.
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'web') then
+    grant connect on database postgres to web;
+    grant usage on schema public to web;
+    grant select on organizations, sources, fetch_runs, opportunities to web;
+  end if;
+end
+$$;
+
 -- Supabase's Data API reads public tables as anon and authenticated with the public key.
 -- Nothing in this app uses it, so they get nothing, except one harmless read the daily
 -- keepalive makes to count as activity.
