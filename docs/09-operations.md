@@ -8,12 +8,13 @@
 
 | Name | Where | Value |
 |---|---|---|
-| `DATABASE_URL` | Vercel, local | Supabase transaction pooler, port 6543, `?pgbouncer=true&connection_limit=1` on Vercel |
+| `DATABASE_URL` | Vercel, local | On Vercel: Supabase transaction pooler, port 6543, as the read-only `web` role (see 3), ending `?uselibpqcompat=true&sslmode=require` |
 | `DIRECT_URL` | GitHub (migrations), local | Supabase session pooler, port 5432. Used by `prisma.config.ts` only |
 | `ENGINE_DATABASE_URL` | GitHub | Session pooler URL for the `engine` role (see 3) |
 | `ADMIN_TOKEN` | Vercel | 32+ random bytes, base64 |
 | `REVALIDATE_SECRET` | Vercel, GitHub | 32+ random bytes |
-| `NEXT_PUBLIC_SITE_URL` | Vercel | `https://<domain>` |
+| `NEXT_PUBLIC_SITE_URL` | Vercel | `https://<domain>`; until M5 it can be unset, and the app uses the Vercel production URL |
+| `SITE_URL` | GitHub variable | The production origin, for the engine's call to `/api/revalidate` |
 | `ANTHROPIC_API_KEY` | GitHub | optional until M3 |
 | `EXTRACTION_LLM` | GitHub variable | `0` or `1` |
 | `EXTRACTION_MONTHLY_TOKEN_BUDGET` | GitHub variable | default `2000000` |
@@ -55,6 +56,11 @@ read and write on every new table in `public`, which would let anyone holding th
 key edit the data. They keep only `select` on `usage_meters`, for the keepalive. Supabase's
 advisor reports "RLS disabled" on these tables; with no grants, that is expected.
 
+The web app connects as a second restricted role, `web`, created the same way. It reads
+`organizations`, `sources`, `fetch_runs` and `opportunities` and writes nothing; `/admin`
+(M2.10) and `/submit` (M4.3) add their writes to `grants.sql` when they arrive. The grants
+are guarded, so `grants.sql` runs before the role exists.
+
 Migrations run as the default `postgres` role.
 
 **Connection strings.** Through the pooler the user is `<role>.<project ref>`. The pooler's
@@ -64,9 +70,8 @@ ends `?uselibpqcompat=true&sslmode=require`: encrypted, certificate not verified
 
 ## 4. Vercel setup
 
-1. Import the GitHub repo. Framework preset Next.js, root directory `apps/web`, build
-   command `pnpm turbo build --filter @devspot/web`, install command
-   `corepack enable && pnpm install --frozen-lockfile`.
+1. Import the GitHub repo with root directory `apps/web`. Install and build commands and the
+   function region (`lhr1`, beside the database in London) live in `apps/web/vercel.json`.
 2. Add the environment variables from section 1 for Production and Preview. Preview shares
    the production database read-only in effect because previews never run the engine.
 3. Domains: add the chosen domain at M5. Until then the `*.vercel.app` URL is fine.
@@ -78,7 +83,7 @@ ends `?uselibpqcompat=true&sslmode=require`: encrypted, certificate not verified
 | Workflow | Cron | Secrets | Notes |
 |---|---|---|---|
 | `ci.yml` | on push and PR | none | lint, typecheck, test, build, `prisma validate`, OpenAPI validate |
-| `engine.yml` | `17 */6 * * *` | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET` (from M2) | runs (which syncs the registry first), verifies, uploads the JSON-line logs; fails when a source turns `erroring` |
+| `engine.yml` | `17 */6 * * *` | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET`; variable `SITE_URL` | runs (which syncs the registry first), verifies, calls `POST /api/revalidate`, uploads the JSON-line logs; fails when a source turns `erroring` |
 | `keepalive.yml` | `0 5 * * *` | `SUPABASE_URL`, `SUPABASE_ANON_KEY` | `GET /rest/v1/usage_meters?select=period&limit=1` with the publishable key resets the pause timer; then `keepalive` marker commit if no commit in 41 days |
 | `snapshot.yml` | `0 6 * * 0` | `GITHUB_TOKEN` (default), `ENGINE_DATABASE_URL` | release `data-YYYY-WW` |
 | `backup.yml` | `0 4 * * 0` | `DIRECT_URL`, `BACKUP_PASSPHRASE` | `pg_dump` (17, in Docker: the runner's client is older than the server) of `public`, `gpg --symmetric` → artifact; the passphrase is in the Keychain |

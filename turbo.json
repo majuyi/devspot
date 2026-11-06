@@ -19,5 +19,5 @@
       "dependsOn": ["build"]
     }
   },
-  "globalEnv": ["DATABASE_URL", "DIRECT_URL", "NODE_ENV"]
+  "globalEnv": ["DATABASE_URL", "DIRECT_URL", "NODE_ENV", "NEXT_PUBLIC_SITE_URL"]
 }

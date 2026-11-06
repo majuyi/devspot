@@ -12,6 +12,8 @@ const CORS = {
 };
 // docs/06 §1. The engine's revalidate call purges these too (M2.12).
 const CACHE = "public, s-maxage=900, stale-while-revalidate=3600";
+/** Every cached API response carries this tag, so /api/revalidate can mark them all stale. */
+export const API_CACHE_TAG = "api-v1";
 
 export const limiter = new RateLimiter();
 
@@ -67,7 +69,12 @@ export async function handle(
     const body = await run();
     if (body === null) return apiError("not_found", notFound, 404, rateHeaders);
     return Response.json(body, {
-      headers: { ...CORS, ...rateHeaders, "Cache-Control": CACHE },
+      headers: {
+        ...CORS,
+        ...rateHeaders,
+        "Cache-Control": CACHE,
+        "Vercel-Cache-Tag": API_CACHE_TAG,
+      },
     });
   } catch (e) {
     if (e instanceof InvalidCursor) return apiError("bad_request", e.message, 400, rateHeaders);

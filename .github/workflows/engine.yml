@@ -35,7 +35,17 @@ jobs:
       - run: pnpm --silent engine run ${{ inputs.source && format('--source {0}', inputs.source) || '' }} | tee run.log
       - if: success() || failure()
         run: pnpm --silent engine verify | tee verify.log
-      # The /api/revalidate call is added with the site in M2.
+      # Refreshes the site now rather than within 15 minutes (docs/02 §6). Skipped until the
+      # REVALIDATE_SECRET secret and the SITE_URL variable exist.
+      - if: success() || failure()
+        env:
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          if [ -z "$REVALIDATE_SECRET" ] || [ -z "$SITE_URL" ]; then
+            echo "revalidate skipped: REVALIDATE_SECRET or SITE_URL not set"; exit 0
+          fi
+          curl -fsS --retry 2 -X POST -H "x-revalidate-secret: $REVALIDATE_SECRET" "$SITE_URL/api/revalidate"
       - if: always()
         uses: actions/upload-artifact@v7
         with:
