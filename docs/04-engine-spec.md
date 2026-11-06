@@ -398,7 +398,7 @@ sources:
 nothing if any file fails, throwing `RegistryValidationError` with one `file: field: message`
 line per problem. It then computes the file hash,
 upserts `Organization` and `Source` by slug and key, disables sources removed from the file,
-and never deletes rows (history stays). It runs at the start of `engine run` (`syncRegistry` in `@devspot/db`) and in CI as a
+and never deletes rows (history stays). It runs at the start of `engine run` (`syncRegistry` in `@devspot/db/registry`) and in CI as a
 check.
 
 ## 6. Observability

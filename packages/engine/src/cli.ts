@@ -59,7 +59,8 @@ async function main(argv: string[]): Promise<number> {
       return result.errors ? 1 : 0;
     }
     // Imported here because importing them needs DATABASE_URL, which the other commands do not.
-    const { db, syncRegistry } = await import("@devspot/db");
+    const { db } = await import("@devspot/db");
+    const { syncRegistry } = await import("@devspot/db/registry");
     const { runEngine, sourceStates } = await import("./run.js");
     if (command === "health") {
       const states = await sourceStates(db);

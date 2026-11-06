@@ -112,7 +112,7 @@ refreshes it.
   an empty page 100/100/100.
 - [ ] **M2.2 Components.** The inventory in `07` §5 as files, plus `/dev/components`. Check:
   axe clean; each component has a render test.
-- [ ] **M2.3 Data access layer.** `apps/web/src/data/*.ts` query functions returning DTOs
+- [x] **M2.3 Data access layer.** `apps/web/src/data/*.ts` query functions returning DTOs
   (`06` §2), shared by pages and API. Check: unit tests against the Docker database with
   seeded rows.
 - [ ] **M2.4 Home and browse.** `/` and `/opportunities` per `01` §3, filter bar, search,
