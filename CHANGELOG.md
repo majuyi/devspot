@@ -45,3 +45,4 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 - `outreachy` adapter: the current round from `/apply/project-selection/`, with the initial application deadline as the deadline. Every registry source now has an adapter and a fixture.
 - M1 gate passed: 22 of 26 organizations yield in production, every source has a fixture, and a deliberately broken source turned `erroring` and failed the Actions job.
 - Publish rule: an engine item whose title marks it as a test ("Test Hackathon - Didit KYC") waits for review. Hand-entered rows are exempt.
+- M2.1a: `apps/web` scaffold (Next.js 16.4, React 19.3, Tailwind 4.3) that builds in `pnpm check`. M2.1 is split: tokens, fonts and layout (M2.1b) wait for the Claude Design pass so the data layer and API can start now.

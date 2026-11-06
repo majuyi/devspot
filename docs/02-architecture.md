@@ -40,7 +40,7 @@ worker, no websocket, no background service. When that stops being true, write a
 | Schema | Zod | 4.x | Single source of truth for every shape crossing a boundary; emits JSON Schema for the API and snapshot |
 | ORM | Prisma | 7.10 (client and CLI) | Typed queries, migrations, the model Dami already knows. Prisma 8 is an RC; upgrade by ADR once GA |
 | Database | Supabase Postgres | free plan | Managed, backed up, pooled. Two URLs: transaction pooler (6543) for runtime, session pooler (5432) for migrations |
-| Web | Next.js App Router, React | 16.3, 19.3 | SSR and ISR for the public archive; route handlers for the API |
+| Web | Next.js App Router, React | 16.4, 19.3 | SSR and ISR for the public archive; route handlers for the API |
 | Styling | Tailwind CSS, shadcn/ui | 4.x, latest | Tokens in CSS variables, components copied into the repo, no runtime dependency |
 | HTTP (engine) | undici | 8.x | Node's own fetch implementation with `MockAgent`, which is the record/replay seam |
 | Feeds | feedsmith | 2.x | RSS 2.0, Atom, JSON Feed with typed output; falls back to rss-parser only if a feed breaks it |
