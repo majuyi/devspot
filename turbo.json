@@ -14,6 +14,9 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "@devspot/db#test": {
+      "dependsOn": ["build"]
     }
   },
   "globalEnv": ["DATABASE_URL", "DIRECT_URL", "NODE_ENV"]

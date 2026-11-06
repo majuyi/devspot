@@ -71,11 +71,12 @@ Internal, not part of the contract: `POST /api/revalidate` (header `x-revalidate
 
 ## 4. OpenAPI generation
 
-`apps/web/src/api/openapi.ts` builds the document from the Zod DTOs using
-`zod-openapi` (or `@asteasolutions/zod-to-openapi`, pick one and pin it) and serves it at
-`/api/v1/openapi.json`. The `/api` docs page renders it with a small client-side renderer
+`apps/web/src/api/openapi.ts` builds the document from the Zod DTOs and query schemas using
+`zod-openapi` (6.x, pinned) and serves it at `/api/v1/openapi.json`. A test validates it
+against the OpenAPI 3.1 schema with `@seriousme/openapi-schema-validator`. The `/api` docs page renders it with a small client-side renderer
 (Scalar or Redoc, loaded only on that page). The document is also written to
-`docs/schema/openapi.json` at build time so it is versioned.
+`docs/schema/openapi.json` by the web build (`pnpm --filter @devspot/web openapi:emit`) so it
+is versioned; a test fails when the committed copy is stale.
 
 ## 5. Weekly snapshot
 
@@ -98,8 +99,8 @@ Breaking changes to a DTO bump `version` and the API path together; additive cha
 
 ## Acceptance
 
-- [ ] Every endpoint has a route handler test that validates the response against the DTO schema.
-- [ ] `GET /api/v1/opportunities?city=lagos&kinds=event` returns only Lagos or remote events.
-- [ ] `/api/v1/openapi.json` validates with an OpenAPI 3.1 validator in CI.
+- [x] Every endpoint has a route handler test that validates the response against the DTO schema.
+- [x] `GET /api/v1/opportunities?city=lagos&kinds=event` returns only Lagos or remote events.
+- [x] `/api/v1/openapi.json` validates with an OpenAPI 3.1 validator in CI.
 - [ ] The snapshot files validate against `docs/schema/snapshot.schema.json`.
-- [ ] A `review` opportunity is a 404 on the detail endpoint and absent from lists.
+- [x] A `review` opportunity is a 404 on the detail endpoint and absent from lists.
