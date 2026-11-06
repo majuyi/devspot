@@ -17,6 +17,21 @@ function create(): PrismaClient {
   return new PrismaClient({ adapter });
 }
 
-/** Singleton Prisma client. Runtime connections go through the pooled DATABASE_URL. */
-export const db: PrismaClient = globalForPrisma.db ?? create();
-if (process.env.NODE_ENV !== "production") globalForPrisma.db = db;
+function client(): PrismaClient {
+  if (!globalForPrisma.db) globalForPrisma.db = create();
+  return globalForPrisma.db;
+}
+
+/**
+ * Singleton Prisma client. Runtime connections go through the pooled DATABASE_URL.
+ *
+ * Created on first use, not on import, so `next build` can load route modules without a
+ * database; a query with no DATABASE_URL still throws MissingDatabaseUrlError.
+ */
+export const db: PrismaClient = new Proxy({} as PrismaClient, {
+  get(_, prop) {
+    const c = client();
+    const value = Reflect.get(c, prop, c);
+    return typeof value === "function" ? value.bind(c) : value;
+  },
+});

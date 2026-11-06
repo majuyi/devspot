@@ -132,8 +132,8 @@ refreshes it.
   `/admin/new` for hand-entered opportunities, JSON logging. Spec: `01` §4, `02` §7. Check:
   unauthenticated requests to `/admin/*` and `/api/admin/*` are redirected or 401; an item
   created at `/admin/new` for Paystack publishes and a duplicate `canonicalUrl` is refused.
-- [ ] **M2.11 API v1.** Route handlers per `06` §3, DTO validation tests, rate limiting,
-  OpenAPI document and `/api` page. Check: acceptance items in `06`.
+- [x] **M2.11 API v1.** Route handlers per `06` §3, DTO validation tests, rate limiting,
+  OpenAPI document. The `/api` page is M4.5. Check: acceptance items in `06`.
 - [ ] **M2.12 Deploy.** Vercel project, env vars, `POST /api/revalidate` wired from
   `engine.yml`, `NEXT_PUBLIC_SITE_URL`. Check: an engine run changes the home page within a
   minute.

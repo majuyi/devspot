@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsx scripts/emit-openapi.ts && next build",
     "start": "next start",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "openapi:emit": "tsx scripts/emit-openapi.ts"
   },
   "dependencies": {
     "@devspot/db": "workspace:*",
@@ -16,14 +17,17 @@
     "next": "16.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "zod": "4.6.5"
+    "zod": "4.6.5",
+    "zod-openapi": "6.0.2"
   },
   "devDependencies": {
+    "@seriousme/openapi-schema-validator": "2.11.0",
     "@tailwindcss/postcss": "4.3.4",
     "@types/node": "22.19.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "tailwindcss": "4.3.4",
+    "tsx": "4.23.13",
     "typescript": "5.9.3",
     "vitest": "5.0.1"
   }
