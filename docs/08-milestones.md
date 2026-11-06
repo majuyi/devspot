@@ -105,7 +105,9 @@ opportunity has a canonical URL that unfurls on WhatsApp; filters are URL-encoda
 `/admin` works end to end; the app is deployed on Vercel and the engine's revalidate call
 refreshes it.
 
-- [ ] **M2.1 App scaffold.** `apps/web` with Next.js 16, Tailwind 4, tokens from `07` §3,
+- [x] **M2.1a App scaffold.** `apps/web` with Next.js 16 and Tailwind 4, building in CI, so
+  the data layer and API can start before the design is chosen. Check: `pnpm check` builds it.
+- [ ] **M2.1b Tokens and layout.** Tokens from `07` §3 (as revised by the Claude Design pass),
   fonts self-hosted, root layout with header and footer, `/dev/tokens`. Check: Lighthouse on
   an empty page 100/100/100.
 - [ ] **M2.2 Components.** The inventory in `07` §5 as files, plus `/dev/components`. Check:
