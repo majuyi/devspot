@@ -42,6 +42,7 @@ type Preferences = {
   writes the query to the cookie.
 - **Feed query.** Published and not closed; `kind IN kinds` (or any); tag overlap when tags set;
   location: `locationMode = remote` OR (`country = 'NG'` AND (`city IS NULL` OR `city = pref.city`));
+  with no city preference, `locationMode = remote` OR `country = 'NG'` (every Nigerian city);
   with `remoteOnly`, remote only. Order: items with a fixed deadline in the next 14 days first
   by deadline, then the rest by `publishedAt` desc. Page size 30, cursor pagination.
 
@@ -55,7 +56,7 @@ type Preferences = {
   and organizations tracked (live numbers), primary button "Browse", secondary "Set up my feed".
 - "Closing this week": horizontal list of up to 8 published items with `deadlineAt` in the
   next 7 days, sorted ascending. Hidden when empty.
-- "New this week": grid of up to 9 items by `publishedAt` desc.
+- "New this week": grid of up to 9 items published in the last 7 days, by `publishedAt` desc.
 - "Near you": when `prefs.city` is set, up to 6 items where `city = prefs.city` (events and
   onsite roles). Otherwise a prompt to choose a city.
 - Kind tiles: one per kind with the live open count, linking to the filtered browse page.

@@ -50,6 +50,7 @@ docker compose up -d db
 pnpm db:migrate
 pnpm db:sync-registry
 pnpm test                        # network disabled; database tests use .env and skip without it
+                                 # (the web tests create and migrate their own devspot_web_test)
 pnpm dev                         # web app on http://localhost:3000 (from M2)
 ```
 
