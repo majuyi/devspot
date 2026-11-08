@@ -58,8 +58,10 @@ advisor reports "RLS disabled" on these tables; with no grants, that is expected
 
 The web app connects as a second restricted role, `web`, created the same way. It reads
 `organizations`, `sources`, `fetch_runs` and `opportunities` and writes nothing; `/admin`
-(M2.10) and `/submit` (M4.3) add their writes to `grants.sql` when they arrive. The grants
-are guarded, so `grants.sql` runs before the role exists.
+(M2.10) and `/submit` (M4.3) add their writes to `grants.sql` when they arrive. Every block
+in `grants.sql` is guarded by its role existing, so the file runs anywhere. The web tests
+apply it to their own database and run the whole data layer as `web`: a query on a table
+without a grant fails CI, not production.
 
 Migrations run as the default `postgres` role.
 

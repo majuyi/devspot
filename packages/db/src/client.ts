@@ -10,11 +10,15 @@ export class MissingDatabaseUrlError extends Error {
 
 const globalForPrisma = globalThis as unknown as { db?: PrismaClient };
 
+/** A client for a given URL, outside the singleton: tests that connect as another role. */
+export function createClient(connectionString: string): PrismaClient {
+  return new PrismaClient({ adapter: new PrismaPg({ connectionString }) });
+}
+
 function create(): PrismaClient {
   const connectionString = process.env.DATABASE_URL;
   if (!connectionString) throw new MissingDatabaseUrlError();
-  const adapter = new PrismaPg({ connectionString });
-  return new PrismaClient({ adapter });
+  return createClient(connectionString);
 }
 
 function client(): PrismaClient {
