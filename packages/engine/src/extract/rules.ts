@@ -273,6 +273,11 @@ const REMOTE_TEXT = [
   /\bonline\s+(?:event|hackathon|programme|program|bootcamp|course|cohort|internship|competition|sessions?|classes)\b/i,
 ];
 const HYBRID = /\bhybrid\b/i;
+/** Wording that says an item really is open across Nigeria, not in one unnamed city. */
+const NATIONWIDE =
+  /\bnationwide\b|\b(?:across|anywhere in|throughout|all over)\s+nigeria\b|\ball\s+(?:36\s+)?states\b/i;
+/** Below the publish threshold: a human sets the city in review. */
+const UNKNOWN_CITY_CONFIDENCE = 0.5;
 
 export type LocationField = {
   mode?: LocationMode;
@@ -319,8 +324,19 @@ export function ruleLocation(title: string, text: string, org: RulesInput["org"]
     // Past a stated location we did not recognise ("Location: Accra, Ghana"), a city named
     // elsewhere in the text is usually the organization's own address, not the role's.
     const city = !short && stated ? undefined : findCity(source);
-    if (hybrid)
-      return { mode: "hybrid", ...cityOf(city), ...country, confidence, quote: hybrid[0] };
+    if (hybrid) {
+      // Nigeria with no city is stored as nationwide (docs/03 §3). When the text does not say
+      // nationwide, the city is one the dictionary does not know ("Hybrid, Warri"), so the item
+      // waits for a person to set it rather than showing in every city.
+      const unknownCity = !city && nigeria && !NATIONWIDE.test(`${title}\n${text}`);
+      return {
+        mode: "hybrid",
+        ...cityOf(city),
+        ...country,
+        confidence: unknownCity ? Math.min(confidence, UNKNOWN_CITY_CONFIDENCE) : confidence,
+        quote: hybrid[0],
+      };
+    }
     if (remote) return { mode: "remote", ...country, confidence, quote: remote[0] };
     if (city) return { mode: "onsite", ...cityOf(city), confidence, quote: city.quote };
   }

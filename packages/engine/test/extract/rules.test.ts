@@ -158,6 +158,28 @@ describe("location", () => {
       { mode: "onsite", city: "lagos", confidence: 0.85 },
     ],
     ["Programme", "Location: Hybrid", { mode: "hybrid", confidence: 0.85 }],
+    // Nigeria with no city means nationwide only when the text says so; otherwise the city is
+    // one we do not know, and a person sets it in review.
+    [
+      "Programme",
+      "Location: Hybrid, Warri\nOpen to Nigerian graduates.",
+      { mode: "hybrid", country: "NG", confidence: 0.5 },
+    ],
+    [
+      "Programme",
+      "Location: Hybrid, anywhere in Nigeria",
+      { mode: "hybrid", country: "NG", confidence: 0.85 },
+    ],
+    [
+      "Fellowship",
+      "Hybrid: monthly meetups in all 36 states for Nigerian graduates.",
+      { mode: "hybrid", country: "NG", confidence: 0.7 },
+    ],
+    [
+      "Programme",
+      "Location: Hybrid, Ikeja\nFor Nigerian students.",
+      { mode: "hybrid", city: "lagos", country: "NG", confidence: 0.85 },
+    ],
     // A place the dictionary does not know says nothing about the mode.
     ["Programme", "Location: Windhoek\nStart here.", { confidence: 0 }],
     ["Programme", "Our location: is secret. Join online sessions.", { confidence: 0.7 }],
@@ -443,6 +465,19 @@ describe("extractRules", () => {
       "requirementsText",
       "applyUrl",
     ]);
+  });
+
+  it("sends a hybrid Nigerian item with a city we do not know to review, without a city", () => {
+    const text =
+      "Applications close 31 October 2026.\nLocation: Hybrid, Warri\nFor Nigerian graduates.\n\nRequirements\n\n- A degree";
+    const unknown = extractRules(item("Product Design Fellowship", text));
+    expect(unknown.draft).toMatchObject({ locationMode: "hybrid", country: "NG" });
+    expect(unknown.draft.city).toBeUndefined();
+    expect(unknown.confidence).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
+    const nationwide = extractRules(
+      item("Product Design Fellowship", text.replace("Warri", "anywhere in Nigeria")),
+    );
+    expect(nationwide.confidence).toBeGreaterThanOrEqual(RULES_ONLY_PUBLISH_THRESHOLD);
   });
 
   it("keeps the stated time zone", () => {

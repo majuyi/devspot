@@ -391,7 +391,9 @@ are stale. The API references these.
 **Cities** (`CITIES` in `packages/schema/src/cities.ts`): slug, display name, state, lat, lng.
 Launch list: `lagos`, `abuja`, `ibadan`, `port-harcourt`, `enugu`, `kano`, `benin-city`,
 `kaduna`, `jos`, `calabar`, `uyo`, `owerri`, `abeokuta`, `ilorin`, `akure`, `ile-ife`.
-Adding a city is a one-line PR. `city = null` with `country = "NG"` means nationwide.
+Adding a city is a one-line PR. `city = null` with `country = "NG"` means nationwide, so an
+extractor sets it only when the source says so ("nationwide", "anywhere in Nigeria", "all 36
+states"); a Nigerian place it does not recognise goes to review for a person to set the city.
 
 **Kinds** map to reader-facing labels and to the YouthOp gap: internships, jobs, hackathons
 and open-source programmes are first-class here.
