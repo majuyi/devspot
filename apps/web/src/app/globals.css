@@ -1,2 +1,165 @@
-/* Design tokens from docs/07 §3 arrive in M2.1b, once the Claude Design pass is chosen. */
 @import "tailwindcss";
+@import "../styles/tokens.css";
+
+/* Only the design system's values exist as utilities: Tailwind's default palette and
+   shadows are removed, so a stray `bg-blue-500` or `shadow-md` fails to style (docs/07). */
+@theme {
+  --color-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+
+  --radius-tag: 5px;
+  --radius-tile: 8px;
+  --radius-chip: 10px;
+  --radius-sheet: 20px;
+  --radius-pill: 22px;
+
+  --spacing-target: 44px;
+  --container-content: 1120px;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raise: var(--raise);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-amber: var(--amber);
+  --color-red: var(--red);
+  --color-sea: var(--sea);
+  --color-land: var(--land);
+  --color-land-line: var(--land-line);
+  --color-logo-tile: var(--logo-tile);
+  --color-k-work-bg: var(--k-work-bg);
+  --color-k-work-fg: var(--k-work-fg);
+  --color-k-build-bg: var(--k-build-bg);
+  --color-k-build-fg: var(--k-build-fg);
+  --color-k-events-bg: var(--k-events-bg);
+  --color-k-events-fg: var(--k-events-fg);
+  --color-k-funding-bg: var(--k-funding-bg);
+  --color-k-funding-fg: var(--k-funding-fg);
+  --color-k-prog-bg: var(--k-prog-bg);
+  --color-k-prog-fg: var(--k-prog-fg);
+}
+
+/* Type styles, docs/07 §2. */
+@utility text-page-title {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+@utility text-wordmark {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+@utility text-section {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+@utility text-row-title {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+}
+@utility text-body {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+@utility text-prose {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+@utility text-meta {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+@utility text-status {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 550;
+}
+@utility text-tag {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+}
+@utility text-hero-figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 46px;
+  line-height: 46px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+@utility text-countdown {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 24px;
+  line-height: 26px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+@utility text-date {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+@utility text-remainder {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 400;
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+  }
+  body {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  /* Links are fg and underlined: there is no accent colour (docs/07 §1). Navigation links
+     opt out with `no-underline` and underline on hover. */
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  :focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      /* biome-ignore lint/complexity/noImportantStyles: the reader's setting beats every component rule. */
+      transition-property: opacity !important;
+      /* biome-ignore lint/complexity/noImportantStyles: as above. */
+      animation: none !important;
+    }
+  }
+}

@@ -140,9 +140,9 @@ The kind-to-family map and the display words live in one module under
 | **Sheet** | `bg` ground, `radius-sheet` top corners, 1px `line` top edge, no shadow | open, closed |
 | **ShareImage** | 1200×630, wordmark, kind tag, title, organisation, countdown and date | generated per opportunity |
 
-Interactive primitives are copied into `apps/web/src/components/ui` and restyled with the
-tokens, never imported from a package at runtime. Prefer native elements (`<dialog>`,
-`<details>`, links) where they do the job without JavaScript.
+There is no component library (shadcn/ui was dropped on 2026-11-11). Components are our
+own, built on native elements (`<dialog>`, `<details>`, links) that work without
+JavaScript.
 
 ## 6. Countdown and dates
 
@@ -206,7 +206,7 @@ cards, a centred hero with two buttons, abstract illustrations.
 
 ## Acceptance
 
-- [ ] `tokens.css` defines every token above for both themes; a visual test page `/dev/tokens` (excluded from sitemap) renders them.
+- [x] `tokens.css` defines every token above for both themes; a visual test page `/dev/tokens` (excluded from sitemap) renders them.
 - [ ] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components`.
 - [ ] Axe reports zero violations on `/`, `/opportunities`, `/o/[slug]`, `/events`, `/calendar`, in both themes.
 - [ ] Fonts: exactly two `.woff2` files served, both preloaded, `font-display: swap`, CLS 0.
