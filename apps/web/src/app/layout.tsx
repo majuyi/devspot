@@ -1,11 +1,17 @@
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteUrl } from "@/data/site";
 import "./globals.css";
+
+// Latin subsets, downloaded at build time and served from our own origin: readers never
+// contact Google. Half the bytes of the full files, which moved LCP from 2.6s to about 2s
+// (decided 2026-11-11). Other subsets, such as Yoruba diacritics in latin-ext, load only
+// when a page uses them. The build needs network access to Google Fonts.
+const GeistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
+const GeistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),

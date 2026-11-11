@@ -27,8 +27,10 @@
 
 ## 2. Typography
 
-Two variable fonts, self-hosted through `next/font` (the `geist` package): Geist for text,
-Geist Mono for every date, countdown and count, with tabular numerals.
+Two variable fonts through `next/font/google`, Latin subset: downloaded at build time and
+served from our origin, so readers never contact Google (the build needs network access).
+Geist for text, Geist Mono for every date, countdown and count, with tabular numerals.
+Other subsets (latin-ext, for Yoruba and Igbo diacritics) load only when a page uses them.
 
 | Style | Face | Size / line | Weight | Tracking | Use |
 |---|---|---|---|---|---|
