@@ -1,0 +1,64 @@
+/* Design tokens, docs/07 §3 and §4. Light on :root, dark from the system setting.
+   Values come from the Claude Design pass (tokens.json); change them there and here together. */
+
+:root {
+  color-scheme: light dark;
+
+  --bg: #f6f7f8;
+  --surface: #ffffff;
+  --raise: #eef0f2;
+  --line: #dfe3e7;
+  --fg: #111316;
+  --muted: #555b62;
+  --faint: #686e75;
+
+  --amber: #9a5b00;
+  --red: #c42b1f;
+
+  --sea: #e4e8ec;
+  --land: #fcfcfd;
+  --land-line: #bcc3cb;
+  --logo-tile: #f5f6f8;
+
+  --k-work-bg: #e3ecfb;
+  --k-work-fg: #1f4fa8;
+  --k-build-bg: #eee7fb;
+  --k-build-fg: #5b34b0;
+  --k-events-bg: #ddf1ee;
+  --k-events-fg: #0e6a5e;
+  --k-funding-bg: #e5f0df;
+  --k-funding-fg: #3c6a2a;
+  --k-prog-bg: #e6e8f3;
+  --k-prog-fg: #3d4a7a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0e10;
+    --surface: #16181b;
+    --raise: #1a1c20;
+    --line: #26292e;
+    --fg: #edeef0;
+    --muted: #a0a6ad;
+    --faint: #80868d;
+
+    --amber: #f2a33a;
+    --red: #ff6b5e;
+
+    --sea: #15181c;
+    --land: #23272c;
+    --land-line: #3d424a;
+    /* --logo-tile stays light so dark logos remain visible. */
+
+    --k-work-bg: #16233a;
+    --k-work-fg: #8fb4f5;
+    --k-build-bg: #231b38;
+    --k-build-fg: #b9a0f2;
+    --k-events-bg: #102a27;
+    --k-events-fg: #79d0c2;
+    --k-funding-bg: #1a2a16;
+    --k-funding-fg: #a3cb8e;
+    --k-prog-bg: #1d2133;
+    --k-prog-fg: #a9b2da;
+  }
+}

@@ -107,10 +107,11 @@ refreshes it.
 
 - [x] **M2.1a App scaffold.** `apps/web` with Next.js 16 and Tailwind 4, building in CI, so
   the data layer and API can start before the design is chosen. Check: `pnpm check` builds it.
-- [ ] **M2.1b Tokens and layout.** Tokens from `07` §2–§4 (Claude Design pass, agreed
+- [x] **M2.1b Tokens and layout.** Tokens from `07` §2–§4 (Claude Design pass, agreed
   2026-11-11), Geist and Geist Mono self-hosted, root layout with header and footer,
-  `/dev/tokens`. Check: Lighthouse on
-  an empty page 100/100/100.
+  `/dev/tokens`. Check: Lighthouse mobile on an empty page: Performance 95+ (98 measured;
+  the rest is Next's own JS), Accessibility 100, SEO 100, CLS 0. Changed from 100/100/100
+  on 2026-11-11.
 - [ ] **M2.2 Components.** The inventory in `07` §5 as files, plus `/dev/components`. Check:
   axe clean; each component has a render test.
 - [x] **M2.3 Data access layer.** `apps/web/src/data/*.ts` query functions returning DTOs
