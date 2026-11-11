@@ -41,7 +41,7 @@ Geist Mono for every date, countdown and count, with tabular numerals.
 | `meta` | Geist | 12/16 | 400 | | Organisation, location, source line |
 | `status` | Geist | 12/16 | 550 | | Status words |
 | `tag` | Geist | 11/14 | 600 | | Kind tags |
-| `hero-figure` | Geist Mono | 46/46 | 500 | -0.05em | The one big number on home |
+| `hero-figure` | Geist Mono | 46/46 | 500 | -0.05em | Large figures where a board uses them |
 | `countdown` | Geist Mono | 24/26 | 500 | -0.04em | Countdown numeral |
 | `date` | Geist Mono | 12/16 | 400 | | Dates, counts |
 | `remainder` | Geist Mono | 11/14 | 400 | | The smaller unit under the countdown |
@@ -162,15 +162,35 @@ tokens, never imported from a package at runtime. Prefer native elements (`<dial
 
 ## 8. Layout patterns
 
-- **Home:** a map band (static map and place pills on `sea`) with the board in a sheet over
-  it; the board is DatedRows under GroupHeaders, then UndatedRows. Details in `01` §3.
+- **Home:** a map band (static map, three figures, place pills on `sea`) with the sections
+  in a sheet over it. Details in `01` §3.
 - **Browse:** kind chips and place pills as links under the header; results as grouped rows.
 - **Detail:** single column, `prose` at 68ch; key facts as a 2-column grid from 640px; the
   logo tile beside the title.
 - **Events map (M4):** map fills viewport minus header; list as a sheet on mobile and a
   360px right panel on desktop.
 
-## 9. Iconography and imagery
+## 9. Visual references
+
+The Claude Design project "devspot home, stage 1" (artifact `3FkdJXB4RxEPKtbrbu7V8W`) holds
+the agreed boards; build each page against its board in both themes, and where a board and
+this document disagree, raise it before building.
+
+| Board | Used by |
+|---|---|
+| D · Map band + board | `/` (M2.4, M2.4b) |
+| Foundations, Components, Row states | tokens and components (M2.1b, M2.2) |
+| Filtered list · results and empty | `/opportunities` (M2.4) |
+| Opportunity page, Opportunity page · desktop | `/o/[slug]` (M2.5) |
+| Share image · 1200 × 630 | `opengraph-image` (M2.5) |
+| Calendar · mobile, Calendar · desktop month | `/calendar` (M2.7) |
+| Status · normal and degraded | `/status` (M2.9) |
+| Events map | `/events` map view (M4) |
+| Home · desktop | `/` from 1024px |
+
+Boards A, B and C are the unchosen home variations.
+
+## 10. Iconography and imagery
 
 - Lucide icons, inlined SVG, 16 and 20px, `currentColor`, each labelled.
 - Organisation logos only, curated by hand, from the registry `logoUrl`: in tiles on
@@ -178,7 +198,7 @@ tokens, never imported from a package at runtime. Prefer native elements (`<dial
   hackathon artwork in lists.
 - No stock imagery, no illustrations.
 
-## 10. Do not
+## 11. Do not
 
 Planes, airport codes or boarding-pass gimmicks. Green-white-green or decorative African
 patterns as identity. Purple gradients, glows, starfields. Bento grids, drop-shadowed rounded

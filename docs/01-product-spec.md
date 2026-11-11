@@ -50,20 +50,38 @@ type Preferences = {
 
 ### `/` Home
 
-- Header: wordmark, primary nav (Opportunities, Events, Calendar, Organizations), city
-  selector (client, writes `prefs.city`), search field (submits to `/opportunities?q=`).
-- Map band (`07` §8): one line of promise and the count closing this week as the
-  `hero-figure`; the static Nigeria map with a dot per city (size by open count, colour by
-  the most urgent item); place pills for Remote and each city with open items, with counts.
-  A pill links to `/?city=<slug>` and filters the board; no centred hero, no two buttons.
-- Board, in a sheet over the band: kind chips with live open counts (links to `/?kinds=`),
-  then published, not-closed items by the feed query (§2) with the chosen city or
-  `prefs.city`. Dated items as DatedRows grouped Today, Tomorrow, This week, Later
-  (30 rows, then "See all" to browse); then undated items (rolling, not stated)
-  as UndatedRows. With no city chosen, a line under the board counts items by city ("12 in
-  Lagos, 5 in Abuja") with each city a link that narrows the board.
-- "New this week": up to 9 rows published in the last 7 days, by `publishedAt` desc.
-- Footer: about, contribute (GitHub), status, API, licence.
+Visual reference: Claude Design board "D · Map band + board" (artifact
+`3FkdJXB4RxEPKtbrbu7V8W`, agreed 2026-11-11), in light and dark at 360px.
+
+- Header: wordmark; city pill ("Choose city", or the city name) linking to the city list
+  and writing `prefs.city`; a 44px search button linking to `/opportunities` with the search
+  field focused. Below, a scrolling nav row: Opportunities, Events, Calendar, Organisations.
+- Map band on `sea`: the static Nigeria map (dot per city, size by open count, colour by the
+  most urgent item there) beside three linked figures in the `countdown` style, each with an
+  urgency tick: open (faint), closing this week (amber), in 48 hours (red). Under it, place
+  pills for Remote and each city with open items, with counts; a pill links to
+  `/?city=<slug>`. No hero sentence, no buttons.
+- Sheet over the band (`radius-sheet`, overlapping by 18px). Kind family chips: All, Work,
+  Build, Events, Funding, Programmes, as links to `/opportunities?kinds=<the family's kinds>`.
+- "Closing soon", with "All N open" linking to browse, and a freshness line under the
+  heading ("All 23 sources read in the last 6 hours. Status", from `FetchRun`). Published,
+  not-closed, non-event items with a fixed deadline, as DatedRows grouped Today, Tomorrow,
+  This week, Later. Later is capped, with a closing link to the rest on browse.
+- "Starting soon", with "All N events" linking to `/events`: events by `startsAt`, grouped
+  This week and Later; the countdown shows days only and the status word is "Starts Fri" or
+  "Scheduled".
+- "New this week", with "See all": up to 9 items published in the last 7 days, by
+  `publishedAt` desc. Items without a fixed deadline show as UndatedRows (monogram or logo
+  tile, deadline wording in place of the date).
+- "Near you": with no city, one line asking the reader to pick a place in the row under the
+  map ("Remote items are listed for everyone"). With a city (query or `prefs.city`), up to 3
+  items in that city or nationwide, then "N more in <City>" linking to
+  `/opportunities?city=`, and "Change city". The city selects this section and the pill;
+  "Closing soon" and "Starting soon" stay national plus remote.
+- Footer: wordmark, one paragraph (read from each organisation's own page every six hours;
+  requirements as stated by each organisation; devspot does not check who can apply),
+  links About, Contribute on GitHub, Status, API, Licence, Calendar feed, and "All times in
+  West Africa Time (WAT)".
 
 ### `/opportunities` Browse
 
