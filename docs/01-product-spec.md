@@ -13,10 +13,10 @@
 | Rendering | Server Components by default. Client components only for the city selector, filter chips, calendar navigation, countdown, map and the admin queue. |
 | Caching | Public pages use ISR, `revalidate = 900`. The engine calls `POST /api/revalidate` after each run to refresh sooner. |
 | URLs | Lowercase, hyphenated slugs. Opportunity slug: `<org-slug>-<title-slug>-<yy>` (year of first sighting), deduplicated with a short suffix on collision. Never changes once published. |
-| Dates | Displayed in West Africa Time with the day of week, e.g. `Fri 3 Oct 2026`. Relative labels: `Closes today`, `Closes in 3 days`, `Closed`. Times shown only when the source gives one. |
+| Dates | Displayed in West Africa Time with the day of week, e.g. `Fri 3 Oct 2026`. Status words and the countdown format are in `07` §5 and §6 (`Closes today`, `Closes Sat`, `27h` / `14m`). Times shown only when the source gives one. |
 | Deadlines | `fixed`: date shown. `rolling`: "Rolling applications". `multiRound`: "Multiple rounds, next: <date>" when known. `unknown`: "Deadline not stated on the source page". Never invent one. |
 | Requirements | `requirementsText` rendered unmodified in a bordered block titled "Requirements, as stated by <org>". No badge, chip or copy anywhere implies eligibility. |
-| Location | Chip shows one of `Remote`, `<City>`, `<City> · Hybrid`, `Nigeria` (nationwide), `Global`. Remote items never claim a city. |
+| Location | Place text shows one of `Remote`, `<City>`, `<City> · Hybrid`, `Nigeria` (nationwide), `Global`. Remote items never claim a city. |
 | Empty states | Always explain and offer one action: widen the filter, pick another city, view all. |
 | Errors | A 404 for unknown slugs with a link to browse; a 500 that still renders the shell and a retry link. Never a blank page. |
 | Sharing | Every opportunity and organization page has Open Graph and Twitter card tags, an `og:image` generated per opportunity (title, org, deadline, kind), and `application/ld+json` (`JobPosting` for jobs and internships, `Event` for events, `Article` otherwise). |
@@ -52,26 +52,31 @@ type Preferences = {
 
 - Header: wordmark, primary nav (Opportunities, Events, Calendar, Organizations), city
   selector (client, writes `prefs.city`), search field (submits to `/opportunities?q=`).
-- Hero, compact: one sentence of promise, one line stating the count of open opportunities
-  and organizations tracked (live numbers), primary button "Browse", secondary "Set up my feed".
-- "Closing this week": horizontal list of up to 8 published items with `deadlineAt` in the
-  next 7 days, sorted ascending. Hidden when empty.
-- "New this week": grid of up to 9 items published in the last 7 days, by `publishedAt` desc.
-- "Near you": when `prefs.city` is set, up to 6 items where `city = prefs.city` (events and
-  onsite roles). Otherwise a prompt to choose a city.
-- Kind tiles: one per kind with the live open count, linking to the filtered browse page.
+- Map band (`07` §8): one line of promise and the count closing this week as the
+  `hero-figure`; the static Nigeria map with a dot per city (size by open count, colour by
+  the most urgent item); place pills for Remote and each city with open items, with counts.
+  A pill links to `/?city=<slug>` and filters the board; no centred hero, no two buttons.
+- Board, in a sheet over the band: kind chips with live open counts (links to `/?kinds=`),
+  then published, not-closed items by the feed query (§2) with the chosen city or
+  `prefs.city`. Dated items as DatedRows grouped Today, Tomorrow, This week, Later
+  (30 rows, then "See all" to browse); then undated items (rolling, not stated)
+  as UndatedRows. With no city chosen, a line under the board counts items by city ("12 in
+  Lagos, 5 in Abuja") with each city a link that narrows the board.
+- "New this week": up to 9 rows published in the last 7 days, by `publishedAt` desc.
 - Footer: about, contribute (GitHub), status, API, licence.
 
 ### `/opportunities` Browse
 
 - Query params: `q`, `kinds` (csv), `city`, `remote` (`1`), `tags` (csv), `org`,
   `closing` (`7`|`30`), `sort` (`deadline`|`new`), `cursor`.
-- Filter bar (client): kind chips, city select, remote toggle, closing-within select, tag
+- Filter bar: kind chips and place pills as links (no JS needed), city select, remote toggle, closing-within select, tag
   chips (top 12 by frequency), clear all. Every change updates the URL and re-fetches via
   navigation, not client state.
 - Result count and a "Save as my feed" button when any filter is active.
-- Card (shared component): kind chip, title, organization name with logo, location chip,
-  deadline label with urgency color when 7 days or fewer, up to 3 tags. Whole card is the link.
+- Results as rows (`07` §5): with `sort=deadline`, DatedRows grouped Today, Tomorrow, This
+  week, Later, then UndatedRows; with `sort=new`, ungrouped rows by `publishedAt`. Every row
+  shows the source domain, "checked <relative time>" from `lastVerifiedAt`, and an
+  add-to-calendar button for dated items (`/o/[slug]/calendar.ics`).
 - Server query mirrors the feed query without preferences. Search uses Postgres
   `to_tsvector('english', title || ' ' || coalesce(summary,''))` with `plainto_tsquery`.
 - Pagination: "Load more" that appends and updates `cursor` in the URL.
@@ -79,7 +84,11 @@ type Preferences = {
 ### `/o/[slug]` Opportunity
 
 - Breadcrumb: Opportunities › Kind.
-- Title, organization line (logo, name, link to `/org/[slug]`), kind and location chips.
+- Title with the logo tile, organization line (name, link to `/org/[slug]`), kind tag and
+  place.
+- Deadline moved: when the deadline changed after publishing, the old date struck through
+  above the new one. Needs a deadline history (the proposed `opportunity_events` table), so
+  it ships only once that is agreed and built.
 - Key facts grid: Deadline (per deadline rules, with a countdown when fixed and within 30
   days), Opens (if `opensAt`), Dates (events: `startsAt` to `endsAt`, venue), Location,
   Discovered (date first seen), Verified (date last verified).
@@ -105,16 +114,16 @@ type Preferences = {
 ### `/events` Events
 
 - List view: upcoming `kind = event` items ordered by `startsAt`, grouped by day. Filter by city
-  and tags. Each row: date block, title, organization, venue or "Online", countdown chip.
+  and tags. Rows as on browse, grouped by day, with the countdown to `startsAt` ("Starts Fri").
 - Map view (M4): MapLibre GL, OpenFreeMap tiles, one pin per geocoded event, clustered; a
-  side panel lists events in the current viewport; selecting a pin opens a card with a
+  side panel lists events in the current viewport; selecting a pin opens a panel with a
   countdown and a link. City selector recenters. Non-geocoded events show in the list with a
   "no map location" note.
 
 ### `/calendar` Calendar
 
 - Month grid (client for navigation, server-rendered for the initial month) showing deadlines
-  and event start dates as dots colored by kind; day panel lists the items. Week list view for
+  and event start dates as dots coloured by urgency (`07` §3, never by kind); day panel lists the items. Week list view for
   mobile. `?month=2026-10`. Jobs with rolling deadlines are excluded; the page says so.
 - "Subscribe" gives an `.ics` feed URL (`/calendar.ics?kinds=&city=`) that reflects filters.
 
