@@ -1,121 +1,193 @@
 # 07 · Design system
 
-> **What Opus needs to know.** One design system, defined as CSS custom properties in
-> `apps/web/src/styles/tokens.css`, consumed through Tailwind 4's `@theme`. Two typefaces,
-> an 8-point spacing scale, a small semantic colour set with light and dark values, a fixed
-> component inventory, and motion only for state change. The bar is the one stated in
-> `docs/00-vision.md` section 5. When a page needs something not in this document, extend the
-> document first, then the code.
+> **What Opus needs to know.** One design system, from the Claude Design pass of November
+> 2026 ("Flighty for opportunities"), defined as CSS custom properties in
+> `apps/web/src/styles/tokens.css` and consumed through Tailwind 4's `@theme`. Geist and
+> Geist Mono, neutrals plus two urgency colours and five kind families, full-bleed rows
+> grouped by time with a countdown column, no shadows, no brand colour. The bar is the one
+> stated in `docs/00-vision.md` section 5. When a page needs something not in this document,
+> extend the document first, then the code.
 
 ## 1. Principles
 
-1. **Information first.** The reader is scanning for what is open, what closes soon and what is
-   near them. Typography and spacing do that work; decoration does not.
-2. **Calm urgency.** Deadlines are the most important number on any screen. They get colour;
-   almost nothing else does.
-3. **Trust through restraint.** Verbatim requirements sit in a plain bordered block. No
-   badges that could be read as endorsement.
-4. **Mobile is the default.** Design at 360px, then let it breathe up to 1200px.
-5. **Fast is a feature.** Two font files, no icon font, SVG icons inlined per use, images
-   only where they carry information (organization logos, generated share images).
+1. **Time leads.** The countdown sits in the left column of every dated row. Lists are
+   sorted by time and grouped under Today, Tomorrow, This week, Later.
+2. **Colour means time, state or kind. Never decoration.** There is no brand colour and no
+   accent. Links are `fg` and underlined.
+3. **Show where it came from.** Every row carries the source domain and when it was last
+   checked (`lastVerifiedAt`).
+4. **Readable with no JavaScript.** Filters, pills and chips are plain links. The home map
+   is a static SVG.
+5. **Calm.** No gradients, glows, frosted glass, shadows, emoji, or cards with coloured left
+   borders.
+6. **Mobile is the default.** Design at 360px with a 16px gutter, then let it breathe up to
+   1120px of content.
+7. **Fast is a feature.** Two font files, no icon font, SVG icons inlined per use, images
+   only where they carry information (organisation logos, generated share images).
 
 ## 2. Typography
 
-| Role | Face | Weight | Size / line (mobile → desktop) |
-|---|---|---|---|
-| Display (page titles) | Manrope (variable, self-hosted) | 700 | 28/34 → 40/46, tracking -0.02em |
-| Heading (section) | Manrope | 600 | 20/28 → 24/32 |
-| Body | Manrope | 400, 500 for emphasis | 16/24 → 17/26, max measure 68ch |
-| Meta (dates, chips, counts) | IBM Plex Mono | 400, 500 | 12/16 and 13/18, tabular numerals |
+Two variable fonts, self-hosted through `next/font` (the `geist` package): Geist for text,
+Geist Mono for every date, countdown and count, with tabular numerals.
 
-Fallbacks: `system-ui, -apple-system, "Segoe UI", Roboto` with `size-adjust` metrics set so
-the swap causes no shift. The countdown and every date use the mono face so digits align.
+| Style | Face | Size / line | Weight | Tracking | Use |
+|---|---|---|---|---|---|
+| `page-title` | Geist | 22/28 | 600 | -0.025em | Page titles |
+| `wordmark` | Geist | 20/24 | 650 | -0.035em | "devspot" as plain text in the header; no logo |
+| `section` | Geist | 18/24 | 600 | -0.02em | Section headings |
+| `row-title` | Geist | 15/20 | 550 | -0.01em | Row titles |
+| `body` | Geist | 14/20 | 400 | | Rows, lists, dense UI |
+| `prose` | Geist | 16/24 | 400 | | Paragraphs on `/o/[slug]` (summary, requirements), `/about`; max measure 68ch |
+| `meta` | Geist | 12/16 | 400 | | Organisation, location, source line |
+| `status` | Geist | 12/16 | 550 | | Status words |
+| `tag` | Geist | 11/14 | 600 | | Kind tags |
+| `hero-figure` | Geist Mono | 46/46 | 500 | -0.05em | The one big number on home |
+| `countdown` | Geist Mono | 24/26 | 500 | -0.04em | Countdown numeral |
+| `date` | Geist Mono | 12/16 | 400 | | Dates, counts |
+| `remainder` | Geist Mono | 11/14 | 400 | | The smaller unit under the countdown |
+
+`prose` is our addition to the design: 14px is right for scanning rows, too small for long
+reading on a mid-range phone. Fallbacks: `system-ui, -apple-system, "Segoe UI", Roboto` for
+sans and `ui-monospace, SFMono-Regular, Menlo` for mono, with metrics-matched fallbacks so
+the swap causes no shift.
 
 ## 3. Colour tokens
 
-Light values first; dark values in `@media (prefers-color-scheme: dark)` guarded by
-`:root:not([data-theme="light"])`, and again under `:root[data-theme="dark"]`.
+Two themes following the system setting; dark is designed with the same care as light.
+Light values go on `:root`; dark values in `@media (prefers-color-scheme: dark)`. All text
+pairs pass WCAG AA in both themes; the tightest is `faint` on `raise` at 4.5:1.
+
+**Neutrals**
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--bg` | `#FAFAF7` | `#0F1210` | page |
-| `--surface` | `#FFFFFF` | `#161A17` | cards, panels |
-| `--surface-2` | `#F1F1EC` | `#1E231F` | filter bar, table stripes |
-| `--ink` | `#151814` | `#ECEEEA` | primary text |
-| `--ink-2` | `#4C524B` | `#A7ADA6` | secondary text |
-| `--ink-3` | `#7C837B` | `#7A817A` | placeholders, disabled |
-| `--line` | `#E3E4DE` | `#2A302B` | borders |
-| `--accent` | `#0B6E4F` | `#5BC49A` | links, primary button, focus ring |
-| `--accent-soft` | `#E2F3EC` | `#12352A` | accent backgrounds |
-| `--urgent` | `#B42318` | `#F28B82` | deadlines within 7 days, errors |
-| `--urgent-soft` | `#FBEAE7` | `#3A1A17` | urgent chip background |
-| `--warn` | `#8A5A0C` | `#E0B15E` | stale health, cautions |
-| `--ok` | `#1F7A3E` | `#7CD38E` | healthy |
+| `--bg` | `#F6F7F8` | `#0D0E10` | Page ground and the sheet |
+| `--surface` | `#FFFFFF` | `#16181B` | Pills and buttons on the map band |
+| `--raise` | `#EEF0F2` | `#1A1C20` | Group headers, row hover, monogram tile |
+| `--line` | `#DFE3E7` | `#26292E` | 1px dividers and outlines |
+| `--fg` | `#111316` | `#EDEEF0` | Titles, numerals, links, selected fills, focus ring |
+| `--muted` | `#555B62` | `#A0A6AD` | Organisation, dates, nav, neutral status words |
+| `--faint` | `#686E75` | `#80868D` | Source line, neutral dots, closed state |
 
-Kind colours are a single hue ramp used only on chips and calendar dots, never on text:
-internship `#2F6FED`, job `#0B6E4F`, fellowship `#7A3FBF`, scholarship `#B8620E`, grant
-`#8A5A0C`, hackathon `#D12F6A`, ossProgram `#0F766E`, event `#C2410C`, competition
-`#4F46E5`, accelerator `#0369A1`, bootcamp `#6D28D9`. Each has a `-soft` background at 12%
-alpha on light and 22% on dark. Contrast of chip text on soft background must pass AA.
+**Urgency.** Owns the countdown numeral, the status word and its dot, group-header ticks
+and map dots. Also used for errors (`red`) and stale health (`amber`).
+
+| Token | Light | Dark | Rule |
+|---|---|---|---|
+| `--red` | `#C42B1F` | `#FF6B5E` | Closes within 48 hours, or today |
+| `--amber` | `#9A5B00` | `#F2A33A` | Closes, or an event starts, within 7 days |
+
+Otherwise neutral (`fg` numeral, `muted` word, `faint` dot) for open, scheduled and rolling;
+`faint` with a struck-through date for closed. Status is always a dot plus a word, never
+colour alone.
+
+**Map and logos**
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--sea` | `#E4E8EC` | `#15181C` | Map band ground |
+| `--land` | `#FCFCFD` | `#23272C` | Map fill |
+| `--land-line` | `#BCC3CB` | `#3D424A` | Map outline |
+| `--logo-tile` | `#F5F6F8` | `#F5F6F8` | Behind logos, the same in both themes so dark logos stay visible |
+
+**Kind families.** Kind lives only in a small tinted tag (`-bg` ground, `-fg` text) and the
+kind filter chips, with the exact kind as the tag's word. Kind colours never use amber, red
+or orange, and never appear on numerals, dots or the map.
+
+| Family | Kinds | `-bg` light / dark | `-fg` light / dark |
+|---|---|---|---|
+| `--k-work` | job, internship | `#E3ECFB` / `#16233A` | `#1F4FA8` / `#8FB4F5` |
+| `--k-build` | hackathon, competition | `#EEE7FB` / `#231B38` | `#5B34B0` / `#B9A0F2` |
+| `--k-events` | event | `#DDF1EE` / `#102A27` | `#0E6A5E` / `#79D0C2` |
+| `--k-funding` | scholarship, grant, fellowship | `#E5F0DF` / `#1A2A16` | `#3C6A2A` / `#A3CB8E` |
+| `--k-prog` | bootcamp, ossProgram ("Open-source programme"), accelerator | `#E6E8F3` / `#1D2133` | `#3D4A7A` / `#A9B2DA` |
+
+The kind-to-family map and the display words live in one module under
+`apps/web/src/components`.
 
 ## 4. Spacing, radius, elevation
 
-- Scale: 4, 8, 12, 16, 24, 32, 48, 64 px as `--space-1` … `--space-8`. Page gutter 16px at
-  mobile, 24px from 768px, content max width 1120px.
-- Radius: 6px controls, 10px cards, 999px chips.
-- Elevation: none by default. Cards use a 1px `--line` border. A single hover state raises
-  the border to `--ink-3`. No drop shadows except the map popover and the mobile sheet
-  (`0 8px 24px rgb(0 0 0 / 0.12)`).
+- Spacing: `--space-1` 4, `--space-2` 8, `--space-3` 12, `--space-4` 16, `--space-6` 24,
+  `--space-8` 32, `--space-10` 40 px. Gutter 16px at 360, 24px from 768px; content max
+  width 1120px. Rows are full-bleed with 1px `line` dividers and 14px top and bottom.
+- `--target` 44px: minimum tap target, height of pills and icon buttons.
+- Radius: `--radius-tag` 5, `--radius-tile` 8, `--radius-chip` 10, `--radius-sheet` 20
+  (top corners of the sheet over the map band), `--radius-pill` 22.
+- Focus ring: 2px `fg` outline, offset 2px.
+- Elevation: none, anywhere. Layers separate with a 1px `line` or a `raise` ground.
 
 ## 5. Component inventory
 
 | Component | Anatomy | States |
 |---|---|---|
-| **OpportunityCard** | kind chip, title (2 lines max), org row (16px logo, name), location chip, deadline label, tags (3 max) | default, hover, closed (title struck, `--ink-3`), urgent (deadline label in `--urgent`) |
-| **DeadlineLabel** | mono text, optional dot | fixed with date, rolling, unknown, closed; urgent variant under 7 days |
-| **Countdown** | mono `Xd Xh` or `Closes today`, updates once a minute, renders server-side first | normal, urgent, ended |
-| **KindChip** | 12px mono uppercase, kind colour on soft background | static |
-| **LocationChip** | pin icon + text | remote, city, hybrid, nationwide, global |
-| **CitySelector** | button showing current city; opens a sheet on mobile, a popover on desktop; list with search | none set, set |
-| **FilterBar** | horizontal scroll of chips on mobile, wrapped row on desktop; "Clear" at end | idle, active count |
-| **RequirementsBlock** | heading "Requirements, as stated by <org>", `white-space: pre-line` text, 1px border | present, absent ("The source does not list requirements.") |
-| **CalendarGrid** | 7-column month grid, dots by kind, selected day panel | month nav, day selected, empty day |
-| **EventRow** | date block (mono day and month), title, org, venue or "Online", countdown | upcoming, today, past |
-| **MapPin and cluster** | accent pin, cluster circle with count | default, selected |
-| **StatusBadge** | dot + word | healthy, stale, erroring, new, disabled |
-| **Button** | primary (accent bg), secondary (border), ghost | default, hover, focus, disabled, loading |
+| **DatedRow** | countdown column (52px) · kind tag left, status word right · title · organisation and location · mono date · source domain and "checked 2h ago" · 44px add-to-calendar button. Whole row except the button is the link. | open, amber, red, deadline moved, closed (all `muted`/`faint`, grey tag, struck date, no calendar button) |
+| **UndatedRow** | 36px logo tile on `logo-tile`, or a monogram on `raise`, in place of the countdown; otherwise as DatedRow with the deadline wording ("Rolling applications", "Deadline not stated on the source page") | rolling, unknown, multi-round |
+| **Countdown** | mono numeral over remainder, per §6; rendered on the server, refreshed once a minute on the client | neutral, amber, red, ended |
+| **GroupHeader** | `raise` ground, 2px urgency tick, label (Today, Tomorrow, This week, Later), mono date range right | per group |
+| **StatusWord** | dot + word ("Closes today", "Closes tomorrow", "Closes Sat", "Open", "Deadline moved", "Closed", "Starts Fri", "Scheduled") | urgency colours |
+| **KindTag** | 11px word on the family's tint, `radius-tag` | per family, closed (grey) |
+| **KindChip** | 40px filter link, tinted like the tag, `radius-chip`; "All" selected is `fg` ground with `bg` text | idle, selected |
+| **PlacePill** | 44px link, `surface` ground, urgency dot, name, mono count, `radius-pill`; "Remote" is a place | idle, selected (`fg` ground, `bg` text) |
+| **NigeriaMap** | static server-rendered SVG: outline on `sea`, `land` fill, `land-line` stroke, one dot per city sized by open count and coloured by the most urgent item there | — |
+| **CitySelector** | pill showing the current city; links to a city list (works without JS), enhanced to a sheet | none set, set |
+| **DeadlineMoved** | old date struck through in `faint` above the new one | needs a deadline history (the proposed `opportunity_events` table, not yet agreed); hidden until then |
+| **RequirementsBlock** | heading "Requirements, as stated by <org>", `prose` text with `white-space: pre-line`, 1px `line` border | present, absent ("The source does not list requirements.") |
+| **SourceLine** | source domain · "checked 2h ago", `meta` in `faint` | — |
+| **CalendarGrid** | 7-column month grid, urgency dots, selected day panel | month nav, day selected, empty day |
+| **StatusBadge** | dot + word | healthy, stale (amber), erroring (red), new, disabled |
+| **Button** | primary (`fg` ground, `bg` text), secondary (1px `line`), ghost, icon (44px round, `radius-pill`) | default, hover (`raise`), focus, disabled |
 | **EmptyState** | short line, one action | per page |
-| **Sheet** | bottom sheet on mobile for selectors and filters | open, closed |
-| **ShareImage** | 1200×630, wordmark, kind chip, title, org, deadline | generated per opportunity |
+| **Sheet** | `bg` ground, `radius-sheet` top corners, 1px `line` top edge, no shadow | open, closed |
+| **ShareImage** | 1200×630, wordmark, kind tag, title, organisation, countdown and date | generated per opportunity |
 
-shadcn/ui provides the primitives (Button, Popover, Sheet, Dialog, Tabs, Select). Copy them
-into `apps/web/src/components/ui`, restyle with the tokens, and do not import from the
-package at runtime.
+Interactive primitives are copied into `apps/web/src/components/ui` and restyled with the
+tokens, never imported from a package at runtime. Prefer native elements (`<dialog>`,
+`<details>`, links) where they do the job without JavaScript.
 
-## 6. Motion
+## 6. Countdown and dates
 
-- 150ms ease-out for hover and focus; 200ms for sheets and popovers; none for page loads.
+- 48 hours or more: days, with hours below (`88d` / `9h`).
+- Under 48 hours: hours, with minutes below (`27h` / `14m`).
+- Under an hour: minutes only (`38m`).
+- A date with no time, closing today: `Today`.
+- Over 99 days: months (`4mo`).
+- Dates in West Africa Time with weekday and year: `Fri 3 Oct 2026`. A time only when the
+  source gives one.
+
+## 7. Motion
+
+- 150ms ease-out for hover and focus; 200ms for sheets; none for page loads.
 - `prefers-reduced-motion` disables everything except opacity.
 - No skeleton shimmer. Server-rendered pages arrive complete.
 
-## 7. Layout patterns
+## 8. Layout patterns
 
-- **Home:** stacked sections with `--space-7` between; grids of 1 → 2 → 3 columns at 360 → 640 → 1024.
-- **Browse:** filter bar sticky under the header on desktop; results grid as above.
-- **Detail:** single column, max 68ch for prose; key facts as a 2-column grid from 640px.
-- **Events map:** map fills viewport minus header; list as a bottom sheet on mobile and a
+- **Home:** a map band (static map and place pills on `sea`) with the board in a sheet over
+  it; the board is DatedRows under GroupHeaders, then UndatedRows. Details in `01` §3.
+- **Browse:** kind chips and place pills as links under the header; results as grouped rows.
+- **Detail:** single column, `prose` at 68ch; key facts as a 2-column grid from 640px; the
+  logo tile beside the title.
+- **Events map (M4):** map fills viewport minus header; list as a sheet on mobile and a
   360px right panel on desktop.
 
-## 8. Iconography and imagery
+## 9. Iconography and imagery
 
-- Lucide icons, inlined SVG, 16 and 20px, `currentColor`.
-- Organization logos: 32px square, from the registry `logoUrl`, lazy, with a monogram
-  fallback in `--surface-2`.
-- No stock imagery. No illustrations in v1.
+- Lucide icons, inlined SVG, 16 and 20px, `currentColor`, each labelled.
+- Organisation logos only, curated by hand, from the registry `logoUrl`: in tiles on
+  UndatedRows and the opportunity page. Dated board rows stay text-only. Never event or
+  hackathon artwork in lists.
+- No stock imagery, no illustrations.
+
+## 10. Do not
+
+Planes, airport codes or boarding-pass gimmicks. Green-white-green or decorative African
+patterns as identity. Purple gradients, glows, starfields. Bento grids, drop-shadowed rounded
+cards, a centred hero with two buttons, abstract illustrations.
 
 ## Acceptance
 
 - [ ] `tokens.css` defines every token above for both themes; a visual test page `/dev/tokens` (excluded from sitemap) renders them.
 - [ ] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components`.
-- [ ] Axe reports zero violations on `/`, `/opportunities`, `/o/[slug]`, `/events`, `/calendar`.
+- [ ] Axe reports zero violations on `/`, `/opportunities`, `/o/[slug]`, `/events`, `/calendar`, in both themes.
 - [ ] Fonts: exactly two `.woff2` files served, both preloaded, `font-display: swap`, CLS 0.
+- [ ] Grep of `apps/web/src` for `box-shadow` and `shadow-` finds nothing.

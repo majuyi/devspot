@@ -107,8 +107,9 @@ refreshes it.
 
 - [x] **M2.1a App scaffold.** `apps/web` with Next.js 16 and Tailwind 4, building in CI, so
   the data layer and API can start before the design is chosen. Check: `pnpm check` builds it.
-- [ ] **M2.1b Tokens and layout.** Tokens from `07` §3 (as revised by the Claude Design pass),
-  fonts self-hosted, root layout with header and footer, `/dev/tokens`. Check: Lighthouse on
+- [ ] **M2.1b Tokens and layout.** Tokens from `07` §2–§4 (Claude Design pass, agreed
+  2026-11-11), Geist and Geist Mono self-hosted, root layout with header and footer,
+  `/dev/tokens`. Check: Lighthouse on
   an empty page 100/100/100.
 - [ ] **M2.2 Components.** The inventory in `07` §5 as files, plus `/dev/components`. Check:
   axe clean; each component has a render test.
@@ -117,6 +118,9 @@ refreshes it.
   seeded rows.
 - [ ] **M2.4 Home and browse.** `/` and `/opportunities` per `01` §3, filter bar, search,
   cursor pagination. Check: acceptance items in `01`.
+- [ ] **M2.4b Home map.** The static NigeriaMap and place pills (`07` §5) on `/`, server
+  rendered from `openCountsByCity`, no client JS. Check: the map renders with JavaScript
+  off; dot sizes and colours match a seeded set; axe clean.
 - [ ] **M2.5 Opportunity page.** `/o/[slug]`, JSON-LD, `opengraph-image`, `.ics`, related
   items, closed banner, 404 for review items. Check: unfurl test with a WhatsApp preview
   debugger or the Facebook sharing debugger.
