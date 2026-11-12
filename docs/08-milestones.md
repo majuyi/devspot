@@ -112,8 +112,9 @@ refreshes it.
   `/dev/tokens`. Check: Lighthouse mobile on an empty page: Performance 95+ (98 measured;
   the rest is Next's own JS), Accessibility 100, SEO 100, CLS 0. Changed from 100/100/100
   on 2026-11-11.
-- [ ] **M2.2 Components.** The inventory in `07` §5 as files, plus `/dev/components`. Check:
-  axe clean; each component has a render test.
+- [x] **M2.2 Components.** The inventory in `07` §5 as files, plus `/dev/components`. Check:
+  axe clean; each component has a render test. CalendarGrid moves to M2.7, NigeriaMap to
+  M2.4b and ShareImage to M2.5, where their data and routes exist (agreed 2026-11-12).
 - [x] **M2.3 Data access layer.** `apps/web/src/data/*.ts` query functions returning DTOs
   (`06` §2), shared by pages and API. Check: unit tests against the Docker database with
   seeded rows.
@@ -123,12 +124,12 @@ refreshes it.
   rendered from `openCountsByCity`, no client JS. Check: the map renders with JavaScript
   off; dot sizes and colours match a seeded set; axe clean.
 - [ ] **M2.5 Opportunity page.** `/o/[slug]`, JSON-LD, `opengraph-image`, `.ics`, related
-  items, closed banner, 404 for review items. Check: unfurl test with a WhatsApp preview
+  items, closed banner, 404 for review items, the ShareImage design. Check: unfurl test with a WhatsApp preview
   debugger or the Facebook sharing debugger.
 - [ ] **M2.6 Organizations.** `/org`, `/org/[slug]`, health dots. Check: registry file link
   resolves.
 - [ ] **M2.7 Events list and calendar.** `/events` list view, `/calendar` month grid,
-  `/calendar.ics`. Check: `.ics` validates; month navigation keeps the URL in sync.
+  `/calendar.ics`, and the CalendarGrid component. Check: `.ics` validates; month navigation keeps the URL in sync.
 - [ ] **M2.8 Feed and preferences.** `/feed`, `POST /api/prefs`, query-string precedence,
   share link. Spec: `01` §2. Check: acceptance items.
 - [ ] **M2.9 Status page.** `/status` from `Source` and `FetchRun`. Check: matches

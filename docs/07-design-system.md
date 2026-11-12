@@ -130,23 +130,28 @@ The kind-to-family map and the display words live in one module under
 | **KindTag** | 11px word on the family's tint, `radius-tag` | per family, closed (grey) |
 | **KindChip** | 40px filter link, tinted like the tag, `radius-chip`; "All" selected is `fg` ground with `bg` text | idle, selected |
 | **PlacePill** | 44px link, `surface` ground, urgency dot, name, mono count, `radius-pill`; "Remote" is a place | idle, selected (`fg` ground, `bg` text) |
-| **NigeriaMap** | static server-rendered SVG: outline on `sea`, `land` fill, `land-line` stroke, one dot per city sized by open count and coloured by the most urgent item there | — |
+| **NigeriaMap** (M2.4b) | static server-rendered SVG: outline on `sea`, `land` fill, `land-line` stroke, one dot per city sized by open count and coloured by the most urgent item there | — |
 | **CitySelector** | pill showing the current city; links to a city list (works without JS), enhanced to a sheet | none set, set |
 | **DeadlineMoved** | old date struck through in `faint` above the new one | needs a deadline history (the proposed `opportunity_events` table, not yet agreed); hidden until then |
 | **RequirementsBlock** | heading "Requirements, as stated by <org>", `prose` text with `white-space: pre-line`, 1px `line` border | present, absent ("The source does not list requirements.") |
 | **SourceLine** | source domain · "checked 2h ago", `meta` in `faint` | — |
-| **CalendarGrid** | 7-column month grid, urgency dots, selected day panel | month nav, day selected, empty day |
+| **CalendarGrid** (M2.7) | 7-column month grid, urgency dots, selected day panel | month nav, day selected, empty day |
 | **StatusBadge** | dot + word | healthy, stale (amber), erroring (red), new, disabled |
 | **Button** | primary (`fg` ground, `bg` text), secondary (1px `line`), ghost, icon (44px round, `radius-pill`) | default, hover (`raise`), focus, disabled |
 | **EmptyState** | short line, one action | per page |
 | **Sheet** | `bg` ground, `radius-sheet` top corners, 1px `line` top edge, no shadow | open, closed |
-| **ShareImage** | 1200×630, wordmark, kind tag, title, organisation, countdown and date | generated per opportunity |
+| **ShareImage** (M2.5) | 1200×630, wordmark, kind tag, title, organisation, countdown and date | generated per opportunity |
 
 There is no component library (shadcn/ui was dropped on 2026-11-11). Components are our
 own, built on native elements (`<dialog>`, `<details>`, links) that work without
 JavaScript.
 
 ## 6. Countdown and dates
+
+Helpers in `apps/web/src/ui` (`time.ts`, `urgency.ts`), unit-tested. Countdowns and status
+words render on the server and move to the reader's clock after load, then every minute.
+A deadline at 23:59 in Lagos is treated as date-only (docs/05 §1) and shows no time.
+
 
 - 48 hours or more: days, with hours below (`88d` / `9h`).
 - Under 48 hours: hours, with minutes below (`27h` / `14m`).
@@ -209,7 +214,7 @@ cards, a centred hero with two buttons, abstract illustrations.
 ## Acceptance
 
 - [x] `tokens.css` defines every token above for both themes; a visual test page `/dev/tokens` (excluded from sitemap) renders them.
-- [ ] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components`.
+- [x] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components` (NigeriaMap, CalendarGrid and ShareImage arrive with their tasks).
 - [ ] Axe reports zero violations on `/`, `/opportunities`, `/o/[slug]`, `/events`, `/calendar`, in both themes.
 - [ ] Fonts: exactly two `.woff2` files served, both preloaded, `font-display: swap`, CLS 0.
 - [ ] Grep of `apps/web/src` for `box-shadow` and `shadow-` finds nothing.
