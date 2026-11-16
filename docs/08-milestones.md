@@ -130,7 +130,7 @@ refreshes it.
   Facebook debugger needs a public URL and moves to M2.12 (agreed 2026-11-16).
 - [x] **M2.6 Organizations.** `/org`, `/org/[slug]`, health dots. Check: registry file link
   resolves.
-- [ ] **M2.7 Events list and calendar.** `/events` list view, `/calendar` month grid,
+- [x] **M2.7 Events list and calendar.** `/events` list view, `/calendar` month grid,
   `/calendar.ics`, and the CalendarGrid component. Check: `.ics` validates; month navigation keeps the URL in sync.
 - [ ] **M2.8 Feed and preferences.** `/feed`, `POST /api/prefs`, query-string precedence,
   share link. Spec: `01` §2. Check: acceptance items.

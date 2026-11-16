@@ -1,5 +1,4 @@
 import { findCity, type OpportunityDto } from "@devspot/schema";
-import type { Route } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { REPO_URL } from "@/data/site";

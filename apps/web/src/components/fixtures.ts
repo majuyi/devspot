@@ -130,3 +130,9 @@ export function rowFixtures(now: Date) {
     }),
   };
 }
+
+/** A month's worth for the calendar: deadlines with times, and events with only a date. */
+export function calendarFixtures(now: Date): RowItem[] {
+  const r = rowFixtures(now);
+  return [r.within48h, r.eventThisWeek, r.within7d, r.open, r.eventScheduled];
+}

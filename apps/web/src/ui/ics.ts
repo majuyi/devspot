@@ -36,13 +36,22 @@ const utc = (d: Date) => `${d.toISOString().replace(/[-:]/g, "").slice(0, 15)}Z`
 const watDate = (d: Date) =>
   new Date(d.getTime() + HOUR).toISOString().slice(0, 10).replace(/-/g, "");
 
+const HEADER = [
+  "BEGIN:VCALENDAR",
+  "VERSION:2.0",
+  "PRODID:-//devspot//opportunities//EN",
+  "CALSCALE:GREGORIAN",
+  "METHOD:PUBLISH",
+];
+
+const serialize = (lines: string[]) => `${lines.map(fold).join("\r\n")}\r\n`;
+
 /**
- * One VEVENT for an opportunity (docs/06 §3), or null when it has no date to put in a
- * calendar. A deadline is an hour ending at the deadline, so it sits before the moment and
- * not after it; with only a date stated it is an all-day entry. An event keeps its own
- * times. Each has one reminder the day before.
+ * The VEVENT lines for an opportunity, or null when it has no date to put in a calendar. A
+ * deadline is an hour ending at the deadline, so it sits before the moment and not after
+ * it; with only a date stated it is an all-day entry. An event keeps its own times.
  */
-export function opportunityIcs(o: OpportunityDto, now: Date): string | null {
+function vevent(o: OpportunityDto, now: Date, { alarm }: { alarm: boolean }): string[] | null {
   const t = target(o);
   if (!t) return null;
   const host = new URL(o.url).host;
@@ -70,12 +79,7 @@ export function opportunityIcs(o: OpportunityDto, now: Date): string | null {
     "Check the source page before you rely on this date.",
   ].join("\n");
   const venue = [o.venue?.name, o.venue?.address].filter(Boolean).join(", ");
-  const lines = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//devspot//opportunities//EN",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
+  return [
     "BEGIN:VEVENT",
     `UID:${o.id}@${host}`,
     `DTSTAMP:${utc(now)}`,
@@ -84,14 +88,39 @@ export function opportunityIcs(o: OpportunityDto, now: Date): string | null {
     `DESCRIPTION:${esc(description)}`,
     `URL:${o.url}`,
     ...(!deadline && venue ? [`LOCATION:${esc(venue)}`] : []),
-    "BEGIN:VALARM",
-    "ACTION:DISPLAY",
-    `DESCRIPTION:${esc(summary)}`,
-    // An all-day entry starts at midnight, so 15 hours before is 09:00 the day before.
-    `TRIGGER:${allDay ? "-PT15H" : "-P1D"}`,
-    "END:VALARM",
+    ...(alarm
+      ? [
+          "BEGIN:VALARM",
+          "ACTION:DISPLAY",
+          `DESCRIPTION:${esc(summary)}`,
+          // An all-day entry starts at midnight, so 15 hours before is 09:00 the day before.
+          `TRIGGER:${allDay ? "-PT15H" : "-P1D"}`,
+          "END:VALARM",
+        ]
+      : []),
     "END:VEVENT",
-    "END:VCALENDAR",
   ];
-  return `${lines.map(fold).join("\r\n")}\r\n`;
+}
+
+/** `/o/[slug]/calendar.ics` (docs/06 §3): one event with a reminder the day before. */
+export function opportunityIcs(o: OpportunityDto, now: Date): string | null {
+  const event = vevent(o, now, { alarm: true });
+  return event ? serialize([...HEADER, ...event, "END:VCALENDAR"]) : null;
+}
+
+/**
+ * `/calendar.ics`: a feed a calendar app subscribes to. No reminders: dozens of items would
+ * mean dozens of alarms, and the reader's own calendar defaults are the better judge. Apps
+ * are asked to read it again every six hours, as often as the sources are read.
+ */
+export function feedIcs(items: OpportunityDto[], now: Date, name: string): string {
+  const events = items.flatMap((o) => vevent(o, now, { alarm: false }) ?? []);
+  return serialize([
+    ...HEADER,
+    `X-WR-CALNAME:${esc(name)}`,
+    "REFRESH-INTERVAL;VALUE=DURATION:PT6H",
+    "X-PUBLISHED-TTL:PT6H",
+    ...events,
+    "END:VCALENDAR",
+  ]);
 }
