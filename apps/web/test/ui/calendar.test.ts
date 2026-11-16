@@ -94,15 +94,16 @@ describe("days", () => {
   it("puts a deadline on its day in Lagos and an event on its start; drops undated items", () => {
     const days = byDay([
       dto({ slug: "a" }),
-      dto({ slug: "late", deadlineAt: "2026-11-05T22:30:00.000Z" }),
+      // 23:30 UTC on the 5th is 00:30 on the 6th in Lagos: the day is Lagos's.
+      dto({ slug: "late", deadlineAt: "2026-11-05T23:30:00.000Z" }),
       dto({ slug: "date-only", deadlineAt: DATE_ONLY }),
       dto({ ...EVENT, slug: "event" }),
       dto({ slug: "rolling", deadlineKind: "rolling" }),
       dto({ slug: "unknown", deadlineKind: "unknown", deadlineAt: null }),
     ]);
     expect(days.map((d) => [dayKey(d.day), d.items.map((o) => o.slug)])).toEqual([
-      ["2026-11-05", ["a", "late"]],
-      ["2026-11-06", ["event"]],
+      ["2026-11-05", ["a"]],
+      ["2026-11-06", ["late", "event"]],
       ["2026-11-07", ["date-only"]],
     ]);
   });
