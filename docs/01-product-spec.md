@@ -170,8 +170,11 @@ column on the right.
 
 ### `/events` Events
 
-- List view: upcoming `kind = event` items ordered by `startsAt`, grouped by day. Filter by city
-  and tags. Rows as on browse, grouped by day, with the countdown to `startsAt` ("Starts Fri").
+- List view: upcoming `kind = event` items ordered by `startsAt`, a band per day ("Today",
+  "In 3 days", with the date); events already under way share a first band. Rows as on
+  browse, with the countdown to `startsAt` ("Starts Fri"). Place pills filter by city (a
+  city keeps nationwide and online events); `tags` works in the URL. "Next page" links, as
+  on browse. Rendered per request.
 - Map view (M4): MapLibre GL, OpenFreeMap tiles, one pin per geocoded event, clustered; a
   side panel lists events in the current viewport; selecting a pin opens a panel with a
   countdown and a link. City selector recenters. Non-geocoded events show in the list with a
@@ -179,10 +182,28 @@ column on the right.
 
 ### `/calendar` Calendar
 
-- Month grid (client for navigation, server-rendered for the initial month) showing deadlines
-  and event start dates as dots coloured by urgency (`07` §3, never by kind); day panel lists the items. Week list view for
-  mobile. `?month=2026-10`. Jobs with rolling deadlines are excluded; the page says so.
-- "Subscribe" gives an `.ics` feed URL (`/calendar.ics?kinds=&city=`) that reflects filters.
+Visual reference: Claude Design boards "Calendar · mobile" and "Calendar · desktop month".
+
+- `?month=2026-10`, `kinds`, `city`, `tags`. Every control is a link, so month navigation
+  needs no JavaScript and the URL is the state. Rendered per request. A month that is past,
+  more than 18 months ahead or not understood shows the current month; the current month
+  has no "previous" link, since nothing open lies in the past.
+- Open items only: a deadline on the day it closes, an event on the day it starts. Items
+  with no stated date, rolling applications included, are left out; the page says so and
+  links to browse.
+- On a phone: the month as a list of the days that have something, today always shown,
+  each row with the time (or "No time"), kind, Closes or Starts, title, organisation and
+  place.
+- From 1024px: a month grid, weeks from Monday. Each item is a link in its day's cell,
+  tinted by kind family, with a dot coloured by urgency (`07` §3) and the time when the
+  source gave one. There is no day panel; a busy day's cell grows.
+- Kind family chips on both sizes.
+- "Subscribe" jumps to a section with the feed address for the current filters
+  (`/calendar.ics?kinds=&city=`) as text to copy, an "Open in your calendar app" link
+  (`webcal:`) and "Download once".
+- `/calendar.ics`: every open dated item from today on, one event each as on
+  `/o/[slug]/calendar.ics` but with no reminders. Calendar apps are asked to re-read it
+  every six hours.
 
 ### `/feed` My feed
 

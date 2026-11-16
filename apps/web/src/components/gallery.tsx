@@ -10,9 +10,10 @@ import {
   Sheet,
   StatusBadge,
 } from "@/components/blocks";
+import { CalendarAgenda, CalendarGrid } from "@/components/calendar";
 import { DeadlineText } from "@/components/deadline-text";
 import { KindChip, PlacePill, StatusFigure } from "@/components/filters";
-import { rowFixtures } from "@/components/fixtures";
+import { calendarFixtures, rowFixtures } from "@/components/fixtures";
 import { GroupHeader, SectionHeader } from "@/components/headers";
 import { CalendarAddIcon } from "@/components/icons";
 import { KindTag } from "@/components/kind-tag";
@@ -20,6 +21,7 @@ import { LogoTile } from "@/components/logo-tile";
 import { NigeriaMap } from "@/components/nigeria-map";
 import { DatedRow, UndatedRow } from "@/components/rows";
 import { StatusWord } from "@/components/status-word";
+import { byDay, currentMonth, monthWeeks } from "@/ui/calendar";
 import { FAMILIES, kindsOf } from "@/ui/kind";
 
 const KINDS: OpportunityKind[] = [
@@ -51,6 +53,7 @@ function Part({ title, children }: { title: string; children: ReactNode }) {
 export function ComponentsGallery({ now }: { now: Date }) {
   const serverNow = now.toISOString();
   const r = rowFixtures(now);
+  const calendar = calendarFixtures(now);
   return (
     <main className="mx-auto flex max-w-[480px] flex-col pb-8">
       <h1 className="text-page-title px-4 pt-6">Components</h1>
@@ -196,6 +199,20 @@ export function ComponentsGallery({ now }: { now: Date }) {
           message="Nothing open in Kano right now."
           action={{ href: "/opportunities", label: "See every city" }}
         />
+      </Part>
+
+      <Part title="Calendar: month as a list, and as a grid">
+        <CalendarAgenda days={byDay(calendar)} now={now} showToday />
+        <div className="overflow-x-auto px-4">
+          <div className="min-w-[640px]">
+            <CalendarGrid
+              weeks={monthWeeks(currentMonth(now))}
+              days={byDay(calendar)}
+              now={now}
+              caption="Example month"
+            />
+          </div>
+        </div>
       </Part>
 
       <Part title="Nigeria map">

@@ -135,7 +135,7 @@ The kind-to-family map and the display words live in one module under
 | **DeadlineMoved** | old date struck through in `faint` above the new one | needs a deadline history (the proposed `opportunity_events` table, not yet agreed); hidden until then |
 | **RequirementsBlock** | heading "Requirements", "As stated by <org>", `prose` text with `white-space: pre-line`, then "devspot does not check who can apply…"; no border | present, absent ("The source does not list requirements.") |
 | **SourceLine** | source domain · "checked 2h ago", `meta` in `faint` | — |
-| **CalendarGrid** (M2.7) | 7-column month grid, urgency dots, selected day panel | month nav, day selected, empty day |
+| **CalendarGrid** | 7-column month table from Monday; each item a link in its cell, tinted by kind family, urgency dot, time; today's number on `fg`. **CalendarAgenda** is the same month as a list for phones | month nav by links, today, empty day, day outside the month |
 | **StatusBadge** | dot + word | healthy, stale (amber), erroring (red), new, disabled |
 | **Button** | primary (`fg` ground, `bg` text), secondary (1px `line`), ghost, icon (44px round, `radius-pill`) | default, hover (`raise`), focus, disabled |
 | **EmptyState** | short line, one action | per page |
@@ -214,7 +214,7 @@ cards, a centred hero with two buttons, abstract illustrations.
 ## Acceptance
 
 - [x] `tokens.css` defines every token above for both themes; a visual test page `/dev/tokens` (excluded from sitemap) renders them.
-- [x] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components` (CalendarGrid arrives with its task; ShareImage is the `opengraph-image` route).
+- [x] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components` (ShareImage is the `opengraph-image` route).
 - [ ] Axe reports zero violations on `/`, `/opportunities`, `/o/[slug]`, `/events`, `/calendar`, in both themes.
 - [ ] Fonts: exactly two `.woff2` files served, both preloaded, `font-display: swap`, CLS 0.
 - [ ] Grep of `apps/web/src` for `box-shadow` and `shadow-` finds nothing.

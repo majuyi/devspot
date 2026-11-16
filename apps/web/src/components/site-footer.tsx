@@ -11,7 +11,7 @@ const LINKS = [
   { href: "/status", label: "Status" },
   { href: "/api", label: "API" },
   { href: `${REPO}/blob/main/LICENSE`, label: "Licence" },
-  { href: "/calendar.ics", label: "Calendar feed" },
+  { href: "/calendar#subscribe", label: "Calendar feed" },
 ] as const;
 
 /** Footer from board D. The paragraph is the one place the site describes itself. */

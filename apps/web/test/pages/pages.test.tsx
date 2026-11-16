@@ -421,4 +421,218 @@ describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", (
       }
     });
   });
+  describe("calendar", () => {
+    type CalendarModule = typeof import("../../src/app/calendar/page");
+    let Calendar: CalendarModule["default"];
+    const calendar = async (query = "") =>
+      render(
+        (await Calendar({
+          searchParams: Promise.resolve(Object.fromEntries(new URLSearchParams(query))),
+        })) as ReactElement,
+      );
+    beforeAll(async () => {
+      Calendar = (await import("../../src/app/calendar/page")).default;
+    });
+    const agenda = (el: Element) => el.querySelector(".lg\\:hidden") as Element;
+    const grid = (el: Element) => el.querySelector("table") as Element;
+
+    it("the current month: title, counts, today shown, no way back into the past", async () => {
+      const el = await calendar();
+      expect(text(el.querySelector("h1") as Element)).toBe("November 2026");
+      expect(text(el)).toContain("13 deadlines · 7 events");
+      const months = el.querySelector('nav[aria-label="Months"]') as Element;
+      expect(
+        [...months.querySelectorAll("a")].map((a) => [
+          a.getAttribute("aria-label"),
+          a.getAttribute("href"),
+        ]),
+      ).toEqual([["December 2026", "/calendar?month=2026-12"]]);
+      expect(bands(agenda(el)).slice(0, 4)).toEqual([
+        "Tue 3 Nov",
+        "Wed 4 NovToday",
+        "Thu 5 NovTomorrow",
+        "Fri 6 NovIn 2 days",
+      ]);
+    });
+
+    it("agenda rows: the time when stated, Closes or Starts, and a link to the item", async () => {
+      const el = agenda(await calendar());
+      const row = el.querySelector('a[href="/o/today"]') as Element;
+      expect(text(row)).toBe("18:00HackathonClosesTitle todayAcme · Remote");
+      expect(text(el.querySelector('a[href="/o/ev-a"]') as Element)).toMatch(/^15:00EventStarts/);
+      // Past its moment but still open: the word is in the past tense.
+      expect(text(el.querySelector('a[href="/o/passed"]') as Element)).toMatch(
+        /^08:00HackathonClosed/,
+      );
+      expect(text(el.querySelector('a[href="/o/ev-ongoing"]') as Element)).toMatch(
+        /^07:00EventStarted/,
+      );
+      // Every dated open item once; undated and closed ones never.
+      const slugs = rowSlugs(el);
+      expect(slugs).toHaveLength(20);
+      expect(new Set(slugs).size).toBe(20);
+      for (const s of ["rolling", "lagos-job", "closed", "in-review", "bulk-01"]) {
+        expect(slugs).not.toContain(s);
+      }
+    });
+
+    it("the grid: a table of weeks from Monday, items in their day's cell, today marked", async () => {
+      const table = grid(await calendar());
+      expect([...table.querySelectorAll("th")].map(text)).toEqual([
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun",
+      ]);
+      expect(table.querySelectorAll("tbody tr")).toHaveLength(6);
+      const cell = (date: string) =>
+        table.querySelector(`time[datetime="${date}"]`)?.closest("td") as Element;
+      expect(text(cell("2026-11-04").querySelector("time") as Element)).toBe("4 (today)");
+      expect(rowSlugs(cell("2026-11-04"))).toEqual(["passed", "ev-today", "today"]);
+      expect(rowSlugs(cell("2026-11-06"))).toEqual(["ev-deadline", "ev-a"]);
+      expect(text(cell("2026-11-05").querySelector("a") as Element)).toBe(
+        "Closes 09:00Title tomorrow",
+      );
+      // Days outside the month are shown empty.
+      expect(rowSlugs(cell("2026-10-26"))).toEqual([]);
+      expect(rowSlugs(table)).toHaveLength(20);
+    });
+
+    it("a family filter narrows both views, keeps the month in its links and names the feed", async () => {
+      const el = await calendar("month=2026-11&kinds=event");
+      expect(text(el)).toContain("Events · 7 events");
+      expect(rowSlugs(grid(el))).toHaveLength(7);
+      const kinds = el.querySelector('nav[aria-label="Kinds"]') as Element;
+      expect(link(kinds, "Events")).toBe("/calendar");
+      expect(link(kinds, "Work")).toBe("/calendar?kinds=job,internship");
+      expect(link(el, "December 2026")).toBe("/calendar?month=2026-12&kinds=event");
+      const sub = el.querySelector("#subscribe") as Element;
+      expect(text(sub.querySelector("code") as Element)).toBe(
+        "https://devspot.test/calendar.ics?kinds=event",
+      );
+      expect(link(sub, "Open in your calendar app")).toBe(
+        "webcal://devspot.test/calendar.ics?kinds=event",
+      );
+      expect(link(sub, "Download once")).toBe("/calendar.ics?kinds=event");
+    });
+
+    it("a later month: links back and to today; a month out of range is the current one", async () => {
+      const el = await calendar("month=2026-12");
+      expect(text(el.querySelector("h1") as Element)).toBe("December 2026");
+      const months = el.querySelector('nav[aria-label="Months"]') as Element;
+      expect([...months.querySelectorAll("a")].map((a) => a.getAttribute("href"))).toEqual([
+        "/calendar",
+        "/calendar?month=2027-01",
+        "/calendar",
+      ]);
+      expect(text(el)).toContain("Nothing dated this month");
+      expect(text(agenda(el))).toContain("Nothing closes or starts this month yet.");
+      expect(text((await calendar("month=2020-01")).querySelector("h1") as Element)).toBe(
+        "November 2026",
+      );
+      const last = await calendar("month=2028-05");
+      expect(text(last.querySelector("h1") as Element)).toBe("May 2028");
+      expect(link(last, "June 2028")).toBeUndefined();
+    });
+
+    it("says what is left out, and has no axe violations", async () => {
+      const el = await calendar();
+      expect(text(el)).toContain(
+        "Rolling applications and items with no stated deadline are on the opportunities page",
+      );
+      expect(await violations(el, "Calendar")).toEqual([]);
+      expect(await violations(await calendar("month=2026-12"), "Calendar")).toEqual([]);
+    });
+  });
+
+  describe("calendar feed", () => {
+    const feed = async (query = "") => {
+      const { GET } = await import("../../src/app/calendar.ics/route");
+      return GET(new Request(`https://devspot.test/calendar.ics${query}`));
+    };
+    const uids = (ics: string) => ics.match(/^SUMMARY:.*$/gm) ?? [];
+
+    it("every open dated item from today on, as a calendar", async () => {
+      const res = await feed();
+      expect(res.status).toBe(200);
+      expect(res.headers.get("content-type")).toBe("text/calendar; charset=utf-8");
+      const ics = await res.text();
+      expect(ics).toContain("X-WR-CALNAME:devspot\r\n");
+      // The 20 of November, less ev-ongoing, which started yesterday.
+      expect(uids(ics)).toHaveLength(19);
+      expect(ics).toContain("SUMMARY:Deadline: Title today");
+      expect(ics).not.toContain("Title ev-ongoing");
+      expect(ics).not.toContain("Title rolling");
+      expect(ics).not.toContain("VALARM");
+    });
+
+    it("filters by kind and city, and ignores what it does not understand", async () => {
+      const events = await (await feed("?kinds=event")).text();
+      expect(uids(events)).toHaveLength(6);
+      expect(events).toContain("X-WR-CALNAME:devspot: Events");
+      const lagos = await (await feed("?kinds=event&city=lagos")).text();
+      expect(uids(lagos).sort()).toEqual(["SUMMARY:Title ev-deadline", "SUMMARY:Title ev-today"]);
+      expect((await feed("?kinds=nonsense&city=atlantis")).status).toBe(200);
+    });
+  });
+
+  describe("events", () => {
+    type EventsModule = typeof import("../../src/app/events/page");
+    let Events: EventsModule["default"];
+    const events = async (query = "") =>
+      render(
+        (await Events({
+          searchParams: Promise.resolve(Object.fromEntries(new URLSearchParams(query))),
+        })) as ReactElement,
+      );
+    beforeAll(async () => {
+      Events = (await import("../../src/app/events/page")).default;
+    });
+
+    it("upcoming events by start, a band per day, one under way first", async () => {
+      const el = await events();
+      expect(text(el.querySelector("h1") as Element)).toBe("Events");
+      expect(text(el)).toContain("7 upcoming");
+      expect(rowSlugs(el)).toEqual([
+        "ev-ongoing",
+        "ev-today",
+        "ev-deadline",
+        "ev-a",
+        "ev-b",
+        "ev-c",
+        "ev-d",
+      ]);
+      expect(bands(el)).toEqual([
+        "Under way",
+        "TodayWed 4 Nov 2026",
+        "In 2 daysFri 6 Nov 2026",
+        "In 8 daysThu 12 Nov 2026",
+        "In 13 daysTue 17 Nov 2026",
+        "In 17 daysSat 21 Nov 2026",
+      ]);
+      expect(text(el)).toContain("Showing all 7.");
+      expect(link(el, "Get these in your calendar")).toBe("/calendar?kinds=event#subscribe");
+    });
+
+    it("a city keeps nationwide and online events and marks its pill", async () => {
+      const el = await events("city=lagos");
+      expect(text(el.querySelector("h1") as Element)).toBe("Events in Lagos");
+      expect(rowSlugs(el)).toEqual(["ev-ongoing", "ev-today", "ev-deadline"]);
+      const places = el.querySelector('nav[aria-label="Places"]') as Element;
+      expect(text(places.querySelector('[aria-current="true"]') as Element)).toBe("Lagos, 3 open");
+      expect(link(places, "All places")).toBe("/events");
+      expect(link(places, "Ibadan")).toBe("/events?city=ibadan");
+    });
+
+    it("an empty result explains itself; no axe violations", async () => {
+      const el = await events("city=kano");
+      expect(text(el.querySelector("h2") as Element)).toBe("No upcoming events in Kano right now");
+      expect(link(el, "Events in every place")).toBe("/events");
+      expect(await violations(el, "Events")).toEqual([]);
+      expect(await violations(await events(), "Events")).toEqual([]);
+    });
+  });
 });

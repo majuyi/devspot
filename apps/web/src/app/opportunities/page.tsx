@@ -4,6 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { buttonClass, ListEnding } from "@/components/blocks";
 import { KindChip, PlacePill } from "@/components/filters";
+import { ArrowIcon } from "@/components/icons";
 import { GroupedRows, RowList, Rows } from "@/components/row-list";
 import { SearchInput } from "@/components/search-input";
 import { InvalidCursor } from "@/data/cursor";
@@ -21,6 +22,7 @@ import {
   type SearchParams,
   toFilters,
 } from "@/ui/browse";
+import { calendarHref } from "@/ui/calendar";
 import { FAMILIES, familyOf, kindsOf } from "@/ui/kind";
 
 type Props = { searchParams: Promise<SearchParams> };
@@ -159,13 +161,26 @@ export default async function Opportunities({ searchParams }: Props) {
 
         {list.items.length ? (
           <>
-            <p className="m-0 px-4 py-3 text-[13px] text-muted">
-              {p.sort === "new"
-                ? "Sorted by newest"
-                : eventsOnly
-                  ? "Sorted by starting soonest"
-                  : "Sorted by closing soonest"}
-            </p>
+            <div className="flex items-center justify-between gap-3 px-4 text-[13px] text-muted">
+              <span>
+                {p.sort === "new"
+                  ? "Sorted by newest"
+                  : eventsOnly
+                    ? "Sorted by starting soonest"
+                    : "Sorted by closing soonest"}
+              </span>
+              <Link
+                href={calendarHref(
+                  { kinds: p.kinds, city: p.city, tags: p.tags },
+                  now,
+                  "#subscribe",
+                )}
+                className="flex min-h-target items-center gap-1.5 no-underline hover:underline"
+              >
+                Calendar feed
+                <ArrowIcon size={14} />
+              </Link>
+            </div>
             <RowList>
               {p.sort === "new" ? (
                 <Rows items={list.items} serverNow={serverNow} />
