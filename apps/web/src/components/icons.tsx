@@ -46,3 +46,27 @@ export function CloseIcon() {
     </svg>
   );
 }
+
+export function BackIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" strokeWidth="2" aria-hidden="true" {...base}>
+      <path d="M19 12H5M11 6l-6 6 6 6" />
+    </svg>
+  );
+}
+
+export function ExternalIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" strokeWidth="2.2" aria-hidden="true" {...base}>
+      <path d="M7 17L17 7M9 7h8v8" />
+    </svg>
+  );
+}
+
+export function ShareIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" strokeWidth="1.8" aria-hidden="true" {...base}>
+      <path d="M12 15V4M8 8l4-4 4 4M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5" />
+    </svg>
+  );
+}

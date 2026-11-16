@@ -1,21 +1,26 @@
 import type { Route } from "next";
 import Link from "next/link";
-import { type ReactNode, useId } from "react";
+import type { ReactNode } from "react";
 import { ArrowIcon } from "./icons";
 
-/** Verbatim requirements (01 §1): never paraphrased, never a badge. */
+/**
+ * Verbatim requirements (01 §1): the organisation's words with their own line breaks, never
+ * paraphrased, split into bullets or turned into a badge.
+ */
 export function RequirementsBlock({ orgName, text }: { orgName: string; text: string | null }) {
-  const id = useId();
   return (
-    <section aria-labelledby={id} className="rounded-tile border border-line p-4">
-      <h2 id={id} className="text-section m-0 mb-2">
-        Requirements, as stated by {orgName}
-      </h2>
+    // Named in full, so the landmark says whose words these are.
+    <section aria-label={`Requirements, as stated by ${orgName}`} className="flex flex-col gap-2.5">
+      <h2 className="text-section m-0">Requirements</h2>
+      <span className="text-[13px] text-muted">As stated by {orgName}</span>
       {text ? (
         <p className="text-prose m-0 max-w-[68ch] whitespace-pre-line">{text}</p>
       ) : (
         <p className="text-prose m-0 text-muted">The source does not list requirements.</p>
       )}
+      <p className="m-0 text-[12px] leading-[17px] text-faint">
+        devspot does not check who can apply. Read the source page before you apply.
+      </p>
     </section>
   );
 }

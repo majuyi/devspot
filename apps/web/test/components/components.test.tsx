@@ -198,7 +198,12 @@ describe("small parts", () => {
 
   it("RequirementsBlock is verbatim, or says the source lists none", () => {
     const el = render(<RequirementsBlock orgName="Paystack" text={"Line one\nLine two"} />);
-    expect(el.querySelector("h2")?.textContent).toBe("Requirements, as stated by Paystack");
+    expect(el.querySelector("h2")?.textContent).toBe("Requirements");
+    expect(el.querySelector("section")?.getAttribute("aria-label")).toBe(
+      "Requirements, as stated by Paystack",
+    );
+    expect(text(el)).toContain("As stated by Paystack");
+    expect(text(el)).toContain("devspot does not check who can apply.");
     expect(el.querySelector("p")?.textContent).toBe("Line one\nLine two");
     expect(text(render(<RequirementsBlock orgName="Paystack" text={null} />))).toContain(
       "The source does not list requirements.",

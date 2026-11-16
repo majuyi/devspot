@@ -7,6 +7,7 @@ import { hasDb, NOW, seedHome } from "../seed";
 
 type HomeModule = typeof import("../../src/components/home");
 type BrowseModule = typeof import("../../src/app/opportunities/page");
+type DetailModule = typeof import("../../src/app/o/[slug]/page");
 
 async function violations(el: HTMLElement, title: string): Promise<string[]> {
   document.documentElement.lang = "en-GB";
@@ -36,6 +37,9 @@ const link = (el: Element, label: string) =>
 describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", () => {
   let Home: HomeModule["Home"];
   let Browse: BrowseModule["default"];
+  let detail: DetailModule;
+  const page = async (slug: string) =>
+    render((await detail.default({ params: Promise.resolve({ slug }) })) as ReactElement);
   const browse = async (query = "") =>
     render(
       (await Browse({
@@ -48,6 +52,7 @@ describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", (
     await seedHome(db);
     ({ Home } = await import("../../src/components/home"));
     Browse = (await import("../../src/app/opportunities/page")).default;
+    detail = await import("../../src/app/o/[slug]/page");
     // The pages read the clock themselves; only Date is faked so the database still answers.
     vi.useFakeTimers({ now: NOW, toFake: ["Date"] });
   });
@@ -298,6 +303,122 @@ describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", (
       expect(await violations(await browse("kinds=job,internship&city=lagos"), "Work")).toEqual([]);
       expect(await violations(await browse("q=zzzz"), "Opportunities")).toEqual([]);
       expect(text(await browse())).not.toMatch(/eligib|qualif/i);
+    });
+  });
+  describe("opportunity page", () => {
+    it("a deadline: heading, the large time, actions, source, requirements verbatim", async () => {
+      const el = await page("today");
+      expect(text(el.querySelector("h1") as Element)).toBe("Title today");
+      expect(link(el, "Build")).toBe("/opportunities?kinds=hackathon,competition");
+      expect(link(el, "Acme")).toBe("/org/acme");
+      const deadline = el.querySelector('section[aria-label="Deadline"]') as Element;
+      expect(text(deadline)).toBe("Closes · Wed 4 Nov 202618:00WATIn 5h 0m");
+
+      const apply = [...el.querySelectorAll("a")].find((a) => text(a).startsWith("Apply on"));
+      expect(text(apply as Element)).toBe("Apply on example.org (opens in a new tab)");
+      expect(apply?.getAttribute("href")).toBe("https://example.org/today");
+      expect(apply?.getAttribute("rel")).toBe("noopener");
+      expect(apply?.getAttribute("target")).toBe("_blank");
+      expect(link(el, "Add to calendar")).toBe("/o/today/calendar.ics");
+      expect(link(el, "Share on WhatsApp")).toBe(
+        `https://wa.me/?text=${encodeURIComponent("Title today · Acme\nhttps://devspot.test/o/today")}`,
+      );
+      expect(text(el)).toContain("You apply on example.org, not here.");
+      expect(text(el)).toContain("First listed");
+      expect(text(el)).toContain(
+        "RequirementsAs stated by AcmeThe source does not list requirements.",
+      );
+      expect(text(el)).toContain("devspot does not check who can apply.");
+      expect(link(el, "Something wrong?")).toMatch(
+        /^https:\/\/github\.com\/majuyi\/devspot\/issues\/new\?title=/,
+      );
+    });
+
+    it("requirements are the organisation's words, line breaks kept, nothing added", async () => {
+      const { db } = await import("@devspot/db");
+      const words = "Open to final-year students.\n- Must hold a 2:1\n- Nigerians only";
+      await db.opportunity.update({ where: { slug: "nation" }, data: { requirementsText: words } });
+      const el = await page("nation");
+      const p = el.querySelector("p.whitespace-pre-line");
+      expect(p?.textContent).toBe(words);
+      expect(el.querySelector("ul")).toBeNull();
+      expect(text(el)).not.toMatch(/you qualify|eligible|perfect for you/i);
+    });
+
+    it("no stated deadline: says so, offers no calendar file", async () => {
+      const el = await page("lagos-job");
+      const deadline = el.querySelector('section[aria-label="Deadline"]') as Element;
+      expect(text(deadline)).toMatch(/^DeadlineNot stated on the source page/);
+      expect(link(el, "Add to calendar")).toBeUndefined();
+      expect(link(el, "Share on WhatsApp")).toBeDefined();
+    });
+
+    it("an event: counts to its start, says View not Apply, lists its other deadline", async () => {
+      const el = await page("ev-deadline");
+      const date = el.querySelector('section[aria-label="Date"]') as Element;
+      expect(text(date)).toContain("Starts · Fri 6 Nov 2026");
+      expect(text(date)).toContain("In 2d");
+      expect(text(date)).toContain("DeadlineWed 4 Nov 2026, 23:00 WAT");
+      expect(link(el, "View on example.org")).toBe("https://example.org/ev-deadline");
+      expect(text(el)).toContain("The link goes to example.org, not here.");
+    });
+
+    it("closed: a banner, no countdown, no calendar, still a page", async () => {
+      const el = await page("closed");
+      expect(text(el)).toContain("Applications closed on Tue 27 Oct 2026");
+      expect(link(el, "Add to calendar")).toBeUndefined();
+      expect(link(el, "View on example.org")).toBe("https://example.org/closed");
+      expect(text(el)).not.toContain("You apply on");
+      const meta = await detail.generateMetadata({ params: Promise.resolve({ slug: "closed" }) });
+      expect(meta.robots).toBeUndefined();
+    });
+
+    it("related: the organisation's other open items, and the kind in the city", async () => {
+      const el = await page("lagos-job");
+      expect(rowSlugs(section(el, "more-org"))).toHaveLength(4);
+      expect(rowSlugs(section(el, "more-org"))).not.toContain("lagos-job");
+      expect(link(section(el, "more-org"), "See all")).toBe("/opportunities?org=acme");
+      expect(text(section(el, "more-kind"))).toContain("More jobs in Lagos");
+      expect(link(section(el, "more-kind"), "See all")).toBe("/opportunities?kinds=job&city=lagos");
+    });
+
+    it("a review item and an unknown slug are not found; neither has a calendar file", async () => {
+      await expect(page("in-review")).rejects.toThrow(
+        /NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/,
+      );
+      await expect(page("no-such-thing")).rejects.toThrow(
+        /NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/,
+      );
+      const { GET } = await import("../../src/app/o/[slug]/calendar.ics/route");
+      const get = (slug: string) =>
+        GET(new Request("https://devspot.test"), { params: Promise.resolve({ slug }) });
+      expect((await get("in-review")).status).toBe(404);
+      expect((await get("lagos-job")).status).toBe(404);
+      const ok = await get("today");
+      expect(ok.status).toBe(200);
+      expect(ok.headers.get("content-type")).toBe("text/calendar; charset=utf-8");
+      expect(ok.headers.get("content-disposition")).toBe('attachment; filename="today.ics"');
+      expect(await ok.text()).toContain("SUMMARY:Deadline: Title today");
+    });
+
+    it("metadata: the deadline leads the description; JSON-LD is on the page", async () => {
+      const meta = await detail.generateMetadata({ params: Promise.resolve({ slug: "today" }) });
+      expect(meta.title).toBe("Title today · Acme");
+      expect(meta.description).toBe("Closes Wed 4 Nov 2026, 18:00 WAT · Acme · Remote");
+      expect(meta.alternates?.canonical).toBe("/o/today");
+      const el = await page("lagos-job");
+      const ld = JSON.parse(
+        el.querySelector('script[type="application/ld+json"]')?.textContent ?? "{}",
+      );
+      expect(ld).toMatchObject({ "@type": "JobPosting", title: "Title lagos-job" });
+    });
+
+    it("has no axe violations, dated, undated and closed", async () => {
+      for (const slug of ["today", "lagos-job", "closed", "ev-deadline"]) {
+        const el = await page(slug);
+        expect(el.querySelectorAll("h1")).toHaveLength(1);
+        expect(await violations(el, slug)).toEqual([]);
+      }
     });
   });
 });

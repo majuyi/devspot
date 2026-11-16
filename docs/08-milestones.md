@@ -124,9 +124,10 @@ refreshes it.
 - [x] **M2.4b Home map.** The band on `/`: the static NigeriaMap, the three figures and the
   place pills (`07` §5), server rendered from `openCountsByCity`, no client JS. Check: the map renders with JavaScript
   off; dot sizes and colours match a seeded set; axe clean.
-- [ ] **M2.5 Opportunity page.** `/o/[slug]`, JSON-LD, `opengraph-image`, `.ics`, related
-  items, closed banner, 404 for review items, the ShareImage design. Check: unfurl test with a WhatsApp preview
-  debugger or the Facebook sharing debugger.
+- [x] **M2.5 Opportunity page.** `/o/[slug]`, JSON-LD, `opengraph-image`, `.ics`, related
+  items, closed banner, 404 for review items, the ShareImage design. Check: tags, image
+  (1200×630, under 100 KB) and `.ics` verified locally; the unfurl test in a WhatsApp or
+  Facebook debugger needs a public URL and moves to M2.12 (agreed 2026-11-16).
 - [ ] **M2.6 Organizations.** `/org`, `/org/[slug]`, health dots. Check: registry file link
   resolves.
 - [ ] **M2.7 Events list and calendar.** `/events` list view, `/calendar` month grid,
@@ -143,7 +144,8 @@ refreshes it.
   OpenAPI document. The `/api` page is M4.5. Check: acceptance items in `06`.
 - [ ] **M2.12 Deploy.** Vercel project, env vars, `POST /api/revalidate` wired from
   `engine.yml`, `NEXT_PUBLIC_SITE_URL`. Check: an engine run changes the home page within a
-  minute.
+  minute; an opportunity URL unfurls with its image, title and deadline in a WhatsApp
+  preview or the Facebook sharing debugger (from M2.5).
 - [ ] **M2.13 Performance pass.** Bundle analysis, font check, CLS audit on real devices.
   Check: `01` §6 budget met on every route.
 

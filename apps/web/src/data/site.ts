@@ -6,3 +6,6 @@ export function siteUrl(): string {
     (production ? `https://${production}` : "http://localhost:3000");
   return url.replace(/\/+$/, "");
 }
+
+/** The public repository: "Contribute" in the footer, "Report this listing" on a page. */
+export const REPO_URL = "https://github.com/majuyi/devspot";

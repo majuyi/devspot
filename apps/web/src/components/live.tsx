@@ -40,3 +40,29 @@ export function LiveStatus({ item, serverNow }: { item: Timed; serverNow: string
   const word = statusWord(item, now);
   return word ? <StatusWord tone={tone(item, now)}>{word}</StatusWord> : null;
 }
+
+const IN = { red: "text-red", amber: "text-amber", none: "text-muted", closed: "text-faint" };
+
+/**
+ * "In 27h 14m" under the large deadline on `/o/[slug]`, within 30 days (docs/01 §3). Nothing
+ * once the moment has passed or when it is further off: the date above already says it.
+ */
+export function LiveIn({ item, serverNow }: { item: Timed; serverNow: string }) {
+  const now = useNow(serverNow);
+  const t = target(item);
+  if (!t || item.status === "closed") return null;
+  const c = countdown(t.at, now, t.mode);
+  if (!c || t.at.getTime() - now.getTime() > 30 * 24 * 3_600_000) return null;
+  return (
+    <span className={`text-[13px] font-[550] ${IN[tone(item, now)]}`}>
+      {c.main === "Today" ? (
+        "Today"
+      ) : (
+        <>
+          In{" "}
+          <span className="text-date text-[13px]">{[c.main, c.sub].filter(Boolean).join(" ")}</span>
+        </>
+      )}
+    </span>
+  );
+}

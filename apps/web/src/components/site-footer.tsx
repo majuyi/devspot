@@ -1,7 +1,8 @@
 import type { Route } from "next";
 import Link from "next/link";
+import { REPO_URL } from "@/data/site";
 
-const REPO = "https://github.com/majuyi/devspot";
+const REPO = REPO_URL;
 
 // Internal pages arrive in M2.7, M2.9 and M4.5; the casts go once each route exists.
 const LINKS = [
