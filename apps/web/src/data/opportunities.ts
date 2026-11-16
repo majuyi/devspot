@@ -9,7 +9,7 @@ import { decodeCursor, encodeCursor, KeyCursor } from "./cursor";
 import { OPEN, type OpportunityRow, PUBLIC, toOpportunityDto, withOrganization } from "./dto";
 import { type Keyset, keyOf, keysetAfter, keysetOrder } from "./keyset";
 import { availableIn } from "./location";
-import { addMs, DAY, HOUR } from "./time";
+import { addMs, DAY, HOUR, startOfDayWat } from "./time";
 
 export type Page<T> = { items: T[]; nextCursor: string | null };
 
@@ -22,6 +22,15 @@ const SORTS = {
   new: { field: "publishedAt", dir: "desc", nullable: true },
   updated: { field: "updatedAt", dir: "desc", nullable: false },
 } as const satisfies Record<ApiListParams["sort"], Keyset>;
+
+/** Events have no deadline to sort by; a list of only events orders by start instead. */
+const BY_START: Keyset = { field: "startsAt", dir: "asc", nullable: true };
+
+function keysetFor(f: OpportunityFilters): Keyset {
+  const sort = f.sort ?? "deadline";
+  const eventsOnly = Boolean(f.kinds?.length) && f.kinds?.every((k) => k === "event");
+  return sort === "deadline" && eventsOnly ? BY_START : SORTS[sort];
+}
 
 type Clock = { now?: Date };
 
@@ -61,7 +70,7 @@ export async function listOpportunities(
   f: OpportunityFilters,
   { now = new Date() }: Clock = {},
 ): Promise<Page<OpportunityDto>> {
-  const ks = SORTS[f.sort ?? "deadline"];
+  const ks = keysetFor(f);
   const limit = f.limit ?? 30;
   const after = decodeCursor(f.cursor, KeyCursor);
   const rows = await db.opportunity.findMany({
@@ -71,6 +80,14 @@ export async function listOpportunities(
     take: limit + 1,
   });
   return page(rows, limit, (r) => keyOf(ks, r));
+}
+
+/** How many rows the filters match in all, for "Showing 30 of 120". The cursor plays no part. */
+export async function countOpportunities(
+  f: OpportunityFilters,
+  { now = new Date() }: Clock = {},
+): Promise<number> {
+  return db.opportunity.count({ where: { AND: await filterWhere(f, now) } });
 }
 
 export function page(
@@ -95,15 +112,30 @@ export async function getOpportunity(slug: string): Promise<OpportunityDto | nul
   return row ? toOpportunityDto(row) : null;
 }
 
-/** Home, "Closing this week": deadlines from now to `days` ahead, soonest first. */
-export async function closingSoon({ now = new Date(), days = 7, limit = 8 } = {}) {
-  const rows = await db.opportunity.findMany({
-    where: { ...OPEN, deadlineAt: { gte: now, lte: addMs(now, days * DAY) } },
-    orderBy: [{ deadlineAt: "asc" }, { id: "asc" }],
-    include: withOrganization,
-    take: limit,
-  });
-  return rows.map(toOpportunityDto);
+/**
+ * Home, "Closing soon" (docs/01 §3): non-event items with a fixed deadline still ahead,
+ * soonest first. Everything due within the Today, Tomorrow and This week groups is returned,
+ * however many: hiding one would break the promise. Only the Later group is capped.
+ */
+export async function closingSoon({ now = new Date(), later = 5 } = {}) {
+  const dated: Prisma.OpportunityWhereInput = {
+    AND: [OPEN, { kind: { not: "event" } }],
+    deadlineKind: "fixed",
+  };
+  // "This week" runs to the end of the seventh day after today in Lagos (ui/urgency groupOf).
+  const laterFrom = addMs(startOfDayWat(now), 8 * DAY);
+  const query = (deadlineAt: Prisma.DateTimeNullableFilter, take?: number) =>
+    db.opportunity.findMany({
+      where: { ...dated, deadlineAt },
+      orderBy: [{ deadlineAt: "asc" }, { id: "asc" }],
+      include: withOrganization,
+      take,
+    });
+  const [soon, rest] = await Promise.all([
+    query({ gte: now, lt: laterFrom }),
+    query({ gte: laterFrom }, later),
+  ]);
+  return [...soon, ...rest].map(toOpportunityDto);
 }
 
 /** Home, "New this week": published in the last 7 days, newest first. */
@@ -117,19 +149,31 @@ export async function newThisWeek({ now = new Date(), limit = 9 } = {}) {
   return rows.map(toOpportunityDto);
 }
 
-/** Home, "Near you": events and on-site roles in the city, soonest deadline first. */
-export async function nearYou(city: CitySlug, { limit = 6 } = {}) {
-  const rows = await db.opportunity.findMany({
-    where: { ...OPEN, city, locationMode: { in: ["onsite", "hybrid"] } },
-    orderBy: [
-      { deadlineAt: { sort: "asc", nulls: "last" } },
-      { startsAt: { sort: "asc", nulls: "last" } },
-      { id: "asc" },
-    ],
-    include: withOrganization,
-    take: limit,
-  });
-  return rows.map(toOpportunityDto);
+/**
+ * Home, "Near you": what is in the city or open across Nigeria, soonest deadline first, and
+ * how many there are in all. Remote items are left out; every reader sees those already.
+ */
+export async function nearYou(city: CitySlug, { limit = 3 } = {}) {
+  const where: Prisma.OpportunityWhereInput = {
+    ...OPEN,
+    locationMode: { in: ["onsite", "hybrid"] },
+    country: "NG",
+    OR: [{ city }, { city: null }],
+  };
+  const [rows, total] = await Promise.all([
+    db.opportunity.findMany({
+      where,
+      orderBy: [
+        { deadlineAt: { sort: "asc", nulls: "last" } },
+        { startsAt: { sort: "asc", nulls: "last" } },
+        { id: "asc" },
+      ],
+      include: withOrganization,
+      take: limit,
+    }),
+    db.opportunity.count({ where }),
+  ]);
+  return { items: rows.map(toOpportunityDto), total };
 }
 
 /**

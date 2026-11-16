@@ -11,7 +11,10 @@ const DOT: Record<Tone, string> = {
   closed: "bg-faint",
 };
 
-/** 44px place link: urgency dot (the most urgent item there), name, count. "Remote" is a place. */
+/**
+ * 44px place link: urgency dot (the most urgent item there), name, count. "Remote" is a place.
+ * The filter row on browse has no dots, and "All places" no count (board "Filtered list").
+ */
 export function PlacePill({
   name,
   count,
@@ -20,8 +23,8 @@ export function PlacePill({
   selected = false,
 }: {
   name: string;
-  count: number;
-  tone: Tone;
+  count?: number;
+  tone?: Tone;
   href: string;
   selected?: boolean;
 }) {
@@ -29,17 +32,19 @@ export function PlacePill({
     <Link
       href={href as Route}
       aria-current={selected ? "true" : undefined}
-      className={`flex h-target shrink-0 items-center gap-[7px] whitespace-nowrap rounded-pill border pr-3.5 pl-3 text-[13px] font-medium no-underline ${
+      className={`flex h-target shrink-0 items-center gap-[7px] whitespace-nowrap rounded-pill border pr-3.5 text-[13px] font-medium no-underline ${tone ? "pl-3" : "pl-3.5"} ${
         selected ? "border-fg bg-fg text-bg" : "border-line bg-surface text-fg hover:bg-raise"
       }`}
     >
-      <span aria-hidden="true" className={`size-[7px] rounded-full ${DOT[tone]}`} />
+      {tone ? <span aria-hidden="true" className={`size-[7px] rounded-full ${DOT[tone]}`} /> : null}
       {name}
-      <span className="text-date text-[13px] opacity-75">
-        <span className="sr-only">, </span>
-        {count}
-        <span className="sr-only"> open</span>
-      </span>
+      {count === undefined ? null : (
+        <span className="text-date text-[13px] opacity-75">
+          <span className="sr-only">, </span>
+          {count}
+          <span className="sr-only"> open</span>
+        </span>
+      )}
     </Link>
   );
 }

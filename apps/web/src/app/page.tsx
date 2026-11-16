@@ -1,8 +1,9 @@
-// Placeholder until M2.4 builds the home page from board D.
-export default function Home() {
-  return (
-    <main className="mx-auto max-w-content px-4 py-8 md:px-6">
-      <h1 className="text-page-title">devspot</h1>
-    </main>
-  );
+import { Home } from "@/components/home";
+
+// docs/01 §1: public pages are cached and refreshed every 15 minutes, sooner when the engine
+// calls /api/revalidate.
+export const revalidate = 900;
+
+export default function HomePage() {
+  return <Home />;
 }

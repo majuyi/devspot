@@ -1,7 +1,7 @@
 import { db, type Prisma } from "@devspot/db";
 import type { CitySlug, OpportunityDto } from "@devspot/schema";
 import { decodeCursor, KeyCursor } from "./cursor";
-import { OPEN, withOrganization } from "./dto";
+import { OPEN, toOpportunityDto, withOrganization } from "./dto";
 import { type Keyset, keyOf, keysetAfter, keysetOrder } from "./keyset";
 import { availableIn } from "./location";
 import { type Page, page } from "./opportunities";
@@ -44,4 +44,25 @@ export async function listEvents(
     take: limit + 1,
   });
   return page(rows, limit, (r) => keyOf(BY_START, r));
+}
+
+/**
+ * Home, "Starting soon": the next events by start, from today in Lagos, and how many are
+ * upcoming in all (the same set `/events` lists, which also keeps events under way).
+ */
+export async function startingSoon({ now = new Date(), limit = 4 } = {}) {
+  const from = startOfDayWat(now);
+  const event: Prisma.OpportunityWhereInput = { ...OPEN, kind: "event", startsAt: { not: null } };
+  const [rows, total] = await Promise.all([
+    db.opportunity.findMany({
+      where: { ...event, startsAt: { gte: from } },
+      orderBy: keysetOrder(BY_START),
+      include: withOrganization,
+      take: limit,
+    }),
+    db.opportunity.count({
+      where: { AND: [event, { OR: [{ startsAt: { gte: from } }, { endsAt: { gte: from } }] }] },
+    }),
+  ]);
+  return { items: rows.map(toOpportunityDto), total };
 }

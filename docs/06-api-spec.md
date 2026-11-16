@@ -55,7 +55,7 @@ are internal and never serialized.
 
 | Method and path | Query | Returns |
 |---|---|---|
-| `GET /api/v1/opportunities` | `q`, `kinds` (csv), `city`, `country`, `remote` (`1`), `tags` (csv), `org`, `status` (`published` default, `closed`, `all`), `closingWithin` (days), `updatedSince` (ISO), `sort` (`deadline`, `new`, `updated`), `limit`, `cursor` | `{ items: OpportunityDto[], nextCursor }` |
+| `GET /api/v1/opportunities` | `q`, `kinds` (csv), `city`, `country`, `remote` (`1`), `tags` (csv), `org`, `status` (`published` default, `closed`, `all`), `closingWithin` (days), `updatedSince` (ISO), `sort` (`deadline`, `new`, `updated`; with only `event` in `kinds`, `deadline` orders by start), `limit`, `cursor` | `{ items: OpportunityDto[], nextCursor }` |
 | `GET /api/v1/opportunities/{slug}` | | `OpportunityDto` or 404 |
 | `GET /api/v1/events` | `city`, `from` (ISO date, default today), `to`, `tags`, `limit`, `cursor` | `{ items: OpportunityDto[], nextCursor }` where `kind = event`, ordered by `startsAt` |
 | `GET /api/v1/organizations` | `category`, `country`, `city`, `limit`, `cursor` | `{ items: OrganizationDto[], nextCursor }` |

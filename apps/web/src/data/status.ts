@@ -1,7 +1,7 @@
 import { db } from "@devspot/db";
 import { type SourceHealth, sourceHealth } from "@devspot/schema";
 import { OPEN } from "./dto";
-import { addMs, DAY } from "./time";
+import { addMs, DAY, HOUR } from "./time";
 
 const WORST_FIRST: SourceHealth[] = ["erroring", "stale", "new", "healthy", "disabled"];
 
@@ -50,5 +50,27 @@ export async function getStatus({ now = new Date() } = {}) {
     lastEngineRunAt: lastRun?.finishedAt?.toISOString() ?? null,
     counts: { organizations, sources: enabled, openOpportunities, publishedThisWeek },
     sources: rows,
+  };
+}
+
+/**
+ * The line under "Closing soon": how many enabled sources were read without error in the
+ * last day, and, when that is all of them, the hours since the one read longest ago.
+ */
+export async function sourceFreshness({ now = new Date() } = {}) {
+  const sources = await db.source.findMany({
+    where: { enabled: true, organization: { enabled: true } },
+    select: { lastOkAt: true },
+  });
+  const since = addMs(now, -DAY).getTime();
+  const read = sources.flatMap((s) =>
+    s.lastOkAt && s.lastOkAt.getTime() >= since ? [s.lastOkAt.getTime()] : [],
+  );
+  const all = sources.length > 0 && read.length === sources.length;
+  const oldest = Math.min(...read);
+  return {
+    total: sources.length,
+    read: read.length,
+    withinHours: all ? Math.max(1, Math.ceil((now.getTime() - oldest) / HOUR)) : 24,
   };
 }

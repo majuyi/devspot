@@ -229,8 +229,8 @@ describe.skipIf(!hasDb)("opportunity queries", () => {
     expect((await q({ remote: "1" })).every((s) => !["kuda-ios", "london"].includes(s))).toBe(true);
   });
 
-  it("home: closing soon, new this week and near you", async () => {
-    expect(slugs(await data.closingSoon(clock))).toEqual(["girls-who-code", "next-byte"]);
+  // Closing soon, starting soon and near you have their own seed in home.test.ts.
+  it("home: new this week, newest first", async () => {
     expect(slugs(await data.newThisWeek(clock))).toEqual([
       "paypal",
       "london",
@@ -239,12 +239,6 @@ describe.skipIf(!hasDb)("opportunity queries", () => {
       "devfest-ibadan",
       "ongoing",
       "nationwide",
-    ]);
-    expect(slugs(await data.nearYou("lagos"))).toEqual(["kuda-ios"]);
-    expect(slugs(await data.nearYou("ibadan"))).toEqual([
-      "past-event",
-      "ongoing",
-      "devfest-ibadan",
     ]);
   });
 

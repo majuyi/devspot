@@ -67,10 +67,13 @@ describe.skipIf(!hasDb || !webUrl)("the data layer as the restricted web role", 
     await o.deadlineCounts(clock);
     await o.openCountsByKind();
     await o.openCountsByCity();
+    await o.countOpportunities({ kinds: ["event"] }, clock);
     const c = await o.getOpportunity("c");
     if (c) await o.related(c);
     const { listEvents } = await import("../../src/data/events");
     expect((await listEvents({}, clock)).items).toHaveLength(1);
+    const { startingSoon } = await import("../../src/data/events");
+    expect((await startingSoon(clock)).total).toBe(1);
     const { feed } = await import("../../src/data/feed");
     await feed({ v: 1, kinds: [], tags: [] }, clock);
     const orgs = await import("../../src/data/organizations");
@@ -80,6 +83,8 @@ describe.skipIf(!hasDb || !webUrl)("the data layer as the restricted web role", 
     await getMeta(clock);
     const { getStatus } = await import("../../src/data/status");
     await getStatus(clock);
+    const { sourceFreshness } = await import("../../src/data/status");
+    expect((await sourceFreshness(clock)).total).toBe(1);
   });
 
   it("cannot write or read the engine's tables", async () => {
