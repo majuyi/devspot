@@ -156,11 +156,17 @@ column on the right.
 
 ### `/org` and `/org/[slug]` Organizations
 
-- Index: all enabled organizations grouped by category, each with open count and a health dot
-  (green: yielded in the last 30 days; grey: no yield yet; amber: stale; red: erroring).
-- Detail: name, description, homepage, category, base city; "Open now" list; "Past" list
-  (closed, paginated); "How we track this organization": each source with kind, URL, last
-  successful run, and a link to the registry file on GitHub ("Improve this entry").
+- Index: all enabled organizations grouped by category in a fixed order (employers first; an
+  empty category is left out), within a category most open items first, then by name. Each
+  row has the open count and a health badge (`07` §5 StatusBadge: Healthy, New, Stale in
+  amber, Erroring in red; a dot and a word, never green). An organization with several
+  sources shows its worst one.
+- Detail: name, category, base city, health, description, homepage; "Open now" (up to 30,
+  in deadline bands, then a link to browse for the organization); "Past" (the 10 most
+  recently closed, then a link to browse with closed items shown, so the page stays cached);
+  "How we track this organisation": each source with how it is read, its URL, last
+  successful read and health, and a link to the registry file on GitHub ("Improve this
+  entry"). A disabled or unknown organization is a 404.
 
 ### `/events` Events
 

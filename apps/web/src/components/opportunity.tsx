@@ -81,9 +81,8 @@ export function Opportunity({
               {o.organization.name.trim().charAt(0).toUpperCase()}
             </span>
             <span>
-              {/* /org/[slug] arrives in M2.6; the cast goes then. */}
               <Link
-                href={`/org/${o.organization.slug}` as Route}
+                href={`/org/${o.organization.slug}`}
                 className="font-medium text-fg no-underline hover:underline"
               >
                 {o.organization.name}
