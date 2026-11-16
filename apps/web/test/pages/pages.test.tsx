@@ -117,11 +117,59 @@ describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", (
       expect(text(near)).toContain("Near you · Lagos");
       expect(rowSlugs(near)).toEqual(["ev-deadline", "lagos-hybrid", "ev-ongoing"]);
       expect(link(near, "3 more in Lagos")).toBe("/opportunities?city=lagos");
-      expect(link(near, "Change city")).toBe("/");
       // The city chooses this section only.
       expect(rowSlugs(section(el, "closing-soon"))).toEqual(
         rowSlugs(section(render(await Home({})), "closing-soon")),
       );
+    });
+
+    it("the band: figures, a pill per place, and a map that needs no JavaScript", async () => {
+      const el = render(await Home({ city: "lagos" }));
+      const band = el.querySelector('section[aria-label="Where and when"]') as Element;
+      // today, ev-deadline, tomorrow and multi within 48 hours; lagos-hybrid within 7 days.
+      expect(link(band, "37open")).toBe("/opportunities");
+      expect(link(band, "5closing this week")).toBe("/opportunities?closing=7");
+      expect(link(band, "4in 48 hours")).toBe("/opportunities?closing=2");
+
+      const pills = [...band.querySelectorAll('nav[aria-label="Places"] a')];
+      expect(pills.map((a) => [text(a), a.getAttribute("href")])).toEqual([
+        ["Remote, 26 open", "/opportunities?remote=1"],
+        ["Ibadan, 5 open", "/?city=ibadan"],
+        ["Lagos, 5 open", "/"],
+      ]);
+      expect(pills.map((a) => a.getAttribute("aria-current"))).toEqual([null, null, "true"]);
+      // Remote has a deadline in 5 hours; Ibadan an event in 2 days; Lagos an event today.
+      expect(pills.map((a) => a.querySelector("span")?.className.match(/bg-\w+/)?.[0])).toEqual([
+        "bg-red",
+        "bg-amber",
+        "bg-amber",
+      ]);
+
+      const map = band.querySelector("svg") as Element;
+      expect(map.getAttribute("role")).toBe("img");
+      expect(map.getAttribute("aria-label")).toBe("Map of Nigeria. Ibadan 5, Lagos 5.");
+      const dots = [...map.querySelectorAll("circle")].map((c) => ({
+        city: c.getAttribute("data-city"),
+        cx: c.getAttribute("cx"),
+        cy: c.getAttribute("cy"),
+        r: c.getAttribute("r"),
+        fill: c.getAttribute("class")?.match(/fill-\w+/)?.[0],
+      }));
+      expect(dots).toEqual([
+        { city: "ibadan", cx: "37.6", cy: "177.5", r: "15.2", fill: "fill-amber" },
+        { city: "lagos", cx: "22.7", cy: "199.4", r: "15.2", fill: "fill-amber" },
+      ]);
+      expect(el.querySelector("script")).toBeNull();
+      expect(link(section(el, "near-you"), "Change city")).toBe("#places");
+    });
+
+    it("a chosen city with nothing open still shows its pill, selected", async () => {
+      const band = render(await Home({ city: "kano" })).querySelector(
+        'section[aria-label="Where and when"]',
+      ) as Element;
+      const kano = band.querySelector('[aria-current="true"]') as Element;
+      expect(text(kano)).toBe("Kano, 0 open");
+      expect(band.querySelector('circle[data-city="kano"]')).toBeNull();
     });
 
     it("has one h1, never says who can apply, and has no axe violations", async () => {

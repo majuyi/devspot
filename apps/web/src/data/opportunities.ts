@@ -218,6 +218,77 @@ export async function openCountsByCity() {
   return { cities, remote };
 }
 
+export type OpenPlace = {
+  count: number;
+  /** The soonest stated deadline still ahead among non-events there. */
+  nextDeadlineAt: string | null;
+  /** The soonest event start from today (in Lagos) there. */
+  nextStartsAt: string | null;
+};
+
+/**
+ * The home band (docs/01 §3): for Remote and for each city with open items, how many are
+ * open and the two instants its urgency colour is read from. Cities count on-site and hybrid
+ * items, as the map does; most items first.
+ */
+export async function openPlaces({ now = new Date() } = {}) {
+  const inCity: Prisma.OpportunityWhereInput = {
+    ...OPEN,
+    city: { not: null },
+    locationMode: { in: ["onsite", "hybrid"] },
+  };
+  const remote: Prisma.OpportunityWhereInput = { ...OPEN, locationMode: "remote" };
+  // What a row counts down to (ui/urgency `target`): a stated deadline, or an event's start.
+  const deadline: Prisma.OpportunityWhereInput = {
+    AND: [{ kind: { not: "event" } }],
+    deadlineKind: { in: ["fixed", "multiRound"] },
+    deadlineAt: { gte: now },
+  };
+  const start: Prisma.OpportunityWhereInput = {
+    AND: [{ kind: "event" }],
+    startsAt: { gte: startOfDayWat(now) },
+  };
+  const [counts, deadlines, starts, remoteCount, remoteDeadline, remoteStart] = await Promise.all([
+    db.opportunity.groupBy({ by: ["city"], where: inCity, _count: true }),
+    db.opportunity.groupBy({
+      by: ["city"],
+      where: { ...inCity, ...deadline },
+      _min: { deadlineAt: true },
+    }),
+    db.opportunity.groupBy({
+      by: ["city"],
+      where: { ...inCity, ...start },
+      _min: { startsAt: true },
+    }),
+    db.opportunity.count({ where: remote }),
+    db.opportunity.aggregate({ where: { ...remote, ...deadline }, _min: { deadlineAt: true } }),
+    db.opportunity.aggregate({ where: { ...remote, ...start }, _min: { startsAt: true } }),
+  ]);
+  const iso = (d: Date | null | undefined) => d?.toISOString() ?? null;
+  const cities = counts
+    .flatMap((g) =>
+      g.city
+        ? [
+            {
+              city: g.city,
+              count: g._count,
+              nextDeadlineAt: iso(deadlines.find((d) => d.city === g.city)?._min.deadlineAt),
+              nextStartsAt: iso(starts.find((d) => d.city === g.city)?._min.startsAt),
+            },
+          ]
+        : [],
+    )
+    .sort((a, b) => b.count - a.count || a.city.localeCompare(b.city));
+  return {
+    remote: {
+      count: remoteCount,
+      nextDeadlineAt: iso(remoteDeadline._min.deadlineAt),
+      nextStartsAt: iso(remoteStart._min.startsAt),
+    } satisfies OpenPlace,
+    cities: cities satisfies (OpenPlace & { city: string })[],
+  };
+}
+
 /** Opportunity page, "Related": the organization's other open items, then the kind in the city. */
 export async function related(o: OpportunityDto, { limit = 4 } = {}) {
   const order = [{ deadlineAt: { sort: "asc", nulls: "last" } }, { id: "asc" }] as const;

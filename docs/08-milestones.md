@@ -121,7 +121,7 @@ refreshes it.
 - [x] **M2.4 Home and browse.** `/` and `/opportunities` per `01` §3, filter bar, search,
   cursor pagination. Check: acceptance items in `01`. The map band, its three figures and
   the home place pills are M2.4b; "Save as my feed" is M2.8 (agreed 2026-11-16).
-- [ ] **M2.4b Home map.** The band on `/`: the static NigeriaMap, the three figures and the
+- [x] **M2.4b Home map.** The band on `/`: the static NigeriaMap, the three figures and the
   place pills (`07` §5), server rendered from `openCountsByCity`, no client JS. Check: the map renders with JavaScript
   off; dot sizes and colours match a seeded set; axe clean.
 - [ ] **M2.5 Opportunity page.** `/o/[slug]`, JSON-LD, `opengraph-image`, `.ics`, related
