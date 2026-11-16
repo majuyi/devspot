@@ -133,14 +133,14 @@ The kind-to-family map and the display words live in one module under
 | **NigeriaMap** | static server-rendered SVG: outline on `sea`, `land` fill, `land-line` stroke, one dot per city sized by open count and coloured by the most urgent item there | — |
 | **CitySelector** | pill showing the current city; links to a city list (works without JS), enhanced to a sheet | none set, set |
 | **DeadlineMoved** | old date struck through in `faint` above the new one | needs a deadline history (the proposed `opportunity_events` table, not yet agreed); hidden until then |
-| **RequirementsBlock** | heading "Requirements, as stated by <org>", `prose` text with `white-space: pre-line`, 1px `line` border | present, absent ("The source does not list requirements.") |
+| **RequirementsBlock** | heading "Requirements", "As stated by <org>", `prose` text with `white-space: pre-line`, then "devspot does not check who can apply…"; no border | present, absent ("The source does not list requirements.") |
 | **SourceLine** | source domain · "checked 2h ago", `meta` in `faint` | — |
 | **CalendarGrid** (M2.7) | 7-column month grid, urgency dots, selected day panel | month nav, day selected, empty day |
 | **StatusBadge** | dot + word | healthy, stale (amber), erroring (red), new, disabled |
 | **Button** | primary (`fg` ground, `bg` text), secondary (1px `line`), ghost, icon (44px round, `radius-pill`) | default, hover (`raise`), focus, disabled |
 | **EmptyState** | short line, one action | per page |
 | **Sheet** | `bg` ground, `radius-sheet` top corners, 1px `line` top edge, no shadow | open, closed |
-| **ShareImage** (M2.5) | 1200×630, wordmark, kind tag, title, organisation, countdown and date | generated per opportunity |
+| **ShareImage** | 1200×630, wordmark, kind tag, title, organisation, countdown and date | generated per opportunity |
 
 There is no component library (shadcn/ui was dropped on 2026-11-11). Components are our
 own, built on native elements (`<dialog>`, `<details>`, links) that work without
@@ -214,7 +214,7 @@ cards, a centred hero with two buttons, abstract illustrations.
 ## Acceptance
 
 - [x] `tokens.css` defines every token above for both themes; a visual test page `/dev/tokens` (excluded from sitemap) renders them.
-- [x] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components` (CalendarGrid and ShareImage arrive with their tasks).
+- [x] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components` (CalendarGrid arrives with its task; ShareImage is the `opengraph-image` route).
 - [ ] Axe reports zero violations on `/`, `/opportunities`, `/o/[slug]`, `/events`, `/calendar`, in both themes.
 - [ ] Fonts: exactly two `.woff2` files served, both preloaded, `font-display: swap`, CLS 0.
 - [ ] Grep of `apps/web/src` for `box-shadow` and `shadow-` finds nothing.

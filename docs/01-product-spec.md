@@ -15,7 +15,7 @@
 | URLs | Lowercase, hyphenated slugs. Opportunity slug: `<org-slug>-<title-slug>-<yy>` (year of first sighting), deduplicated with a short suffix on collision. Never changes once published. |
 | Dates | Displayed in West Africa Time with the day of week, e.g. `Fri 3 Oct 2026`. Status words and the countdown format are in `07` §5 and §6 (`Closes today`, `Closes Sat`, `27h` / `14m`). Times shown only when the source gives one. |
 | Deadlines | `fixed`: date shown. `rolling`: "Rolling applications". `multiRound`: "Multiple rounds, next: <date>" when known. `unknown`: "Deadline not stated on the source page". Never invent one. |
-| Requirements | `requirementsText` rendered unmodified in a bordered block titled "Requirements, as stated by <org>". No badge, chip or copy anywhere implies eligibility. |
+| Requirements | `requirementsText` rendered unmodified, with its own line breaks and never split into bullets, under the heading "Requirements" and the line "As stated by <org>", followed by "devspot does not check who can apply. Read the source page before you apply." No badge, chip or copy anywhere implies eligibility. |
 | Location | Place text shows one of `Remote`, `<City>`, `<City> · Hybrid`, `Nigeria` (nationwide), `Global`. Remote items never claim a city. |
 | Empty states | Always explain and offer one action: widen the filter, pick another city, view all. |
 | Errors | A 404 for unknown slugs with a link to browse; a 500 that still renders the shell and a retry link. Never a blank page. |
@@ -120,25 +120,39 @@ Visual reference: Claude Design board "Filtered list · results and empty".
 
 ### `/o/[slug]` Opportunity
 
-- Breadcrumb: Opportunities › Kind.
-- Title with the logo tile, organization line (name, link to `/org/[slug]`), kind tag and
+Visual reference: Claude Design boards "Opportunity page" and "Opportunity page · desktop".
+On a phone the order is as below; from 1024px the deadline, actions and source sit in a
+column on the right.
+
+- Back link to the kind's family on browse ("← Build"). A fixed link: the page is cached
+  and cannot know where the reader came from.
+- For `closed`: a banner "Applications closed on <date>"; the page remains indexable.
+- Kind tag and status word, the title, then the organisation (link to `/org/[slug]`) and
   place.
-- Deadline moved: when the deadline changed after publishing, the old date struck through
-  above the new one. Needs a deadline history (the proposed `opportunity_events` table), so
-  it ships only once that is agreed and built.
-- Key facts grid: Deadline (per deadline rules, with a countdown when fixed and within 30
-  days), Opens (if `opensAt`), Dates (events: `startsAt` to `endsAt`, venue), Location,
-  Discovered (date first seen), Verified (date last verified).
-- Primary action "Apply on <host>" linking to `applyUrl ?? canonicalUrl`, `rel="noopener"`,
-  opens a new tab. Secondary: "Share" (Web Share API, falls back to copy link), "Add to
-  calendar" (`.ics` download from `/o/[slug]/calendar.ics`).
-- Summary paragraph (`summary`), then the Requirements block (verbatim), then "Source"
-  showing the canonical URL and the organization's source page.
-- For `closed`: a banner "Applications closed on <date>" and the page remains indexable.
-- For `review`: 404 to the public; visible only in `/admin`.
-- Related: up to 4 other open items from the same organization, then 4 of the same kind in
-  the same city.
-- JSON-LD as per global rules. `og:image` route at `/o/[slug]/opengraph-image`.
+- Deadline section. Dated: "Closes · <date>" (or "Starts", or "Multiple rounds, next"), then
+  a large figure, the time when the source gave one and otherwise the day, then
+  "In 27h 14m" within 30 days. Undated: the deadline wording from §1 and one line saying
+  the page is checked every six hours. Under it, when the source gives them: Opens, and for
+  events Ends, Venue and the event's own deadline.
+- Primary action "Apply on <host>" ("View on <host>" for events and closed items) linking
+  to `applyUrl ?? canonicalUrl`, `rel="noopener"`, in a new tab. Secondary: "Add to calendar"
+  for dated open items (`/o/[slug]/calendar.ics`) and "Share on WhatsApp", a plain link.
+  Then: "You apply on <host>, not here. devspot never asks for money, documents or a login."
+- "Where this came from": Source (the canonical URL's host, linked), Last checked, First
+  listed. A "Deadline changes" row, and the old date struck through above a moved deadline,
+  need a deadline history (the proposed `opportunity_events` table) and ship once that is
+  agreed and built.
+- Requirements (per §1), then "About" (`summary`, when there is one).
+- Related: "More from <org>", up to 4 other open items from the same organization, then
+  "More <kind> in <city>", up to 4 of the same kind in the same city.
+- "Something wrong? Report this listing" opens a pre-filled GitHub issue until `/submit`
+  exists (M4).
+- For `review` and unknown slugs: a 404 page linking to browse; visible only in `/admin`.
+- JSON-LD as per global rules. `og:image` route at `/o/[slug]/opengraph-image` (board
+  "Share image", light theme), cached like the page.
+- `/o/[slug]/calendar.ics`: one event with a reminder the day before. A deadline with a
+  time is the hour ending at the deadline; with only a date it is an all-day entry. An
+  event keeps its own start and end. 404 when there is no date.
 
 ### `/org` and `/org/[slug]` Organizations
 

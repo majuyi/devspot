@@ -28,7 +28,7 @@ export type RowItem = Pick<
   | "lastVerifiedAt"
 >;
 
-// /o/[slug] arrives in M2.5; the cast goes then. Row links are not prefetched: a list of 30
+// Row links are not prefetched: a list of 30
 // would have every reader's browser ask the server to render 30 opportunity pages.
 const href = (slug: string) => `/o/${slug}` as Route;
 
