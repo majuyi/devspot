@@ -67,6 +67,7 @@ describe.skipIf(!hasDb || !webUrl)("the data layer as the restricted web role", 
     await o.deadlineCounts(clock);
     await o.openCountsByKind();
     await o.openCountsByCity();
+    expect((await o.openPlaces(clock)).cities).toHaveLength(1);
     await o.countOpportunities({ kinds: ["event"] }, clock);
     const c = await o.getOpportunity("c");
     if (c) await o.related(c);

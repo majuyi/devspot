@@ -17,6 +17,7 @@ import { GroupHeader, SectionHeader } from "@/components/headers";
 import { CalendarAddIcon } from "@/components/icons";
 import { KindTag } from "@/components/kind-tag";
 import { LogoTile } from "@/components/logo-tile";
+import { NigeriaMap } from "@/components/nigeria-map";
 import { DatedRow, UndatedRow } from "@/components/rows";
 import { StatusWord } from "@/components/status-word";
 import { FAMILIES, kindsOf } from "@/ui/kind";
@@ -195,6 +196,20 @@ export function ComponentsGallery({ now }: { now: Date }) {
           message="Nothing open in Kano right now."
           action={{ href: "/opportunities", label: "See every city" }}
         />
+      </Part>
+
+      <Part title="Nigeria map">
+        <div className="bg-sea p-4">
+          <NigeriaMap
+            className="h-[146px] w-[164px]"
+            places={[
+              { city: "lagos", count: 5, tone: "none" },
+              { city: "ibadan", count: 1, tone: "amber" },
+              { city: "abuja", count: 12, tone: "red" },
+              { city: "kano", count: 1, tone: "none" },
+            ]}
+          />
+        </div>
       </Part>
 
       <Part title="Sheet over a band">

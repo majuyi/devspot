@@ -70,6 +70,20 @@ describe.skipIf(!hasDb)("home queries (docs/01 §3)", () => {
     expect((await data.nearYou("kano")).total).toBe(1);
   });
 
+  it("open places: counts per city and remote, with the next deadline and event start", async () => {
+    const iso = (hours: number) => new Date(NOW.getTime() + hours * 3_600_000).toISOString();
+    const places = await data.openPlaces(clock);
+    expect(places.cities).toEqual(
+      [
+        // ev-today started two hours ago but today, so it is the next start; ev-ongoing is not.
+        { city: "lagos", count: 5, nextDeadlineAt: iso(100), nextStartsAt: iso(-2) },
+        { city: "ibadan", count: 5, nextDeadlineAt: null, nextStartsAt: iso(50) },
+      ].sort((a, b) => a.city.localeCompare(b.city)),
+    );
+    // The passed deadline and the multi-round one: only the first still ahead counts.
+    expect(places.remote).toEqual({ count: 26, nextDeadlineAt: iso(5), nextStartsAt: null });
+  });
+
   it("counts what the filters match, whatever the page", async () => {
     expect(await data.countOpportunities({ kinds: ["event"] }, clock)).toBe(7);
     expect(await data.countOpportunities({ kinds: ["event"], cursor: "ignored" }, clock)).toBe(7);

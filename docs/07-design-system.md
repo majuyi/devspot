@@ -130,7 +130,7 @@ The kind-to-family map and the display words live in one module under
 | **KindTag** | 11px word on the family's tint, `radius-tag` | per family, closed (grey) |
 | **KindChip** | 40px filter link, tinted like the tag, `radius-chip`; "All" selected is `fg` ground with `bg` text | idle, selected |
 | **PlacePill** | 44px link, `surface` ground, urgency dot, name, mono count, `radius-pill`; "Remote" is a place | idle, selected (`fg` ground, `bg` text) |
-| **NigeriaMap** (M2.4b) | static server-rendered SVG: outline on `sea`, `land` fill, `land-line` stroke, one dot per city sized by open count and coloured by the most urgent item there | — |
+| **NigeriaMap** | static server-rendered SVG: outline on `sea`, `land` fill, `land-line` stroke, one dot per city sized by open count and coloured by the most urgent item there | — |
 | **CitySelector** | pill showing the current city; links to a city list (works without JS), enhanced to a sheet | none set, set |
 | **DeadlineMoved** | old date struck through in `faint` above the new one | needs a deadline history (the proposed `opportunity_events` table, not yet agreed); hidden until then |
 | **RequirementsBlock** | heading "Requirements, as stated by <org>", `prose` text with `white-space: pre-line`, 1px `line` border | present, absent ("The source does not list requirements.") |
@@ -214,7 +214,7 @@ cards, a centred hero with two buttons, abstract illustrations.
 ## Acceptance
 
 - [x] `tokens.css` defines every token above for both themes; a visual test page `/dev/tokens` (excluded from sitemap) renders them.
-- [x] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components` (NigeriaMap, CalendarGrid and ShareImage arrive with their tasks).
+- [x] Every component in the inventory exists under `apps/web/src/components` with a Storybook-free story page `/dev/components` (CalendarGrid and ShareImage arrive with their tasks).
 - [ ] Axe reports zero violations on `/`, `/opportunities`, `/o/[slug]`, `/events`, `/calendar`, in both themes.
 - [ ] Fonts: exactly two `.woff2` files served, both preloaded, `font-display: swap`, CLS 0.
 - [ ] Grep of `apps/web/src` for `box-shadow` and `shadow-` finds nothing.

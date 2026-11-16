@@ -59,8 +59,13 @@ Visual reference: Claude Design board "D · Map band + board" (artifact
 - Map band on `sea`: the static Nigeria map (dot per city, size by open count, colour by the
   most urgent item there) beside three linked figures in the `countdown` style, each with an
   urgency tick: open (faint), closing this week (amber), in 48 hours (red). Under it, place
-  pills for Remote and each city with open items, with counts; a pill links to
-  `/?city=<slug>`. No hero sentence, no buttons.
+  pills for Remote and each city with open items, with counts, most first; a city pill links
+  to `/?city=<slug>` (the selected one back to `/`), and Remote, which is not a city, to
+  `/opportunities?remote=1`. The figures link to browse (`closing=7`, `closing=2`). The map
+  is an image with a text label, not a control: the pills are its links. A place is red when
+  anything there closes within 48 hours or today, amber when anything closes or an event
+  starts within 7 days. Dot radius is `4 + 5 × √count`, at most 20. From 1024px the band is
+  a card at the top of the right column. No hero sentence, no buttons.
 - Sheet over the band (`radius-sheet`, overlapping by 18px). Kind family chips: All, Work,
   Build, Events, Funding, Programmes, as links to `/opportunities?kinds=<the family's kinds>`.
 - "Closing soon", with "All N open" linking to browse, and a freshness line under the
