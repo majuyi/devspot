@@ -231,10 +231,22 @@ Visual reference: Claude Design boards "Calendar · mobile" and "Calendar · des
 
 ### `/status` Status
 
-- Last engine run time and result. Counts: organizations, sources, open opportunities,
-  published this week.
-- Source health table: organization, source, kind, last OK, last yield, consecutive empty,
-  state. Sorted worst first. Each row links to the registry file. The intro text says this is
+Visual reference: Claude Design board "Status · normal and degraded". The page has two
+layers: the board's, for a reader asking whether the data is fresh, and a table for
+contributors asking which source is broken.
+
+- Top: the date, a headline ("Normal operations", or "2 sources need attention"), one
+  sentence, and three counts: On time, Late, Failing. These go by the time since a source's
+  last good read: Late after 8 hours (not the 6 between runs, since scheduled runs often
+  start late), Failing after 24, or at once when the engine marks the source erroring. A
+  source not yet read is "New"; disabled sources and those entered by hand are left out.
+- Sources: each with its organisation, site and last read, worst first: all that need
+  attention, then up to seven on time, then a link to the full table.
+- How this works: the rules in words; counts of organizations, sources, open opportunities
+  and items published this week; when the engine last ran; "Report a problem on GitHub".
+- For contributors: every source with organization (linked to its registry file), source
+  key, kind, last good read, last new item, consecutive empty runs and the engine's state
+  (`04` §7, the same one `engine health` prints). Sorted worst first. The intro says this is
   the good-first-issue list.
 - Coverage benchmark: a manually maintained list (M5) of items the weekly check found on
   YouthOp or Opportunity Desk that we missed, with a link to the fix PR when done.
