@@ -134,7 +134,7 @@ refreshes it.
   `/calendar.ics`, and the CalendarGrid component. Check: `.ics` validates; month navigation keeps the URL in sync.
 - [x] **M2.8 Feed and preferences.** `/feed`, `POST /api/prefs`, query-string precedence,
   share link. Spec: `01` §2. Check: acceptance items.
-- [ ] **M2.9 Status page.** `/status` from `Source` and `FetchRun`. Check: matches
+- [x] **M2.9 Status page.** `/status` from `Source` and `FetchRun`. Check: matches
   `engine health` output.
 - [ ] **M2.10 Admin.** Login, middleware, queue tabs (including All), review form, actions,
   `/admin/new` for hand-entered opportunities, JSON logging. Spec: `01` §4, `02` §7. Check:
