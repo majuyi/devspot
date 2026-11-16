@@ -15,17 +15,25 @@ export function generateStaticParams() {
   return [];
 }
 
+/** `/?city=all`: home with no city, whatever the reader has saved. */
+const NO_CITY = "all";
+
 type Props = { params: Promise<{ city: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { city } = await params;
   // The address readers share is the query form, not this internal path.
-  return { alternates: { canonical: `/?city=${encodeURIComponent(city)}` } };
+  return {
+    alternates: { canonical: city === NO_CITY ? "/" : `/?city=${encodeURIComponent(city)}` },
+  };
 }
 
 export default async function HomeInCity({ params }: Props) {
-  const city = CitySlug.safeParse((await params).city);
-  // A mistyped city gets plain home. The redirect is cached like a page and costs no query.
-  if (!city.success) redirect("/");
+  const { city: slug } = await params;
+  if (slug === NO_CITY) return <Home />;
+  const city = CitySlug.safeParse(slug);
+  // A mistyped city gets home with no city. Not `/`: a reader whose cookie holds the bad
+  // value would be rewritten straight back here. The redirect is cached and costs no query.
+  if (!city.success) redirect(`/?city=${NO_CITY}`);
   return <Home city={city.data} />;
 }

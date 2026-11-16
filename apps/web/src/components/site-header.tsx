@@ -1,11 +1,15 @@
+import { CITIES } from "@devspot/schema";
 import type { Route } from "next";
 import Link from "next/link";
+import { CityPill } from "./city-pill";
 import { MainNav } from "./main-nav";
+
+const CITY_NAMES = Object.fromEntries(CITIES.map((c) => [c.slug, c.name]));
 
 /**
  * Header from board D: wordmark, city pill, search button, then a scrolling nav row.
- * Static on purpose: reading the `prefs` cookie here would make every page dynamic, so the
- * pill says "Choose city" and links to /feed, where the city is set (01 §2, M2.8).
+ * Static on purpose: reading a cookie here would make every page dynamic. The pill says
+ * "Choose city" in the HTML and names the saved city once the page has loaded.
  */
 export function SiteHeader() {
   return (
@@ -15,14 +19,7 @@ export function SiteHeader() {
           <Link href="/" className="text-wordmark flex h-target grow items-center no-underline">
             devspot
           </Link>
-          <Link
-            href={"/feed" as Route}
-            className="flex h-target items-center gap-1.5 rounded-pill border border-line px-3.5 text-[13.5px] font-medium no-underline hover:bg-raise"
-          >
-            <PinIcon />
-            <span>Choose city</span>
-            <ChevronIcon />
-          </Link>
+          <CityPill names={CITY_NAMES} before={<PinIcon />} after={<ChevronIcon />} />
           <Link
             href={"/opportunities#q" as Route}
             aria-label="Search"

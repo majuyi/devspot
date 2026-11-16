@@ -35,11 +35,18 @@ type Preferences = {
 };
 ```
 
-- Stored in a cookie `prefs` as `v1.<base64url(JSON)>`, `SameSite=Lax`, one year, set by a
-  route handler `POST /api/prefs`. No account, no server-side storage.
-- Every preference is also readable from the query string (`?kinds=job,internship&city=lagos`),
-  which takes precedence over the cookie for that request. A "Save these as my feed" button
-  writes the query to the cookie.
+- Stored in a cookie `prefs` as `v1.<base64url(JSON)>`, `SameSite=Lax`, `HttpOnly`, one year,
+  set by a route handler `POST /api/prefs`: a plain form post that redirects back (303), so
+  it works without JavaScript. It refuses a post from another site, drops values it does
+  not understand, and `clear=1` removes the cookies. No account, no server-side storage.
+- The handler also writes the saved city to a plain cookie `city=<slug>`. The home rewrite
+  matches it with no code, so a reader with a saved city gets that city's home at `/`, and
+  the header reads it to name the city. `/?city=` in the URL wins over it, and `/?city=all`
+  is home with no city.
+- Every preference is also readable from the query string
+  (`?kinds=job,internship&city=lagos&tags=ml&remote=1`). A URL that names any preference is
+  the whole feed for that request, not a mix with the cookie, so a shared link shows what
+  its sender saw. A "Save as my feed" button writes it to the cookie.
 - **Feed query.** Published and not closed; `kind IN kinds` (or any); tag overlap when tags set;
   location: `locationMode = remote` OR (`country = 'NG'` AND (`city IS NULL` OR `city = pref.city`));
   with no city preference, `locationMode = remote` OR `country = 'NG'` (every Nigerian city);
@@ -85,7 +92,8 @@ Visual reference: Claude Design board "D · Map band + board" (artifact
   `/opportunities?city=`, and "Change city". The city selects this section and the pill;
   "Closing soon" and "Starting soon" stay national plus remote. `/?city=<slug>` is rewritten
   to a cached page per city (`/in/<slug>`), so home is never rendered per request; an unknown
-  city gets plain home. Reading `prefs.city` arrives with the cookie in M2.8.
+  city gets home with no city (`/?city=all`). A reader with a saved city gets that city at
+  `/` (the `city` cookie, §2); the selected pill links to `/?city=all`.
 - Footer: wordmark, one paragraph (read from each organisation's own page every six hours;
   requirements as stated by each organisation; devspot does not check who can apply),
   links About, Contribute on GitHub, Status, API, Licence, Calendar feed, and "All times in
@@ -116,7 +124,7 @@ Visual reference: Claude Design board "Filtered list · results and empty".
   `to_tsvector('english', title || ' ' || coalesce(summary,''))` with `plainto_tsquery`.
 - Pagination: 30 rows, then a "Next page" link carrying `cursor`. A link, not an appending
   button, so it works without JavaScript. Pages after the first are `noindex`.
-- "Save as my feed" arrives with `POST /api/prefs` in M2.8.
+- "Save as my feed" when a kind, city, tag or remote filter is set (see `/feed`).
 
 ### `/o/[slug]` Opportunity
 
@@ -207,10 +215,19 @@ Visual reference: Claude Design boards "Calendar · mobile" and "Calendar · des
 
 ### `/feed` My feed
 
-- If no preferences and no query: an onboarding form (kinds, city, tags, remote only) that
-  posts to `/api/prefs` and redirects back.
-- Otherwise: the feed query above, with a compact header summarizing the preferences and an
-  "Edit" link, and a "Share this feed" that copies the query-string form of the URL.
+- If no preferences and no query: a form (kinds as checkboxes under the five families, a
+  city drop-down, "Remote only", topic tags) that posts to `/api/prefs` and redirects back.
+  Nothing ticked is a feed of everything.
+- Otherwise: the feed query above under two bands, "Closing in the next 14 days" (soonest
+  first) and "Everything else" (newest first), with a one-line summary of the preferences,
+  an "Edit" link (the same form, filled in, with "Clear"), "Next page" links, and "Share
+  this feed": the query-string address as text to copy and a "Share on WhatsApp" link.
+- A feed from a URL is headed "A shared feed" and offers "Save as my feed".
+- Rendered per request and `noindex`: it is the one public page that reads a cookie.
+- "Save as my feed" on `/opportunities` saves the kinds, city, tags and remote filter in
+  force; search text, organisation and closing-within are not preferences.
+- The header's city pill says "Choose city" in the HTML and names the saved city once the
+  page has loaded; it links to the form.
 
 ### `/status` Status
 

@@ -132,7 +132,7 @@ refreshes it.
   resolves.
 - [x] **M2.7 Events list and calendar.** `/events` list view, `/calendar` month grid,
   `/calendar.ics`, and the CalendarGrid component. Check: `.ics` validates; month navigation keeps the URL in sync.
-- [ ] **M2.8 Feed and preferences.** `/feed`, `POST /api/prefs`, query-string precedence,
+- [x] **M2.8 Feed and preferences.** `/feed`, `POST /api/prefs`, query-string precedence,
   share link. Spec: `01` §2. Check: acceptance items.
 - [ ] **M2.9 Status page.** `/status` from `Source` and `FetchRun`. Check: matches
   `engine health` output.
