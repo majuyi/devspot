@@ -314,3 +314,14 @@ export async function related(o: OpportunityDto, { limit = 4 } = {}) {
     sameKind: sameKind.map(toOpportunityDto),
   };
 }
+
+/** `/org/[slug]`, "Past": the organization's closed items, most recently closed first. */
+export async function pastOpportunities(org: string, { limit = 10 } = {}) {
+  const rows = await db.opportunity.findMany({
+    where: { ...PUBLIC, status: "closed", organization: { slug: org } },
+    orderBy: [{ closedAt: { sort: "desc", nulls: "last" } }, { id: "desc" }],
+    include: withOrganization,
+    take: limit,
+  });
+  return rows.map(toOpportunityDto);
+}

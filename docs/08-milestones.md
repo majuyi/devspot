@@ -128,7 +128,7 @@ refreshes it.
   items, closed banner, 404 for review items, the ShareImage design. Check: tags, image
   (1200×630, under 100 KB) and `.ics` verified locally; the unfurl test in a WhatsApp or
   Facebook debugger needs a public URL and moves to M2.12 (agreed 2026-11-16).
-- [ ] **M2.6 Organizations.** `/org`, `/org/[slug]`, health dots. Check: registry file link
+- [x] **M2.6 Organizations.** `/org`, `/org/[slug]`, health dots. Check: registry file link
   resolves.
 - [ ] **M2.7 Events list and calendar.** `/events` list view, `/calendar` month grid,
   `/calendar.ics`, and the CalendarGrid component. Check: `.ics` validates; month navigation keeps the URL in sync.
