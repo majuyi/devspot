@@ -14,7 +14,10 @@ export function CountdownColumn({ item, serverNow }: { item: Timed; serverNow: s
   if (!c) {
     return (
       <div className="w-[52px] shrink-0 pt-[5px]">
-        <span className="text-date text-[13px] font-medium text-faint">Closed</span>
+        <span className="text-date text-[13px] font-medium text-faint">
+          {/* An open event whose start has passed is under way, not closed. */}
+          {item.status !== "closed" && t?.mode === "start" ? "Started" : "Closed"}
+        </span>
       </div>
     );
   }

@@ -11,7 +11,7 @@
 | Rule | Detail |
 |---|---|
 | Rendering | Server Components by default. Client components only for the city selector, filter chips, calendar navigation, countdown, map and the admin queue. |
-| Caching | Public pages use ISR, `revalidate = 900`. The engine calls `POST /api/revalidate` after each run to refresh sooner. |
+| Caching | Public pages use ISR, `revalidate = 900`. The engine calls `POST /api/revalidate` after each run to refresh sooner. `/opportunities` reads its filters from the query, so it is rendered per request. |
 | URLs | Lowercase, hyphenated slugs. Opportunity slug: `<org-slug>-<title-slug>-<yy>` (year of first sighting), deduplicated with a short suffix on collision. Never changes once published. |
 | Dates | Displayed in West Africa Time with the day of week, e.g. `Fri 3 Oct 2026`. Status words and the countdown format are in `07` §5 and §6 (`Closes today`, `Closes Sat`, `27h` / `14m`). Times shown only when the source gives one. |
 | Deadlines | `fixed`: date shown. `rolling`: "Rolling applications". `multiRound`: "Multiple rounds, next: <date>" when known. `unknown`: "Deadline not stated on the source page". Never invent one. |
@@ -66,8 +66,9 @@ Visual reference: Claude Design board "D · Map band + board" (artifact
 - "Closing soon", with "All N open" linking to browse, and a freshness line under the
   heading ("All 23 sources read in the last 6 hours. Status", from `FetchRun`). Published,
   not-closed, non-event items with a fixed deadline, as DatedRows grouped Today, Tomorrow,
-  This week, Later. Later is capped, with a closing link to the rest on browse.
-- "Starting soon", with "All N events" linking to `/events`: events by `startsAt`, grouped
+  This week, Later. Today, Tomorrow and This week are never capped; Later shows 5, then
+  "N more open" linking to browse.
+- "Starting soon", with "All N events" linking to `/events`: the next 4 events by `startsAt`, grouped
   This week and Later; the countdown shows days only and the status word is "Starts Fri" or
   "Scheduled".
 - "New this week", with "See all": up to 9 items published in the last 7 days, by
@@ -77,7 +78,9 @@ Visual reference: Claude Design board "D · Map band + board" (artifact
   map ("Remote items are listed for everyone"). With a city (query or `prefs.city`), up to 3
   items in that city or nationwide, then "N more in <City>" linking to
   `/opportunities?city=`, and "Change city". The city selects this section and the pill;
-  "Closing soon" and "Starting soon" stay national plus remote.
+  "Closing soon" and "Starting soon" stay national plus remote. `/?city=<slug>` is rewritten
+  to a cached page per city (`/in/<slug>`), so home is never rendered per request; an unknown
+  city gets plain home. Reading `prefs.city` arrives with the cookie in M2.8.
 - Footer: wordmark, one paragraph (read from each organisation's own page every six hours;
   requirements as stated by each organisation; devspot does not check who can apply),
   links About, Contribute on GitHub, Status, API, Licence, Calendar feed, and "All times in
@@ -85,19 +88,30 @@ Visual reference: Claude Design board "D · Map band + board" (artifact
 
 ### `/opportunities` Browse
 
+Visual reference: Claude Design board "Filtered list · results and empty".
+
 - Query params: `q`, `kinds` (csv), `city`, `remote` (`1`), `tags` (csv), `org`,
-  `closing` (`7`|`30`), `sort` (`deadline`|`new`), `cursor`.
-- Filter bar: kind chips and place pills as links (no JS needed), city select, remote toggle, closing-within select, tag
-  chips (top 12 by frequency), clear all. Every change updates the URL and re-fetches via
-  navigation, not client state.
-- Result count and a "Save as my feed" button when any filter is active.
-- Results as rows (`07` §5): with `sort=deadline`, DatedRows grouped Today, Tomorrow, This
-  week, Later, then UndatedRows; with `sort=new`, ungrouped rows by `publishedAt`. Every row
+  `closing` (`2`|`7`|`30` days), `sort` (`deadline`|`new`), `status` (`all` lists closed
+  items too), `cursor`. A value that is not understood is ignored, never an error.
+- Title and subtitle say what is listed: "Build", "Hackathons and competitions · 5 open".
+- Filters, all links or a GET form (no JS needed): a search field; kind family chips (one
+  family at a time, the selected chip clears it); place pills (All places, Remote, each city
+  with open items, with counts); "Clear all" when any filter is set. `tags`, `org`, `closing`
+  and `sort` have no control on the page but work in the URL.
+- A city lists what a reader there can take up: items in the city, nationwide and remote
+  (as in §2), and the subtitle says so.
+- Results as rows (`07` §5): with `sort=deadline`, DatedRows in bands Today, Tomorrow, This
+  week, Later, then the undated rows under "No closing date"; a list of only events is
+  ordered and banded by start. With `sort=new`, rows by `publishedAt` with no bands. Every row
   shows the source domain, "checked <relative time>" from `lastVerifiedAt`, and an
   add-to-calendar button for dated items (`/o/[slug]/calendar.ics`).
+- Under the list: "Showing 30 of 120. Closed items are hidden. Show closed".
+- An empty result says what was asked for and links to wider views.
 - Server query mirrors the feed query without preferences. Search uses Postgres
   `to_tsvector('english', title || ' ' || coalesce(summary,''))` with `plainto_tsquery`.
-- Pagination: "Load more" that appends and updates `cursor` in the URL.
+- Pagination: 30 rows, then a "Next page" link carrying `cursor`. A link, not an appending
+  button, so it works without JavaScript. Pages after the first are `noindex`.
+- "Save as my feed" arrives with `POST /api/prefs` in M2.8.
 
 ### `/o/[slug]` Opportunity
 

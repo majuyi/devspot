@@ -62,3 +62,36 @@ export const FAMILY_SELECTED: Record<Family, string> = {
   funding: "bg-k-funding-fg text-bg",
   prog: "bg-k-prog-fg text-bg",
 };
+
+export const KIND_PLURAL: Record<OpportunityKind, string> = {
+  job: "Jobs",
+  internship: "Internships",
+  hackathon: "Hackathons",
+  competition: "Competitions",
+  event: "Events",
+  scholarship: "Scholarships",
+  grant: "Grants",
+  fellowship: "Fellowships",
+  bootcamp: "Bootcamps",
+  ossProgram: "Open-source programmes",
+  accelerator: "Accelerators",
+};
+
+/** The family whose kinds are exactly these, if any: `hackathon,competition` is Build. */
+export function familyOf(kinds: readonly OpportunityKind[]): Family | undefined {
+  const chosen = new Set(kinds);
+  return FAMILIES.find((f) => {
+    const own = kindsOf(f);
+    return own.length === chosen.size && own.every((k) => chosen.has(k));
+  });
+}
+
+/** "Scholarships, grants and fellowships". */
+export function kindList(kinds: readonly OpportunityKind[]): string {
+  const words = kinds.map((k, i) => {
+    const w = KIND_PLURAL[k];
+    return i === 0 ? w : w.charAt(0).toLowerCase() + w.slice(1);
+  });
+  if (words.length <= 1) return words.join("");
+  return `${words.slice(0, -1).join(", ")} and ${words.at(-1)}`;
+}

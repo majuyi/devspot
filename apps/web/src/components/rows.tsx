@@ -28,7 +28,8 @@ export type RowItem = Pick<
   | "lastVerifiedAt"
 >;
 
-// /o/[slug] arrives in M2.5; the cast goes then.
+// /o/[slug] arrives in M2.5; the cast goes then. Row links are not prefetched: a list of 30
+// would have every reader's browser ask the server to render 30 opportunity pages.
 const href = (slug: string) => `/o/${slug}` as Route;
 
 function Meta({ item }: { item: RowItem }) {
@@ -63,7 +64,11 @@ export function DatedRow({
     <div
       className={`flex items-start gap-1 border-t border-line py-3.5 pl-4 hover:bg-raise ${closed ? "pr-4" : "pr-1.5"}`}
     >
-      <Link href={href(item.slug)} className="flex min-w-0 flex-1 gap-3 no-underline">
+      <Link
+        href={href(item.slug)}
+        prefetch={false}
+        className="flex min-w-0 flex-1 gap-3 no-underline"
+      >
         <CountdownColumn item={item} serverNow={serverNow} />
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           <div className="flex items-center justify-between gap-2">
@@ -121,6 +126,7 @@ export function UndatedRow({
   return (
     <Link
       href={href(item.slug)}
+      prefetch={false}
       className="flex gap-3 border-t border-line px-4 py-3.5 no-underline hover:bg-raise"
     >
       <LogoTile name={item.organization.name} logoUrl={logoUrl} />

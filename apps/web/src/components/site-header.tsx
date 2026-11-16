@@ -1,13 +1,6 @@
 import type { Route } from "next";
 import Link from "next/link";
-
-// Pages behind these links arrive in M2.4 to M2.9; the casts go once each route exists.
-const NAV = [
-  { href: "/opportunities", label: "Opportunities" },
-  { href: "/events", label: "Events" },
-  { href: "/calendar", label: "Calendar" },
-  { href: "/org", label: "Organisations" },
-] as const;
+import { MainNav } from "./main-nav";
 
 /**
  * Header from board D: wordmark, city pill, search button, then a scrolling nav row.
@@ -38,20 +31,7 @@ export function SiteHeader() {
             <SearchIcon />
           </Link>
         </div>
-        <nav
-          aria-label="Main"
-          className="flex gap-[18px] overflow-x-auto whitespace-nowrap px-4 text-[13px] font-medium text-muted [scrollbar-width:none] md:px-6"
-        >
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href as Route}
-              className="flex h-target items-center no-underline hover:text-fg hover:underline"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <MainNav />
       </div>
     </header>
   );
