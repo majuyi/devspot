@@ -140,7 +140,8 @@ describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", (
       expect(pills.map((a) => [text(a), a.getAttribute("href")])).toEqual([
         ["Remote, 26 open", "/opportunities?remote=1"],
         ["Ibadan, 5 open", "/?city=ibadan"],
-        ["Lagos, 5 open", "/"],
+        // Not "/": a reader with a saved city would be sent straight back to it.
+        ["Lagos, 5 open", "/?city=all"],
       ]);
       expect(pills.map((a) => a.getAttribute("aria-current"))).toEqual([null, null, "true"]);
       // Remote has a deadline in 5 hours; Ibadan an event in 2 days; Lagos an event today.

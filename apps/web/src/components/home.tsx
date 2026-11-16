@@ -245,7 +245,8 @@ function Band({
             name={findCity(p.city)?.name ?? p.city}
             count={p.count}
             tone={p.tone}
-            href={p.city === city ? "/" : `/?city=${p.city}`}
+            // "all" and not "/": a reader with a saved city would be sent straight back to it.
+            href={p.city === city ? "/?city=all" : `/?city=${p.city}`}
             selected={p.city === city}
           />
         ))}

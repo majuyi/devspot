@@ -90,6 +90,20 @@ export default async function Opportunities({ searchParams }: Props) {
           </p>
         </div>
 
+        {p.kinds.length || p.city || p.tags.length || p.remote ? (
+          // Only what a feed can hold (docs/01 §2): kinds, city, tags and remote.
+          <form method="post" action="/api/prefs" className="flex items-center gap-3 px-4 pb-3">
+            <input type="hidden" name="next" value="/feed" />
+            <input type="hidden" name="kinds" value={p.kinds.join(",")} />
+            <input type="hidden" name="city" value={p.city ?? ""} />
+            <input type="hidden" name="tags" value={p.tags.join(",")} />
+            {p.remote ? <input type="hidden" name="remote" value="1" /> : null}
+            <button type="submit" className={`${buttonClass("secondary")} text-[13px]`}>
+              Save as my feed
+            </button>
+          </form>
+        ) : null}
+
         {/* biome-ignore lint/a11y/useSemanticElements: <search> is not yet in every reader's browser */}
         <form action="/opportunities" method="get" role="search" className="flex gap-2 px-4 pb-3">
           <label htmlFor="q" className="sr-only">
