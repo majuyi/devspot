@@ -147,7 +147,7 @@ refreshes it.
   refused.
 - [x] **M2.11 API v1.** Route handlers per `06` §3, DTO validation tests, rate limiting,
   OpenAPI document. The `/api` page is M4.5. Check: acceptance items in `06`.
-- [ ] **M2.12 Deploy.** Vercel project, env vars, `POST /api/revalidate` wired from
+- [x] **M2.12 Deploy.** Vercel project, env vars, `POST /api/revalidate` wired from
   `engine.yml`, `NEXT_PUBLIC_SITE_URL`. Check: an engine run changes the home page within a
   minute; an opportunity URL unfurls with its image, title and deadline in a WhatsApp
   preview or the Facebook sharing debugger (from M2.5).

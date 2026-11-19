@@ -79,12 +79,24 @@ ends `?uselibpqcompat=true&sslmode=require`: encrypted, certificate not verified
 
 ## 4. Vercel setup
 
-1. Import the GitHub repo with root directory `apps/web`. Install and build commands and the
-   function region (`lhr1`, beside the database in London) live in `apps/web/vercel.json`.
-2. Add the environment variables from section 1 for Production and Preview. Preview shares
-   the production database read-only in effect because previews never run the engine.
-3. Domains: add the chosen domain at M5. Until then the `*.vercel.app` URL is fine.
-4. Hobby plan notes: non-commercial only (this project qualifies), cron once a day (unused),
+1. The project is `devspot` on the maintainer's team, root directory `apps/web`, deploying
+   `main` to production at `https://devspot-brown.vercel.app` (created 2026-11-19). Install
+   and build commands and the function region (`lhr1`, beside the database in London) live
+   in `apps/web/vercel.json`.
+2. Environment variables, from the table above. `DATABASE_URL` (the read-only `web` role) is
+   set for Production and Preview. `ADMIN_DATABASE_URL`, `ADMIN_TOKEN` and
+   `REVALIDATE_SECRET` are set for Production only, so a preview built from an unmerged PR
+   never has write access to the database (agreed 2026-11-19). On previews `/admin` stays
+   off.
+3. How it was set up: one script on the maintainer's machine read the passwords from the
+   Keychain (`devspot-supabase`: `postgres`, `web`, `admin`, `admin-token`,
+   `revalidate-secret`), created the `web` role if missing and re-ran Migrate for its grants,
+   created the project and its variables through the Vercel API with a one-off token typed
+   into a hidden dialog, deployed `main`, and set the GitHub secret `REVALIDATE_SECRET` and
+   variable `SITE_URL`. Nothing secret passed through the assistant or a log. To rotate a
+   value, change it in the Keychain and set it again in Vercel, then redeploy.
+4. Domains: add the chosen domain at M5. Until then the `*.vercel.app` URL is fine.
+5. Hobby plan notes: non-commercial only (this project qualifies), cron once a day (unused),
    serverless function timeout 60s on the default runtime (fine, the app only reads).
 
 ## 5. GitHub Actions
