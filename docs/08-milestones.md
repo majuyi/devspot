@@ -136,10 +136,15 @@ refreshes it.
   share link. Spec: `01` §2. Check: acceptance items.
 - [x] **M2.9 Status page.** `/status` from `Source` and `FetchRun`. Check: matches
   `engine health` output.
-- [ ] **M2.10 Admin.** Login, middleware, queue tabs (including All), review form, actions,
-  `/admin/new` for hand-entered opportunities, JSON logging. Spec: `01` §4, `02` §7. Check:
-  unauthenticated requests to `/admin/*` and `/api/admin/*` are redirected or 401; an item
-  created at `/admin/new` for Paystack publishes and a duplicate `canonicalUrl` is refused.
+- [x] **M2.10a Admin core.** Login, the proxy guard, the In review, All and Submissions tabs,
+  the review form with Publish, Publish and next, Save, Reject and Unpublish, the
+  `opportunity_events` history and the `admin` database role (ADR 0016), JSON logging. Spec:
+  `01` §4, `02` §7. Check: unauthenticated requests to `/admin/*` and `/api/admin/*` are
+  redirected or 401. Split from M2.10 (agreed 2026-11-16).
+- [ ] **M2.10b Admin, new items and duplicates.** `/admin/new` for hand-entered
+  opportunities, "Mark duplicate of", the Duplicates and Sources erroring tabs. Check: an
+  item created at `/admin/new` for Paystack publishes and a duplicate `canonicalUrl` is
+  refused.
 - [x] **M2.11 API v1.** Route handlers per `06` §3, DTO validation tests, rate limiting,
   OpenAPI document. The `/api` page is M4.5. Check: acceptance items in `06`.
 - [ ] **M2.12 Deploy.** Vercel project, env vars, `POST /api/revalidate` wired from

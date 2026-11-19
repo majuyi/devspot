@@ -15,7 +15,8 @@ Organization 1──n Source 1──n FetchRun
                     │
                     └──n RawItem 1──n Opportunity n──1 Organization
                                           │
-Submission n──1 Opportunity (optional)    └── duplicateOf (self)
+Submission n──1 Opportunity (optional)    ├── duplicateOf (self)
+                                          └──n OpportunityEvent
 Extraction (keyed by contentHash + model + promptVersion)
 UsageMeter (one row per calendar month)
 ```
@@ -31,6 +32,9 @@ UsageMeter (one row per calendar month)
 - **Opportunity** is the product atom. It has a canonical URL, a slug, a kind, dates, a
   location, verbatim requirements, and a status. It links to the `RawItem` it came from or the
   `Submission` that introduced it.
+- **OpportunityEvent** is one thing done to an opportunity: published, edited, rejected, and
+  so on, with the fields that changed and who did it (ADR 0016). Append-only. It is the audit
+  trail for `/admin` and the history "Deadline moved" will be read from.
 - **Submission** is an inbound URL from the web form or, later, a WhatsApp forward. Pre-triage.
 - **Extraction** caches LLM output by content hash so unchanged pages are never re-paid.
 - **UsageMeter** counts LLM tokens per month for the budget guard.
@@ -301,6 +305,23 @@ model Opportunity {
   @@map("opportunities")
 }
 
+/// What was done to an opportunity, by whom and when (ADR 0016). Append-only.
+model OpportunityEvent {
+  id            String                 @id @default(cuid())
+  opportunityId String
+  at            DateTime               @default(now())
+  actor         OpportunityEventActor  // admin | engine
+  action        OpportunityEventAction // created | edited | published | unpublished | rejected
+                                       // | markedDuplicate | deadlineChanged | closed
+  changes       Json                   // { field: { from, to } } for the fields that changed
+  note          String?
+
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@index([opportunityId, at(sort: Desc)])
+  @@map("opportunity_events")
+}
+
 model Submission {
   id          String            @id @default(cuid())
   url         String
@@ -423,6 +444,8 @@ These are product rules enforced in code and stated in tests:
    `identityKey`; the second becomes `duplicateOf` the first and is never published.
 7. An `Opportunity` past `deadlineAt` (or `endsAt` for events) by more than 24 hours becomes
    `closed` on the next verify pass, regardless of source state.
+8. `opportunity_events` is append-only: no role may update or delete a row. Every change a
+   maintainer makes in `/admin` writes one in the same transaction as the change.
 
 ## 5. Indexing policy
 

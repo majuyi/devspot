@@ -136,8 +136,13 @@ pipeline is visible to readers, not just to the maintainer.
 - **Public surface has no auth.** No accounts in v1. No forms except `/submit` (M4), which
   writes a `Submission` row with rate limiting by IP and a honeypot field.
 - **`/admin`** is gated by `ADMIN_TOKEN`: a login page sets an HTTP-only, `SameSite=Strict`
-  cookie containing an HMAC of the token; middleware checks it on `/admin/*` and
-  `/api/admin/*`. One maintainer. Upgrade path: Supabase Auth with an email allowlist, when a
+  cookie holding an expiry (30 days) and an HMAC of it keyed by the token, so the token is
+  never stored in the browser and changing it signs everyone out. The proxy (`src/proxy.ts`,
+  Next's name for middleware) checks it on `/admin/*` and `/api/admin/*`: pages redirect to
+  the login form, API paths get 401. Every server action checks again. Login allows five
+  tries a minute per address, and admin stays off unless the token is at least 32
+  characters. It connects to the database as its own `admin` role and records every action
+  in `opportunity_events` (ADR 0016). One maintainer. Upgrade path: Supabase Auth with an email allowlist, when a
   second reviewer exists (ADR required).
 - **Secrets** live in Vercel and GitHub Actions secrets only. `.env.example` lists names,
   never values. The engine's database credential in Actions is the pooled URL of a dedicated

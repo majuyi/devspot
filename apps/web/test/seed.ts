@@ -13,7 +13,7 @@ export async function reset(db: PrismaClient) {
   const [row] = await db.$queryRaw<{ name: string }[]>`SELECT current_database() AS name`;
   if (row?.name !== TEST_DATABASE) throw new Error(`refusing to reset ${row?.name}`);
   await db.$executeRawUnsafe(
-    "TRUNCATE organizations, sources, fetch_runs, raw_items, opportunities, submissions CASCADE",
+    "TRUNCATE organizations, sources, fetch_runs, raw_items, opportunities, opportunity_events, submissions CASCADE",
   );
 }
 

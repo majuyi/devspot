@@ -11,7 +11,8 @@
 | `DATABASE_URL` | Vercel, local | On Vercel: Supabase transaction pooler, port 6543, as the read-only `web` role (see 3), ending `?uselibpqcompat=true&sslmode=require` |
 | `DIRECT_URL` | GitHub (migrations), local | Supabase session pooler, port 5432. Used by `prisma.config.ts` only |
 | `ENGINE_DATABASE_URL` | GitHub | Session pooler URL for the `engine` role (see 3) |
-| `ADMIN_TOKEN` | Vercel | 32+ random bytes, base64 |
+| `ADMIN_TOKEN` | Vercel | 32+ random bytes, base64. Shorter than 32 characters and `/admin` stays off |
+| `ADMIN_DATABASE_URL` | Vercel | Transaction pooler URL for the `admin` role (see 3), same ending as `DATABASE_URL`. `/admin` will not run in production without it |
 | `REVALIDATE_SECRET` | Vercel, GitHub | 32+ random bytes |
 | `NEXT_PUBLIC_SITE_URL` | Vercel | `https://<domain>`; until M5 it can be unset, and the app uses the Vercel production URL |
 | `SITE_URL` | GitHub variable | The production origin, for the engine's call to `/api/revalidate` |
@@ -62,6 +63,12 @@ The web app connects as a second restricted role, `web`, created the same way. I
 in `grants.sql` is guarded by its role existing, so the file runs anywhere. The web tests
 apply it to their own database and run the whole data layer as `web`: a query on a table
 without a grant fails CI, not production.
+
+`/admin` connects as a third restricted role, `admin`, created the same way, through its own
+`ADMIN_DATABASE_URL` (ADR 0016). It reads what a reviewer needs, inserts and updates
+`opportunities`, and appends to `opportunity_events`; it deletes nothing. The admin tests
+run every action as `admin` and check that it cannot delete, and that `web` cannot read the
+history.
 
 Migrations run as the default `postgres` role.
 

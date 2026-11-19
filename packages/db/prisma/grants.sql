@@ -12,6 +12,8 @@ begin
     grant select, insert, update on organizations, sources, fetch_runs, raw_items,
       opportunities, extractions, usage_meters to engine;
     grant select on submissions to engine;
+    -- History is append-only for everyone: no update, no delete.
+    grant select, insert on opportunity_events to engine;
     grant usage, select on all sequences in schema public to engine;
   end if;
 end
@@ -25,6 +27,23 @@ begin
     execute format('grant connect on database %I to web', current_database());
     grant usage on schema public to web;
     grant select on organizations, sources, fetch_runs, opportunities to web;
+  end if;
+end
+$$;
+
+-- The admin role (created once by hand, docs/09 §3) is what /admin connects as, through its
+-- own ADMIN_DATABASE_URL, so the public pages keep the read-only web role (ADR 0016). It
+-- reads what a reviewer needs, changes and creates opportunities, and appends to their
+-- history. It never deletes, and cannot touch the registry tables or the engine's runs.
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'admin') then
+    execute format('grant connect on database %I to admin', current_database());
+    grant usage on schema public to admin;
+    grant select on organizations, sources, fetch_runs, raw_items, opportunities,
+      submissions, opportunity_events to admin;
+    grant insert, update on opportunities to admin;
+    grant insert on opportunity_events to admin;
   end if;
 end
 $$;

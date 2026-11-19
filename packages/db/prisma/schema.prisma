@@ -86,6 +86,22 @@ enum ExtractionMethod {
   manual
 }
 
+enum OpportunityEventActor {
+  admin
+  engine
+}
+
+enum OpportunityEventAction {
+  created
+  edited
+  published
+  unpublished
+  rejected
+  markedDuplicate
+  deadlineChanged
+  closed
+}
+
 enum SubmissionChannel {
   web
   whatsapp
@@ -173,6 +189,23 @@ model FetchRun {
   @@map("fetch_runs")
 }
 
+/// What was done to an opportunity, by whom and when (ADR 0016). Append-only: the durable
+/// audit trail for admin actions, and the history "Deadline moved" is read from.
+model OpportunityEvent {
+  id            String                 @id @default(cuid())
+  opportunityId String
+  at            DateTime               @default(now())
+  actor         OpportunityEventActor
+  action        OpportunityEventAction
+  changes       Json                   // { field: { from, to } } for the fields that changed
+  note          String?                // a reject reason, or what a maintainer wrote
+
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@index([opportunityId, at(sort: Desc)])
+  @@map("opportunity_events")
+}
+
 model RawItem {
   id           String    @id @default(cuid())
   sourceId     String
@@ -250,6 +283,7 @@ model Opportunity {
   submission   Submission?   @relation(fields: [submissionId], references: [id])
   duplicateOf  Opportunity?  @relation("Duplicates", fields: [duplicateOfId], references: [id])
   duplicates   Opportunity[] @relation("Duplicates")
+  events       OpportunityEvent[]
 
   @@index([status, deadlineAt])
   @@index([status, kind, country, city])
