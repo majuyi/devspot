@@ -22,14 +22,22 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           Admin
         </a>
         {signedIn ? (
-          <form action={logout}>
-            <button
-              type="submit"
-              className="flex h-target items-center rounded-pill px-3 text-[13px] text-muted hover:bg-raise hover:text-fg"
+          <div className="flex items-center gap-1">
+            <a
+              href="/admin/new"
+              className="flex h-target items-center rounded-pill px-3 text-[13px] font-medium no-underline hover:bg-raise"
             >
-              Log out
-            </button>
-          </form>
+              New opportunity
+            </a>
+            <form action={logout}>
+              <button
+                type="submit"
+                className="flex h-target items-center rounded-pill px-3 text-[13px] text-muted hover:bg-raise hover:text-fg"
+              >
+                Log out
+              </button>
+            </form>
+          </div>
         ) : null}
       </div>
       {signedIn && !adminDbConfigured() ? (

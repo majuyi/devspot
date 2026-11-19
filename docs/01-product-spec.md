@@ -269,11 +269,18 @@ Static content pages. `/api` embeds the OpenAPI document with a lightweight rend
   (every opportunity in any status, searchable by title, organization and URL, with filters
   for status, kind and organization, so a published item can be found and corrected). The
   tab, search, filters and page are in the URL; an item link carries that URL, so an action
-  returns to the same view. Duplicates and Sources erroring arrive in M2.10b.
+  returns to the same view. Duplicates lists groups of live items (in review, published or
+  closed, not already marked) sharing an `identityKey`. Sources erroring lists erroring and
+  stale sources with the last failed read's status and message, linked to the registry
+  file.
 - `/admin/new`: create an opportunity by hand, for `manual` sources and anything the engine
-  missed. The same form as the review item view, without the source-text pane; the
-  organization is chosen from the registry. Before saving, an existing row with the same
-  `canonicalUrl` or `identityKey` is shown and the action becomes "Open existing". A deadline
+  missed, for any organization in the registry. Two steps, so the check comes before saving
+  and works without JavaScript. Step one asks for the organization, the page address and
+  the title: a row with the same `canonicalUrl` is shown with "Open existing" and creation
+  is refused; rows with the same `identityKey` are shown with "Open existing" first and "This
+  is a different opportunity. Continue." second. Step two is the review form's fields
+  without the source-text pane. The identity key and slug are computed by the same code as
+  the engine's loader (`@devspot/schema` and `@devspot/db`). A deadline
   is entered only as the organization's page states it; the field defaults to `unknown`. The
   row gets `discoveredVia = manual`, `extractionMethod = manual`, `confidence = 1`,
   `rawItemId = null`, and `reviewedAt`; Publish and Save without publishing work as below.
@@ -283,7 +290,11 @@ Static content pages. `/api` embeds the OpenAPI document with a lightweight rend
   fixed. Dates are entered as the source states them, in Lagos time, with the time left empty
   unless the source gives one; a date is accepted only with a `fixed` or `multiRound`
   deadline. Actions: Publish, Publish and next (opens the next item in review), Save
-  without publishing, Reject (with reason), and Mark duplicate of (M2.10b). Publishing needs
+  without publishing, Reject (with reason), and Mark duplicate of: a search by title or
+  address listing up to ten other live rows, each with its own button. Marking a duplicate
+  sets `duplicateOfId`, moves the item to `rejected` with the reason "Duplicate of <title>",
+  and so takes a published copy off the site (invariant 6). The original may not itself be
+  a duplicate, so there are no loops. Publishing needs
   a kind and a location mode and sets `reviewedAt` and `publishedAt`; any edit sets
   `extractionMethod = manual`. On a published item, Publish reads "Save changes" and Reject
   reads "Unpublish" (back to `review`). A published item links to "View on site".

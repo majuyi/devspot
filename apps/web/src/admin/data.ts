@@ -1,8 +1,9 @@
 import type { Prisma } from "@devspot/db";
-import { OpportunityKind } from "@devspot/schema";
+import { identityKey, OpportunityKind, type SourceHealth, sourceHealth } from "@devspot/schema";
 import { adminDb } from "./db";
 
-export const TABS = ["review", "all", "submissions"] as const;
+// In the order docs/01 §4 lists them.
+export const TABS = ["review", "submissions", "duplicates", "sources", "all"] as const;
 export type Tab = (typeof TABS)[number];
 
 export const STATUSES = ["review", "published", "closed", "rejected"] as const;
@@ -103,12 +104,115 @@ export async function listQueue(f: QueueFilters): Promise<{ rows: QueueRow[]; to
 
 export async function tabCounts(): Promise<Record<Tab, number>> {
   const db = adminDb();
-  const [review, all, submissions] = await Promise.all([
+  const [review, all, submissions, duplicates, sources] = await Promise.all([
     db.opportunity.count({ where: { status: "review" } }),
     db.opportunity.count(),
     db.submission.count({ where: { status: "new" } }),
+    duplicateKeys().then((keys) => keys.length),
+    troubledSources().then((rows) => rows.length),
   ]);
-  return { review, all, submissions };
+  return { review, submissions, duplicates, sources, all };
+}
+
+/** Live rows: the ones a duplicate could still confuse a reader with. */
+const LIVE: Prisma.OpportunityWhereInput = {
+  status: { in: ["review", "published", "closed"] },
+  duplicateOfId: null,
+};
+
+/** Identity keys two or more live rows share (docs/01 §4, Duplicates suggested). */
+async function duplicateKeys(): Promise<string[]> {
+  const groups = await adminDb().opportunity.groupBy({
+    by: ["identityKey"],
+    where: LIVE,
+    _count: { _all: true },
+    having: { identityKey: { _count: { gt: 1 } } },
+    orderBy: { identityKey: "asc" },
+  });
+  return groups.map((g) => g.identityKey);
+}
+
+/** The Duplicates tab: each shared identity key with its rows, oldest first. */
+export async function listDuplicateGroups() {
+  const keys = await duplicateKeys();
+  if (!keys.length) return [];
+  const rows = await adminDb().opportunity.findMany({
+    where: { ...LIVE, identityKey: { in: keys } },
+    select: { ...listSelect, identityKey: true },
+    orderBy: [{ createdAt: "asc" }, { id: "asc" }],
+  });
+  return keys.map((key) => ({ key, rows: rows.filter((r) => r.identityKey === key) }));
+}
+
+/** The Sources erroring tab: erroring and stale sources, with what went wrong last. */
+export async function troubledSources() {
+  const sources = await adminDb().source.findMany({
+    include: {
+      organization: { select: { slug: true, name: true, enabled: true } },
+      _count: { select: { fetchRuns: true } },
+      fetchRuns: {
+        where: { ok: false },
+        orderBy: { startedAt: "desc" },
+        take: 1,
+        select: { error: true, httpStatus: true, startedAt: true },
+      },
+    },
+    orderBy: { key: "asc" },
+  });
+  const worst: SourceHealth[] = ["erroring", "stale"];
+  return sources
+    .map((s) => ({
+      ...s,
+      health: sourceHealth(
+        { ...s, enabled: s.enabled && s.organization.enabled },
+        s._count.fetchRuns,
+      ),
+    }))
+    .filter((s) => worst.includes(s.health))
+    .sort(
+      (a, b) => worst.indexOf(a.health) - worst.indexOf(b.health) || a.key.localeCompare(b.key),
+    );
+}
+
+/** "Mark duplicate of": up to ten other rows whose title or address contains the search. */
+export async function duplicateCandidates(id: string, q: string) {
+  const contains = { contains: q, mode: "insensitive" } as const;
+  return adminDb().opportunity.findMany({
+    where: {
+      id: { not: id },
+      duplicateOfId: null,
+      status: { not: "rejected" },
+      OR: [{ title: contains }, { canonicalUrl: contains }],
+    },
+    select: listSelect,
+    orderBy: [{ updatedAt: "desc" }, { id: "desc" }],
+    take: 10,
+  });
+}
+
+/**
+ * /admin/new step one: what already exists for this page or this opportunity. A row with
+ * the same address blocks creation; one with the same identity key (organisation, title
+ * without years and cohort numbers, cycle year) is shown so the maintainer can decide.
+ */
+export async function findExisting(
+  orgSlug: string,
+  canonicalUrl: string,
+  title: string,
+  now: Date,
+) {
+  const db = adminDb();
+  const key = identityKey(orgSlug, { title }, now);
+  const [sameUrl, sameKey] = await Promise.all([
+    db.opportunity.findUnique({ where: { canonicalUrl }, select: listSelect }),
+    db.opportunity.findMany({
+      where: { identityKey: key, canonicalUrl: { not: canonicalUrl } },
+      select: listSelect,
+      orderBy: { createdAt: "asc" },
+      take: 5,
+    }),
+  ]);
+  return { sameUrl, sameKey };
 }
 
 export async function organizationOptions() {
@@ -133,6 +237,7 @@ export async function getItem(id: string) {
     include: {
       organization: { select: { slug: true, name: true } },
       rawItem: { select: { text: true, title: true, canonicalUrl: true } },
+      duplicateOf: { select: { id: true, title: true } },
       events: { orderBy: { at: "desc" }, take: 20 },
     },
   });

@@ -1,16 +1,13 @@
-import { CITIES, DeadlineKind, LocationMode, OpportunityKind, TAGS } from "@devspot/schema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { saveOpportunity } from "@/admin/actions";
-import { getItem, type Item } from "@/admin/data";
-import { lagosInputs, safeBack } from "@/admin/form";
+import { markDuplicate, saveOpportunity } from "@/admin/actions";
+import { duplicateCandidates, getItem, type Item } from "@/admin/data";
+import { Field, INPUT, Label, OpportunityFields } from "@/admin/fields";
+import { safeBack } from "@/admin/form";
 import { highlight } from "@/admin/highlight";
 import { requireAdmin } from "@/admin/session";
 import { buttonClass } from "@/components/blocks";
-import { KIND_LABEL } from "@/ui/kind";
-import { tagLabel } from "@/ui/prefs";
 import { ago } from "@/ui/status";
-import { formatDate } from "@/ui/time";
 
 export const metadata: Metadata = { title: "Review" };
 
@@ -20,81 +17,6 @@ type Props = {
 };
 
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
-const INPUT = "h-10 w-full rounded-tile border border-line bg-surface px-2.5 text-[14px] text-fg";
-const AREA = "w-full rounded-tile border border-line bg-surface px-2.5 py-2 text-[14px] text-fg";
-const LABEL = "flex items-baseline justify-between gap-2 text-[12px] font-medium text-muted";
-
-const DEADLINE_KIND: Record<DeadlineKind, string> = {
-  unknown: "Not stated on the source page",
-  fixed: "Fixed: the source states a date",
-  rolling: "Rolling applications",
-  multiRound: "Multiple rounds",
-};
-const LOCATION: Record<LocationMode, string> = {
-  remote: "Remote",
-  onsite: "On site",
-  hybrid: "Hybrid",
-};
-
-/** A label with the extractor's confidence for that field, when it gave one. */
-function Label({ htmlFor, children, sure }: { htmlFor: string; children: string; sure?: number }) {
-  return (
-    <label htmlFor={htmlFor} className={LABEL}>
-      {children}
-      {sure === undefined ? null : (
-        <span className="text-date text-[11px] font-normal text-faint">sure {sure.toFixed(2)}</span>
-      )}
-    </label>
-  );
-}
-
-function Field({ children }: { children: React.ReactNode }) {
-  return <div className="flex min-w-0 flex-col gap-1">{children}</div>;
-}
-
-/** A date and an optional time, as the source states them, in Lagos time. */
-function When({
-  name,
-  label,
-  at,
-  sure,
-}: {
-  name: string;
-  label: string;
-  at: Date | null;
-  sure?: number;
-}) {
-  const v = lagosInputs(at);
-  return (
-    <fieldset className="m-0 flex min-w-0 flex-col gap-1 border-0 p-0">
-      <legend className={`${LABEL} w-full p-0`}>
-        {label}
-        {sure === undefined ? null : (
-          <span className="text-date text-[11px] font-normal text-faint">
-            sure {sure.toFixed(2)}
-          </span>
-        )}
-      </legend>
-      <div className="flex gap-2">
-        <input
-          type="date"
-          name={`${name}Date`}
-          defaultValue={v.date}
-          aria-label={`${label}, date`}
-          className={INPUT}
-        />
-        <input
-          type="time"
-          name={`${name}Time`}
-          defaultValue={v.time}
-          aria-label={`${label}, time, only if the source states one`}
-          className={`${INPUT} max-w-[130px]`}
-        />
-      </div>
-    </fieldset>
-  );
-}
-
 const ACTION_WORD: Record<string, string> = {
   created: "Created",
   edited: "Edited",
@@ -149,6 +71,9 @@ export default async function ReviewItem({ params, searchParams }: Props) {
   const sure = (item.fieldConfidence ?? {}) as Record<string, number | undefined>;
   const isPublic = item.status === "published" || item.status === "closed";
   const inReview = item.status === "review";
+  const dupq = one(sp.dupq).trim().slice(0, 200);
+  const candidates = dupq && !item.duplicateOf ? await duplicateCandidates(item.id, dupq) : [];
+  const self = `/admin/o/${item.id}`;
 
   return (
     <main className="flex flex-col gap-4 pt-4">
@@ -184,6 +109,17 @@ export default async function ReviewItem({ params, searchParams }: Props) {
           className="text-body m-0 rounded-tile border border-line bg-raise px-3.5 py-3"
         >
           Saved.
+        </p>
+      ) : null}
+      {item.duplicateOf ? (
+        <p className="m-0 text-[13px]">
+          Duplicate of{" "}
+          <a
+            href={`/admin/o/${item.duplicateOf.id}?back=${encodeURIComponent(back)}`}
+            className="underline underline-offset-[3px]"
+          >
+            {item.duplicateOf.title}
+          </a>
         </p>
       ) : null}
       {item.statusReason ? (
@@ -242,6 +178,67 @@ export default async function ReviewItem({ params, searchParams }: Props) {
           )}
           <h2 className="text-section m-0 mt-4">History</h2>
           <History item={item} now={now} />
+          {item.duplicateOf ? null : (
+            <section aria-labelledby="duplicate" className="mt-4 flex flex-col gap-2">
+              <h2 id="duplicate" className="text-section m-0">
+                Mark duplicate of
+              </h2>
+              <p className="m-0 text-[13px] text-muted">
+                Find the original. Marking this item a duplicate takes it off the site and keeps a
+                link to the original.
+              </p>
+              {/* biome-ignore lint/a11y/useSemanticElements: <search> is not yet in every browser */}
+              <form action={self} method="get" role="search" className="flex gap-2">
+                <input type="hidden" name="back" value={back} />
+                <label htmlFor="dupq" className="sr-only">
+                  Title or address of the original
+                </label>
+                <input
+                  id="dupq"
+                  name="dupq"
+                  type="search"
+                  defaultValue={dupq}
+                  placeholder="Title or address of the original"
+                  className={INPUT}
+                />
+                <button type="submit" className={`${buttonClass("secondary")} h-10 shrink-0`}>
+                  Search
+                </button>
+              </form>
+              {dupq ? (
+                candidates.length ? (
+                  <ul className="m-0 flex list-none flex-col p-0 text-[13px]">
+                    {candidates.map((c) => (
+                      <li
+                        key={c.id}
+                        className="flex items-center justify-between gap-3 border-b border-line py-2"
+                      >
+                        <span className="flex min-w-0 flex-col">
+                          <span className="font-medium">{c.title}</span>
+                          <span className="truncate text-muted">
+                            {c.organization.name} · {c.status} · {c.canonicalUrl}
+                          </span>
+                        </span>
+                        <form action={markDuplicate} className="shrink-0">
+                          <input type="hidden" name="id" value={item.id} />
+                          <input type="hidden" name="originalId" value={c.id} />
+                          <input type="hidden" name="back" value={back} />
+                          <button
+                            type="submit"
+                            className={`${buttonClass("secondary")} h-9 text-[13px]`}
+                          >
+                            Mark as copy<span className="sr-only"> of {c.title}</span>
+                          </button>
+                        </form>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="m-0 text-[13px] text-muted">Nothing else matches “{dupq}”.</p>
+                )
+              ) : null}
+            </section>
+          )}
         </section>
 
         <form action={saveOpportunity} className="flex min-w-0 flex-col gap-3.5">
@@ -249,204 +246,7 @@ export default async function ReviewItem({ params, searchParams }: Props) {
           <input type="hidden" name="back" value={back} />
           <h2 className="text-section m-0">Fields</h2>
 
-          <Field>
-            <Label htmlFor="title" sure={sure.title}>
-              Title
-            </Label>
-            <input id="title" name="title" required defaultValue={item.title} className={INPUT} />
-          </Field>
-          <div className="grid gap-3.5 sm:grid-cols-2">
-            <Field>
-              <Label htmlFor="kind" sure={sure.kind}>
-                Kind
-              </Label>
-              <select
-                id="kind"
-                name="kind"
-                required
-                defaultValue={item.kind ?? ""}
-                className={INPUT}
-              >
-                <option value="">Not set</option>
-                {OpportunityKind.options.map((k) => (
-                  <option key={k} value={k}>
-                    {KIND_LABEL[k]}
-                  </option>
-                ))}
-              </select>
-            </Field>
-            <Field>
-              <Label htmlFor="locationMode" sure={sure.locationMode}>
-                Location
-              </Label>
-              <select
-                id="locationMode"
-                name="locationMode"
-                required
-                defaultValue={item.locationMode ?? ""}
-                className={INPUT}
-              >
-                <option value="">Not set</option>
-                {LocationMode.options.map((m) => (
-                  <option key={m} value={m}>
-                    {LOCATION[m]}
-                  </option>
-                ))}
-              </select>
-            </Field>
-            <Field>
-              <Label htmlFor="country" sure={sure.country}>
-                Country (two letters; empty if not tied to one)
-              </Label>
-              <input
-                id="country"
-                name="country"
-                maxLength={2}
-                defaultValue={item.country ?? ""}
-                className={INPUT}
-              />
-            </Field>
-            <Field>
-              <Label htmlFor="city" sure={sure.city}>
-                City (empty with NG means nationwide)
-              </Label>
-              <select id="city" name="city" defaultValue={item.city ?? ""} className={INPUT}>
-                <option value="">None</option>
-                {CITIES.map((c) => (
-                  <option key={c.slug} value={c.slug}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </Field>
-          </div>
-
-          <Field>
-            <Label htmlFor="deadlineKind" sure={sure.deadlineKind}>
-              Deadline, only as the organisation's page states it
-            </Label>
-            <select
-              id="deadlineKind"
-              name="deadlineKind"
-              defaultValue={item.deadlineKind}
-              className={INPUT}
-            >
-              {DeadlineKind.options.map((k) => (
-                <option key={k} value={k}>
-                  {DEADLINE_KIND[k]}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <div className="grid gap-3.5 sm:grid-cols-2">
-            <When
-              name="deadlineAt"
-              label="Deadline date"
-              at={item.deadlineAt}
-              sure={sure.deadlineAt}
-            />
-            <Field>
-              <Label htmlFor="deadlineTimezone">Time zone, if the source names one</Label>
-              <input
-                id="deadlineTimezone"
-                name="deadlineTimezone"
-                placeholder="Africa/Lagos"
-                defaultValue={item.deadlineTimezone ?? ""}
-                className={INPUT}
-              />
-            </Field>
-            <When name="opensAt" label="Opens" at={item.opensAt} sure={sure.opensAt} />
-            <When name="startsAt" label="Starts" at={item.startsAt} sure={sure.startsAt} />
-            <When name="endsAt" label="Ends" at={item.endsAt} sure={sure.endsAt} />
-          </div>
-          <p className="m-0 text-[12px] text-faint">
-            Dates and times are in Lagos time. Leave the time empty unless the source gives one.
-            {item.deadlineAt
-              ? ` Stored deadline: ${formatDate(item.deadlineAt, { time: true })}.`
-              : ""}
-          </p>
-
-          <div className="grid gap-3.5 sm:grid-cols-2">
-            <Field>
-              <Label htmlFor="venueName">Venue</Label>
-              <input
-                id="venueName"
-                name="venueName"
-                defaultValue={item.venueName ?? ""}
-                className={INPUT}
-              />
-            </Field>
-            <Field>
-              <Label htmlFor="venueAddress">Venue address</Label>
-              <input
-                id="venueAddress"
-                name="venueAddress"
-                defaultValue={item.venueAddress ?? ""}
-                className={INPUT}
-              />
-            </Field>
-          </div>
-          <Field>
-            <Label htmlFor="applyUrl">Apply link, if different from the page above</Label>
-            <input
-              id="applyUrl"
-              name="applyUrl"
-              type="url"
-              defaultValue={item.applyUrl ?? ""}
-              className={INPUT}
-            />
-          </Field>
-          <Field>
-            <Label htmlFor="summary" sure={sure.summary}>
-              Summary (280 characters at most; never says who qualifies)
-            </Label>
-            <textarea
-              id="summary"
-              name="summary"
-              rows={3}
-              maxLength={280}
-              defaultValue={item.summary ?? ""}
-              className={AREA}
-            />
-          </Field>
-          <Field>
-            <Label htmlFor="requirementsText" sure={sure.requirementsText}>
-              Requirements, word for word from the source
-            </Label>
-            <textarea
-              id="requirementsText"
-              name="requirementsText"
-              rows={7}
-              defaultValue={item.requirementsText ?? ""}
-              className={AREA}
-            />
-          </Field>
-          <fieldset className="m-0 flex flex-col gap-1 border-0 p-0">
-            <legend className={`${LABEL} p-0`}>Topics</legend>
-            <div className="grid grid-cols-2 gap-x-4 sm:grid-cols-3">
-              {TAGS.map((t) => (
-                <label key={t} className="flex min-h-9 items-center gap-2 text-[13px]">
-                  <input
-                    type="checkbox"
-                    name="tags"
-                    value={t}
-                    defaultChecked={item.tags.includes(t)}
-                    className="size-4 accent-fg"
-                  />
-                  {tagLabel(t)}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          <Field>
-            <Label htmlFor="regionsTags">Region hints, comma separated</Label>
-            <input
-              id="regionsTags"
-              name="regionsTags"
-              defaultValue={item.regionsTags.join(", ")}
-              className={INPUT}
-            />
-          </Field>
+          <OpportunityFields v={item} sure={sure} />
 
           <Field>
             <Label htmlFor="note">Note or reason, kept in the history</Label>

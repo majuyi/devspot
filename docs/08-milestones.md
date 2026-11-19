@@ -141,7 +141,7 @@ refreshes it.
   `opportunity_events` history and the `admin` database role (ADR 0016), JSON logging. Spec:
   `01` §4, `02` §7. Check: unauthenticated requests to `/admin/*` and `/api/admin/*` are
   redirected or 401. Split from M2.10 (agreed 2026-11-16).
-- [ ] **M2.10b Admin, new items and duplicates.** `/admin/new` for hand-entered
+- [x] **M2.10b Admin, new items and duplicates.** `/admin/new` for hand-entered
   opportunities, "Mark duplicate of", the Duplicates and Sources erroring tabs. Check: an
   item created at `/admin/new` for Paystack publishes and a duplicate `canonicalUrl` is
   refused.
