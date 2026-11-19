@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { RateLimiter } from "@/api/rate-limit";
 import { ADMIN_COOKIE, adminToken, newSession, SESSION_SECONDS, tokenMatches } from "./auth";
+import { createManual, markDuplicateOf } from "./create";
 import { nextReviewId } from "./data";
 import { adminDb } from "./db";
 import {
@@ -169,4 +170,16 @@ export async function saveOpportunity(form: FormData): Promise<void> {
     go(next ? itemHref(next, back) : back);
   }
   go(publishing ? back : itemHref(id, back, "&saved=1"));
+}
+
+export async function createOpportunity(form: FormData): Promise<void> {
+  await requireAdmin();
+  go(await createManual(form, new Date()));
+}
+
+export async function markDuplicate(form: FormData): Promise<void> {
+  await requireAdmin();
+  const to = await markDuplicateOf(form);
+  revalidatePath("/", "layout");
+  go(to);
 }

@@ -1,5 +1,6 @@
 import { OpportunityKind } from "@devspot/schema";
 import {
+  listDuplicateGroups,
   listQueue,
   listSubmissions,
   organizationOptions,
@@ -11,17 +12,22 @@ import {
   TABS,
   type Tab,
   tabCounts,
+  troubledSources,
 } from "@/admin/data";
 import { requireAdmin } from "@/admin/session";
-import { buttonClass } from "@/components/blocks";
+import { buttonClass, StatusBadge } from "@/components/blocks";
+import { REPO_URL } from "@/data/site";
 import { KIND_LABEL } from "@/ui/kind";
+import { registryPath, SOURCE_KIND_LABEL } from "@/ui/org";
 import { ago } from "@/ui/status";
 import { formatDate } from "@/ui/time";
 
 const TAB_LABEL: Record<Tab, string> = {
   review: "In review",
-  all: "All",
   submissions: "Submissions",
+  duplicates: "Duplicates",
+  sources: "Sources erroring",
+  all: "All",
 };
 
 const INPUT = "h-10 rounded-tile border border-line bg-surface px-2.5 text-[14px] text-fg";
@@ -37,11 +43,14 @@ export default async function Queue({ searchParams }: Props) {
   await requireAdmin();
   const f = parseQueue(await searchParams);
   const now = new Date();
-  const [counts, list, submissions, orgs] = await Promise.all([
+  const listed = f.tab === "review" || f.tab === "all";
+  const [counts, list, submissions, orgs, groups, sources] = await Promise.all([
     tabCounts(),
-    f.tab === "submissions" ? null : listQueue(f),
+    listed ? listQueue(f) : null,
     f.tab === "submissions" ? listSubmissions() : null,
     f.tab === "all" ? organizationOptions() : [],
+    f.tab === "duplicates" ? listDuplicateGroups() : null,
+    f.tab === "sources" ? troubledSources() : null,
   ]);
   const here = queueHref(f);
   const pages = list ? Math.max(1, Math.ceil(list.total / PAGE_SIZE)) : 1;
@@ -194,6 +203,118 @@ export default async function Queue({ searchParams }: Props) {
             </nav>
           ) : null}
         </>
+      ) : null}
+
+      {groups ? (
+        groups.length ? (
+          <div className="flex flex-col gap-5">
+            <p className="m-0 text-[13px] text-muted">
+              Items that share an identity key: same organisation, the same title once years and
+              cohort numbers are taken out, the same year. Open the copy and use "Mark duplicate
+              of", or leave both if they are different opportunities.
+            </p>
+            {groups.map((g) => (
+              <section key={g.key} aria-label={`Identity key ${g.key}`} className="flex flex-col">
+                <h2 className="text-date m-0 border-b border-line pb-1.5 text-[12px] font-normal text-muted">
+                  {g.key}
+                </h2>
+                <ul className="m-0 list-none p-0 text-[13px]">
+                  {g.rows.map((r) => (
+                    <li
+                      key={r.id}
+                      className="flex flex-wrap items-baseline gap-x-3 border-b border-line py-2"
+                    >
+                      <a
+                        href={`/admin/o/${r.id}?back=${encodeURIComponent(here)}`}
+                        className="font-medium underline underline-offset-[3px]"
+                      >
+                        {r.title}
+                      </a>
+                      <span className="text-muted">
+                        {r.organization.name} · {r.status} · {r.canonicalUrl}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        ) : (
+          <p className="text-body m-0 text-muted">No two live items share an identity key.</p>
+        )
+      ) : null}
+
+      {sources ? (
+        sources.length ? (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[820px] border-collapse border-b border-line text-[13px]">
+              <caption className="sr-only">Sources erroring or stale</caption>
+              <thead>
+                <tr className="text-[12px] text-muted">
+                  {[
+                    "Source",
+                    "State",
+                    "Failed in a row",
+                    "Empty in a row",
+                    "Last good read",
+                    "Last error",
+                  ].map((h) => (
+                    <th key={h} scope="col" className="px-2.5 py-2 text-left font-medium">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sources.map((s) => {
+                  const last = s.fetchRuns[0];
+                  return (
+                    <tr key={s.key}>
+                      <th scope="row" className={`${CELL} font-medium`}>
+                        <span className="flex flex-col gap-0.5">
+                          <a
+                            href={`${REPO_URL}/blob/main/${registryPath(s.organization.slug)}`}
+                            target="_blank"
+                            rel="noopener"
+                            className="underline underline-offset-[3px]"
+                          >
+                            {s.organization.name}
+                          </a>
+                          <span className="text-date text-[12px] font-normal text-muted">
+                            {s.key} · {SOURCE_KIND_LABEL[s.kind]}
+                          </span>
+                          <a
+                            href={s.url}
+                            target="_blank"
+                            rel="noopener"
+                            className="text-date text-[12px] font-normal break-all text-muted underline"
+                          >
+                            {s.url}
+                          </a>
+                        </span>
+                      </th>
+                      <td className={CELL}>
+                        <StatusBadge state={s.health} />
+                      </td>
+                      <td className={`${CELL} text-date text-[13px]`}>{s.consecutiveErrors}</td>
+                      <td className={`${CELL} text-date text-[13px]`}>{s.consecutiveEmpty}</td>
+                      <td className={`${CELL} text-date text-[13px]`}>
+                        {s.lastOkAt ? ago(s.lastOkAt.toISOString(), now) : "never"}
+                      </td>
+                      <td className={`${CELL} max-w-[320px] break-words`}>
+                        {last
+                          ? `${last.httpStatus ? `HTTP ${last.httpStatus}. ` : ""}${(last.error ?? "No message.").slice(0, 300)} (${ago(last.startedAt.toISOString(), now)})`
+                          : "No failed read on record"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-body m-0 text-muted">No source is erroring or stale.</p>
+        )
       ) : null}
 
       {submissions ? (

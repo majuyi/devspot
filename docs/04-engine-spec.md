@@ -241,7 +241,9 @@ changes.
   and `status = review` (a reviewer decides).
 - Else create. Status is `published` when invariant 3 in `docs/03-data-model.md` holds,
   otherwise `review`.
-- Slug generation as in the product spec. Collisions get a 4-char suffix.
+- Slug generation as in the product spec. Collisions get a 4-char suffix. `slugify`,
+  `normalizeTitle`, `identityKey` and `baseSlug` live in `@devspot/schema` and `uniqueSlug` in
+  `@devspot/db`, so `/admin/new` computes the same keys for a hand-entered item.
 
 Built in M1.8: `src/validate.ts` (`validateDraft`) and `src/load.ts` (`load`, the only writer
 of `Opportunity`). `normalizeTitle` drops years, numbered cohorts, batches, seasons, editions,
