@@ -151,8 +151,9 @@ refreshes it.
   `engine.yml`, `NEXT_PUBLIC_SITE_URL`. Check: an engine run changes the home page within a
   minute; an opportunity URL unfurls with its image, title and deadline in a WhatsApp
   preview or the Facebook sharing debugger (from M2.5).
-- [ ] **M2.13 Performance pass.** Bundle analysis, font check, CLS audit on real devices.
-  Check: `01` §6 budget met on every route.
+- [x] **M2.13 Performance pass.** Bundle analysis, font check, CLS audit on real devices.
+  Check: `01` §6 budget met on every route. The JavaScript budget was amended to what Next.js
+  allows (agreed 2026-11-20); a placeholder favicon until the brand at M5.
 
 ## M3 · Extraction and trust
 
