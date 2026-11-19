@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <title>devspot</title>
+  <!-- A placeholder mark until the public name and brand (M5): Geist SemiBold "d" as a path,
+       so it draws without the font. Colours are the bg and fg tokens; flips in dark mode. -->
+  <style>
+    .tile { fill: #f6f7f8; } .mark { fill: #111316; }
+    @media (prefers-color-scheme: dark) { .tile { fill: #0d0e10; } .mark { fill: #edeef0; } }
+  </style>
+  <rect class="tile" width="1000" height="1000" rx="220"/>
+  <path class="mark" transform="matrix(1 0 0 -1 205 849)" d="M260 -12Q192 -12 142.5 22.0Q93 56 66.0 119.0Q39 182 39 267Q39 352 66.0 415.0Q93 478 143.0 512.0Q193 546 260 546Q316 546 358.5 523.0Q401 500 423 458V710H551V0H429L426 79Q404 36 360.0 12.0Q316 -12 260 -12ZM299 92Q339 92 366.5 112.0Q394 132 408.5 171.5Q423 211 423 267Q423 324 408.5 363.0Q394 402 366.5 422.0Q339 442 299 442Q241 442 206.5 395.5Q172 349 172 267Q172 187 206.5 139.5Q241 92 299 92Z"/>
+</svg>

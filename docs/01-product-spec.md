@@ -316,7 +316,7 @@ Specified in `docs/06-api-spec.md`. In short: `GET /api/v1/opportunities`,
 |---|---|
 | Lighthouse mobile (all public routes) | Performance 95+, Accessibility 100, SEO 100 |
 | LCP on 4G, mid-range Android | under 2.5s |
-| Client JS on `/`, `/opportunities`, `/o/[slug]` | under 90 KB gzipped, excluding the map route |
+| Client JS on `/`, `/opportunities`, `/o/[slug]` | under 150 KB gzipped for a modern browser (the `noModule` polyfills for old browsers are not counted), of which our own client code is under 20 KB. Measured 2026-11-20 on the live site: about 139 KB, of which Next.js and React are about 128 KB and ours about 11 KB, so the earlier 90 KB could not be met without leaving Next.js (agreed 2026-11-20) |
 | CLS | 0 |
 | Fonts | two files, self-hosted, `font-display: swap`, metrics-matched fallback |
 
