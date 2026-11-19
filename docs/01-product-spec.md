@@ -18,7 +18,7 @@
 | Requirements | `requirementsText` rendered unmodified, with its own line breaks and never split into bullets, under the heading "Requirements" and the line "As stated by <org>", followed by "devspot does not check who can apply. Read the source page before you apply." No badge, chip or copy anywhere implies eligibility. |
 | Location | Place text shows one of `Remote`, `<City>`, `<City> · Hybrid`, `Nigeria` (nationwide), `Global`. Remote items never claim a city. |
 | Empty states | Always explain and offer one action: widen the filter, pick another city, view all. |
-| Errors | A 404 for unknown slugs with a link to browse; a 500 that still renders the shell and a retry link. Never a blank page. |
+| Errors | A 404 for unknown slugs with a link to browse; a 500 that still renders the shell and a retry link (`app/error.tsx`). Never a blank page. |
 | Sharing | Every opportunity and organization page has Open Graph and Twitter card tags, an `og:image` generated per opportunity (title, org, deadline, kind), and `application/ld+json` (`JobPosting` for jobs and internships, `Event` for events, `Article` otherwise). |
 | Accessibility | WCAG AA contrast, visible focus rings, landmark regions, `aria-live` for filter result counts, all icons labelled. |
 | Analytics | None in v1. `/status` is the only telemetry. |
@@ -263,11 +263,13 @@ Static content pages. `/api` embeds the OpenAPI document with a lightweight rend
 
 ## 4. Admin (`/admin`, maintainer only)
 
-- `/admin/login`: token form; sets the signed cookie.
+- `/admin/login`: token form; sets the signed cookie (`02` §7). "Log out" clears it.
 - `/admin`: review queue. Tabs: Opportunities in review (sorted by confidence asc), Submissions
   (new), Duplicates suggested (pairs sharing an `identityKey`), Sources erroring, and All
-  (every opportunity in any status, searchable by title, organization and URL, so a published
-  item can be found and corrected).
+  (every opportunity in any status, searchable by title, organization and URL, with filters
+  for status, kind and organization, so a published item can be found and corrected). The
+  tab, search, filters and page are in the URL; an item link carries that URL, so an action
+  returns to the same view. Duplicates and Sources erroring arrive in M2.10b.
 - `/admin/new`: create an opportunity by hand, for `manual` sources and anything the engine
   missed. The same form as the review item view, without the source-text pane; the
   organization is chosen from the registry. Before saving, an existing row with the same
@@ -275,14 +277,20 @@ Static content pages. `/api` embeds the OpenAPI document with a lightweight rend
   is entered only as the organization's page states it; the field defaults to `unknown`. The
   row gets `discoveredVia = manual`, `extractionMethod = manual`, `confidence = 1`,
   `rawItemId = null`, and `reviewedAt`; Publish and Save without publishing work as below.
-- Review item view: left, the source text (`RawItem.text`) with highlights for matched dates
-  and location words; right, an editable form of every `Opportunity` field with its
-  confidence. Actions: Publish, Reject (with reason), Mark duplicate of (search), Save
-  without publishing. Publishing sets `reviewedAt`, `publishedAt`, `extractionMethod = manual`
-  when any field was edited. On a published item, Publish reads "Save changes" and Reject
-  reads "Unpublish" (back to `review`).
-- Every action is a server action guarded by the admin middleware and logged to the console
-  in JSON (Vercel logs are the audit trail in v1).
+- Review item view: left, the source text (`RawItem.text`) with dates and place words marked
+  as a reading aid, and the item's history; right, an editable form of the `Opportunity`
+  fields with the extractor's confidence beside each. The organization and canonical URL are
+  fixed. Dates are entered as the source states them, in Lagos time, with the time left empty
+  unless the source gives one; a date is accepted only with a `fixed` or `multiRound`
+  deadline. Actions: Publish, Publish and next (opens the next item in review), Save
+  without publishing, Reject (with reason), and Mark duplicate of (M2.10b). Publishing needs
+  a kind and a location mode and sets `reviewedAt` and `publishedAt`; any edit sets
+  `extractionMethod = manual`. On a published item, Publish reads "Save changes" and Reject
+  reads "Unpublish" (back to `review`). A published item links to "View on site".
+- Every action is a server action that checks the session itself, behind the proxy. It
+  writes a row to `opportunity_events` in the same transaction as the change (ADR 0016: the
+  durable record, since Vercel keeps logs for about an hour), logs a JSON line to the
+  console, and refreshes the public pages.
 
 ## 5. API surface
 

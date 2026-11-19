@@ -10,6 +10,8 @@ declare module "vitest" {
     databaseUrl: string | null;
     /** The same database as the restricted `web` role, with only the grants in grants.sql. */
     webDatabaseUrl: string | null;
+    /** The same database as the `admin` role, which /admin connects as (ADR 0016). */
+    adminDatabaseUrl: string | null;
   }
 }
 
@@ -29,6 +31,7 @@ export default async function setup(project: TestProject) {
     if (process.env.CI) throw new Error("DATABASE_URL must be set in CI");
     project.provide("databaseUrl", null);
     project.provide("webDatabaseUrl", null);
+    project.provide("adminDatabaseUrl", null);
     return;
   }
   const url = new URL(base);
@@ -48,28 +51,36 @@ export default async function setup(project: TestProject) {
   await applyGrants(testUrl);
   const web = new URL(testUrl);
   web.username = "web";
-  web.password = WEB_TEST_PASSWORD;
+  web.password = ROLE_TEST_PASSWORD;
   project.provide("databaseUrl", testUrl);
   project.provide("webDatabaseUrl", web.toString());
+  const admin = new URL(testUrl);
+  admin.username = "admin";
+  admin.password = ROLE_TEST_PASSWORD;
+  project.provide("adminDatabaseUrl", admin.toString());
 }
 
-// A test server's role, never production's: production's password lives in the Keychain.
-const WEB_TEST_PASSWORD = "web-test-only";
+// Test servers' roles, never production's: production's passwords live in the Keychain.
+const ROLE_TEST_PASSWORD = "web-test-only";
 
 /**
- * Creates the `web` role on the test server if missing and applies the real grants.sql to the
- * test database, so the web-role tests see exactly the grants production gets.
+ * Creates the `web` and `admin` roles on the test server if missing and applies the real
+ * grants.sql to the test database, so the role tests see exactly the grants production gets.
  */
 async function applyGrants(testUrl: string) {
   const { createClient } = await import("@devspot/db");
   const su = createClient(testUrl);
   try {
-    const role = await su.$queryRaw<unknown[]>`SELECT 1 FROM pg_roles WHERE rolname = 'web'`;
-    if (role.length === 0) {
-      await su.$executeRawUnsafe(`CREATE ROLE web LOGIN PASSWORD '${WEB_TEST_PASSWORD}'`);
+    for (const name of ["web", "admin"]) {
+      const role = await su.$queryRawUnsafe<unknown[]>(
+        `SELECT 1 FROM pg_roles WHERE rolname = '${name}'`,
+      );
+      if (role.length === 0) {
+        await su.$executeRawUnsafe(`CREATE ROLE ${name} LOGIN PASSWORD '${ROLE_TEST_PASSWORD}'`);
+      }
+      // Start from nothing, so a grant removed from the file is gone here too.
+      await su.$executeRawUnsafe(`REVOKE ALL ON ALL TABLES IN SCHEMA public FROM ${name}`);
     }
-    // Start from nothing, so a grant removed from the file is gone here too.
-    await su.$executeRawUnsafe("REVOKE ALL ON ALL TABLES IN SCHEMA public FROM web");
     const sql = readFileSync(
       resolve(import.meta.dirname, "../../../packages/db/prisma/grants.sql"),
       "utf8",
