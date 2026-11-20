@@ -6,11 +6,11 @@ import {
   OpportunityKind,
   OrgCategory,
   RawItemInput,
-  RULES_ONLY_PUBLISH_THRESHOLD,
 } from "@devspot/schema";
 import { z } from "zod";
 import { canonicalizeUrl } from "./dedupe.js";
 import { ELIGIBILITY_WORDS, extractRules } from "./extract/rules.js";
+import { meetsPublishRule } from "./publish-rule.js";
 
 export const EVAL_FILE = resolve(import.meta.dirname, "../test/eval/items.json");
 
@@ -24,7 +24,13 @@ const EvalItem = z.object({
     kind: OpportunityKind.optional(),
     deadlineKind: DeadlineKind.optional(),
     deadlineAt: z.iso.datetime().optional(),
+    /** False when the source gave a date only (stored as 23:59, docs/05 §1). */
+    deadlineTimeStated: z.boolean().optional(),
     locationMode: LocationMode.optional(),
+    country: z.string().length(2).optional(),
+    city: z.string().optional(),
+    /** The words on the page each label rests on, for the human review. Not scored. */
+    evidence: z.record(z.string(), z.string().nullable()).optional(),
   }),
   note: z.string().optional(),
 });
@@ -36,18 +42,23 @@ export const EvalSet = z.object({
 });
 export type EvalSet = z.infer<typeof EvalSet>;
 
-const SCORED = ["kind", "deadlineKind", "deadlineAt", "locationMode"] as const;
+const SCORED = ["kind", "deadlineKind", "deadlineAt", "locationMode", "country", "city"] as const;
 type Scored = (typeof SCORED)[number];
 
 export type EvalReport = {
   items: number;
   opportunities: number;
   fields: Record<Scored, { correct: number; total: number; misses: string[] }>;
-  /** Non-opportunities whose rules confidence would publish them. Must stay at zero. */
+  /** Deadlines on the right day in Lagos, whatever the time: tells a wrong date from a wrong time. */
+  deadlineDay: { correct: number; total: number };
+  /** Non-opportunities the loader's publish rule would publish. Must stay at zero. */
   falsePublishes: string[];
   /** Summaries containing eligibility words. Must stay at zero (docs/05 Acceptance). */
   eligibilityWordViolations: string[];
 };
+
+/** The calendar day in Lagos (UTC+1 all year) of an ISO instant. */
+const lagosDay = (iso: string) => new Date(Date.parse(iso) + 3_600_000).toISOString().slice(0, 10);
 
 export function loadEvalSet(file = EVAL_FILE): EvalSet {
   return EvalSet.parse(JSON.parse(readFileSync(file, "utf8")));
@@ -63,6 +74,7 @@ export function runEval(set: EvalSet): EvalReport {
     items: set.items.length,
     opportunities: 0,
     fields,
+    deadlineDay: { correct: 0, total: 0 },
     falsePublishes: [],
     eligibilityWordViolations: [],
   };
@@ -81,7 +93,17 @@ export function runEval(set: EvalSet): EvalReport {
     if (draft.summary && ELIGIBILITY_WORDS.test(draft.summary))
       report.eligibilityWordViolations.push(id);
     if (!expected.isOpportunity) {
-      if (confidence >= RULES_ONLY_PUBLISH_THRESHOLD) report.falsePublishes.push(id);
+      // The loader's own rule (invariant 3), so a test listing it holds back is not counted.
+      const publishes = meetsPublishRule({
+        title: draft.title,
+        kind: draft.kind,
+        locationMode: draft.locationMode,
+        confidence,
+        extractionMethod: "rules",
+        deadlineAt: draft.deadlineAt,
+        startsAt: draft.startsAt,
+      });
+      if (publishes) report.falsePublishes.push(id);
       continue;
     }
     report.opportunities++;
@@ -93,6 +115,11 @@ export function runEval(set: EvalSet): EvalReport {
       score.total++;
       if (got === want) score.correct++;
       else score.misses.push(`${id}: expected ${want}, got ${got ?? "nothing"}`);
+    }
+    if (expected.deadlineAt) {
+      report.deadlineDay.total++;
+      if (draft.deadlineAt && lagosDay(draft.deadlineAt) === lagosDay(expected.deadlineAt))
+        report.deadlineDay.correct++;
     }
   }
   return report;
@@ -106,6 +133,7 @@ export function formatReport(report: EvalReport): string {
       const { correct, total } = report.fields[f];
       return `  ${f.padEnd(13)} ${pct(correct, total).padStart(4)}  (${correct}/${total})`;
     }),
+    `  deadline day  ${pct(report.deadlineDay.correct, report.deadlineDay.total).padStart(4)}  (${report.deadlineDay.correct}/${report.deadlineDay.total}, right day whatever the time)`,
     `  false publishes          ${report.falsePublishes.length}`,
     `  eligibility words        ${report.eligibilityWordViolations.length}`,
   ];
