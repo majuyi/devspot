@@ -132,7 +132,7 @@ The kind-to-family map and the display words live in one module under
 | **PlacePill** | 44px link, `surface` ground, urgency dot, name, mono count, `radius-pill`; "Remote" is a place | idle, selected (`fg` ground, `bg` text) |
 | **NigeriaMap** | static server-rendered SVG: outline on `sea`, `land` fill, `land-line` stroke, one dot per city sized by open count and coloured by the most urgent item there | — |
 | **CitySelector** | pill showing the current city; links to a city list (works without JS), enhanced to a sheet | none set, set |
-| **DeadlineMoved** | old date struck through in `faint` above the new one | needs a deadline history (the proposed `opportunity_events` table, not yet agreed); hidden until then |
+| **DeadlineMoved** | old date struck through in `faint` above the new one | shown for 14 days after the organisation moves a deadline (`previousDeadlineAt`, `deadlineChangedAt`), on rows and the opportunity page |
 | **RequirementsBlock** | heading "Requirements", "As stated by <org>", `prose` text with `white-space: pre-line`, then "devspot does not check who can apply…"; no border | present, absent ("The source does not list requirements.") |
 | **SourceLine** | source domain · "checked 2h ago", `meta` in `faint` | — |
 | **CalendarGrid** | 7-column month table from Monday; each item a link in its cell, tinted by kind family, urgency dot, time; today's number on `fg`. **CalendarAgenda** is the same month as a list for phones | month nav by links, today, empty day, day outside the month |

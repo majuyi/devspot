@@ -15,6 +15,8 @@ import { BackIcon, CalendarAddIcon, ExternalIcon, NotStatedIcon, ShareIcon } fro
 import { KindTag } from "./kind-tag";
 import { LiveIn, LiveStatus } from "./live";
 import { RowList, Rows } from "./row-list";
+import { recentMove } from "./rows";
+import { StatusWord } from "./status-word";
 
 type Related = { sameOrganization: OpportunityDto[]; sameKind: OpportunityDto[] };
 
@@ -67,7 +69,11 @@ export function Opportunity({
         <div className="flex flex-col gap-2.5 pt-1 pb-5 lg:gap-3.5 lg:pb-8">
           <div className="flex items-center justify-between gap-3 lg:justify-start">
             <KindTag kind={o.kind} closed={closed} />
-            <LiveStatus item={o} serverNow={serverNow} />
+            {!closed && recentMove(o, now) ? (
+              <StatusWord tone="none">Deadline moved</StatusWord>
+            ) : (
+              <LiveStatus item={o} serverNow={serverNow} />
+            )}
           </div>
           <h1 className="text-page-title m-0 text-pretty lg:text-[38px] lg:leading-[44px] lg:tracking-[-0.035em]">
             {o.title}
@@ -158,8 +164,21 @@ export function Opportunity({
                 {checkedAgo(new Date(o.lastVerifiedAt), now).replace(/^checked /, "")}
               </Fact>
             ) : null}
-            <Fact label="First listed" last>
+            <Fact label="First listed">
               <span className="text-date text-[13px]">{formatDate(new Date(o.firstSeenAt))}</span>
+            </Fact>
+            <Fact label="Deadline changes" last>
+              {o.previousDeadlineAt && o.deadlineChangedAt ? (
+                <span>
+                  Moved from{" "}
+                  <span className="text-date text-[13px]">
+                    {formatDate(new Date(o.previousDeadlineAt), { year: false })}
+                  </span>
+                  , seen {formatDate(new Date(o.deadlineChangedAt), { year: false })}
+                </span>
+              ) : (
+                "None recorded"
+              )}
             </Fact>
           </dl>
         </section>
@@ -245,6 +264,7 @@ function Fact({
 /** The large deadline (or event start), and under it the other dates the source gave. */
 function DeadlineSection({ item: o, serverNow }: { item: OpportunityDto; serverNow: string }) {
   const view = deadlineView(o);
+  const moved = recentMove(o, new Date(serverNow));
   const closed = o.status === "closed";
   const extra: { label: string; value: string }[] = [];
   if (o.opensAt)
@@ -269,6 +289,12 @@ function DeadlineSection({ item: o, serverNow }: { item: OpportunityDto; serverN
           <span className="text-meta text-muted">
             {view.label} · {view.date}
           </span>
+          {moved && !closed ? (
+            <del className="text-date text-[13px] text-faint">
+              <span className="sr-only">Was </span>
+              {formatDate(new Date(moved), { time: true })}
+            </del>
+          ) : null}
           <div className="flex items-baseline gap-2.5">
             <span
               className={`text-hero-figure ${closed ? "text-faint line-through" : ""} ${view.unit ? "" : "text-[34px] leading-[40px]"}`}

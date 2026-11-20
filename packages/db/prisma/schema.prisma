@@ -244,6 +244,13 @@ model Opportunity {
   deadlineAt       DateTime?
   deadlineKind     DeadlineKind      @default(unknown)
   deadlineTimezone String?           // IANA, when the source states one
+  // A deadline the source moved (ADR 0016): the date before, and when the engine saw it move.
+  // Written by the engine only; a maintainer's correction is not a move.
+  previousDeadlineAt DateTime?
+  deadlineChangedAt  DateTime?
+  // On a reviewed row the maintainer's deadline wins. When the source later states another,
+  // the engine keeps the row as it is and puts that date here, for a maintainer to look at.
+  sourceDeadlineAt   DateTime?
   startsAt         DateTime?         // events and programmes
   endsAt           DateTime?
 

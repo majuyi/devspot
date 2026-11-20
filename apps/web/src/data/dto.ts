@@ -58,6 +58,8 @@ export function toOpportunityDto(row: OpportunityRow): OpportunityDto {
     deadlineAt: iso(row.deadlineAt),
     deadlineKind: row.deadlineKind,
     deadlineTimezone: row.deadlineTimezone,
+    previousDeadlineAt: iso(row.previousDeadlineAt),
+    deadlineChangedAt: iso(row.deadlineChangedAt),
     startsAt: iso(row.startsAt),
     endsAt: iso(row.endsAt),
     locationMode,

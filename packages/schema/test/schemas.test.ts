@@ -35,6 +35,8 @@ const opportunityDto = {
   deadlineAt: null,
   deadlineKind: "unknown",
   deadlineTimezone: null,
+  previousDeadlineAt: null,
+  deadlineChangedAt: null,
   startsAt: null,
   endsAt: null,
   locationMode: "remote",

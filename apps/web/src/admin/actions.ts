@@ -124,13 +124,16 @@ export async function saveOpportunity(form: FormData): Promise<void> {
   const edited = Object.keys(changes).length > 0;
   const status = publishing ? "published" : current.status;
   const statusChanged = status !== current.status;
+  // Saving an item flagged because its source states another deadline means it was looked at.
+  const acknowledged = current.sourceDeadlineAt !== null;
 
-  if (edited || statusChanged) {
+  if (edited || statusChanged || acknowledged) {
     const data: Prisma.OpportunityUpdateInput = {
       ...after,
       status,
       // A maintainer's edit makes the row theirs, however it was first extracted.
       ...(edited ? { extractionMethod: "manual" } : {}),
+      ...(acknowledged ? { sourceDeadlineAt: null } : {}),
       ...(publishing
         ? {
             reviewedAt: now,
@@ -151,6 +154,14 @@ export async function saveOpportunity(form: FormData): Promise<void> {
           changes: {
             ...changes,
             ...(statusChanged ? { status: { from: current.status, to: status } } : {}),
+            ...(acknowledged
+              ? {
+                  sourceDeadlineAt: {
+                    from: current.sourceDeadlineAt?.toISOString() ?? null,
+                    to: null,
+                  },
+                }
+              : {}),
           },
           note,
         },

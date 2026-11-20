@@ -302,6 +302,32 @@ describe.skipIf(!hasDb || !adminUrl)(
         expect(last).toBe("/admin?tab=all&q=acme");
       });
 
+      it("a reviewed item whose source moved its deadline: listed for review, still live, cleared on save", async () => {
+        const { listQueue, tabCounts } = await import("../../src/admin/data");
+        await su.opportunity.update({
+          where: { id: ids.live },
+          data: { sourceDeadlineAt: new Date("2026-12-10T22:59:00.000Z") },
+        });
+        const queue = await listQueue({ tab: "review", page: 1 });
+        expect(queue.rows.map((r) => r.slug)).toContain("live");
+        expect((await tabCounts()).review).toBe(3);
+        expect((await row("live")).status).toBe("published");
+
+        await run(
+          actions.saveOpportunity(form({ ...fields("live"), intent: "publish", note: "checked" })),
+        );
+        const after = await row("live");
+        expect(after).toMatchObject({ status: "published", sourceDeadlineAt: null });
+        expect((await events("live"))[0]).toMatchObject({
+          action: "edited",
+          changes: { sourceDeadlineAt: { from: "2026-12-10T22:59:00.000Z", to: null } },
+          note: "checked",
+        });
+        expect((await listQueue({ tab: "review", page: 1 })).rows.map((r) => r.slug)).not.toContain(
+          "live",
+        );
+      });
+
       it("only ever returns to an admin path", async () => {
         const to = await run(
           actions.saveOpportunity(

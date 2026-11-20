@@ -345,6 +345,78 @@ describe.skipIf(!hasDb)("load against Postgres", () => {
     expect(lastVerifiedAt).toEqual(T1);
   });
 
+  const events = (id: string) =>
+    db.opportunityEvent.findMany({ where: { opportunityId: id }, orderBy: { at: "asc" } });
+  const MOVED = "2026-12-07T22:59:00.000Z";
+
+  it("deadline moved on the page: the row takes the new date, keeps the old, and records it", async () => {
+    const { id } = await run(input());
+    await run(input({ deadlineAt: MOVED }), T1);
+    const r = await row(id);
+    expect(r.deadlineAt?.toISOString()).toBe(MOVED);
+    expect(r.previousDeadlineAt?.toISOString()).toBe("2026-11-30T22:59:00.000Z");
+    expect(r.deadlineChangedAt).toEqual(T1);
+    expect(await events(id)).toMatchObject([
+      {
+        actor: "engine",
+        action: "deadlineChanged",
+        changes: { deadlineAt: { from: "2026-11-30T22:59:00.000Z", to: MOVED } },
+      },
+    ]);
+  });
+
+  it("other changes to the page record nothing about the deadline", async () => {
+    const { id } = await run(input());
+    await run(input({ summary: "A new summary" }), T1);
+    expect(await events(id)).toEqual([]);
+    expect((await row(id)).previousDeadlineAt).toBeNull();
+  });
+
+  it("a deadline stated or removed is recorded, but is not a move", async () => {
+    const { id } = await run(input({ deadlineKind: "unknown", deadlineAt: undefined }));
+    await run(input(), T1);
+    await run(input({ deadlineKind: "rolling", deadlineAt: undefined }), T1);
+    expect((await events(id)).map((e) => e.changes)).toEqual([
+      {
+        deadlineAt: { from: null, to: "2026-11-30T22:59:00.000Z" },
+        deadlineKind: { from: "unknown", to: "fixed" },
+      },
+      {
+        deadlineAt: { from: "2026-11-30T22:59:00.000Z", to: null },
+        deadlineKind: { from: "fixed", to: "rolling" },
+      },
+    ]);
+    const r = await row(id);
+    expect(r.previousDeadlineAt).toBeNull();
+    expect(r.deadlineChangedAt).toBeNull();
+  });
+
+  it("reviewed rows keep the maintainer's deadline and note the source's, once", async () => {
+    const { id } = await run(input());
+    await db.opportunity.update({ where: { id }, data: { reviewedAt: T0 } });
+    await run(input({ deadlineAt: MOVED, summary: "Machine" }), T1);
+    await run(input({ deadlineAt: MOVED, summary: "Machine again" }), T1);
+    const r = await row(id);
+    expect(r.deadlineAt?.toISOString()).toBe("2026-11-30T22:59:00.000Z");
+    expect(r.sourceDeadlineAt?.toISOString()).toBe(MOVED);
+    expect(r.previousDeadlineAt).toBeNull();
+    expect(r.summary).not.toBe("Machine");
+    const recorded = await events(id);
+    expect(recorded).toHaveLength(1);
+    expect(recorded[0]).toMatchObject({
+      actor: "engine",
+      action: "deadlineChanged",
+      changes: { sourceDeadlineAt: { from: null, to: MOVED } },
+    });
+    // The source agrees again: the note goes.
+    await run(input(), T1);
+    expect((await row(id)).sourceDeadlineAt).toBeNull();
+    // A page that states no deadline is not taken as a change on a reviewed row.
+    await run(input({ deadlineKind: "unknown", deadlineAt: undefined }), T1);
+    expect((await row(id)).sourceDeadlineAt).toBeNull();
+    expect(await events(id)).toHaveLength(1);
+  });
+
   it("never reopens a closed row", async () => {
     const { id } = await run(input());
     await db.opportunity.update({ where: { id }, data: { status: "closed" } });

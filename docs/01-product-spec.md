@@ -147,9 +147,11 @@ column on the right.
   for dated open items (`/o/[slug]/calendar.ics`) and "Share on WhatsApp", a plain link.
   Then: "You apply on <host>, not here. devspot never asks for money, documents or a login."
 - "Where this came from": Source (the canonical URL's host, linked), Last checked, First
-  listed. A "Deadline changes" row, and the old date struck through above a moved deadline,
-  need a deadline history (the proposed `opportunity_events` table) and ship once that is
-  agreed and built.
+  listed, Deadline changes ("Moved from <date>, seen <date>", or "None recorded").
+- Deadline moved: when the organisation's page moved the deadline (the engine saw a stated
+  date become another), for 14 days the status word reads "Deadline moved" and the old date
+  is struck through above the new one, on the page and on rows. A maintainer's correction in
+  `/admin` is not a move and never shows (agreed 2026-11-20).
 - Requirements (per §1), then "About" (`summary`, when there is one).
 - Related: "More from <org>", up to 4 other open items from the same organization, then
   "More <kind> in <city>", up to 4 of the same kind in the same city.
@@ -273,7 +275,9 @@ until then the footer's "API" link opens `/api/v1/openapi.json`.
   (every opportunity in any status, searchable by title, organization and URL, with filters
   for status, kind and organization, so a published item can be found and corrected). The
   tab, search, filters and page are in the URL; an item link carries that URL, so an action
-  returns to the same view. Duplicates lists groups of live items (in review, published or
+  returns to the same view. In review also lists reviewed items whose source page now
+  states a different deadline: they stay live with the maintainer's deadline, the item page
+  says what the source states, and saving clears the flag. Duplicates lists groups of live items (in review, published or
   closed, not already marked) sharing an `identityKey`. Sources erroring lists erroring and
   stale sources with the last failed read's status and message, linked to the registry
   file.

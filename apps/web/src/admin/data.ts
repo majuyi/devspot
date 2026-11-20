@@ -61,6 +61,7 @@ const listSelect = {
   deadlineAt: true,
   deadlineKind: true,
   startsAt: true,
+  sourceDeadlineAt: true,
   canonicalUrl: true,
   updatedAt: true,
   organization: { select: { slug: true, name: true } },
@@ -68,8 +69,16 @@ const listSelect = {
 
 export type QueueRow = Prisma.OpportunityGetPayload<{ select: typeof listSelect }>;
 
+/**
+ * What waits for a maintainer: rows in review, and reviewed rows whose source now states a
+ * different deadline (they stay on the site meanwhile; ADR 0016).
+ */
+const NEEDS_REVIEW: Prisma.OpportunityWhereInput = {
+  OR: [{ status: "review" }, { sourceDeadlineAt: { not: null } }],
+};
+
 function where(f: QueueFilters): Prisma.OpportunityWhereInput {
-  if (f.tab === "review") return { status: "review" };
+  if (f.tab === "review") return NEEDS_REVIEW;
   const and: Prisma.OpportunityWhereInput[] = [];
   if (f.status) and.push({ status: f.status });
   if (f.kind) and.push({ kind: f.kind });
@@ -105,7 +114,7 @@ export async function listQueue(f: QueueFilters): Promise<{ rows: QueueRow[]; to
 export async function tabCounts(): Promise<Record<Tab, number>> {
   const db = adminDb();
   const [review, all, submissions, duplicates, sources] = await Promise.all([
-    db.opportunity.count({ where: { status: "review" } }),
+    db.opportunity.count({ where: NEEDS_REVIEW }),
     db.opportunity.count(),
     db.submission.count({ where: { status: "new" } }),
     duplicateKeys().then((keys) => keys.length),
@@ -248,7 +257,7 @@ export type Item = NonNullable<Awaited<ReturnType<typeof getItem>>>;
 /** The next item to review after this one, least sure first: "Publish and next". */
 export async function nextReviewId(excluding: string): Promise<string | null> {
   const next = await adminDb().opportunity.findFirst({
-    where: { status: "review", id: { not: excluding } },
+    where: { ...NEEDS_REVIEW, id: { not: excluding } },
     orderBy: [{ confidence: "asc" }, { id: "asc" }],
     select: { id: true },
   });

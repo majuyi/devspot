@@ -3,7 +3,7 @@ import axe from "axe-core";
 import type { ReactElement } from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { render, text } from "../components/render";
-import { hasDb, NOW, seedHome } from "../seed";
+import { at, hasDb, NOW, seedHome } from "../seed";
 
 type HomeModule = typeof import("../../src/components/home");
 type BrowseModule = typeof import("../../src/app/opportunities/page");
@@ -412,6 +412,52 @@ describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", (
         el.querySelector('script[type="application/ld+json"]')?.textContent ?? "{}",
       );
       expect(ld).toMatchObject({ "@type": "JobPosting", title: "Title lagos-job" });
+    });
+
+    it("deadline moved by the organisation: marked for 14 days, recorded on the page after", async () => {
+      const { db } = await import("@devspot/db");
+      const before = await db.opportunity.findUniqueOrThrow({ where: { slug: "later-6" } });
+      const moved = (daysAgo: number) =>
+        db.opportunity.update({
+          where: { slug: "later-6" },
+          data: {
+            previousDeadlineAt: at(100),
+            deadlineChangedAt: at(-24 * daysAgo),
+          },
+        });
+      try {
+        await moved(1);
+        const el = await page("later-6");
+        const head = el.querySelector("h1")?.parentElement as Element;
+        expect(text(head)).toContain("Deadline moved");
+        const deadline = el.querySelector('section[aria-label="Deadline"]') as Element;
+        expect(deadline.querySelector("del")?.textContent).toBe("Was Sun 8 Nov 2026, 17:00 WAT");
+        expect(text(el)).toContain("Deadline changesMoved from Sun 8 Nov, seen Tue 3 Nov");
+        // The row on browse carries the same state.
+        const row = (await browse()).querySelector('a[href="/o/later-6"]') as Element;
+        expect(text(row)).toContain("Deadline moved");
+        expect(row.querySelector("del")).not.toBeNull();
+        expect(await violations(el, "moved")).toEqual([]);
+
+        await moved(20);
+        const later = await page("later-6");
+        expect(text(later.querySelector("h1")?.parentElement as Element)).not.toContain(
+          "Deadline moved",
+        );
+        expect(later.querySelector('section[aria-label="Deadline"] del')).toBeNull();
+        expect(text(later)).toContain("Deadline changesMoved from Sun 8 Nov, seen Thu 15 Oct");
+        const oldRow = (await browse()).querySelector('a[href="/o/later-6"]') as Element;
+        expect(text(oldRow)).not.toContain("Deadline moved");
+      } finally {
+        await db.opportunity.update({
+          where: { slug: "later-6" },
+          data: {
+            previousDeadlineAt: before.previousDeadlineAt,
+            deadlineChangedAt: before.deadlineChangedAt,
+          },
+        });
+      }
+      expect(text(await page("later-6"))).toContain("Deadline changesNone recorded");
     });
 
     it("has no axe violations, dated, undated and closed", async () => {
