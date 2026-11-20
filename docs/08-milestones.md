@@ -105,6 +105,18 @@ opportunity has a canonical URL that unfurls on WhatsApp; filters are URL-encoda
 `/admin` works end to end; the app is deployed on Vercel and the engine's revalidate call
 refreshes it.
 
+Passed 2026-11-20 on https://devspot-brown.vercel.app. Every public route in scope (`/`,
+`/opportunities`, `/o/[slug]`, `/org`, `/org/[slug]`, `/events`, `/calendar`, `/feed`,
+`/status`, `/about`, `/contribute`) answers 200 with its content in the HTML and meets
+`01` §6 in light and dark: Performance 97–100, Accessibility, Best practices and SEO 100
+(`/feed` is `noindex` by design), CLS 0. All 28 published open opportunities have a page,
+Open Graph tags with the deadline and a 1200×630 share image; Dami saw one preview in
+WhatsApp. Filters are links and GET forms, and a pasted URL reproduces the view (tests).
+`/admin`: Dami signed in on the live site; every action, `/admin/new` and the duplicate
+check ran as the `admin` role in tests and on the built app (not on production data). The
+engine's refresh call changed the home page 22 seconds later (M2.12). `/submit` (M4) and the
+`/api` docs page (M4.5) belong to later milestones.
+
 - [x] **M2.1a App scaffold.** `apps/web` with Next.js 16 and Tailwind 4, building in CI, so
   the data layer and API can start before the design is chosen. Check: `pnpm check` builds it.
 - [x] **M2.1b Tokens and layout.** Tokens from `07` §2–§4 (Claude Design pass, agreed
