@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // biome-ignore-all lint/suspicious/noDocumentCookie: jsdom has no Cookie Store API to set a cookie with
 import { act } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, type Root } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it } from "vitest";
 import { CityPill } from "@/components/city-pill";
@@ -18,17 +18,33 @@ function clearCookies() {
   }
 }
 
+// Unmounted after each test: a root left mounted can still run React work after jsdom
+// has torn down `window`, which failed CI as an unhandled "window is not defined".
+const roots: Root[] = [];
+
 async function mounted(): Promise<HTMLElement> {
   const host = document.createElement("div");
   document.body.append(host);
+  const root = createRoot(host);
+  roots.push(root);
   await act(async () => {
-    createRoot(host).render(pill);
+    root.render(pill);
   });
   return host;
 }
 
+async function unmountAll() {
+  await act(async () => {
+    for (const root of roots.splice(0)) root.unmount();
+  });
+  document.body.replaceChildren();
+}
+
 describe("the header's city pill", () => {
-  afterEach(clearCookies);
+  afterEach(async () => {
+    await unmountAll();
+    clearCookies();
+  });
 
   it("says Choose city in the HTML every reader is sent, and links to the feed's form", () => {
     const html = renderToStaticMarkup(pill);
