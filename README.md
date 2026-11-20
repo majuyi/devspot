@@ -12,7 +12,7 @@ Status: **M0 · Foundation** done; **M1 · Engine core** next (see
 
 ```
 registry/ (YAML, one file per organization)
-   → engine (GitHub Actions, every 6h): fetch → dedupe → extract → validate → load → verify → health
+   → engine (GitHub Actions, every 2h): fetch → dedupe → extract → validate → load → verify → health
    → Postgres (Supabase)
    → web app (Next.js on Vercel): browse, feed by city and kind, calendar, events, organizations, status
    → API /api/v1 and a weekly JSON snapshot

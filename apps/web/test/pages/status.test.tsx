@@ -1,10 +1,13 @@
 // @vitest-environment jsdom
-import { sourceHealth } from "@devspot/schema";
+import { ERRORING_AFTER, NEW_UNDER_RUNS, sourceHealth } from "@devspot/schema";
 import axe from "axe-core";
 import type { ReactElement } from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { render, text } from "../components/render";
 import { at, hasDb, NOW, opp, org, reset } from "../seed";
+
+/** Runs enough for a source to be past "new", so its other states show. */
+const PAST_NEW = NEW_UNDER_RUNS + 1;
 
 type StatusModule = typeof import("../../src/app/status/page");
 
@@ -42,12 +45,15 @@ describe.skipIf(!hasDb)("/status (docs/01 §3)", () => {
       }
       return o;
     };
-    const kuda = await source("kuda", "Kuda", 5, { lastOkAt: at(-2), lastYieldAt: at(-50) });
-    await source("paga", "Paga", 5, { lastOkAt: at(-9), consecutiveEmpty: 2 });
-    await source("zindi", "Zindi", 5, { lastOkAt: at(-30) });
-    await source("devpost", "Devpost", 5, { lastOkAt: at(-3), consecutiveErrors: 3 });
+    const kuda = await source("kuda", "Kuda", PAST_NEW, { lastOkAt: at(-2), lastYieldAt: at(-50) });
+    await source("paga", "Paga", PAST_NEW, { lastOkAt: at(-9), consecutiveEmpty: 2 });
+    await source("zindi", "Zindi", PAST_NEW, { lastOkAt: at(-30) });
+    await source("devpost", "Devpost", PAST_NEW, {
+      lastOkAt: at(-3),
+      consecutiveErrors: ERRORING_AFTER,
+    });
     await source("gdg", "GDG", 0);
-    await source("old", "Old Org", 5, { enabled: false, lastOkAt: at(-1) });
+    await source("old", "Old Org", PAST_NEW, { enabled: false, lastOkAt: at(-1) });
     await source("byhand", "By Hand", 0, { kind: "manual" });
     await opp(db, { organizationId: kuda.id, slug: "a", title: "A", publishedAt: at(-24) });
     await opp(db, { organizationId: kuda.id, slug: "b", title: "B", publishedAt: at(-400) });

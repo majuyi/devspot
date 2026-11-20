@@ -1,9 +1,13 @@
 // @vitest-environment jsdom
+import { ERRORING_AFTER, NEW_UNDER_RUNS } from "@devspot/schema";
 import axe from "axe-core";
 import type { ReactElement } from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { render, text } from "../components/render";
 import { at, hasDb, NOW, opp, org, reset } from "../seed";
+
+/** Runs enough for a source to be past "new", so its other states show. */
+const PAST_NEW = NEW_UNDER_RUNS + 1;
 
 type Index = typeof import("../../src/app/org/page");
 type Detail = typeof import("../../src/app/org/[slug]/page");
@@ -77,10 +81,13 @@ describe.skipIf(!hasDb)("organisation pages", () => {
         });
       }
     };
-    await source(kuda.id, "kuda-careers", 5, { lastOkAt: at(-3) });
-    await source(devpost.id, "devpost-api", 5, { kind: "api", lastOkAt: at(-2) });
-    await source(devpost.id, "devpost-feed", 5, { kind: "feed", consecutiveErrors: 3 });
-    await source(gone.id, "gone-site", 5);
+    await source(kuda.id, "kuda-careers", PAST_NEW, { lastOkAt: at(-3) });
+    await source(devpost.id, "devpost-api", PAST_NEW, { kind: "api", lastOkAt: at(-2) });
+    await source(devpost.id, "devpost-feed", PAST_NEW, {
+      kind: "feed",
+      consecutiveErrors: ERRORING_AFTER,
+    });
+    await source(gone.id, "gone-site", PAST_NEW);
 
     const o = (organizationId: string, slug: string, extra: object = {}) =>
       opp(db, { organizationId, slug, title: `Title ${slug}`, kind: "job", ...extra });

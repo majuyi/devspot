@@ -1,8 +1,11 @@
 import type { SourceHealth } from "./api.js";
 
-export const ERRORING_AFTER = 3;
-export const STALE_AFTER_EMPTY = 8;
-export const NEW_UNDER_RUNS = 4;
+// Counted in runs at the two-hourly schedule (docs/04 §1 stage 7): 9 failures is about 18
+// hours, 24 empty runs two days, 12 runs a day. GitHub starts fewer runs than scheduled, so in
+// practice each takes about twice as long, which is what the six-hourly 3, 8 and 4 gave.
+export const ERRORING_AFTER = 9;
+export const STALE_AFTER_EMPTY = 24;
+export const NEW_UNDER_RUNS = 12;
 
 /**
  * State of a source, computed and never stored (docs/04 §1 stage 7). Worst first, so a source

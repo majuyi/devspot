@@ -1,8 +1,20 @@
-import { type FetchResult, sourceHealth } from "@devspot/schema";
+import {
+  ERRORING_AFTER,
+  type FetchResult,
+  NEW_UNDER_RUNS,
+  STALE_AFTER_EMPTY,
+  sourceHealth,
+} from "@devspot/schema";
 import { MockAgent } from "undici";
 import { describe, expect, it } from "vitest";
 import { fetchSource } from "../src/fetch.js";
-import { health, runSummary, type SourceCounters, type SourceRun } from "../src/health.js";
+import {
+  health,
+  RUNS_PER_WEEK,
+  runSummary,
+  type SourceCounters,
+  type SourceRun,
+} from "../src/health.js";
 import { HttpClient } from "../src/http.js";
 
 const AT = new Date("2026-11-01T06:17:00Z");
@@ -15,7 +27,7 @@ const run = (extra: Partial<Parameters<typeof health>[1]> = {}) => ({
   ok: true,
   nNew: 0,
   finishedAt: AT,
-  runs: 10,
+  runs: 20,
   ...extra,
 });
 
@@ -39,11 +51,15 @@ describe("health counters", () => {
     expect(yielded.lastYieldAt).toEqual(AT);
   });
 
-  it("moves the baseline by the moving average, once 4 runs exist", () => {
-    expect(health(fresh, run({ nNew: 1, runs: 3 })).baselineWeeklyYield).toBeNull();
-    expect(health(fresh, run({ nNew: 1, runs: 4 })).baselineWeeklyYield).toBe(28);
-    const next = health({ ...fresh, baselineWeeklyYield: 10 }, run({ nNew: 1 }));
-    expect(next.baselineWeeklyYield).toBeCloseTo(13.6);
+  it("moves the baseline by the moving average, once a source is past new", () => {
+    expect(
+      health(fresh, run({ nNew: 1, runs: NEW_UNDER_RUNS - 1 })).baselineWeeklyYield,
+    ).toBeNull();
+    // One run's yield scaled to a week: 84 runs at the two-hourly schedule.
+    expect(RUNS_PER_WEEK).toBe(84);
+    expect(health(fresh, run({ nNew: 1, runs: NEW_UNDER_RUNS })).baselineWeeklyYield).toBe(84);
+    const next = health({ ...fresh, baselineWeeklyYield: 10 }, run({ nNew: 1, runs: 20 }));
+    expect(next.baselineWeeklyYield).toBeCloseTo(0.8 * 10 + 0.2 * 84);
   });
 
   it("leaves the baseline alone on a failed run", () => {
@@ -54,34 +70,41 @@ describe("health counters", () => {
 
 describe("sourceHealth", () => {
   const source = { ...fresh, enabled: true };
+  // Scaled for the two-hourly schedule (docs/04 §1 stage 7).
+  it("counts in two-hourly runs", () => {
+    expect([ERRORING_AFTER, STALE_AFTER_EMPTY, NEW_UNDER_RUNS]).toEqual([9, 24, 12]);
+  });
+  const E = ERRORING_AFTER;
+  const S = STALE_AFTER_EMPTY;
+  const N = NEW_UNDER_RUNS;
   it.each([
-    ["new under 4 runs", source, 3, "new"],
-    ["healthy at 4 runs", source, 4, "healthy"],
-    ["erroring at 3 errors", { ...source, consecutiveErrors: 3 }, 20, "erroring"],
-    ["erroring beats new", { ...source, consecutiveErrors: 3 }, 3, "erroring"],
-    ["still healthy at 2 errors", { ...source, consecutiveErrors: 2 }, 20, "healthy"],
+    ["new under the first runs", source, N - 1, "new"],
+    ["healthy once past them", source, N, "healthy"],
+    ["erroring at the error count", { ...source, consecutiveErrors: E }, 20, "erroring"],
+    ["erroring beats new", { ...source, consecutiveErrors: E }, 3, "erroring"],
+    ["still healthy one error short", { ...source, consecutiveErrors: E - 1 }, 20, "healthy"],
     [
-      "stale at 8 empties over a baseline above 1",
-      { ...source, consecutiveEmpty: 8, baselineWeeklyYield: 1.1 },
+      "stale at the empty count over a baseline above 1",
+      { ...source, consecutiveEmpty: S, baselineWeeklyYield: 1.1 },
       20,
       "stale",
     ],
     [
-      "not stale at 7 empties",
-      { ...source, consecutiveEmpty: 7, baselineWeeklyYield: 5 },
+      "not stale one empty short",
+      { ...source, consecutiveEmpty: S - 1, baselineWeeklyYield: 5 },
       20,
       "healthy",
     ],
     [
       "a quiet source is not stale",
-      { ...source, consecutiveEmpty: 50, baselineWeeklyYield: 1 },
+      { ...source, consecutiveEmpty: 100, baselineWeeklyYield: 1 },
       20,
       "healthy",
     ],
-    ["no baseline is not stale", { ...source, consecutiveEmpty: 50 }, 20, "healthy"],
+    ["no baseline is not stale", { ...source, consecutiveEmpty: 100 }, 20, "healthy"],
     [
       "erroring beats stale",
-      { ...source, consecutiveEmpty: 9, consecutiveErrors: 3, baselineWeeklyYield: 5 },
+      { ...source, consecutiveEmpty: S + 1, consecutiveErrors: E, baselineWeeklyYield: 5 },
       20,
       "erroring",
     ],
@@ -97,12 +120,12 @@ describe("sourceHealth", () => {
 });
 
 describe("a source that returns 500", () => {
-  it("reaches erroring after 3 runs", async () => {
+  it("reaches erroring after the error count of runs", async () => {
     const agent = new MockAgent();
     agent.disableNetConnect();
     const pool = agent.get("https://broken.example");
     pool.intercept({ path: "/robots.txt" }).reply(404, "");
-    pool.intercept({ path: "/feed" }).reply(500, "boom").times(3);
+    pool.intercept({ path: "/feed" }).reply(500, "boom").times(ERRORING_AFTER);
     const http = new HttpClient({
       dispatcher: agent,
       minIntervalMs: 0,
@@ -118,7 +141,7 @@ describe("a source that returns 500", () => {
 
     let counters = fresh;
     const states: string[] = [];
-    for (let runs = 1; runs <= 3; runs++) {
+    for (let runs = 1; runs <= ERRORING_AFTER; runs++) {
       const result = await fetchSource(source, http).catch(
         (e: Error): FetchResult => ({ items: [], error: e.message }),
       );
@@ -126,7 +149,7 @@ describe("a source that returns 500", () => {
       counters = health(counters, run({ ok: false, runs }));
       states.push(sourceHealth({ ...counters, enabled: true }, runs));
     }
-    expect(states).toEqual(["new", "new", "erroring"]);
+    expect(states).toEqual([...Array(ERRORING_AFTER - 1).fill("new"), "erroring"]);
     await agent.close();
   });
 });

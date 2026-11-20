@@ -17,7 +17,7 @@ type Read = { health: SourceHealth; lastOkAt: string | null; kind?: SourceKind }
 export function readState(s: Read, now: Date): ReadState {
   // A source entered by hand is never read by the engine, so it has no reading to be late.
   if (s.health === "disabled" || s.kind === "manual") return "off";
-  // What the engine calls erroring (three failed reads running) is failing here too, even
+  // What the engine calls erroring (nine failed reads running) is failing here too, even
   // when the last good read is recent: the two views must not contradict each other.
   if (s.health === "erroring") return "failing";
   if (!s.lastOkAt) return "new";

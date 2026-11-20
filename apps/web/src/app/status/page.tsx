@@ -121,7 +121,7 @@ export default async function Status() {
           </h2>
           <p className="text-body m-0 max-w-[68ch] text-muted">
             An engine reads each organisation's own page every six hours. A source is late after 8
-            hours without a good read, and failing after 24 or after three failed reads in a row.
+            hours without a good read, and failing after 24 or after nine failed reads in a row.
           </p>
           <p className="text-body m-0 max-w-[68ch] text-muted">
             Listings from a late source stay up. Each one shows when it was last checked.

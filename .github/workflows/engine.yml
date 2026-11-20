@@ -1,6 +1,8 @@
 name: Engine
 on:
-  schedule: [{ cron: "17 */6 * * *" }]
+  # Every two hours. GitHub skips scheduled runs when it is busy (the six-hourly schedule ran
+  # about twice a day), so this keeps sources well inside the six hours the site promises.
+  schedule: [{ cron: "17 */2 * * *" }]
   workflow_dispatch:
     inputs:
       source: { type: string, required: false, description: "Source key, e.g. devpost/hackathons" }

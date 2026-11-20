@@ -2,7 +2,7 @@
 
 > **What Opus needs to know.** One pnpm/Turborepo monorepo, all TypeScript. Three workspace
 > packages (`schema`, `db`, `engine`) and one app (`web`). The engine is a cron job that runs in
-> GitHub Actions every six hours and writes to Supabase Postgres through Prisma. The web app on
+> GitHub Actions every two hours and writes to Supabase Postgres through Prisma. The web app on
 > Vercel reads the same database and renders everything server-side. Dependencies point one way:
 > `web → db → schema` and `engine → db → schema`. The engine never imports from the app.
 > Versions below are pinned; do not upgrade a major without an ADR.
@@ -12,7 +12,7 @@
 ```
  registry/organizations/*.yaml ──sync──▶ Organization, Source rows
                                               │
-   GitHub Actions (every 6h)                  ▼
+   GitHub Actions (every 2h)                  ▼
    ┌────────────────────────────────────────────────────────────────┐
    │ engine: fetch → dedupe → extract → validate → load → verify   │
    │         → health                                               │
@@ -50,7 +50,7 @@ worker, no websocket, no background service. When that stops being true, write a
 | LLM | `@anthropic-ai/sdk` | 0.126+ | Structured outputs via `client.messages.parse` with a Zod schema; model `claude-opus-5` |
 | Tests | Vitest | 5.x | Workspace-aware, fast, one runner for all packages |
 | Lint and format | Biome | 2.x | One tool, one config, fast enough to run on every commit |
-| Scheduling | GitHub Actions | | Cron every 6 hours; Vercel Hobby cron is once a day and cannot run long jobs |
+| Scheduling | GitHub Actions | | Cron every 2 hours, because GitHub skips scheduled runs when busy (a six-hourly schedule ran about twice a day); readers are promised six. Vercel Hobby cron is once a day and cannot run long jobs |
 | Hosting | Vercel Hobby | | Free for non-commercial; ISR and edge caching for free |
 | Email (later) | Resend | | Free tier covers a weekly digest for thousands |
 
@@ -112,7 +112,7 @@ packages/engine ──▶ @devspot/db ──▶ @devspot/schema
 | Workflow | Trigger | Does |
 |---|---|---|
 | `ci.yml` | push, pull_request | install, lint, typecheck, test, build, `prisma validate` |
-| `engine.yml` | cron `17 */6 * * *`, manual | `pnpm engine run` against production; then `POST /api/revalidate` with `REVALIDATE_SECRET` |
+| `engine.yml` | cron `17 */2 * * *`, manual | `pnpm engine run` against production; then `POST /api/revalidate` with `REVALIDATE_SECRET` |
 | `keepalive.yml` | cron daily | one `SELECT 1` through the REST endpoint (resets Supabase's 7-day pause) and, if no commit in 41 days, a marker commit to `.github/keepalive` (resets Actions' 60-day cron disable) |
 | `snapshot.yml` | cron weekly Sunday | `pnpm engine snapshot` and upload `opportunities-YYYY-WW.json` + `organizations-YYYY-WW.json` as a GitHub Release asset |
 
