@@ -2,7 +2,7 @@
 
 > **What Opus needs to know.** Extraction turns a `RawItem` into an `OpportunityDraft` with a
 > confidence per field. Deterministic rules run on every item and are the only extractor at
-> M1. LLM extraction (Claude Opus 5, structured outputs) is added at M3 behind
+> M1. LLM extraction (Claude Opus 5, structured outputs; deferred by ADR 0017) is added behind
 > `EXTRACTION_LLM=1`, runs only on new or changed content, is cached by content hash, and is
 > capped by a monthly token budget. Nothing in this stage may assert eligibility or invent a
 > date. Low confidence goes to the review queue, not to the public.
@@ -65,7 +65,12 @@ labelled opportunities (fields a label leaves out are not scored), non-opportuni
 would publish (must be zero), and summaries with eligibility words (must be zero). A test
 holds the current scores as floors.
 
-## 2. LLM extraction (`extract/llm.ts`), M3
+## 2. LLM extraction (`extract/llm.ts`), deferred
+
+> **Deferred by ADR 0017.** Not built while there is no API budget; M3 runs on the rules
+> extractor. This section is the design for when it returns. The confidence weights and
+> publish threshold below apply to rules drafts in M3.3; the rules-versus-LLM comparison
+> does not.
 
 ### Request
 

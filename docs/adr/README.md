@@ -21,3 +21,4 @@ One file per decision, numbered, never edited after acceptance except to add a
 | 0014 | Weekly snapshot as a GitHub Release asset, not committed data | Accepted 2026-09-18 |
 | 0015 | Apache-2.0 licence | Accepted 2026-10-09 |
 | 0016 | A history table for opportunities; a separate database role for admin | Accepted 2026-11-16 |
+| 0017 | LLM extraction deferred; M3 runs on rules | Accepted 2026-11-20 |
