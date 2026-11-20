@@ -112,18 +112,18 @@ describe("invariant 3: what may publish", () => {
     title: "Product Design Internship",
     kind: "internship",
     locationMode: "remote",
-    confidence: 0.75,
+    confidence: 0.7,
     extractionMethod: "rules",
     deadlineAt: "2026-11-30T22:59:00.000Z",
   } as const;
-  it("rules: 0.75 with a stated date", () => {
+  it("rules: 0.7 with a stated date", () => {
     expect(meetsPublishRule(base)).toBe(true);
     expect(meetsPublishRule({ ...base, deadlineAt: undefined, startsAt: base.deadlineAt })).toBe(
       true,
     );
   });
   it("rules: not below the threshold, and not without a date", () => {
-    expect(meetsPublishRule({ ...base, confidence: 0.74 })).toBe(false);
+    expect(meetsPublishRule({ ...base, confidence: 0.69 })).toBe(false);
     expect(meetsPublishRule({ ...base, deadlineAt: undefined })).toBe(false);
   });
   it("llm and manual: 0.8", () => {

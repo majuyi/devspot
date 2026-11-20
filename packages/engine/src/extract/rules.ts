@@ -560,8 +560,8 @@ function cutAtSentence(para: string): string {
 // ---------------------------------------------------------------------------------- draft
 
 /**
- * Rules-only extraction (docs/05 §1): every field with its confidence, and the overall
- * `min(kind, max(deadline, start), locationMode)`, less 0.15 without requirements.
+ * Rules-only extraction (docs/05 §1): every field with its confidence, and the overall as the
+ * weighted mean of docs/05 §2 (M3.3). A field the rules did not find contributes 0.
  */
 export function extractRules({ item, org, now = new Date() }: RulesInput): RulesResult {
   const title = (item.title ?? "").trim();
@@ -625,7 +625,34 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
   };
 
   const dated = Math.max(deadline.confidence, span.confidence);
-  const overall = Math.min(kind.confidence, dated, location.confidence);
-  const confidence = Math.max(0, overall - (requirements.value ? 0 : 0.15));
+  const weighted =
+    WEIGHTS.dated * dated +
+    WEIGHTS.kind * kind.confidence +
+    WEIGHTS.locationMode * location.confidence +
+    WEIGHTS.requirementsText * (requirements.value ? requirements.confidence : 0) +
+    WEIGHTS.title * (title.length >= 3 ? 1 : 0);
+  // Two kinds of page a reviewer decides, never rules alone; both route, neither discards:
+  // an invite-only listing ("Invite only. Club members only") is for people already chosen,
+  // and a round-up post ("GSoC 2023 Final Results!", "It's a wrap!") often states next year's
+  // deadline in passing, which would otherwise publish a news post as an opportunity.
+  // The mean ranks items that have all three core fields; it must not let a strong deadline
+  // carry a weak one, such as a hybrid item in a city we do not know (location 0.5).
+  const weakCore = Math.min(kind.confidence, dated, location.confidence) < CORE_FLOOR;
+  const held = weakCore || INVITE_ONLY.test(item.text) || ROUND_UP_TITLE.test(title);
+  const confidence = held ? Math.min(weighted, HELD_CAP) : weighted;
   return { draft, confidence: Math.round(confidence * 100) / 100 };
 }
+
+/** docs/05 §2: deadline or start, kind, location mode, requirements, title. They sum to 1. */
+export const WEIGHTS = {
+  dated: 0.35,
+  kind: 0.25,
+  locationMode: 0.15,
+  requirementsText: 0.15,
+  title: 0.1,
+} as const;
+const INVITE_ONLY = /\binvite[- ]only\b/i;
+// Narrow on purpose: "announced", "meet the" and "celebrating" also title real calls to apply.
+const ROUND_UP_TITLE = /\b(?:final results|project results|it[’']?s a wrap|wrap-?up|recap)\b/i;
+const HELD_CAP = 0.5;
+const CORE_FLOOR = 0.6;

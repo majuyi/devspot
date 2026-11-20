@@ -24,10 +24,26 @@ Runs first, always. Each rule returns a value and a confidence in [0, 1].
 | `summary` | First paragraph of text, trimmed to 280 characters at a sentence boundary. Rules never write a summary that mentions eligibility words. | 0.5 |
 | `regionsTags` | "africa", "west africa", "nigeria", "global" occurrences | 0.6 |
 
-Overall confidence at rules-only: `min(kind, max(deadline, startsAt), locationMode)` with a
-0.15 penalty when `requirementsText` is null. At M1, publish threshold for rules-only items is
-0.75, which in practice means kind found in the title, a dated deadline or start, and a
-location in the title or on a `Location:` or `Venue:` line.
+Overall confidence at rules-only (M3.3, replacing M1's `min(kind, max(deadline, startsAt),
+locationMode)` less 0.15 without requirements): the weighted mean of §2, with deadline or start
+0.35, kind 0.25, locationMode 0.15, requirementsText 0.15 and title 0.10. A field the rules
+did not find contributes 0. Three things hold an item for review whatever the mean, by
+capping it at 0.5:
+
+- **A weak core field:** kind, date or location below 0.6. A hybrid item in a city we do not
+  know (location 0.5) or a location taken only from the organisation's default (0.3) is
+  not carried by a strong deadline.
+- **An invite-only listing** ("Invite only. Club members only"), which is for people already
+  chosen.
+- **A round-up title** ("Final Results!", "It's a wrap!", "recap"). These posts often state
+  next year's deadline in passing. The match is narrow on purpose, since "announced", "meet
+  the" and "celebrating" also title real calls to apply.
+
+These caps only route: nothing is discarded, and a reviewer decides. The rules-only publish
+threshold is **0.7** (`RULES_ONLY_PUBLISH_THRESHOLD`), with a stated date still required. It
+was chosen on the eval set (2026-11-20): 21 of 100 items publish, against 9 under the M1 rule,
+and none of the 21 needs a correction against its labels. At 0.75 the eight GDG events
+(0.74) would wait for review.
 
 **Dates with no time (decided 2026-10-13).** A deadline stated as a date only ("Applications
 close 31 October 2026") means 23:59 that day. The time zone is the one the source states
@@ -150,7 +166,8 @@ organization. Return only what the text states. Rules:
 ### Confidence and thresholds
 
 - Overall = weighted mean: deadline or start 0.35, kind 0.25, locationMode 0.15,
-  requirements 0.15, title 0.10. Fields without evidence contribute 0.
+  requirements 0.15, title 0.10. Fields without evidence contribute 0. Rules drafts use the
+  same weights from M3.3, with their own threshold and holds (§1).
 - `PUBLISH_THRESHOLD = 0.8`. Below it, `status = review`. `isOpportunity = false` with
   confidence over 0.7 → the item is skipped and logged; otherwise → review.
 - Any deadline the LLM returned that the rules also found is compared; disagreement by more
