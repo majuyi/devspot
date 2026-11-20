@@ -152,7 +152,7 @@ rotation logs everyone out (there is only one person).
 | GitHub Actions public repo | $0 |
 | OpenFreeMap tiles | $0 |
 | Nominatim geocoding (M4) | $0 at under 1 request per second with caching |
-| Anthropic API (M3+) | ~$5 to $10 at the default budget |
+| Anthropic API | $0 while LLM extraction is deferred (ADR 0017) |
 | Domain (M5) | ~$12 a year |
 
 ## Acceptance
