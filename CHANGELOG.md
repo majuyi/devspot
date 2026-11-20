@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- Engine scheduling moves to a Supabase `pg_cron` job that dispatches `engine.yml` every two hours (GitHub was starting scheduled runs 8 to 9 hours late). `scripts/schedule-engine.sh` sets it up with a Vault-stored token; GitHub's schedule becomes a daily backup; a gate job skips automatic runs within 90 minutes of a successful one.
 - ADR 0017: LLM extraction deferred for lack of budget; M3 runs on the rules extractor. M3.2 is now "Rules to the gate", M3.3 drops the rules-versus-LLM rule, M3.5 runs on rules.
 - Specification set, ADRs, CLAUDE.md, skills and the M0 workspace scaffold.
 - ADR 0015 accepted: Apache-2.0. Generated JSON Schema in docs/schema is excluded from Biome so builds leave the tree clean.

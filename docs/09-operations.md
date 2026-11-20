@@ -104,11 +104,22 @@ ends `?uselibpqcompat=true&sslmode=require`: encrypted, certificate not verified
 | Workflow | Cron | Secrets | Notes |
 |---|---|---|---|
 | `ci.yml` | on push and PR | none | lint, typecheck, test, build, `prisma validate`, OpenAPI validate |
-| `engine.yml` | `17 */2 * * *` | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET`; variable `SITE_URL` | runs (which syncs the registry first), verifies, calls `POST /api/revalidate`, uploads the JSON-line logs; fails when a source turns `erroring` |
+| `engine.yml` | dispatched by pg_cron every two hours; own schedule `47 9 * * *` as a backup | `ENGINE_DATABASE_URL`, `ANTHROPIC_API_KEY`, `REVALIDATE_SECRET`; variable `SITE_URL` | runs (which syncs the registry first), verifies, calls `POST /api/revalidate`, uploads the JSON-line logs; fails when a source turns `erroring` |
 | `keepalive.yml` | `0 5 * * *` | `SUPABASE_URL`, `SUPABASE_ANON_KEY` | `GET /rest/v1/usage_meters?select=period&limit=1` with the publishable key resets the pause timer; then `keepalive` marker commit if no commit in 41 days |
 | `snapshot.yml` | `0 6 * * 0` | `GITHUB_TOKEN` (default), `ENGINE_DATABASE_URL` | release `data-YYYY-WW` |
 | `backup.yml` | `0 4 * * 0` | `DIRECT_URL`, `BACKUP_PASSPHRASE` | `pg_dump` (17, in Docker: the runner's client is older than the server) of `public`, `gpg --symmetric` → artifact; the passphrase is in the Keychain |
 | `migrate.yml` | on push to `main` touching `packages/db/prisma/migrations/**` or `grants.sql`, and by hand | `DIRECT_URL` | `prisma migrate deploy`, then `grants.sql` (section 3) |
+
+**The engine's clock is in Supabase.** GitHub started scheduled runs eight to nine hours
+late (November 2026), which broke the six-hour promise on `/status`. A `pg_cron` job,
+`engine-dispatch`, calls GitHub's API at 17 minutes past every second hour to dispatch
+`engine.yml` with `trigger=pg_cron`, using a fine-grained token (this repo only, Actions read
+and write) kept in Supabase Vault as `github_engine_dispatch`. Only `postgres` can read it;
+`engine`, `web` and `admin` have no access to `vault`, `cron` or `net`. The workflow's
+`gate` job stops automatic runs (pg_cron and the daily backup schedule) when a run's `run`
+job succeeded in the last 90 minutes, so a late or doubled trigger costs seconds. Runs
+started by hand always go ahead. Set up and renewed with `scripts/schedule-engine.sh`, which
+Dami runs. The token expires; its renewal date is in the runbook below.
 
 Scheduled workflows in a public repo are disabled after 60 days without a commit. The
 keepalive commit prevents that; if it ever happens, re-enable from the Actions tab and check
@@ -128,6 +139,16 @@ missed, the selector is wrong: treat as erroring.
 
 **Supabase paused the project.** Restore from the dashboard (one click on the free plan),
 then verify the keepalive workflow ran; the usual cause is the workflow being disabled.
+
+**The engine stopped running every two hours.** `/status` shows sources late. Check the
+job and GitHub's recent answers in the Supabase SQL editor:
+`select jobid, schedule, active from cron.job;`,
+`select status, return_message, start_time from cron.job_run_details order by start_time desc limit 5;`
+and `select status_code, created from net._http_response order by created desc limit 5;`
+(kept about six hours). A 401 or 403 means the token lapsed or lost access: create a new one
+and run `scripts/schedule-engine.sh` again. Until then the daily backup schedule keeps the
+data at most a day old. To stop it: `select cron.unschedule('engine-dispatch');`.
+Token renewal date: set when the token is created.
 
 **Actions disabled the schedules.** Re-enable each workflow from the Actions tab. Make a
 commit. Check that `keepalive.yml` is enabled first.
