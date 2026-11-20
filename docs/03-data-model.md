@@ -34,7 +34,8 @@ UsageMeter (one row per calendar month)
   `Submission` that introduced it.
 - **OpportunityEvent** is one thing done to an opportunity: published, edited, rejected, and
   so on, with the fields that changed and who did it (ADR 0016). Append-only. It is the audit
-  trail for `/admin` and the history "Deadline moved" will be read from.
+  trail for `/admin`, and the engine records each deadline change there. The public pages
+  never read it: the latest move is copied to `previousDeadlineAt` and `deadlineChangedAt`.
 - **Submission** is an inbound URL from the web form or, later, a WhatsApp forward. Pre-triage.
 - **Extraction** caches LLM output by content hash so unchanged pages are never re-paid.
 - **UsageMeter** counts LLM tokens per month for the budget guard.
@@ -282,6 +283,9 @@ model Opportunity {
   discoveredVia DiscoveredVia
   identityKey   String              // normalized org+title+cycle, for cross-source dedupe
   duplicateOfId String?
+  previousDeadlineAt DateTime?  // the date before the organisation moved it; engine only
+  deadlineChangedAt  DateTime?  // when the engine saw the move
+  sourceDeadlineAt   DateTime?  // on a reviewed row, the different date the source now states
 
   firstSeenAt    DateTime  @default(now())
   publishedAt    DateTime?

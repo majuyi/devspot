@@ -255,6 +255,15 @@ are cleared, and status moves between `review` and `published` so invariant 3 ho
 row's life; `closed` never reopens and a duplicate stays in `review`. Rules alone publish only
 with `deadlineAt` or `startsAt`, so a rolling item goes to review. The title part of a slug is
 cut to 60 characters at a word; the collision suffix comes from the URL.
+- A changed page that changes the stated deadline writes an `opportunity_events` row (actor
+  `engine`, action `deadlineChanged`, `{ deadlineAt: { from, to } }`) in the same
+  transaction as the update. When one date became another, `previousDeadlineAt` and
+  `deadlineChangedAt` are set, which the public pages show as "Deadline moved". A deadline
+  newly stated or removed is recorded but is not a move.
+- A reviewed row keeps the maintainer's deadline. When its page states a different date,
+  the loader sets `sourceDeadlineAt` and records the event once, which lists the row in the
+  admin review tab while it stays live; when the page agrees again, the flag is cleared. A
+  page that states no deadline is not taken as a change on a reviewed row.
 
 ### Stage 6 · Verify (command `engine verify`)
 

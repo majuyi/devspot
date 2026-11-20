@@ -20,6 +20,8 @@ export type RowItem = Pick<
   | "canonicalUrl"
   | "deadlineAt"
   | "deadlineKind"
+  | "previousDeadlineAt"
+  | "deadlineChangedAt"
   | "startsAt"
   | "locationMode"
   | "country"
@@ -153,13 +155,31 @@ export function UndatedRow({
   );
 }
 
+/** How long a moved deadline is marked as moved (agreed 2026-11-20). */
+export const MOVED_FOR_DAYS = 14;
+
+/** The previous deadline while it is worth pointing out: moved by the organisation, recently. */
+export function recentMove(
+  item: Pick<RowItem, "previousDeadlineAt" | "deadlineChangedAt">,
+  now: Date,
+): string | null {
+  if (!item.previousDeadlineAt || !item.deadlineChangedAt) return null;
+  const age = now.getTime() - Date.parse(item.deadlineChangedAt);
+  return age <= MOVED_FOR_DAYS * 86_400_000 ? item.previousDeadlineAt : null;
+}
+
 /** Picks the row for an item: dated when there is an instant to count down to. */
 export function OpportunityRow(props: { item: RowItem; serverNow: string }) {
   const { item } = props;
+  const moved = recentMove(item, new Date(props.serverNow));
   const dated =
     item.kind === "event"
       ? Boolean(item.startsAt)
       : Boolean(item.deadlineAt) &&
         (item.deadlineKind === "fixed" || item.deadlineKind === "multiRound");
-  return dated || item.status === "closed" ? <DatedRow {...props} /> : <UndatedRow {...props} />;
+  return dated || item.status === "closed" ? (
+    <DatedRow {...props} previousDeadlineAt={moved} />
+  ) : (
+    <UndatedRow {...props} />
+  );
 }

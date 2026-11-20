@@ -1,5 +1,6 @@
 import { OpportunityDto } from "@devspot/schema";
 import { describe, expect, it } from "vitest";
+import { recentMove } from "@/components/rows";
 import { actionLabel, closedLine, deadlineView } from "@/ui/deadline";
 import { opportunityIcs } from "@/ui/ics";
 import { jsonLdScript, opportunityJsonLd } from "@/ui/jsonld";
@@ -211,5 +212,21 @@ describe("JSON-LD (docs/01 §1 Sharing)", () => {
     const out = jsonLdScript(opportunityJsonLd(dto({ title: "</script><script>alert(1)" })));
     expect(out).not.toContain("<");
     expect(JSON.parse(out).headline).toBe("</script><script>alert(1)");
+  });
+});
+
+describe("a moved deadline", () => {
+  const day = 86_400_000;
+  const moved = (daysAgo: number) =>
+    dto({
+      previousDeadlineAt: "2026-11-01T10:00:00.000Z",
+      deadlineChangedAt: new Date(NOW.getTime() - daysAgo * day).toISOString(),
+    });
+  it("is pointed out for 14 days after the organisation moved it, then not", () => {
+    expect(recentMove(moved(0), NOW)).toBe("2026-11-01T10:00:00.000Z");
+    expect(recentMove(moved(14), NOW)).toBe("2026-11-01T10:00:00.000Z");
+    expect(recentMove(moved(14.01), NOW)).toBeNull();
+    expect(recentMove(dto(), NOW)).toBeNull();
+    expect(OpportunityDto.parse(moved(1))).toEqual(moved(1));
   });
 });

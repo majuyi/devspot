@@ -32,6 +32,7 @@ type OpportunityDto = {
   canonicalUrl: string; applyUrl: string | null;
   opensAt: string | null; deadlineAt: string | null; deadlineKind: DeadlineKind;
   deadlineTimezone: string | null; startsAt: string | null; endsAt: string | null;
+  previousDeadlineAt: string | null; deadlineChangedAt: string | null; // the organisation moved it
   locationMode: LocationMode; country: string | null; city: string | null;
   venue: { name: string | null; address: string | null; lat: number | null; lng: number | null } | null;
   regionsTags: string[]; tags: string[];

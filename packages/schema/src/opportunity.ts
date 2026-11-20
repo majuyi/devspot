@@ -77,6 +77,10 @@ export const OpportunityDto = z.object({
   deadlineAt: IsoDate.nullable(),
   deadlineKind: DeadlineKind,
   deadlineTimezone: z.string().nullable(),
+  // A deadline the organisation moved: the date before, and when the change was seen. Null
+  // when it never moved, or only a maintainer corrected it (ADR 0016).
+  previousDeadlineAt: IsoDate.nullable(),
+  deadlineChangedAt: IsoDate.nullable(),
   startsAt: IsoDate.nullable(),
   endsAt: IsoDate.nullable(),
   locationMode: LocationMode,

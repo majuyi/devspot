@@ -30,3 +30,8 @@ the public pages, is a later task that this table makes possible. The console st
 JSON line per action, for whoever is watching the logs.
 
 **Status.** Accepted, 2026-11-16. Agreed with Dami in the M2.10 plan (decisions B and C).
+
+**Update, 2026-11-20.** The engine now writes `deadlineChanged` events, and the latest move
+is copied onto the row (`previousDeadlineAt`, `deadlineChangedAt`) so the public pages can
+show "Deadline moved" without the `web` role reading the history. A reviewed row's
+disagreeing source date goes to `sourceDeadlineAt` for review (`04` §1 stage 5).

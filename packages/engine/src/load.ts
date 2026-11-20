@@ -55,7 +55,12 @@ export type LoadContext = {
 
 export type LoadResult = { id: string; status: OpportunityStatus; created: boolean };
 
-const date = (iso: string | undefined) => (iso ? new Date(iso) : null);
+const date = (value: string | undefined) => (value ? new Date(value) : null);
+const iso = (d: Date | null) => d?.toISOString() ?? null;
+const changes = (value: Record<string, { from: string | null; to: string | null }>) =>
+  value as Prisma.InputJsonObject;
+const sameInstant = (a: Date | null, b: Date | null) =>
+  (a?.getTime() ?? null) === (b?.getTime() ?? null);
 const json = (value: unknown) => value as Prisma.InputJsonValue | undefined;
 
 /** Stage 5 (docs/04 §1): the only writer of `Opportunity`. */
@@ -89,11 +94,39 @@ export async function load(
   };
 
   if (existing) {
+    const stated = mutable.deadlineAt;
     if (existing.reviewedAt) {
-      await db.opportunity.update({
+      // A maintainer's version wins. When the source states a different deadline, keep the
+      // row and note the source's date for review; when the source agrees again, drop it.
+      // A page that states no deadline at all is not taken as a change: it may be a misread.
+      const disagrees = stated !== null && !sameInstant(existing.deadlineAt, stated);
+      const newlyDisagrees = disagrees && !sameInstant(existing.sourceDeadlineAt, stated);
+      const update = db.opportunity.update({
         where: { id: existing.id },
-        data: { lastVerifiedAt: now },
+        data: {
+          lastVerifiedAt: now,
+          ...(newlyDisagrees ? { sourceDeadlineAt: stated } : {}),
+          ...(!disagrees && existing.sourceDeadlineAt ? { sourceDeadlineAt: null } : {}),
+        },
       });
+      if (newlyDisagrees) {
+        await db.$transaction([
+          update,
+          db.opportunityEvent.create({
+            data: {
+              opportunityId: existing.id,
+              actor: "engine",
+              action: "deadlineChanged",
+              changes: changes({
+                sourceDeadlineAt: { from: iso(existing.sourceDeadlineAt), to: iso(stated) },
+              }),
+              note: "The source page now states a different deadline. The reviewed one is kept until a maintainer looks.",
+            },
+          }),
+        ]);
+      } else {
+        await update;
+      }
       return { id: existing.id, status: existing.status, created: false };
     }
     // Invariant 3 holds for the row's life, not only at creation: new content can raise or
@@ -101,15 +134,42 @@ export async function load(
     const movable =
       !existing.duplicateOfId && (existing.status === "review" || existing.status === "published");
     const status = movable ? (meetsPublishRule(input) ? "published" : "review") : existing.status;
-    await db.opportunity.update({
+    // Stage 5 records a stated deadline that changed: the history row always, and the
+    // "moved" columns the public pages read when a date became another date.
+    const deadlineChanged =
+      !sameInstant(existing.deadlineAt, stated) || existing.deadlineKind !== mutable.deadlineKind;
+    const moved =
+      existing.deadlineAt !== null && stated !== null && !sameInstant(existing.deadlineAt, stated);
+    const update = db.opportunity.update({
       where: { id: existing.id },
       data: {
         ...mutable,
         status,
         publishedAt: status === "published" ? (existing.publishedAt ?? now) : existing.publishedAt,
         lastVerifiedAt: now,
+        ...(moved ? { previousDeadlineAt: existing.deadlineAt, deadlineChangedAt: now } : {}),
       },
     });
+    if (deadlineChanged) {
+      await db.$transaction([
+        update,
+        db.opportunityEvent.create({
+          data: {
+            opportunityId: existing.id,
+            actor: "engine",
+            action: "deadlineChanged",
+            changes: changes({
+              deadlineAt: { from: iso(existing.deadlineAt), to: iso(stated) },
+              ...(existing.deadlineKind !== mutable.deadlineKind
+                ? { deadlineKind: { from: existing.deadlineKind, to: mutable.deadlineKind } }
+                : {}),
+            }),
+          },
+        }),
+      ]);
+    } else {
+      await update;
+    }
     return { id: existing.id, status, created: false };
   }
 

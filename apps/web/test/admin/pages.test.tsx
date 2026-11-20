@@ -212,6 +212,22 @@ describe.skipIf(!hasDb || !adminUrl)("admin pages", () => {
       expect(text(el)).toContain("No source text is stored for this item.");
     });
 
+    it("explains when the source now states a different deadline", async () => {
+      await su.opportunity.update({
+        where: { id: ids.live },
+        data: { sourceDeadlineAt: new Date("2026-12-10T22:59:00.000Z") },
+      });
+      try {
+        const el = await item("live");
+        expect(text(el.querySelector('[role="status"]') as Element)).toContain(
+          "The source page now states the deadline as Thu 10 Dec 2026.",
+        );
+        expect(text(await queue())).toContain("source deadline changed");
+      } finally {
+        await su.opportunity.update({ where: { id: ids.live }, data: { sourceDeadlineAt: null } });
+      }
+    });
+
     it("shows an error or a saved note from the URL, and a rejected item's reason", async () => {
       expect(
         text(

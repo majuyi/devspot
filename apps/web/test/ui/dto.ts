@@ -17,6 +17,8 @@ export function dto(over: Partial<OpportunityDto> = {}): OpportunityDto {
     deadlineAt: "2026-11-05T03:45:00.000Z",
     deadlineKind: "fixed",
     deadlineTimezone: null,
+    previousDeadlineAt: null,
+    deadlineChangedAt: null,
     startsAt: null,
     endsAt: null,
     locationMode: "remote",

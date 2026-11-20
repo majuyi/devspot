@@ -167,7 +167,14 @@ export default async function Queue({ searchParams }: Props) {
                         </th>
                         <td className={CELL}>{r.organization.name}</td>
                         <td className={CELL}>{r.kind ? KIND_LABEL[r.kind] : "Not set"}</td>
-                        <td className={CELL}>{r.status}</td>
+                        <td className={CELL}>
+                          {r.status}
+                          {r.sourceDeadlineAt ? (
+                            <span className="block text-[12px] text-amber">
+                              source deadline changed
+                            </span>
+                          ) : null}
+                        </td>
                         <td className={`${CELL} text-date text-[13px]`}>
                           {r.confidence.toFixed(2)}
                         </td>

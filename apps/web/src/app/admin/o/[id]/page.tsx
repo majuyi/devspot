@@ -8,6 +8,7 @@ import { highlight } from "@/admin/highlight";
 import { requireAdmin } from "@/admin/session";
 import { buttonClass } from "@/components/blocks";
 import { ago } from "@/ui/status";
+import { formatDate } from "@/ui/time";
 
 export const metadata: Metadata = { title: "Review" };
 
@@ -120,6 +121,18 @@ export default async function ReviewItem({ params, searchParams }: Props) {
           >
             {item.duplicateOf.title}
           </a>
+        </p>
+      ) : null}
+      {item.sourceDeadlineAt ? (
+        <p role="status" className="text-body m-0 rounded-tile border border-amber px-3.5 py-3">
+          The source page now states the deadline as{" "}
+          <span className="text-date">{formatDate(item.sourceDeadlineAt, { time: true })}</span>.
+          This item shows{" "}
+          <span className="text-date">
+            {item.deadlineAt ? formatDate(item.deadlineAt, { time: true }) : "no deadline"}
+          </span>{" "}
+          because a maintainer reviewed it. Check the page, correct the deadline below if it moved,
+          and save: saving clears this notice.
         </p>
       ) : null}
       {item.statusReason ? (

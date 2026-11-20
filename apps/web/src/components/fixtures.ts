@@ -18,6 +18,8 @@ function base(slug: string, over: Partial<RowItem>): RowItem {
     canonicalUrl: "https://example.org/opportunity",
     deadlineAt: null,
     deadlineKind: "fixed",
+    previousDeadlineAt: null,
+    deadlineChangedAt: null,
     startsAt: null,
     locationMode: "remote",
     country: null,
