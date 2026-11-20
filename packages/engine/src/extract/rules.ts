@@ -135,6 +135,8 @@ const DEADLINE_ANCHOR =
 const ROLLING =
   /\brolling\b|\buntil (?:the (?:role|position) is |positions? (?:are|is) )?filled\b/i;
 const NEAR = 80;
+/** A deadline that has passed: kept so the listing closes, too unsure to publish on its own. */
+const PAST_CONFIDENCE = 0.5;
 // "Application period: March 16 – March 31", "Applications … are open March 24 - April 8":
 // a period the organisation gives for applying; its end is the deadline.
 const APPLICATION_PERIOD =
@@ -158,9 +160,17 @@ export type DeadlineField = {
 
 /**
  * A deadline is a date within 80 characters after an anchor word. Dates before the reference
- * (publish date, else now) are dropped: a past date is not a deadline someone can meet.
+ * are dropped, with one exception: with `pastStands` (the page has no publish date, so the
+ * reference is now) a past date on the `Deadline:` header line, stated with its year, is kept
+ * at 0.5 so the loader closes the listing rather than holding it as undated. Only the header:
+ * a past date in body text is too often someone else's ("applications … were open until 6
+ * March 2024" in a sidebar story). Against a publish date, an earlier date is history.
  */
-export function ruleDeadline(text: string, reference: Date): DeadlineField {
+export function ruleDeadline(
+  text: string,
+  reference: Date,
+  { pastStands = false }: { pastStands?: boolean } = {},
+): DeadlineField {
   const anchored: FoundDate[] = [];
   DEADLINE_ANCHOR.lastIndex = 0;
   for (let m = DEADLINE_ANCHOR.exec(text); m; m = DEADLINE_ANCHOR.exec(text)) {
@@ -179,10 +189,13 @@ export function ruleDeadline(text: string, reference: Date): DeadlineField {
   const header = line
     ? anchored.find((d) => d.index > (line.index ?? 0) && d.index < (line.index ?? 0) + NEAR)
     : undefined;
-  if (header)
-    return header.at.getTime() >= reference.getTime()
-      ? dated("fixed", header, header.hasYear ? 0.85 : 0.6)
+  if (header) {
+    if (header.at.getTime() >= reference.getTime())
+      return dated("fixed", header, header.hasYear ? 0.85 : 0.6);
+    return pastStands && header.hasYear
+      ? dated("fixed", header, PAST_CONFIDENCE)
       : { kind: "unknown", confidence: 0 };
+  }
 
   const distinct = [...new Map(future.map((d) => [d.at.getTime(), d])).values()];
   if (ROUNDS.test(text) && distinct.length >= 2) {
@@ -554,7 +567,7 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
   const title = (item.title ?? "").trim();
   const reference = item.publishedAt ?? now;
   const kind = ruleKind(title, item.text, org.category);
-  const deadline = ruleDeadline(item.text, reference);
+  const deadline = ruleDeadline(item.text, reference, { pastStands: !item.publishedAt });
   const span =
     kind.value === "event" || kind.value === "bootcamp"
       ? ruleSpan(item.text, reference)

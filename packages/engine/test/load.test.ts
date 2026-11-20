@@ -417,6 +417,39 @@ describe.skipIf(!hasDb)("load against Postgres", () => {
     expect(await events(id)).toHaveLength(1);
   });
 
+  it("invariant 7: a listing already over is stored closed, never published", async () => {
+    // Deadline 2026-11-30 23:59 Lagos; more than a day after it, the listing is over.
+    const late = new Date("2026-12-02T12:00:00Z");
+    const created = await run(input(), late);
+    expect(created).toMatchObject({ status: "closed", created: true });
+    const r = await row(created.id);
+    expect(r).toMatchObject({ statusReason: "date-passed", closedAt: late, publishedAt: null });
+
+    // Within the day after the deadline it is not yet over.
+    const fresh = await run(
+      input({ title: "Fresh one", canonicalUrl: "https://example.org/fresh" }),
+      new Date("2026-12-01T12:00:00Z"),
+    );
+    expect(fresh.status).toBe("published");
+  });
+
+  it("invariant 7: a published row whose page now states a passed deadline closes", async () => {
+    const { id } = await run(input());
+    const late = new Date("2026-12-02T12:00:00Z");
+    expect((await run(input(), late)).status).toBe("closed");
+    expect(await row(id)).toMatchObject({
+      statusReason: "date-passed",
+      closedAt: late,
+      publishedAt: T0,
+    });
+  });
+
+  it("invariant 7: a reviewed row is the maintainer's to close", async () => {
+    const { id } = await run(input());
+    await db.opportunity.update({ where: { id }, data: { reviewedAt: T0 } });
+    expect((await run(input(), new Date("2026-12-02T12:00:00Z"))).status).toBe("published");
+  });
+
   it("never reopens a closed row", async () => {
     const { id } = await run(input());
     await db.opportunity.update({ where: { id }, data: { status: "closed" } });

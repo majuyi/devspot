@@ -1,5 +1,6 @@
 import { type OpportunityStatus, type Prisma, type PrismaClient, uniqueSlug } from "@devspot/db";
 import { baseSlug, identityKey, normalizeTags, type OpportunityInput } from "@devspot/schema";
+import { isOver } from "./over.js";
 import { meetsPublishRule } from "./publish-rule.js";
 import type { VerifyResult } from "./verify.js";
 
@@ -56,6 +57,9 @@ export async function load(
     confidence: input.confidence,
     fieldConfidence: json(input.fieldConfidence),
   };
+  // A listing already past its date is closed on the way in (invariant 7), never published.
+  const over = isOver(mutable, now);
+  const closing = { statusReason: "date-passed", closedAt: now };
 
   if (existing) {
     const stated = mutable.deadlineAt;
@@ -97,7 +101,13 @@ export async function load(
     // lower it. Closed never reopens, and a duplicate waits for a reviewer.
     const movable =
       !existing.duplicateOfId && (existing.status === "review" || existing.status === "published");
-    const status = movable ? (meetsPublishRule(input) ? "published" : "review") : existing.status;
+    const status = !movable
+      ? existing.status
+      : over
+        ? "closed"
+        : meetsPublishRule(input)
+          ? "published"
+          : "review";
     // Stage 5 records a stated deadline that changed: the history row always, and the
     // "moved" columns the public pages read when a date became another date.
     const deadlineChanged =
@@ -110,6 +120,7 @@ export async function load(
         ...mutable,
         status,
         publishedAt: status === "published" ? (existing.publishedAt ?? now) : existing.publishedAt,
+        ...(movable && status === "closed" ? closing : {}),
         lastVerifiedAt: now,
         ...(moved ? { previousDeadlineAt: existing.deadlineAt, deadlineChangedAt: now } : {}),
       },
@@ -143,7 +154,7 @@ export async function load(
     orderBy: { createdAt: "asc" },
     select: { id: true },
   });
-  const status = !original && meetsPublishRule(input) ? "published" : "review";
+  const status = over ? "closed" : !original && meetsPublishRule(input) ? "published" : "review";
   const created = await db.opportunity.create({
     data: {
       ...mutable,
@@ -161,6 +172,7 @@ export async function load(
       ...(original ? { duplicateOfId: original.id } : {}),
       firstSeenAt,
       ...(status === "published" ? { publishedAt: now } : {}),
+      ...(status === "closed" ? closing : {}),
     },
   });
   return { id: created.id, status, created: true };

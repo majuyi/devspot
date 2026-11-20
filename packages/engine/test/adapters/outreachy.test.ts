@@ -33,8 +33,11 @@ describe("outreachy adapter", () => {
     const open = draft(title, text, "2026-08-25T00:00:00Z");
     expect(open.deadlineAt).toBe("2026-08-31T16:00:00.000Z");
     expect(open.locationMode).toBe("remote");
-    // After it, the final application date (9 November) must not stand in for it.
-    expect(draft(title, text, "2026-11-03T00:00:00Z").deadlineKind).toBe("unknown");
+    // After it, the final application date (9 November) must not stand in for it: the passed
+    // deadline is kept, so the loader closes the listing (invariant 7).
+    const after = draft(title, text, "2026-11-03T00:00:00Z");
+    expect(after.deadlineKind).toBe("fixed");
+    expect(after.deadlineAt).toBe("2026-08-31T16:00:00.000Z");
   });
 
   describe("against a stub page", () => {

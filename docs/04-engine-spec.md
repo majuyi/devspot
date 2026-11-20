@@ -252,7 +252,9 @@ classes and intakes, and a trailing number; two cycles in one year therefore sha
 A second row with the same key points at the earliest original, so duplicates never chain.
 On an update, an unreviewed row also gets `lastVerifiedAt`, fields the page no longer states
 are cleared, and status moves between `review` and `published` so invariant 3 holds for the
-row's life; `closed` never reopens and a duplicate stays in `review`. Rules alone publish only
+row's life; `closed` never reopens and a duplicate stays in `review`. A listing already more
+than 24 hours past its date (invariant 7) is created or moved to `closed` with reason
+`date-passed`, never published; reviewed rows are left to the maintainer. Rules alone publish only
 with `deadlineAt` or `startsAt`, so a rolling item goes to review. The title part of a slug is
 cut to 60 characters at a word; the collision suffix comes from the URL.
 - A changed page that changes the stated deadline writes an `opportunity_events` row (actor

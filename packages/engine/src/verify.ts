@@ -2,6 +2,7 @@ import type { Opportunity, Prisma, PrismaClient } from "@devspot/db";
 import { htmlToText } from "./fetchers/html-text.js";
 import type { HttpClient } from "./http.js";
 import { applyVerification } from "./load.js";
+import { isOver } from "./over.js";
 
 const HOUR = 3_600_000;
 const DAY = 24 * HOUR;
@@ -18,21 +19,13 @@ export type VerifyResult =
   /** Tells us nothing about the opportunity, so nothing changes. */
   | { outcome: "unreachable"; error: string };
 
-/** The date after which an item is over. An event with one date is over when that day is. */
-function lastDate({ kind, deadlineAt, startsAt, endsAt }: VerifyTarget): Date | null {
-  if (kind === "event") return endsAt ?? startsAt ?? deadlineAt;
-  return deadlineAt ?? endsAt;
-}
-
 /** Stage 6 (docs/04 §1). Invariant 7 first: a past date closes it whatever the source says. */
 export async function verify(
   target: VerifyTarget,
   http: Pick<HttpClient, "get">,
   now: Date = new Date(),
 ): Promise<VerifyResult> {
-  const last = lastDate(target);
-  if (last && now.getTime() - last.getTime() > DAY)
-    return { outcome: "closed", reason: "date-passed" };
+  if (isOver(target, now)) return { outcome: "closed", reason: "date-passed" };
   try {
     // Accept: */* because Devpost refuses anything else on hackathon pages.
     const { status, body } = await http.get(target.canonicalUrl, { accept: "*/*" });
