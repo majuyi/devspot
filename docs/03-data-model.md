@@ -447,7 +447,8 @@ These are product rules enforced in code and stated in tests:
 6. `canonicalUrl` is unique. Two sources announcing one opportunity resolve to one row via
    `identityKey`; the second becomes `duplicateOf` the first and is never published.
 7. An `Opportunity` past `deadlineAt` (or `endsAt` for events) by more than 24 hours becomes
-   `closed` on the next verify pass, regardless of source state.
+   `closed` on the next verify pass, regardless of source state. The loader applies the same
+   rule on the way in: a listing already over is stored `closed`, never published.
 8. `opportunity_events` is append-only: no role may update or delete a row. Every change a
    maintainer makes in `/admin` writes one in the same transaction as the change.
 

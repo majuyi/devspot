@@ -133,6 +133,40 @@ describe("deadline", () => {
     expect(d.at?.toISOString()).toBe("2027-04-08T22:59:00.000Z");
   });
 
+  describe("a deadline that has passed", () => {
+    const outreachy =
+      "Host: Outreachy\nLocation: Remote\nDeadline: Aug. 31, 2026 at 4pm UTC (initial application)\n\nInitial applications are closed";
+
+    it("is kept from the header line when the page has no publish date, so it can close", () => {
+      expect(ruleDeadline(outreachy, REF, { pastStands: true })).toMatchObject({
+        kind: "fixed",
+        confidence: 0.5,
+      });
+      expect(ruleDeadline(outreachy, REF, { pastStands: true }).at?.toISOString()).toBe(
+        "2026-08-31T16:00:00.000Z",
+      );
+    });
+
+    it("is dropped against a publish date: an earlier date is history", () => {
+      expect(ruleDeadline(outreachy, REF)).toEqual({ kind: "unknown", confidence: 0 });
+    });
+
+    it("is not taken from body text, which is too often someone else's (Chevening)", () => {
+      const text =
+        "Applications for the Chevening Western Balkans Cyber Security Fellowship are open until 6 March 2024.";
+      expect(ruleDeadline(text, REF, { pastStands: true })).toEqual({
+        kind: "unknown",
+        confidence: 0,
+      });
+    });
+
+    it("needs its year: a year-less header date rolls forward, never back", () => {
+      const text = "Deadline: Aug 31\nLocation: Remote";
+      const d = ruleDeadline(text, REF, { pastStands: true });
+      expect(d.at?.toISOString()).toBe("2027-08-31T22:59:00.000Z");
+    });
+  });
+
   it("does not read the verb round as rounds", () => {
     const text =
       "Do not round your scores. Entries close 1 November 2026. Late entries close 5 November 2026.";

@@ -61,6 +61,12 @@ leaves room:
     rolls into a guessed year.
   - **Rounds.** `multiRound` needs rounds as a noun ("Round 2", "the final round",
     "rounds"); "round your probabilities" does not count.
+  - **Passed deadlines.** When the page has no publish date, a passed date on the
+    `Deadline:` header line, stated with its year, is kept at confidence 0.5, and the
+    loader stores the listing `closed`. Before this, a closed Outreachy round looked
+    undated rather than over. Passed dates in body text are still dropped, because they
+    are too often someone else's (a sidebar story on Chevening's fellowship page). Against
+    a publish date, an earlier date is history.
   - **Times.** A four-digit 24-hour time counts only straight before a zone ("March 31,
     1800 UTC"), so a year or a count is never read as a time.
 - `locationMode` in body text: "online" counts only in phrases such as "held online",
