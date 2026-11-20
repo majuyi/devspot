@@ -364,8 +364,12 @@ Copied from CLIST's design.
 
 ```yaml
 on:
-  schedule: [{ cron: "17 */2 * * *" }]
-  workflow_dispatch: { inputs: { source: { type: string, required: false } } }
+  # Every two hours comes from a pg_cron job that dispatches with trigger=pg_cron (09 §5);
+  # this daily schedule is the backup. A gate job skips automatic runs within 90 minutes of
+  # a successful one.
+  schedule: [{ cron: "47 9 * * *" }]
+  workflow_dispatch:
+    inputs: { source: { type: string, required: false }, trigger: { type: string, required: false } }
 concurrency: { group: engine, cancel-in-progress: false }
 jobs:
   run:
