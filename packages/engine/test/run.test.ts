@@ -1,6 +1,7 @@
 import { resolve } from "node:path";
 import type { PrismaClient } from "@devspot/db";
 import type { FetchResult, RawItemInput } from "@devspot/schema";
+import { ERRORING_AFTER } from "@devspot/schema";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { dryRun, hasFetcher, selectSources } from "../src/dry-run.js";
 import type { FetchFn, FetchSource } from "../src/fetch.js";
@@ -217,10 +218,12 @@ describe.skipIf(!hasDb)("engine run against Postgres", () => {
     for (const name of ["off", "todo", "hand"]) expect((await source(name)).fetchRuns).toEqual([]);
   });
 
-  it("reports a source as turned erroring on the third run and only then", async () => {
+  it("reports a source as turned erroring on the run that reaches the count, and only then", async () => {
     const turned = [];
-    for (let i = 0; i < 4; i++) turned.push((await run(failing)).turnedErroring);
-    expect(turned).toEqual([[], [], [key("broken")], []]);
+    for (let i = 0; i <= ERRORING_AFTER; i++) turned.push((await run(failing)).turnedErroring);
+    const expected: string[][] = Array.from({ length: ERRORING_AFTER + 1 }, () => []);
+    expected[ERRORING_AFTER - 1] = [key("broken")];
+    expect(turned).toEqual(expected);
     const { summary } = await run(failing);
     expect(summary.erroring).toEqual([key("broken")]);
     const states = (await sourceStates(db)).filter((s) => s.key.startsWith(org));

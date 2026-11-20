@@ -5,7 +5,7 @@
 > adapters return values and never touch the database. Every source has a recorded HTTP
 > fixture and a golden output; the test suite runs with the network hard-disabled. Health is
 > computed after every run and written to `Source`. The whole engine runs in one GitHub Actions
-> job every six hours.
+> job every two hours.
 
 ## 1. Stages and contracts
 
@@ -277,10 +277,14 @@ After each run, per source:
 
 - `consecutiveErrors`: reset on ok, else increment.
 - `consecutiveEmpty`: reset when `nNew > 0`, else increment.
-- `baselineWeeklyYield = 0.8 * previous + 0.2 * (nNew scaled to a week)` once 4 runs exist.
+- `baselineWeeklyYield = 0.8 * previous + 0.2 * (nNew scaled to a week)` once a source is
+  past `new`.
 - **State** (computed, shown on `/status`): `healthy` if ok and (yielded in 30 days or baseline
-  under 0.5/week); `stale` if `consecutiveEmpty >= 8` (two days at 6-hour cadence) and
-  baseline over 1/week; `erroring` if `consecutiveErrors >= 3`; `new` if fewer than 4 runs.
+  under 0.5/week); `stale` if `consecutiveEmpty >= 24` (two days at the two-hourly
+  schedule) and baseline over 1/week; `erroring` if `consecutiveErrors >= 9`; `new` if fewer
+  than 12 runs. The counts were 8, 3 and 4 at a six-hourly schedule and were tripled with it
+  (2026-11-20): GitHub starts only about half the scheduled runs, so in practice an alert
+  still comes after about a day and a half of failure, as before.
 - Alerts: the run's summary lists every `stale` and `erroring` source. In Actions, the job
   fails (exit 1) when a source turns `erroring`, so the maintainer gets an email.
 
@@ -288,7 +292,7 @@ Built in M1.9: `health` and `runSummary` in `src/health.ts`; `sourceHealth` in
 `packages/schema` because `/status` needs it too. States are checked worst first, so `erroring`
 beats `new`, as a source failing from its first run must. A source that fits none of the rules
 above (one or two errors, or a quiet spell short of `stale`) is `healthy`. One run scales to a
-week as `nNew * 28`, the six-hour cadence. A failed run counts as empty but leaves the baseline
+week as `nNew * 84`, the two-hourly schedule. A failed run counts as empty but leaves the baseline
 alone.
 
 ## 2. CLI
@@ -351,7 +355,7 @@ Copied from CLIST's design.
 
 ```yaml
 on:
-  schedule: [{ cron: "17 */6 * * *" }]
+  schedule: [{ cron: "17 */2 * * *" }]
   workflow_dispatch: { inputs: { source: { type: string, required: false } } }
 concurrency: { group: engine, cancel-in-progress: false }
 jobs:

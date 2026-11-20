@@ -1,7 +1,7 @@
 import { NEW_UNDER_RUNS, type SourceHealth } from "@devspot/schema";
 
-/** Runs a week at the six-hour cadence, to scale one run's yield to a week. */
-const RUNS_PER_WEEK = 28;
+/** Runs a week at the two-hourly schedule, to scale one run's yield to a week. */
+export const RUNS_PER_WEEK = 84;
 
 export type SourceCounters = {
   consecutiveEmpty: number;

@@ -71,8 +71,8 @@ export default async function Organisations() {
           <p className="text-body m-0 px-4 text-muted">No organisation is listed yet.</p>
         )}
         <p className="m-0 px-4 pt-4 pb-8 text-[12px] text-faint">
-          Healthy: read without trouble. New: fewer than four reads so far. Stale: nothing new for
-          longer than usual. Erroring: the last three reads failed.
+          Healthy: read without trouble. New: read for less than a day so far. Stale: nothing new
+          for longer than usual. Erroring: the last nine reads failed.
         </p>
       </div>
     </main>

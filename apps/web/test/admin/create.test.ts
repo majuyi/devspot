@@ -1,7 +1,10 @@
 import type { PrismaClient } from "@devspot/db";
-import { identityKey } from "@devspot/schema";
+import { ERRORING_AFTER, identityKey, NEW_UNDER_RUNS, STALE_AFTER_EMPTY } from "@devspot/schema";
 import { afterAll, beforeAll, beforeEach, describe, expect, inject, it, vi } from "vitest";
 import { at, hasDb, opp, org, reset } from "../seed";
+
+/** Runs enough for a source to be past "new", so its other states show. */
+const PAST_NEW = NEW_UNDER_RUNS + 1;
 
 vi.mock("next/cache", () => ({ revalidatePath: () => {} }));
 
@@ -322,9 +325,12 @@ describe.skipIf(!hasDb || !adminUrl)("/admin/new and Mark duplicate of, as the a
           });
         }
       };
-      await source("a-erroring", 5, { consecutiveErrors: 3 });
-      await source("b-stale", 5, { consecutiveEmpty: 9, baselineWeeklyYield: 4 });
-      await source("c-healthy", 5);
+      await source("a-erroring", PAST_NEW, { consecutiveErrors: ERRORING_AFTER });
+      await source("b-stale", PAST_NEW, {
+        consecutiveEmpty: STALE_AFTER_EMPTY + 1,
+        baselineWeeklyYield: 4,
+      });
+      await source("c-healthy", PAST_NEW);
       await source("d-new", 1, { consecutiveErrors: 1 });
       const rows = await data.troubledSources();
       expect(rows.map((r) => [r.key, r.health])).toEqual([

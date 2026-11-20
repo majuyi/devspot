@@ -1,7 +1,10 @@
 import type { PrismaClient } from "@devspot/db";
-import { OrganizationDto } from "@devspot/schema";
+import { ERRORING_AFTER, NEW_UNDER_RUNS, OrganizationDto } from "@devspot/schema";
 import { beforeAll, describe, expect, it } from "vitest";
 import { at, hasDb, NOW, opp, org, reset } from "../seed";
+
+/** Runs enough for a source to be past "new", so its other states show. */
+const PAST_NEW = NEW_UNDER_RUNS + 1;
 
 type Orgs = typeof import("../../src/data/organizations");
 type Meta = typeof import("../../src/data/meta");
@@ -36,12 +39,12 @@ describe.skipIf(!hasDb)("organization, meta and status queries", () => {
       lastOkAt: at(-6),
       consecutiveErrors: 0,
     });
-    const site = await source(hng.id, "hng/site", { consecutiveErrors: 3 });
+    const site = await source(hng.id, "hng/site", { consecutiveErrors: ERRORING_AFTER });
     await source(hng.id, "hng/blog");
     await source(gone.id, "gone/site");
     for (const [sourceId, n] of [
-      [competitions.id, 5],
-      [site.id, 4],
+      [competitions.id, PAST_NEW],
+      [site.id, NEW_UNDER_RUNS],
     ] as const) {
       for (let i = 0; i < n; i++) {
         await db.fetchRun.create({
