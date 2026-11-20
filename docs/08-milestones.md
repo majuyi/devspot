@@ -177,7 +177,7 @@ Gate: on the 100-item eval set, deadline exact match 90%+ where stated and kind 
 90%+; zero eligibility-word violations; fewer than 1 in 5 published items corrected during one
 week of live review.
 
-- [ ] **M3.1 Eval set to 100.** Hand-label from real fixtures; store under
+- [x] **M3.1 Eval set to 100.** Hand-label from real fixtures; store under
   `packages/engine/test/eval/`. Check: `engine eval` reports on all 100.
 - [ ] **M3.2 LLM extractor.** `extract/llm.ts` per `05` §2, structured outputs, evidence
   verification, cache, budget meter, fallbacks. Check: acceptance items in `05`.

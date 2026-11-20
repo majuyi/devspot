@@ -148,10 +148,20 @@ organization. Return only what the text states. Rules:
 
 ## 5. Evaluation (gate for M3)
 
-- `packages/engine/test/eval/` holds 100 hand-labelled items (`RawItem` text + expected
-  fields), built from real fixtures during M1 and M2.
+- `packages/engine/test/eval/items.json` holds 100 hand-labelled items (M3.1): the page text
+  as the engine read it, so re-recording a fixture never changes the set, and the expected
+  fields: whether it is an opportunity at all, then kind, deadline type, deadline (as stated;
+  a date alone is 23:59 in the stated zone, else Lagos), whether a time was stated, location
+  mode, country and city, each with the quote it rests on. 92 come from recorded fixtures and
+  8 from production pages; 35 are not opportunities (news, recaps, members-only and test
+  listings). Labelled by Claude and reviewed by Dami before the set counts.
+- A non-opportunity counts as a false publish when the loader's own publish rule would
+  publish it (`src/publish-rule.ts`, shared with the loader). Must stay at zero.
 - `pnpm engine eval` runs rules and, with `--llm`, the LLM on all 100 and reports per-field
-  accuracy, deadline exact-match rate, and eligibility-word violations (must be zero).
+  accuracy (kind, deadline type, deadline, location mode, country, city), how many deadlines
+  fall on the right day whatever the time, false publishes and eligibility-word violations
+  (both must be zero). Rules baseline on 2026-11-20: kind 60/65, deadline type 60/65, exact
+  deadline 21/27 (right day 22/27), location mode 44/52, country 23/30, city 23/23.
 - M3 ships when deadline exact match is 90%+ on items with a stated deadline, kind accuracy
   is 90%+, and fewer than 1 in 5 published items needed a correction in a week of review.
 
