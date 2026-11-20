@@ -41,7 +41,7 @@ export function openapiDocument() {
       title: "devspot API",
       version: "1",
       description:
-        "Read-only opportunities for early-career tech people in Nigeria. Only published and closed opportunities exist here. Requirements are verbatim from the organisation; nothing in this API says who is eligible.",
+        "Read-only opportunities for early-career tech people in Nigeria. Only published and closed opportunities exist here. Requirements are verbatim from the organisation; nothing in this API says who can apply.",
       license: { name: "Apache-2.0", identifier: "Apache-2.0" },
     },
     servers: [{ url: "/api/v1" }],

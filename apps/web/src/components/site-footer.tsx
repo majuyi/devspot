@@ -4,12 +4,12 @@ import { REPO_URL } from "@/data/site";
 
 const REPO = REPO_URL;
 
-// Internal pages arrive in M2.7, M2.9 and M4.5; the casts go once each route exists.
+// "API" points at the OpenAPI document until the docs page at /api (M4.5).
 const LINKS = [
   { href: "/about", label: "About" },
   { href: REPO, label: "Contribute on GitHub" },
   { href: "/status", label: "Status" },
-  { href: "/api", label: "API" },
+  { href: "/api/v1/openapi.json", label: "API" },
   { href: `${REPO}/blob/main/LICENSE`, label: "Licence" },
   { href: "/calendar#subscribe", label: "Calendar feed" },
 ] as const;
@@ -27,7 +27,8 @@ export function SiteFooter() {
         </p>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-x-4 text-[14px] md:grid-cols-6">
           {LINKS.map((item) =>
-            item.href.startsWith("https://") ? (
+            // A JSON document and other sites are plain links, not client navigations.
+            item.href.startsWith("https://") || item.href.startsWith("/api/") ? (
               <a
                 key={item.href}
                 href={item.href}

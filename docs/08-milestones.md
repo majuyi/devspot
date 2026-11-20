@@ -154,6 +154,10 @@ refreshes it.
 - [x] **M2.13 Performance pass.** Bundle analysis, font check, CLS audit on real devices.
   Check: `01` §6 budget met on every route. The JavaScript budget was amended to what Next.js
   allows (agreed 2026-11-20); a placeholder favicon until the brand at M5.
+- [x] **M2.14 About and Contribute.** `/about` and `/contribute`, the static pages `01` §3
+  lists but no task scheduled; the footer's API link points at the OpenAPI document until
+  M4.5. Check: no footer link returns 404 on the live site; the copy is approved by Dami
+  (added 2026-11-20).
 
 ## M3 · Extraction and trust
 
