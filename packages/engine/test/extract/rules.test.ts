@@ -67,6 +67,35 @@ describe("deadline", () => {
       "2026-11-01T22:59:00.000Z",
       0.7,
     ],
+    // Application periods (GSoC): the end of the range is the deadline.
+    ["Application Period: March 16 – March 31", "fixed", "2027-03-31T22:59:00.000Z", 0.6],
+    [
+      "Applications for the GSoC Contributors are open March 24 - April 8, 2027",
+      "fixed",
+      "2027-04-08T22:59:00.000Z",
+      0.85,
+    ],
+    [
+      "Contributor application window: 2 November to 20 November 2026",
+      "fixed",
+      "2026-11-20T22:59:00.000Z",
+      0.85,
+    ],
+    // A four-digit time before a zone.
+    ["the hard deadline March 31, 1800 UTC", "fixed", "2027-03-31T18:00:00.000Z", 0.6],
+    // A header line wins over body dates that only look like rounds (Zindi).
+    [
+      "Deadline: 10 November 2026, 18:29 UTC\nTrain.csv will be updated on 31 October and 5 November. Do not round your probabilities.",
+      "fixed",
+      "2026-11-10T18:29:00.000Z",
+      0.85,
+    ],
+    [
+      "The final round closes 1 November 2026; the first round closed 1 October 2026 and round two 20 October 2026.",
+      "fixed",
+      "2026-11-01T22:59:00.000Z",
+      0.85,
+    ],
     ["Applications are reviewed on a rolling basis.", "rolling", undefined, 0.7],
     ["We will recruit until the role is filled.", "rolling", undefined, 0.7],
   ] as const)("%j", (text, kind, at, confidence) => {
@@ -83,8 +112,36 @@ describe("deadline", () => {
     ["a news article", "The 2026 cohort met in Lagos on 3 October 2026 to celebrate."],
     ["rolling with no applications nearby", "The rolling hills of Jos."],
     ["registration closed with no date", "Registration Closed"],
+    ["an event's date range with no application label", "Event dates: 5 – 7 November 2026"],
+    ["an application period with only a start", "Applications open 2 November 2026."],
+    [
+      "a period headed as for organisations",
+      "Join GSoC as a Mentoring Organization\n\nApplication Period: November 19 – December 3",
+    ],
+    [
+      "a header deadline that has passed, with later milestones in the body",
+      "Deadline: Oct 1, 2026 @ 1:00pm UTC\nYour project should stay live until winners are announced on or around November 16th.",
+    ],
   ])("unknown for %s", (_, text) => {
     expect(ruleDeadline(text, REF)).toEqual({ kind: "unknown", confidence: 0 });
+  });
+
+  it("takes the reader's period, not the organisations' one, from a post with both (GSoC)", () => {
+    const text =
+      "Be a GSoC mentoring organization\n\nApplication period: January 27 – Feb 11\n\nInterested organizations can learn more. Be a GSoC contributor\n\nApplication period: March 24 - April 8";
+    const d = ruleDeadline(text, new Date("2027-01-14T20:00:00Z"));
+    expect(d.at?.toISOString()).toBe("2027-04-08T22:59:00.000Z");
+  });
+
+  it("does not read the verb round as rounds", () => {
+    const text =
+      "Do not round your scores. Entries close 1 November 2026. Late entries close 5 November 2026.";
+    expect(ruleDeadline(text, REF).kind).toBe("fixed");
+  });
+
+  it("lets a stated deadline win over the end of a period", () => {
+    const text = "Application period: March 16 - March 31. Deadline: March 30, 2027.";
+    expect(ruleDeadline(text, REF).at?.toISOString()).toBe("2027-03-30T22:59:00.000Z");
   });
 
   it("drops dates before the publish date, then keeps the next anchored one", () => {

@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- M3.2: the rules extractor reaches the M3 gate on deadlines: 26 of 27 stated deadlines exact (was 21), kind 60 of 65. It now reads application periods' end dates (not organisations' periods), lets a `Deadline:` header line win and stop a year-less body date replacing it once past, needs rounds as a noun for `multiRound`, and reads "1800 UTC". The eval floors are raised, and a test checks the gate's eval numbers.
 - Engine scheduling moves to a Supabase `pg_cron` job that dispatches `engine.yml` every two hours (GitHub was starting scheduled runs 8 to 9 hours late). `scripts/schedule-engine.sh` sets it up with a Vault-stored token; GitHub's schedule becomes a daily backup; a gate job skips automatic runs within 90 minutes of a successful one.
 - ADR 0017: LLM extraction deferred for lack of budget; M3 runs on the rules extractor. M3.2 is now "Rules to the gate", M3.3 drops the rules-versus-LLM rule, M3.5 runs on rules.
 - Specification set, ADRs, CLAUDE.md, skills and the M0 workspace scaffold.

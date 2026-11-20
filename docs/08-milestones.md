@@ -179,7 +179,7 @@ week of live review.
 
 - [x] **M3.1 Eval set to 100.** Hand-label from real fixtures; store under
   `packages/engine/test/eval/`. Check: `engine eval` reports on all 100.
-- [ ] **M3.2 Rules to the gate.** Fix the deadline formats the rules miss on the eval set,
+- [x] **M3.2 Rules to the gate.** Fix the deadline formats the rules miss on the eval set,
   each with a unit test from the real text; never guess a date (ADR 0017). Check: `engine
   eval` deadline exact match 90%+ where stated; eval floors raised.
 - [ ] **M3.3 Confidence and thresholds.** Weighted overall confidence and the publish

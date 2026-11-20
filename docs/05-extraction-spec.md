@@ -48,6 +48,21 @@ leaves room:
 - `deadline`: anchors also include "until", "open through", "submissions due" and "closing
   date". A deadline's anchor must come before the date. `multiRound` takes the next round.
   Rolling confidence is 0.7.
+- `deadline`, added in M3.2 (ADR 0017):
+  - **Application periods.** A period the text labels as for applying ("Application period:
+    March 16 – March 31", "Applications … are open March 24 - April 8, 2025") gives its end
+    date. It needs two dates joined by a dash, "to" or "through" within 80 characters of
+    the label. A range without the label (an event's dates) or with only a start gives
+    nothing. A period whose heading names organisations ("Join GSoC as a Mentoring
+    Organization") is skipped, since readers are people. A stated deadline beats a period's
+    end.
+  - **A `Deadline:` header line**, as our adapters write it, is the deadline. If its date
+    has passed, no other date stands in for it, so a year-less milestone in the body never
+    rolls into a guessed year.
+  - **Rounds.** `multiRound` needs rounds as a noun ("Round 2", "the final round",
+    "rounds"); "round your probabilities" does not count.
+  - **Times.** A four-digit 24-hour time counts only straight before a zone ("March 31,
+    1800 UTC"), so a year or a count is never read as a time.
 - `locationMode` in body text: "online" counts only in phrases such as "held online",
   "Location: Online" or "online cohort", so "apply online" does not make a programme remote.
   Only Nigerian cities are known, so a programme abroad gets no location from the text.

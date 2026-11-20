@@ -63,8 +63,10 @@ const ZONES: Record<string, string> = {
 const MONTH = String.raw`(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?`;
 const DAY = String.raw`(\d{1,2})(?:st|nd|rd|th)?`;
 const YEAR = String.raw`((?:19|20)\d{2})`;
-// A time only when it looks like one (11:59, 5pm), so "25 January – 5 March" stays two dates.
-const TIME = String.raw`(?:\s*,?\s*(?:@|at|by)?\s*(?=\d{1,2}(?:[:.]\d{2}|\s*[ap]\.?m\b))(\d{1,2})(?:[:.](\d{2}))?\s*([ap]\.?m\.?)?)?`;
+const ZONE_NAMES = `GMT|UTC|${Object.keys(ZONES).join("|")}`;
+// A time only when it looks like one (11:59, 5pm, or 1800 straight before a zone as in
+// "March 31, 1800 UTC"), so "25 January – 5 March" stays two dates and a bare 1800 is no time.
+const TIME = String.raw`(?:\s*,?\s*(?:@|at|by)?\s*(?=\d{1,2}(?:[:.]\d{2}|\s*[ap]\.?m\b)|\d{4}\s*(?:${ZONE_NAMES})\b)(\d{1,2})(?:[:.]?(\d{2}))?\s*([ap]\.?m\.?)?)?`;
 const ZONE = String.raw`(?:\s*(?:GMT|UTC)\s*([+-]\d{1,2})(?::?(\d{2}))?|\s*\(?\b(${Object.keys(ZONES).join("|")})\b\)?)?`;
 
 type Pattern = { re: RegExp; read: (m: RegExpExecArray) => Parts };

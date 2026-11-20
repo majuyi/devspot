@@ -28,13 +28,21 @@ describe("engine eval", () => {
   it("does not fall below today's accuracy", () => {
     // Floors, not targets: raise them when the rules improve. M3's gate is in docs/05 §5.
     const correct = (f: keyof typeof report.fields) => report.fields[f].correct;
-    // Measured on the 100-item set, 2026-11-20 (M3.1).
+    // Measured on the 100-item set, 2026-11-20 (M3.1; deadlines raised in M3.2).
     expect(correct("kind")).toBeGreaterThanOrEqual(60);
-    expect(correct("deadlineKind")).toBeGreaterThanOrEqual(60);
-    expect(correct("deadlineAt")).toBeGreaterThanOrEqual(21);
+    expect(correct("deadlineKind")).toBeGreaterThanOrEqual(64);
+    expect(correct("deadlineAt")).toBeGreaterThanOrEqual(26);
     expect(correct("locationMode")).toBeGreaterThanOrEqual(44);
     expect(correct("country")).toBeGreaterThanOrEqual(23);
     expect(correct("city")).toBeGreaterThanOrEqual(23);
-    expect(report.deadlineDay.correct).toBeGreaterThanOrEqual(22);
+    expect(report.deadlineDay.correct).toBeGreaterThanOrEqual(26);
+  });
+
+  it("meets the M3 gate on what the rules can be scored on (docs/05 §5)", () => {
+    const rate = (f: keyof typeof report.fields) =>
+      report.fields[f].correct / report.fields[f].total;
+    expect(rate("deadlineAt")).toBeGreaterThanOrEqual(0.9);
+    expect(rate("kind")).toBeGreaterThanOrEqual(0.9);
+    expect(report.eligibilityWordViolations).toEqual([]);
   });
 });
