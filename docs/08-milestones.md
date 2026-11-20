@@ -179,14 +179,16 @@ week of live review.
 
 - [ ] **M3.1 Eval set to 100.** Hand-label from real fixtures; store under
   `packages/engine/test/eval/`. Check: `engine eval` reports on all 100.
-- [ ] **M3.2 LLM extractor.** `extract/llm.ts` per `05` §2, structured outputs, evidence
-  verification, cache, budget meter, fallbacks. Check: acceptance items in `05`.
-- [ ] **M3.3 Confidence and thresholds.** Weighted overall, rules-vs-LLM deadline
-  disagreement rule. Check: unit tests.
+- [ ] **M3.2 Rules to the gate.** Fix the deadline formats the rules miss on the eval set,
+  each with a unit test from the real text; never guess a date (ADR 0017). Check: `engine
+  eval` deadline exact match 90%+ where stated; eval floors raised.
+- [ ] **M3.3 Confidence and thresholds.** Weighted overall confidence and the publish
+  threshold for rules drafts (`05` §2 "Confidence and thresholds", without the LLM
+  comparison). Check: unit tests.
 - [ ] **M3.4 Review queue polish.** Evidence highlighting, ignore list on reject, duplicate
   merge and split. Check: a rejected `not-an-opportunity` URL is not re-queued after a
   content change.
-- [ ] **M3.5 Live week.** Turn `EXTRACTION_LLM=1` in Actions, review daily for a week, log
+- [ ] **M3.5 Live week.** Rules only (ADR 0017). Review daily for a week, log
   corrections. Check: gate numbers recorded in the PR that closes M3.
 
 ## M4 · Events, map, submissions
@@ -231,4 +233,5 @@ did not list.
 Weekly digest email (Resend, preferences-driven, `engine digest`), WhatsApp forward-in
 number (Business API webhook to `Submission` with `channel: whatsapp`), Telegram channel
 bot reading the API, Ghana and Kenya (cities, organizations, `country` filter in the UI),
-Supabase Auth for a second reviewer, TypeScript 7, Prisma 8.
+Supabase Auth for a second reviewer, TypeScript 7, Prisma 8. LLM extraction (`05` §2), when
+there is a budget for it (ADR 0017).
