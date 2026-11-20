@@ -30,6 +30,10 @@ describe("findDates", () => {
     ["2026-10-21T09:47:20-04:00", "2026-10-21T13:47:00.000Z", "Etc/GMT+4", true, true],
     // No IANA name for a half-hour offset, but the instant is still exact.
     ["2026-11-10T23:59+05:30", "2026-11-10T18:29:00.000Z", undefined, true, true],
+    // A four-digit time counts only straight before a zone (GSoC writes "1800 UTC").
+    ["the hard deadline March 31, 1800 UTC", "2027-03-31T18:00:00.000Z", "UTC", false, true],
+    ["31 March 2027 1800 UTC", "2027-03-31T18:00:00.000Z", "UTC", true, true],
+    ["April 30 0930 WAT", "2027-04-30T08:30:00.000Z", "Africa/Lagos", false, true],
     ["3 March", "2027-03-03T22:59:00.000Z", undefined, false, false],
     ["October 20", "2026-10-20T22:59:00.000Z", undefined, false, false],
   ])("%s", (text, at, zone, hasYear, hasTime) => {
@@ -54,6 +58,15 @@ describe("findDates", () => {
   it("keeps both ends of a range as separate dates", () => {
     const found = findDates("Cohort 1: 25 January – 5 March 2027", REF);
     expect(found.map((d) => d.quote)).toEqual(["25 January", "5 March 2027"]);
+  });
+
+  it("reads four digits with no zone as no time: a count or a year stays out of the date", () => {
+    const [count] = findDates("March 31, 1800 applicants", REF);
+    expect(count?.hasTime).toBe(false);
+    expect(count?.quote).toBe("March 31");
+    const [year] = findDates("31 March 2027 deadline", REF);
+    expect(year?.hasYear).toBe(true);
+    expect(year?.hasTime).toBe(false);
   });
 
   it("reads a date with no time as the start of the day when asked", () => {

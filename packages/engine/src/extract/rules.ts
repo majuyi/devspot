@@ -135,6 +135,18 @@ const DEADLINE_ANCHOR =
 const ROLLING =
   /\brolling\b|\buntil (?:the (?:role|position) is |positions? (?:are|is) )?filled\b/i;
 const NEAR = 80;
+// "Application period: March 16 – March 31", "Applications … are open March 24 - April 8":
+// a period the organisation gives for applying; its end is the deadline.
+const APPLICATION_PERIOD =
+  /\bapplications?\b[^.\n]{0,60}?\b(?:period|window|(?:are |is )?open)\b|\bapplication (?:period|window)\b/gi;
+const FOR_ORGANIZATIONS = /\borgani[sz]ations?\b/i;
+const RANGE_JOIN = /^\s*(?:-|–|—|to|through|until|till)\s*$/i;
+// Rounds as a noun ("Round 2", "two rounds", "the final round"), not the verb in "round your
+// probabilities", which a competition's rules use and which once made Zindi look multi-round.
+const ROUNDS =
+  /\brounds\b(?! (?:your|off|up|down)\b)|\b(?:first|second|third|final|next|last|1st|2nd|3rd) round\b|\bround (?:\d|one|two|three)\b/i;
+// A header line our adapters write ("Deadline: 10 November 2026, 18:29 UTC").
+const DEADLINE_LINE = /^deadline:/im;
 
 export type DeadlineField = {
   kind: DeadlineKind;
@@ -157,11 +169,23 @@ export function ruleDeadline(text: string, reference: Date): DeadlineField {
     const [first] = findDates(window, reference);
     if (first) anchored.push({ ...first, index: from + first.index });
   }
+  // After the anchors, so a stated deadline wins over the end of a period.
+  anchored.push(...periodEnds(text, reference));
   const future = anchored.filter((d) => d.at.getTime() >= reference.getTime());
 
-  const rounds = /\brounds?\b/i.test(text);
+  // The header line is the deadline. If its date has passed, no other date stands in for it:
+  // the body's dates are then milestones, and a year-less one would roll into a guessed year.
+  const line = text.match(DEADLINE_LINE);
+  const header = line
+    ? anchored.find((d) => d.index > (line.index ?? 0) && d.index < (line.index ?? 0) + NEAR)
+    : undefined;
+  if (header)
+    return header.at.getTime() >= reference.getTime()
+      ? dated("fixed", header, header.hasYear ? 0.85 : 0.6)
+      : { kind: "unknown", confidence: 0 };
+
   const distinct = [...new Map(future.map((d) => [d.at.getTime(), d])).values()];
-  if (rounds && distinct.length >= 2) {
+  if (ROUNDS.test(text) && distinct.length >= 2) {
     const next = distinct.sort((a, b) => a.at.getTime() - b.at.getTime())[0] as FoundDate;
     return dated("multiRound", next, 0.7);
   }
@@ -175,6 +199,31 @@ export function ruleDeadline(text: string, reference: Date): DeadlineField {
   )
     return { kind: "rolling", confidence: 0.7, quote: rolling[0] };
   return { kind: "unknown", confidence: 0 };
+}
+
+/**
+ * The end of each application period stated as a range: two dates joined by a dash or "to"
+ * within 80 characters after the label. A range without that label (an event's dates) is not
+ * a deadline, and neither is a period with only a start or one headed as for organisations.
+ */
+function periodEnds(text: string, reference: Date): FoundDate[] {
+  const ends: FoundDate[] = [];
+  APPLICATION_PERIOD.lastIndex = 0;
+  for (let m = APPLICATION_PERIOD.exec(text); m; m = APPLICATION_PERIOD.exec(text)) {
+    // Readers are people, so a period for organisations ("Join GSoC as a Mentoring
+    // Organization / Application Period: …") is not theirs.
+    // Only the heading counts: the text after the last full stop before the label.
+    const before = text.slice(Math.max(0, m.index - NEAR), m.index);
+    if (FOR_ORGANIZATIONS.test(before.slice(before.search(/[.!?][^.!?]*$/) + 1))) continue;
+    const from = m.index + m[0].length;
+    const window = text.slice(from, from + NEAR);
+    const [start, end] = findDates(window, reference);
+    if (!start || !end) continue;
+    const join = window.slice(start.index + start.quote.length, end.index);
+    if (RANGE_JOIN.test(join) && end.at.getTime() > start.at.getTime())
+      ends.push({ ...end, index: from + end.index });
+  }
+  return ends;
 }
 
 function dated(kind: DeadlineKind, d: FoundDate, confidence: number): DeadlineField {
