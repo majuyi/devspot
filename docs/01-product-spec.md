@@ -259,7 +259,11 @@ contributors asking which source is broken.
 
 ### `/about`, `/api` (docs), `/contribute`
 
-Static content pages. `/api` embeds the OpenAPI document with a lightweight renderer.
+Static content pages. `/about`: what is listed, where it comes from, what the site never does
+(decide who can apply, guess a date, ask for money or a login, track readers), how to report
+a mistake, and that the code and registry are open. `/contribute`: the reader's version of
+`CONTRIBUTING.md`. `/api` embeds the OpenAPI document with a lightweight renderer (M4.5);
+until then the footer's "API" link opens `/api/v1/openapi.json`.
 
 ## 4. Admin (`/admin`, maintainer only)
 
