@@ -537,7 +537,7 @@ describe("extractRules", () => {
         { meta: { links: [{ text: "Apply now", href: "https://e.org/apply" }] } },
       ),
     );
-    expect(confidence).toBe(0.85);
+    expect(confidence).toBe(0.89);
     expect(confidence).toBeGreaterThanOrEqual(RULES_ONLY_PUBLISH_THRESHOLD);
     expect(draft).toMatchObject({
       kind: "internship",
@@ -578,11 +578,50 @@ describe("extractRules", () => {
     expect(draft.deadlineTimezone).toBe("America/Los_Angeles");
   });
 
-  it("takes 0.15 off without requirements, and stays below the threshold", () => {
+  it("weights the fields (docs/05 §2): requirements are worth 0.15 of the score", () => {
+    const text = "Applications close 31 October 2026.";
+    const without = extractRules(item("Remote Internship", text)).confidence;
+    const withReqs = extractRules(
+      item("Remote Internship", `${text}\n\nRequirements\n\n- Go or Node`),
+    ).confidence;
+    // deadline 0.85·0.35 + kind 0.9·0.25 + location 0.9·0.15 + title 0.1, then + 0.9·0.15.
+    expect(without).toBe(0.76);
+    expect(withReqs).toBe(0.89);
+  });
+
+  it("holds an item with a weak core field for review, however strong the rest", () => {
+    // Organisation default location only (0.3): the mean alone would publish it.
     const { confidence } = extractRules(
-      item("Remote Internship", "Applications close 31 October 2026."),
+      item("Backend Engineer", "Applications close 31 October 2026.\n\nRequirements\n\n- Go"),
     );
-    expect(confidence).toBe(0.7);
+    expect(confidence).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
+  });
+
+  it.each([
+    [
+      "an invite-only listing",
+      "Hackathon",
+      "Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online\nInvite only. Club members only",
+    ],
+    [
+      "a round-up post",
+      "GSoC 2025: It's a wrap!",
+      "Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online",
+    ],
+    [
+      "a final-results post",
+      "Google Summer of Code 2026 Final Results!",
+      "Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online",
+    ],
+  ])("holds %s for review", (_, title, text) => {
+    expect(extractRules(item(title, text)).confidence).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
+  });
+
+  it("publishes the same listing when it is open to all", () => {
+    const text = "Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online";
+    expect(extractRules(item("Hackathon", text)).confidence).toBeGreaterThanOrEqual(
+      RULES_ONLY_PUBLISH_THRESHOLD,
+    );
   });
 
   it("does not publish a news article", () => {
@@ -605,7 +644,8 @@ describe("extractRules", () => {
       ),
     );
     expect(draft.deadlineKind).toBe("unknown");
-    expect(confidence).toBe(0);
+    expect(draft.deadlineAt).toBeUndefined();
+    expect(confidence).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
   });
 
   it("fills start and end only for events and bootcamps", () => {

@@ -106,7 +106,8 @@ export const OpportunityDto = z.object({
 export type OpportunityDto = z.infer<typeof OpportunityDto>;
 
 export const PUBLISH_THRESHOLD = 0.8;
-export const RULES_ONLY_PUBLISH_THRESHOLD = 0.75;
+// Rules alone, on the weighted overall of docs/05 §2 (chosen on the eval set in M3.3).
+export const RULES_ONLY_PUBLISH_THRESHOLD = 0.7;
 
 /** Words that must never appear in machine-written summaries. See docs/05 §2. */
 export const ELIGIBILITY_WORDS = ["eligible", "qualify", "qualifies", "open to you"] as const;
