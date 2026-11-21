@@ -2,14 +2,19 @@
 # Starts the Engine workflow every two hours from Supabase (docs/09 §5). GitHub was starting
 # its own scheduled runs eight to nine hours late.
 #
-#   1. Turns on pg_cron and pg_net in the production database if they are off.
-#   2. Asks for a fine-grained GitHub token (this repo only, Actions read and write) in a
-#      hidden dialog and stores it in Supabase Vault. It is not printed or kept anywhere else.
+#   1. Turns on pg_cron and the synchronous `http` extension in the production database.
+#   2. Keeps the GitHub token already in Supabase Vault, or replaces it with one you paste
+#      (fine-grained, this repo only, Actions read and write). It is never printed.
 #   3. Creates or updates the cron job `engine-dispatch` (17 minutes past every second hour).
-#   4. Dispatches once now and prints GitHub's answer (204 means the run was started).
-#   5. Checks that the engine, web and admin roles cannot read Vault or the cron schema.
+#      `http` sends the request inside the job, so the token is never written to a table.
+#      A status other than 204 fails the job, which cron.job_run_details then shows.
+#   4. Removes pg_net, used by the first version: it queued each request, token included, in
+#      a table every role could read (2026-11-21).
+#   5. Tries to stop roles other than postgres calling the `http` functions.
+#   6. Dispatches once now and prints GitHub's answer.
+#   7. Checks what the engine, web and admin roles can reach, and fails if any can read the token.
 #
-# Safe to run again; to renew the token, run it again with the new one.
+# Safe to run again; to renew the token, run it and paste the new one.
 # Needs: psql, and the postgres password in the Keychain (service devspot-supabase).
 set -euo pipefail
 
@@ -23,32 +28,36 @@ SECRET_NAME="github_engine_dispatch"
 # on GitHub can take longer, so both dialogs wait ten.
 ask() { osascript -e "with timeout of 600 seconds" -e "$1" -e "end timeout" 2>&1; }
 
-answer=$(ask 'button returned of (display dialog "Schedule the devspot engine from Supabase? This turns on pg_cron and pg_net, stores a GitHub token in Supabase Vault and starts one engine run now." buttons {"Cancel", "Schedule"} default button "Cancel" with title "devspot")' || true)
+answer=$(ask 'button returned of (display dialog "Schedule the devspot engine from Supabase? This sets up the two-hourly job with the http extension, removes pg_net and starts one engine run now." buttons {"Cancel", "Schedule"} default button "Cancel" with title "devspot")' || true)
 [ "$answer" = "Schedule" ] || { echo "Cancelled. Nothing changed."; exit 0; }
-
-TOKEN=$(ask 'text returned of (display dialog "Paste the fine-grained GitHub token (repository majuyi/devspot only, Actions: read and write). It goes to Supabase Vault and nowhere else." default answer "" with hidden answer buttons {"Cancel", "Continue"} default button "Continue" with title "devspot")' || true)
-case "$TOKEN" in
-  *"timed out"*|*"-1712"*) echo "The token dialog timed out after ten minutes. Nothing changed; run the script again with the token ready."; exit 1 ;;
-  *"User canceled"*|*"-128"*|"") echo "No token given. Nothing changed."; exit 1 ;;
-esac
-case "$TOKEN" in github_pat_*) ;; *) echo "Stopped: that is not a fine-grained token (they start with github_pat_)."; exit 1 ;; esac
-
-# Checked against GitHub before anything is stored: the token must reach this repo.
-# The header goes in on stdin so the token is not on curl's command line.
-status=$(printf 'Authorization: Bearer %s\n' "$TOKEN" | curl -s -o /dev/null -w '%{http_code}' -H @- \
-  -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/actions/workflows/engine.yml")
-[ "$status" = "200" ] || { echo "Stopped: GitHub answered $status for that token on $REPO. Check its repository access and the Actions permission."; exit 1; }
 
 PGPASSWORD=$(security find-generic-password -s "$SERVICE" -a postgres -w); export PGPASSWORD
 CONN="host=$HOST port=5432 dbname=postgres user=postgres.$REF sslmode=require"
+q() { psql "$CONN" -v ON_ERROR_STOP=1 -Atq "$@"; }
 
-echo "== 1 to 3. Extensions, Vault secret and the cron job"
-# The token travels on stdin inside a dollar-quoted literal, so it is not on a command line.
-psql "$CONN" -v ON_ERROR_STOP=1 -q <<SQL
--- As Supabase's docs install them.
-create extension if not exists pg_cron with schema pg_catalog;
-create extension if not exists pg_net with schema extensions;
+stored=$(q -c "select count(*) from vault.secrets where name = '$SECRET_NAME'")
+if [ "$stored" = "1" ]; then
+  prompt="A token is already stored in Supabase Vault. Paste a new one to replace it, or leave this empty to keep it."
+else
+  prompt="Paste the fine-grained GitHub token (repository majuyi/devspot only, Actions: read and write). It goes to Supabase Vault and nowhere else."
+fi
+TOKEN=$(ask "text returned of (display dialog \"$prompt\" default answer \"\" with hidden answer buttons {\"Cancel\", \"Continue\"} default button \"Continue\" with title \"devspot\")" || true)
+case "$TOKEN" in
+  *"timed out"*|*"-1712"*) echo "The token dialog timed out after ten minutes. Nothing changed; run the script again with the token ready."; exit 1 ;;
+  *"User canceled"*|*"-128"*) echo "Cancelled. Nothing changed."; exit 0 ;;
+esac
+if [ -z "$TOKEN" ] && [ "$stored" != "1" ]; then echo "No token given. Nothing changed."; exit 1; fi
 
+if [ -n "$TOKEN" ]; then
+  case "$TOKEN" in github_pat_*) ;; *) echo "Stopped: that is not a fine-grained token (they start with github_pat_)."; exit 1 ;; esac
+  # Checked against GitHub before anything is stored: the token must reach this repo.
+  # The header goes in on stdin so the token is not on curl's command line.
+  status=$(printf 'Authorization: Bearer %s\n' "$TOKEN" | curl -s -o /dev/null -w '%{http_code}' -H @- \
+    -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO/actions/workflows/engine.yml")
+  [ "$status" = "200" ] || { echo "Stopped: GitHub answered $status for that token on $REPO. Check its repository access and the Actions permission."; exit 1; }
+  echo "== Storing the new token in Vault"
+  # On stdin inside a dollar-quoted literal, so it is not on a command line.
+  psql "$CONN" -v ON_ERROR_STOP=1 -q <<SQL
 do \$do\$
 declare existing uuid;
 begin
@@ -60,44 +69,89 @@ begin
   end if;
 end
 \$do\$;
+SQL
+else
+  echo "== Keeping the token already in Vault"
+fi
+unset TOKEN
+
+echo "== 1 to 4. Extensions, the cron job, pg_net removed"
+psql "$CONN" -v ON_ERROR_STOP=1 -q <<SQL
+create extension if not exists pg_cron with schema pg_catalog;
+create extension if not exists http with schema extensions;
 
 -- cron.schedule replaces a job of the same name, so this is safe to run again.
 select cron.schedule('engine-dispatch', '17 */2 * * *', \$job\$
-  select net.http_post(
-    url := 'https://api.github.com/repos/$REPO/actions/workflows/engine.yml/dispatches',
-    headers := jsonb_build_object(
-      'Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = '$SECRET_NAME'),
-      'Accept', 'application/vnd.github+json',
-      'Content-Type', 'application/json',
-      'X-GitHub-Api-Version', '2022-11-28',
-      'User-Agent', 'devspot-pg-cron'),
-    body := '{"ref": "main", "inputs": {"trigger": "pg_cron"}}'::jsonb,
-    timeout_milliseconds := 10000)
-\$job\$);
+do \$d\$
+declare answered integer;
+begin
+  perform extensions.http_set_curlopt('CURLOPT_TIMEOUT', '10');
+  select status into answered from extensions.http((
+    'POST',
+    'https://api.github.com/repos/$REPO/actions/workflows/engine.yml/dispatches',
+    array[
+      extensions.http_header('Authorization', 'Bearer ' || (select decrypted_secret from vault.decrypted_secrets where name = '$SECRET_NAME')),
+      extensions.http_header('Accept', 'application/vnd.github+json'),
+      extensions.http_header('X-GitHub-Api-Version', '2022-11-28'),
+      extensions.http_header('User-Agent', 'devspot-pg-cron')
+    ],
+    'application/json',
+    '{"ref": "main", "inputs": {"trigger": "pg_cron"}}'
+  )::extensions.http_request);
+  if answered <> 204 then
+    raise exception 'GitHub answered % to the engine dispatch (401 or 403: renew the token, docs/09 §6)', answered;
+  end if;
+end
+\$d\$
+\$job\$) \\g /dev/null
+
+drop extension if exists pg_net;
+
+-- Grant to postgres first, so the job keeps working, then take the http functions from
+-- everyone else. Where Supabase's admin owns them, both are no-ops with a warning.
+do \$do\$
+declare f regprocedure;
+begin
+  for f in
+    select p.oid::regprocedure from pg_proc p
+    join pg_depend d on d.objid = p.oid and d.deptype = 'e'
+    join pg_extension e on e.oid = d.refobjid and e.extname = 'http'
+  loop
+    execute format('grant execute on function %s to postgres', f);
+    execute format('revoke execute on function %s from public', f);
+  end loop;
+end
+\$do\$;
 SQL
-unset TOKEN
-psql "$CONN" -Atqc "select format('job %s: %s %s', jobid, schedule, case when active then 'active' else 'INACTIVE' end) from cron.job where jobname = 'engine-dispatch'"
+q -c "select format('job %s: %s %s', jobid, schedule, case when active then 'active' else 'INACTIVE' end) from cron.job where jobname = 'engine-dispatch'"
 
-echo "== 4. One dispatch now"
-id=$(psql "$CONN" -Atqc "select command from cron.job where jobname = 'engine-dispatch'" | psql "$CONN" -Atq)
-for _ in 1 2 3 4 5 6 7 8 9 10; do
-  sleep 2
-  result=$(psql "$CONN" -Atqc "select coalesce(status_code::text, error_msg) from net._http_response where id = $id")
-  [ -n "$result" ] && break
-done
-case "$result" in
-  204) echo "GitHub answered 204: an Engine run has been started (trigger pg_cron)." ;;
-  "") echo "No answer from GitHub after 20 seconds. Check later: select * from net._http_response where id = $id;" ;;
-  *) echo "GitHub answered: $result. The job is scheduled but this dispatch did not start a run." ;;
-esac
+echo "== 6. One dispatch now"
+if out=$(q -c "$(q -c "select command from cron.job where jobname = 'engine-dispatch'")" 2>&1); then
+  echo "GitHub answered 204: an Engine run has been started (trigger pg_cron)."
+else
+  echo "The dispatch failed: ${out##*ERROR:  }"
+  echo "The job is scheduled, but this run was not started."
+fi
 
-echo "== 5. The app's roles cannot read the token"
-psql "$CONN" -Atq <<'SQL'
-select format('%-6s vault usage: %s, cron usage: %s, net usage: %s', r,
+echo "== 7. What the app's roles can reach"
+report=$(psql "$CONN" -Atq <<'SQL'
+select format('%-6s vault: %s, cron: %s, net schema present: %s, can call http: %s', r,
   has_schema_privilege(r, 'vault', 'USAGE'),
   has_schema_privilege(r, 'cron', 'USAGE'),
-  has_schema_privilege(r, 'net', 'USAGE'))
+  exists (select 1 from pg_namespace where nspname = 'net'),
+  has_function_privilege(r, 'extensions.http(extensions.http_request)', 'EXECUTE')
+    and has_schema_privilege(r, 'extensions', 'USAGE'))
 from unnest(array['engine', 'web', 'admin']) as r;
 SQL
+)
+echo "$report"
 unset PGPASSWORD
-echo "Done. Each line above should end in false. Tell Claude, and it will check the run."
+if grep -qE 'vault: true|cron: true|net schema present: true' <<<"$report"; then
+  echo "STOP: an app role can still reach the token. Tell Claude before anything else."
+  exit 1
+fi
+if grep -q 'can call http: true' <<<"$report"; then
+  echo "The token is out of their reach. They can still call http (Supabase keeps it open to"
+  echo "everyone), which lets them fetch web pages from the database, but not the token."
+fi
+echo "Done. Tell Claude, and it will check the run."

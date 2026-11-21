@@ -115,7 +115,11 @@ late (November 2026), which broke the six-hour promise on `/status`. A `pg_cron`
 `engine-dispatch`, calls GitHub's API at 17 minutes past every second hour to dispatch
 `engine.yml` with `trigger=pg_cron`, using a fine-grained token (this repo only, Actions read
 and write) kept in Supabase Vault as `github_engine_dispatch`. Only `postgres` can read it;
-`engine`, `web` and `admin` have no access to `vault`, `cron` or `net`. The workflow's
+`engine`, `web` and `admin` have no access to `vault` or `cron`. The request goes through the
+synchronous `http` extension, so the token is never written to a table. The first version
+used pg_net, which queues each request, headers included, in `net.http_request_queue`, and
+Supabase grants that table to everyone; it was replaced on 2026-11-21. A status other than
+204 fails the job. The workflow's
 `gate` job stops automatic runs (pg_cron and the daily backup schedule) when a run's `run`
 job succeeded in the last 90 minutes, so a late or doubled trigger costs seconds. Runs
 started by hand always go ahead. Set up and renewed with `scripts/schedule-engine.sh`, which
@@ -141,12 +145,11 @@ missed, the selector is wrong: treat as erroring.
 then verify the keepalive workflow ran; the usual cause is the workflow being disabled.
 
 **The engine stopped running every two hours.** `/status` shows sources late. Check the
-job and GitHub's recent answers in the Supabase SQL editor:
-`select jobid, schedule, active from cron.job;`,
-`select status, return_message, start_time from cron.job_run_details order by start_time desc limit 5;`
-and `select status_code, created from net._http_response order by created desc limit 5;`
-(kept about six hours). A 401 or 403 means the token lapsed or lost access: create a new one
-and run `scripts/schedule-engine.sh` again. Until then the daily backup schedule keeps the
+job in the Supabase SQL editor:
+`select jobid, schedule, active from cron.job;` and
+`select status, return_message, start_time from cron.job_run_details order by start_time desc limit 5;`.
+A failed run's message gives GitHub's answer. "GitHub answered 401" or 403 means the token
+lapsed or lost access: create a new one and run `scripts/schedule-engine.sh` again. Until then the daily backup schedule keeps the
 data at most a day old. To stop it: `select cron.unschedule('engine-dispatch');`.
 Token renewal date: set when the token is created.
 
