@@ -9,6 +9,14 @@ on:
     inputs:
       source: { type: string, required: false, description: "Source key, e.g. devpost/hackathons" }
       trigger: { type: string, required: false, description: "Left empty by hand; pg_cron sends pg_cron" }
+      # Re-scores stored items with today's rules instead of fetching (docs/04 §2). Preview
+      # first; the real pass changes production rows.
+      task:
+        type: choice
+        required: false
+        default: run
+        options: [run, reextract-preview, reextract]
+        description: "run fetches as usual; reextract re-scores stored items"
 concurrency: { group: engine, cancel-in-progress: false }
 permissions: { contents: read, actions: read }
 defaults:
@@ -66,8 +74,11 @@ jobs:
       - run: pnpm turbo build --filter "@devspot/engine^..."
       # Syncs the registry first, so a YAML change reaches production on the next run.
       # Exits 1 only on the run where a source turns erroring, which emails the maintainer.
-      - run: pnpm --silent engine run ${{ inputs.source && format('--source {0}', inputs.source) || '' }} | tee run.log
-      - if: success() || failure()
+      - if: ${{ !startsWith(inputs.task, 'reextract') }}
+        run: pnpm --silent engine run ${{ inputs.source && format('--source {0}', inputs.source) || '' }} | tee run.log
+      - if: ${{ startsWith(inputs.task, 'reextract') }}
+        run: pnpm --silent engine reextract ${{ inputs.task == 'reextract-preview' && '--dry-run' || '' }} ${{ inputs.source && format('--source {0}', inputs.source) || '' }} 2>&1 | tee reextract.log
+      - if: ${{ (success() || failure()) && !startsWith(inputs.task, 'reextract') }}
         run: pnpm --silent engine verify | tee verify.log
       # Refreshes the site now rather than within 15 minutes (docs/02 §6). Skipped until the
       # REVALIDATE_SECRET secret and the SITE_URL variable exist.

@@ -153,6 +153,11 @@ lapsed or lost access: create a new one and run `scripts/schedule-engine.sh` aga
 data at most a day old. To stop it: `select cron.unschedule('engine-dispatch');`.
 Token renewal date: set when the token is created.
 
+**A rules change should reach items already stored.** Runs only re-extract pages that
+changed. Start the Engine workflow by hand with `task: reextract-preview`, read the list of
+status changes in the log, then run it again with `task: reextract`. Reviewed rows are never
+touched. The real pass changes production rows, so it needs the maintainer's OK.
+
 **Actions disabled the schedules.** Re-enable each workflow from the Actions tab. Make a
 commit. Check that `keepalive.yml` is enabled first.
 

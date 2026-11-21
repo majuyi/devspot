@@ -28,6 +28,28 @@ const sameInstant = (a: Date | null, b: Date | null) =>
   (a?.getTime() ?? null) === (b?.getTime() ?? null);
 const json = (value: unknown) => value as Prisma.InputJsonValue | undefined;
 
+type Placed = { status: OpportunityStatus; duplicateOfId: string | null };
+
+/** An unreviewed row new content may move: not closed, rejected or waiting as a copy. */
+export const isMovable = (row: Placed) =>
+  !row.duplicateOfId && (row.status === "review" || row.status === "published");
+
+/**
+ * The status the loader gives a row (invariants 3 and 7), shared with `engine reextract
+ * --dry-run` so the preview cannot drift from the write. A new item that repeats an earlier
+ * one's identity key (`isCopy`) waits for review.
+ */
+export function statusFor(
+  existing: Placed | null,
+  input: OpportunityInput,
+  over: boolean,
+  isCopy: boolean,
+): OpportunityStatus {
+  if (existing && !isMovable(existing)) return existing.status;
+  if (over) return "closed";
+  return !isCopy && meetsPublishRule(input) ? "published" : "review";
+}
+
 /** Stage 5 (docs/04 §1): the only writer of `Opportunity`. */
 export async function load(
   input: OpportunityInput,
@@ -99,15 +121,8 @@ export async function load(
     }
     // Invariant 3 holds for the row's life, not only at creation: new content can raise or
     // lower it. Closed never reopens, and a duplicate waits for a reviewer.
-    const movable =
-      !existing.duplicateOfId && (existing.status === "review" || existing.status === "published");
-    const status = !movable
-      ? existing.status
-      : over
-        ? "closed"
-        : meetsPublishRule(input)
-          ? "published"
-          : "review";
+    const movable = isMovable(existing);
+    const status = statusFor(existing, input, over, false);
     // Stage 5 records a stated deadline that changed: the history row always, and the
     // "moved" columns the public pages read when a date became another date.
     const deadlineChanged =
@@ -154,7 +169,7 @@ export async function load(
     orderBy: { createdAt: "asc" },
     select: { id: true },
   });
-  const status = over ? "closed" : !original && meetsPublishRule(input) ? "published" : "review";
+  const status = statusFor(null, input, over, Boolean(original));
   const created = await db.opportunity.create({
     data: {
       ...mutable,
