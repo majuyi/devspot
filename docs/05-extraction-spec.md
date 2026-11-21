@@ -33,8 +33,9 @@ capping it at 0.5:
 - **A weak core field:** kind, date or location below 0.6. A hybrid item in a city we do not
   know (location 0.5) or a location taken only from the organisation's default (0.3) is
   not carried by a strong deadline.
-- **An invite-only listing** ("Invite only. Club members only"), which is for people already
-  chosen.
+- **An invite-only or members-only listing** ("Invite only. Club members only", "projects
+  for Product@TAMU Members"), which is for people already chosen. "Members of the public"
+  does not count.
 - **A round-up title** ("Final Results!", "It's a wrap!", "recap"). These posts often state
   next year's deadline in passing. The match is narrow on purpose, since "announced", "meet
   the" and "celebrating" also title real calls to apply.
@@ -75,6 +76,12 @@ leaves room:
   - **A `Deadline:` header line**, as our adapters write it, is the deadline. If its date
     has passed, no other date stands in for it, so a year-less milestone in the body never
     rolls into a guessed year.
+  - **A Devpost `Submission period:` line**, when there is no `Deadline:` line (upcoming
+    hackathons), gives the deadline as its last day: "Dec 06 - 20, 2026", "Jan 27 - Feb 24,
+    2027", "Dec 19, 2026 - Jan 06, 2027", or one date for a one-day event. The end must
+    state its year. It is a day without a time, so it is stored as the end of that day in
+    Lagos, like other day-only deadlines; once the hackathon opens, the `Deadline:` line
+    replaces it with the exact time. Passed, it is treated like a passed header date.
   - **Rounds.** `multiRound` needs rounds as a noun ("Round 2", "the final round",
     "rounds"); "round your probabilities" does not count.
   - **Passed deadlines.** When the page has no publish date, a passed date on the

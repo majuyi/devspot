@@ -31,11 +31,11 @@ describe("engine eval", () => {
     // Measured on the 100-item set, 2026-11-20 (M3.1; deadlines raised in M3.2 and for passed deadlines).
     expect(correct("kind")).toBeGreaterThanOrEqual(60);
     expect(correct("deadlineKind")).toBeGreaterThanOrEqual(65);
-    expect(correct("deadlineAt")).toBeGreaterThanOrEqual(27);
+    expect(correct("deadlineAt")).toBeGreaterThanOrEqual(28);
     expect(correct("locationMode")).toBeGreaterThanOrEqual(44);
     expect(correct("country")).toBeGreaterThanOrEqual(23);
     expect(correct("city")).toBeGreaterThanOrEqual(23);
-    expect(report.deadlineDay.correct).toBeGreaterThanOrEqual(27);
+    expect(report.deadlineDay.correct).toBeGreaterThanOrEqual(28);
   });
 
   it("meets the M3 gate on what the rules can be scored on (docs/05 §5)", () => {
