@@ -146,11 +146,12 @@ SQL
 )
 echo "$report"
 unset PGPASSWORD
-if grep -qE 'vault: true|cron: true|net schema present: true' <<<"$report"; then
+# psql prints booleans as t and f.
+if grep -qE 'vault: t,|cron: t,|net schema present: t,' <<<"$report"; then
   echo "STOP: an app role can still reach the token. Tell Claude before anything else."
   exit 1
 fi
-if grep -q 'can call http: true' <<<"$report"; then
+if grep -qE 'can call http: t$' <<<"$report"; then
   echo "The token is out of their reach. They can still call http (Supabase keeps it open to"
   echo "everyone), which lets them fetch web pages from the database, but not the token."
 fi
