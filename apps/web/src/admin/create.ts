@@ -171,3 +171,37 @@ export async function markDuplicateOf(form: FormData): Promise<string> {
   log("admin.action", { action: "markDuplicate", id, slug: item.slug, of: original.slug });
   return here;
 }
+
+/**
+ * "Split" (docs/05 §4): the engine took this item for a copy because it shares an identity key
+ * with an earlier one, and the reviewer says it is a different opportunity. The link is cleared
+ * and the item stays in review, to be published on its own; history records the split.
+ */
+export async function splitDuplicateOf(form: FormData): Promise<string> {
+  const db = adminDb();
+  const id = String(form.get("id") ?? "");
+  const back = safeBack(form.get("back"));
+  const item = id
+    ? await db.opportunity.findUnique({
+        where: { id },
+        include: { duplicateOf: { select: { slug: true } } },
+      })
+    : null;
+  if (!item) return back;
+  const here = `/admin/o/${id}?back=${encodeURIComponent(back)}`;
+  if (!item.duplicateOf || item.status !== "review") return here;
+  await db.$transaction([
+    db.opportunity.update({ where: { id }, data: { duplicateOfId: null } }),
+    db.opportunityEvent.create({
+      data: {
+        opportunityId: id,
+        actor: "admin",
+        action: "edited",
+        changes: { duplicateOf: { from: item.duplicateOf.slug, to: null } },
+        note: "Split: a different opportunity from the one it was taken for a copy of.",
+      },
+    }),
+  ]);
+  log("admin.action", { action: "splitDuplicate", id, slug: item.slug });
+  return here;
+}

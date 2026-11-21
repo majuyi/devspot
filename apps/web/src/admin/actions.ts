@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { RateLimiter } from "@/api/rate-limit";
 import { ADMIN_COOKIE, adminToken, newSession, SESSION_SECONDS, tokenMatches } from "./auth";
-import { createManual, markDuplicateOf } from "./create";
+import { createManual, markDuplicateOf, splitDuplicateOf } from "./create";
 import { nextReviewId } from "./data";
 import { adminDb } from "./db";
 import {
@@ -15,6 +15,7 @@ import {
   InvalidForm,
   parseEditable,
   publishBlockers,
+  REJECT_REASONS,
   safeBack,
 } from "./form";
 import { go } from "./go";
@@ -84,18 +85,27 @@ export async function saveOpportunity(form: FormData): Promise<void> {
     // Reject is for an item in review; Unpublish takes a public one back to review.
     const wasPublic = current.status === "published" || current.status === "closed";
     if (intent === "reject" ? current.status !== "review" : !wasPublic) go(itemHref(id, back));
-    const status = intent === "reject" ? "rejected" : "review";
+    const reason = String(form.get("reason") ?? "");
+    const rejecting = intent === "reject";
+    if (rejecting && !(REJECT_REASONS as readonly string[]).includes(reason)) {
+      go(itemHref(id, back, `&error=${encodeURIComponent("Choose why you are rejecting it.")}`));
+    }
+    const status = rejecting ? "rejected" : "review";
+    const statusReason = rejecting ? (note ? `${reason}: ${note}` : reason) : note;
     await db.$transaction([
       db.opportunity.update({
         where: { id },
-        data: { status, statusReason: note, reviewedAt: now },
+        data: { status, statusReason, reviewedAt: now },
       }),
       db.opportunityEvent.create({
         data: {
           opportunityId: id,
           actor: "admin",
-          action: intent === "reject" ? "rejected" : "unpublished",
-          changes: { status: { from: current.status, to: status } },
+          action: rejecting ? "rejected" : "unpublished",
+          changes: {
+            status: { from: current.status, to: status },
+            ...(rejecting ? { reason: { from: null, to: reason } } : {}),
+          },
           note,
         },
       }),
@@ -193,4 +203,10 @@ export async function markDuplicate(form: FormData): Promise<void> {
   const to = await markDuplicateOf(form);
   revalidatePath("/", "layout");
   go(to);
+}
+
+/** Split: an item the engine took for a copy is a different opportunity (docs/05 §4). */
+export async function splitDuplicate(form: FormData): Promise<void> {
+  await requireAdmin();
+  go(await splitDuplicateOf(form));
 }

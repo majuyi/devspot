@@ -292,13 +292,17 @@ until then the footer's "API" link opens `/api/v1/openapi.json`.
   is entered only as the organization's page states it; the field defaults to `unknown`. The
   row gets `discoveredVia = manual`, `extractionMethod = manual`, `confidence = 1`,
   `rawItemId = null`, and `reviewedAt`; Publish and Save without publishing work as below.
-- Review item view: left, the source text (`RawItem.text`) with dates and place words marked
-  as a reading aid, and the item's history; right, an editable form of the `Opportunity`
-  fields with the extractor's confidence beside each. The organization and canonical URL are
+- Review item view: left, the source text (`RawItem.text`) with the extractor's evidence
+  quotes marked and labelled with their fields, then dates and place words as a reading aid,
+  and the item's history. Right, an editable form of the `Opportunity` fields with the
+  extractor's confidence beside each, and, under each quotable field, the words it came from
+  or a warning that none were found (`05` §3). The organization and canonical URL are
   fixed. Dates are entered as the source states them, in Lagos time, with the time left empty
   unless the source gives one; a date is accepted only with a `fixed` or `multiRound`
   deadline. Actions: Publish, Publish and next (opens the next item in review), Save
-  without publishing, Reject (with reason), and Mark duplicate of: a search by title or
+  without publishing, Reject (with a reason: not an opportunity, or something else with a
+  note), Merge or Split for an item the engine flagged as a copy (`05` §4), and Mark duplicate
+  of: a search by title or
   address listing up to ten other live rows, each with its own button. Marking a duplicate
   sets `duplicateOfId`, moves the item to `rejected` with the reason "Duplicate of <title>",
   and so takes a published copy off the site (invariant 6). The original may not itself be

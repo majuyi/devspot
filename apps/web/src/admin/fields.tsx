@@ -43,6 +43,31 @@ export function Label({
   );
 }
 
+/**
+ * What the extractor read each field from (docs/05 §3), by form field: the quote, or null when
+ * the field has a value but no quote from the text backs it. Absent means nothing to say.
+ */
+export type FieldSources = Partial<
+  Record<"deadlineAt" | "startsAt" | "locationMode" | "requirementsText", string | null>
+>;
+
+/** Under a field: the words it came from, or a warning that none were found. */
+function Source({ quote }: { quote: string | null | undefined }) {
+  if (quote === undefined) return null;
+  if (quote === null) {
+    return (
+      <p className="m-0 text-[12px] text-amber">
+        Not found in the source text. Check it against the page.
+      </p>
+    );
+  }
+  return (
+    <p className="m-0 text-[12px] text-muted">
+      From the text: “<span className="text-fg">{quote}</span>”
+    </p>
+  );
+}
+
 export function Field({ children }: { children: ReactNode }) {
   return <div className="flex min-w-0 flex-col gap-1">{children}</div>;
 }
@@ -97,9 +122,11 @@ function When({
 export function OpportunityFields({
   v,
   sure = {},
+  sources = {},
 }: {
   v: Editable;
   sure?: Record<string, number | undefined>;
+  sources?: FieldSources;
 }) {
   return (
     <>
@@ -141,6 +168,7 @@ export function OpportunityFields({
               </option>
             ))}
           </select>
+          <Source quote={sources.locationMode} />
         </Field>
         <Field>
           <Label htmlFor="country" sure={sure.country}>
@@ -185,6 +213,7 @@ export function OpportunityFields({
             </option>
           ))}
         </select>
+        <Source quote={sources.deadlineAt} />
       </Field>
       <div className="grid gap-3.5 sm:grid-cols-2">
         <When name="deadlineAt" label="Deadline date" at={v.deadlineAt} sure={sure.deadlineAt} />
@@ -202,6 +231,7 @@ export function OpportunityFields({
         <When name="startsAt" label="Starts" at={v.startsAt} sure={sure.startsAt} />
         <When name="endsAt" label="Ends" at={v.endsAt} sure={sure.endsAt} />
       </div>
+      <Source quote={sources.startsAt} />
       <p className="m-0 text-[12px] text-faint">
         Dates and times are in Lagos time. Leave the time empty unless the source gives one.
         {v.deadlineAt ? ` Stored deadline: ${formatDate(v.deadlineAt, { time: true })}.` : ""}
@@ -261,6 +291,7 @@ export function OpportunityFields({
           defaultValue={v.requirementsText ?? ""}
           className={AREA}
         />
+        <Source quote={sources.requirementsText} />
       </Field>
       <fieldset className="m-0 flex flex-col gap-1 border-0 p-0">
         <legend className={`${LABEL} p-0`}>Topics</legend>

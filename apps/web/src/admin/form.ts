@@ -193,3 +193,13 @@ export function safeBack(value: FormDataEntryValue | string | null | undefined):
     ? value
     : "/admin";
 }
+
+/**
+ * Why an item was rejected, recorded first in `statusReason` so M3.5's correction counts can
+ * be read off the table. A copy of another item is merged instead (markDuplicate).
+ */
+export const REJECT_REASONS = ["not-an-opportunity", "other"] as const;
+export const REJECT_REASON_LABEL: Record<(typeof REJECT_REASONS)[number], string> = {
+  "not-an-opportunity": "Not an opportunity (news, a past event, for members only)",
+  other: "Something else (say what in the note)",
+};

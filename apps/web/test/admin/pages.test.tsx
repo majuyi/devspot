@@ -68,6 +68,9 @@ describe.skipIf(!hasDb || !adminUrl)("admin pages", () => {
       })) as ReactElement,
     );
   const titles = (el: Element) => [...el.querySelectorAll("tbody th")].map(text);
+  const make = async (organizationId: string, slug: string, extra: object = {}) => {
+    ids[slug] = (await opp(su, { organizationId, slug, title: `Title ${slug}`, ...extra })).id;
+  };
 
   beforeAll(async () => {
     process.env.ADMIN_TOKEN = "t".repeat(40);
@@ -92,9 +95,6 @@ describe.skipIf(!hasDb || !adminUrl)("admin pages", () => {
         text: "Apply by 5 November 2026. The role is hybrid in Lagos.",
       },
     });
-    const make = async (organizationId: string, slug: string, extra: object = {}) => {
-      ids[slug] = (await opp(su, { organizationId, slug, title: `Title ${slug}`, ...extra })).id;
-    };
     await make(acme.id, "unsure", {
       status: "review",
       confidence: 0.3,
@@ -103,6 +103,9 @@ describe.skipIf(!hasDb || !adminUrl)("admin pages", () => {
       // As the loader computes it, so /admin/new can find it as a likely duplicate.
       identityKey: identityKey("acme", { title: "Title unsure" }, new Date()),
       fieldConfidence: { kind: 0.2, deadlineAt: 0.9 },
+      deadlineAt: new Date("2026-11-05T22:59:00Z"),
+      // The engine's evidence: the deadline was read from the text; the location was not.
+      extracted: { evidence: [{ field: "deadline", quote: "5 November 2026" }] },
     });
     await make(acme.id, "surer", { status: "review", confidence: 0.8 });
     await make(kuda.id, "live", { status: "published", kind: "job", publishedAt: at(-24) });
@@ -170,12 +173,20 @@ describe.skipIf(!hasDb || !adminUrl)("admin pages", () => {
     it("an item in review: source text with marks, field confidence, and the review actions", async () => {
       const el = await item("unsure", "back=/admin?tab=all");
       expect([...el.querySelectorAll("mark")].map(text)).toEqual([
+        "words a field was read from",
         "dates",
         "place words",
         "5 November 2026",
         "hybrid",
         "Lagos",
       ]);
+      // The evidence quote names its field, and the form says where each value came from.
+      expect(text(el)).toContain("5 November 2026 (deadline)");
+      expect(text(el)).toContain("From the text: “5 November 2026”");
+      expect(text(el)).toContain("Not found in the source text. Check it against the page.");
+      expect(
+        [...el.querySelectorAll("select#reason option")].map((o) => o.getAttribute("value")),
+      ).toEqual(["", "not-an-opportunity", "other"]);
       expect(text(el)).toContain("Kindsure 0.20");
       expect(
         [...el.querySelectorAll("button[name=intent]")].map((b) => [
@@ -197,6 +208,23 @@ describe.skipIf(!hasDb || !adminUrl)("admin pages", () => {
         "/admin?tab=all",
       );
       expect(el.querySelector('a[href^="/o/"]')).toBeNull();
+      expect(await violations(el)).toEqual([]);
+    });
+
+    it("a copy the engine flagged: says so, and offers merge and split", async () => {
+      // Made here, not in beforeAll, so the queue counts other tests check stay as they are.
+      const acme = await su.organization.findUniqueOrThrow({ where: { slug: "acme" } });
+      await make(acme.id, "copy", { status: "review", duplicateOfId: ids.surer });
+      const el = await item("copy").finally(() =>
+        su.opportunity.delete({ where: { id: ids.copy as string } }),
+      );
+      expect(text(el)).toContain("Looks like a copy of Title surer");
+      const buttons = [...el.querySelectorAll("button")].map(text);
+      expect(buttons).toContain("Merge: the same opportunity");
+      expect(buttons).toContain("Split: a different one");
+      expect((el.querySelector('input[name="originalId"]') as HTMLInputElement | null)?.value).toBe(
+        ids.surer,
+      );
       expect(await violations(el)).toEqual([]);
     });
 
