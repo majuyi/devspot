@@ -19,11 +19,18 @@ REF="rlfppkooucslfyajxnan"
 REPO="majuyi/devspot"
 SECRET_NAME="github_engine_dispatch"
 
-answer=$(osascript -e 'button returned of (display dialog "Schedule the devspot engine from Supabase? This turns on pg_cron and pg_net, stores a GitHub token in Supabase Vault and starts one engine run now." buttons {"Cancel", "Schedule"} default button "Cancel" with title "devspot")' 2>/dev/null || true)
+# AppleScript gives up on a dialog after two minutes unless told otherwise; creating the token
+# on GitHub can take longer, so both dialogs wait ten.
+ask() { osascript -e "with timeout of 600 seconds" -e "$1" -e "end timeout" 2>&1; }
+
+answer=$(ask 'button returned of (display dialog "Schedule the devspot engine from Supabase? This turns on pg_cron and pg_net, stores a GitHub token in Supabase Vault and starts one engine run now." buttons {"Cancel", "Schedule"} default button "Cancel" with title "devspot")' || true)
 [ "$answer" = "Schedule" ] || { echo "Cancelled. Nothing changed."; exit 0; }
 
-TOKEN=$(osascript -e 'text returned of (display dialog "Paste the fine-grained GitHub token (repository majuyi/devspot only, Actions: read and write). It goes to Supabase Vault and nowhere else." default answer "" with hidden answer buttons {"Cancel", "Continue"} default button "Continue" with title "devspot")' 2>/dev/null || true)
-[ -n "$TOKEN" ] || { echo "No token given. Nothing changed."; exit 1; }
+TOKEN=$(ask 'text returned of (display dialog "Paste the fine-grained GitHub token (repository majuyi/devspot only, Actions: read and write). It goes to Supabase Vault and nowhere else." default answer "" with hidden answer buttons {"Cancel", "Continue"} default button "Continue" with title "devspot")' || true)
+case "$TOKEN" in
+  *"timed out"*|*"-1712"*) echo "The token dialog timed out after ten minutes. Nothing changed; run the script again with the token ready."; exit 1 ;;
+  *"User canceled"*|*"-128"*|"") echo "No token given. Nothing changed."; exit 1 ;;
+esac
 case "$TOKEN" in github_pat_*) ;; *) echo "Stopped: that is not a fine-grained token (they start with github_pat_)."; exit 1 ;; esac
 
 # Checked against GitHub before anything is stored: the token must reach this repo.
