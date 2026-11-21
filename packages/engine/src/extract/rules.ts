@@ -149,6 +149,11 @@ const ROUNDS =
   /\brounds\b(?! (?:your|off|up|down)\b)|\b(?:first|second|third|final|next|last|1st|2nd|3rd) round\b|\bround (?:\d|one|two|three)\b/i;
 // A header line our adapters write ("Deadline: 10 November 2026, 18:29 UTC").
 const DEADLINE_LINE = /^deadline:/im;
+// The Devpost adapter's line from the listing API ("Submission period: Dec 06 - 20, 2026").
+// Upcoming hackathons have no Deadline: line yet; the period's end is when submissions close.
+const SUBMISSION_LINE = /^submission period:[ \t]*(.+)$/im;
+// "Dec 06 - 20, 2026": the end borrows the start's month.
+const SAME_MONTH = /^([A-Za-z]{3,9}\.?)\s+(\d{1,2})\s*[-–]\s*(\d{1,2}),\s*(\d{4})$/;
 
 export type DeadlineField = {
   kind: DeadlineKind;
@@ -197,6 +202,14 @@ export function ruleDeadline(
       : { kind: "unknown", confidence: 0 };
   }
 
+  const period = submissionEnd(text, reference);
+  if (period) {
+    if (period.at.getTime() >= reference.getTime()) return dated("fixed", period, 0.85);
+    return pastStands
+      ? dated("fixed", period, PAST_CONFIDENCE)
+      : { kind: "unknown", confidence: 0 };
+  }
+
   const distinct = [...new Map(future.map((d) => [d.at.getTime(), d])).values()];
   if (ROUNDS.test(text) && distinct.length >= 2) {
     const next = distinct.sort((a, b) => a.at.getTime() - b.at.getTime())[0] as FoundDate;
@@ -212,6 +225,21 @@ export function ruleDeadline(
   )
     return { kind: "rolling", confidence: 0.7, quote: rolling[0] };
   return { kind: "unknown", confidence: 0 };
+}
+
+/**
+ * The end of a Devpost submission period: the last date on the line, which must state its
+ * year. One date is a one-day event. The quote is the whole period, as the page shows it.
+ */
+function submissionEnd(text: string, reference: Date): FoundDate | undefined {
+  const line = text.match(SUBMISSION_LINE);
+  const value = line?.[1]?.trim();
+  if (!line || !value) return undefined;
+  const same = value.match(SAME_MONTH);
+  const read = same ? `${same[1]} ${same[3]}, ${same[4]}` : value;
+  const end = findDates(read, reference).at(-1);
+  if (!end?.hasYear) return undefined;
+  return { ...end, index: (line.index ?? 0) + line[0].indexOf(value), quote: value };
 }
 
 /**
@@ -632,13 +660,18 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
     WEIGHTS.requirementsText * (requirements.value ? requirements.confidence : 0) +
     WEIGHTS.title * (title.length >= 3 ? 1 : 0);
   // Two kinds of page a reviewer decides, never rules alone; both route, neither discards:
-  // an invite-only listing ("Invite only. Club members only") is for people already chosen,
+  // an invite-only or members-only listing ("Invite only", "projects for Product@TAMU
+  // Members") is for people already chosen,
   // and a round-up post ("GSoC 2023 Final Results!", "It's a wrap!") often states next year's
   // deadline in passing, which would otherwise publish a news post as an opportunity.
   // The mean ranks items that have all three core fields; it must not let a strong deadline
   // carry a weak one, such as a hybrid item in a city we do not know (location 0.5).
   const weakCore = Math.min(kind.confidence, dated, location.confidence) < CORE_FLOOR;
-  const held = weakCore || INVITE_ONLY.test(item.text) || ROUND_UP_TITLE.test(title);
+  const held =
+    weakCore ||
+    INVITE_ONLY.test(item.text) ||
+    MEMBERS_ONLY.test(item.text) ||
+    ROUND_UP_TITLE.test(title);
   const confidence = held ? Math.min(weighted, HELD_CAP) : weighted;
   return { draft, confidence: Math.round(confidence * 100) / 100 };
 }
@@ -652,6 +685,8 @@ export const WEIGHTS = {
   title: 0.1,
 } as const;
 const INVITE_ONLY = /\binvite[- ]only\b/i;
+// "for Product@TAMU Members", "members-only"; not "members of the public".
+const MEMBERS_ONLY = /\bmembers[- ]only\b|\bfor [^.\n]{0,40}\bmembers\b(?! of the public)/i;
 // Narrow on purpose: "announced", "meet the" and "celebrating" also title real calls to apply.
 const ROUND_UP_TITLE = /\b(?:final results|project results|it[’']?s a wrap|wrap-?up|recap)\b/i;
 const HELD_CAP = 0.5;

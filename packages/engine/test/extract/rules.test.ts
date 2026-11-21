@@ -167,6 +167,42 @@ describe("deadline", () => {
     });
   });
 
+  describe("a Devpost submission period", () => {
+    const at = (text: string, opts = {}) => ruleDeadline(text, REF, opts).at?.toISOString();
+    it.each([
+      ["Dec 06 - 20, 2026", "2026-12-20T22:59:00.000Z"],
+      ["Jan 27 - Feb 24, 2027", "2027-02-24T22:59:00.000Z"],
+      ["Dec 19, 2026 - Jan 06, 2027", "2027-01-06T22:59:00.000Z"],
+      ["Nov 21, 2026", "2026-11-21T22:59:00.000Z"],
+    ])("ends %s on its last day", (period, end) => {
+      const d = ruleDeadline(
+        `Host: X\nStatus: upcoming\nSubmission period: ${period}\nLocation: Online`,
+        REF,
+      );
+      expect(d).toMatchObject({ kind: "fixed", confidence: 0.85, quote: period });
+      expect(d.at?.toISOString()).toBe(end);
+    });
+
+    it("gives way to the Deadline: line, which has the time and zone", () => {
+      const text = "Submission period: Oct 01 - Nov 30, 2026\nDeadline: Nov 30, 2026 @ 5:00pm EST";
+      expect(at(text)).toBe("2026-11-30T22:00:00.000Z");
+    });
+
+    it("is no date when its end has no year", () => {
+      expect(ruleDeadline("Submission period: Dec 06 - 20", REF)).toEqual({
+        kind: "unknown",
+        confidence: 0,
+      });
+    });
+
+    it("stands once over only for a page with no publish date, so the item closes", () => {
+      const text = "Submission period: Sep 01 - 30, 2026";
+      expect(at(text, { pastStands: true })).toBe("2026-09-30T22:59:00.000Z");
+      expect(ruleDeadline(text, REF, { pastStands: true }).confidence).toBe(0.5);
+      expect(ruleDeadline(text, REF)).toEqual({ kind: "unknown", confidence: 0 });
+    });
+  });
+
   it("does not read the verb round as rounds", () => {
     const text =
       "Do not round your scores. Entries close 1 November 2026. Late entries close 5 November 2026.";
@@ -602,6 +638,11 @@ describe("extractRules", () => {
       "an invite-only listing",
       "Hackathon",
       "Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online\nInvite only. Club members only",
+    ],
+    [
+      "a members-only listing",
+      "Fall 2026 Projects",
+      "Submission period: Nov 15 - 16, 2026\nLocation: Online\n\nSemester long projects for Product@TAMU Members.",
     ],
     [
       "a round-up post",

@@ -2321,14 +2321,16 @@
       "expected": {
         "isOpportunity": true,
         "kind": "hackathon",
-        "deadlineKind": "unknown",
+        "deadlineKind": "fixed",
+        "deadlineAt": "2027-04-11T22:59:00.000Z",
         "locationMode": "remote",
         "evidence": {
           "locationMode": "Location: Online",
-          "deadlineKind": "Submission period: Apr 09 - 11, 2027 (no Deadline line)"
+          "deadlineKind": "Submission period: Apr 09 - 11, 2027",
+          "deadlineAt": "Apr 09 - 11, 2027"
         }
       },
-      "note": "A university datathon. Only a submission period is stated, with no deadline line, so 'not stated'. Judgement call for review."
+      "note": "A university datathon. Only a submission period is stated; its end is the deadline (relabelled 2026-11-21, when the rules began reading Devpost's submission period)."
     },
     {
       "id": "fairmoney/careers#0",
