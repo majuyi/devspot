@@ -176,16 +176,30 @@ organization. Return only what the text states. Rules:
 ## 3. Review queue behaviour
 
 - Reviewed rows are final for the machine: the loader updates only `lastVerifiedAt` on them.
-- The reviewer sees the evidence quotes highlighted in the source text. A field with no
-  evidence is shown with a warning and empty by default.
-- "Reject" with reason `not-an-opportunity` adds the `canonicalUrl` to a per-source ignore list
-  in `Source.notes` so it is not re-queued after the next content change.
+- The reviewer sees the evidence quotes highlighted in the source text, each followed by
+  the fields it was read from. Dates and place words are marked as a lighter aid between
+  them. A quote counts only if the text contains it.
+- Under each quotable field (deadline, dates, location, requirements), the form shows the
+  words it came from. A field that has a value with no quote behind it gets a warning, "Not
+  found in the source text", and **keeps its value**. Changed in M3.4 from "empty by
+  default": rules take kind, title and an organisation's default place with no quote, so
+  blanking would mean retyping most items. Hand-entered items have no source text, so
+  nothing is claimed for or against their fields.
+- "Reject" needs a reason: `not-an-opportunity` or `other`. It is stored first in
+  `statusReason` (`not-an-opportunity: <note>`) and in the history row's changes, so the
+  live week's corrections can be counted.
+- A rejected item is not re-queued after a content change. The loader finds it by
+  `canonicalUrl` and, because it is reviewed, updates only `lastVerifiedAt`. M3.4 dropped the
+  planned ignore list in `Source.notes`: that field is copied from the registry YAML, so every
+  `db:sync-registry` would wipe the list. A loader test covers this check.
 
 ## 4. Identity and duplicates
 
 - `identityKey` as defined in the engine spec. Same key across sources → the later one is
   `review` with `duplicateOfId` set. The reviewer merges (keeps the earlier, marks the later
-  `rejected` with reason `duplicate`) or splits (clears `duplicateOfId`).
+  `rejected` with the reason "Duplicate of <title>", history action `markedDuplicate`) or
+  splits (clears `duplicateOfId` and leaves the item in review to publish on its own,
+  history action `edited`). Both are offered on the item only while it is in review.
 - Submissions whose URL canonicalizes to an existing `canonicalUrl` are auto-marked
   `duplicate`.
 

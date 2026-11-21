@@ -248,28 +248,75 @@ describe.skipIf(!hasDb || !adminUrl)(
         expect((await row("ready")).status).toBe("review");
       });
 
-      it("reject: needs review status, keeps the reason, ignores other edits", async () => {
+      it("reject: needs review status and a reason, keeps both, ignores other edits", async () => {
+        // No reason chosen: refused, nothing written.
+        const refused = await run(
+          actions.saveOpportunity(form({ ...fields("ready"), intent: "reject" })),
+        );
+        expect(refused).toContain("error=Choose%20why");
+        expect((await row("ready")).status).toBe("review");
+
         await run(
           actions.saveOpportunity(
             form({
               ...fields("ready", { title: "ignored" }),
               intent: "reject",
-              note: "not an opportunity",
+              reason: "not-an-opportunity",
+              note: "a news post",
             }),
           ),
         );
         expect(await row("ready")).toMatchObject({
           status: "rejected",
-          statusReason: "not an opportunity",
+          statusReason: "not-an-opportunity: a news post",
           title: "Title ready",
         });
         expect((await events("ready"))[0]).toMatchObject({
           action: "rejected",
-          note: "not an opportunity",
+          changes: { reason: { from: null, to: "not-an-opportunity" } },
+          note: "a news post",
         });
         // A published item cannot be rejected, only unpublished.
         await run(actions.saveOpportunity(form({ ...fields("live"), intent: "reject" })));
         expect((await row("live")).status).toBe("published");
+      });
+
+      it("a copy the engine flagged: merge keeps the earlier, split frees this one", async () => {
+        const orig = await opp(su, {
+          organizationId: orgId,
+          slug: "orig",
+          title: "Original",
+          status: "published",
+        });
+        const copy = async (slug: string) => {
+          const o = await opp(su, {
+            organizationId: orgId,
+            slug,
+            title: `Title ${slug}`,
+            status: "review",
+            duplicateOfId: orig.id,
+          });
+          ids[slug] = o.id;
+        };
+        await copy("copy-a");
+        await copy("copy-b");
+        const back = "/admin?tab=review";
+
+        await run(
+          actions.markDuplicate(form({ id: ids["copy-a"] as string, originalId: orig.id, back })),
+        );
+        expect(await row("copy-a")).toMatchObject({ status: "rejected", duplicateOfId: orig.id });
+        expect((await row("orig")).status).toBe("published");
+
+        await run(actions.splitDuplicate(form({ id: ids["copy-b"] as string, back })));
+        expect(await row("copy-b")).toMatchObject({ status: "review", duplicateOfId: null });
+        expect((await events("copy-b"))[0]).toMatchObject({
+          action: "edited",
+          changes: { duplicateOf: { from: "orig", to: null } },
+        });
+        // Split only applies to a flagged item still in review.
+        await run(actions.splitDuplicate(form({ id: ids["copy-a"] as string, back })));
+        expect((await row("copy-a")).duplicateOfId).toBe(orig.id);
       });
 
       it("unpublish takes a published item back to review", async () => {

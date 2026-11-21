@@ -450,6 +450,30 @@ describe.skipIf(!hasDb)("load against Postgres", () => {
     expect((await run(input(), new Date("2026-12-02T12:00:00Z"))).status).toBe("published");
   });
 
+  it("M3.4 check: a rejected not-an-opportunity URL is not re-queued after a content change", async () => {
+    const { id } = await run(input());
+    await db.opportunity.update({
+      where: { id },
+      data: { status: "rejected", statusReason: "not-an-opportunity", reviewedAt: T0 },
+    });
+    // The page changes: new title, new date, higher confidence. Same canonicalUrl.
+    const again = await run(
+      input(
+        { title: "Rewritten post", deadlineAt: "2026-12-07T22:59:00.000Z" },
+        { confidence: 0.95 },
+      ),
+      T1,
+    );
+    expect(again).toEqual({ id, status: "rejected", created: false });
+    expect(await row(id)).toMatchObject({
+      status: "rejected",
+      statusReason: "not-an-opportunity",
+      title: input().title,
+      lastVerifiedAt: T1,
+    });
+    expect(await db.opportunity.count({ where: { canonicalUrl: input().canonicalUrl } })).toBe(1);
+  });
+
   it("never reopens a closed row", async () => {
     const { id } = await run(input());
     await db.opportunity.update({ where: { id }, data: { status: "closed" } });

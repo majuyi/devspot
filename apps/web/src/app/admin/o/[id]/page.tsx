@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { markDuplicate, saveOpportunity } from "@/admin/actions";
+import { markDuplicate, saveOpportunity, splitDuplicate } from "@/admin/actions";
 import { duplicateCandidates, getItem, type Item } from "@/admin/data";
 import { Field, INPUT, Label, OpportunityFields } from "@/admin/fields";
-import { safeBack } from "@/admin/form";
-import { highlight } from "@/admin/highlight";
+import { REJECT_REASON_LABEL, REJECT_REASONS, safeBack } from "@/admin/form";
+import { fieldSources, highlight, quotesFound, storedEvidence } from "@/admin/highlight";
 import { requireAdmin } from "@/admin/session";
 import { buttonClass } from "@/components/blocks";
 import { ago } from "@/ui/status";
@@ -18,6 +18,15 @@ type Props = {
 };
 
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
+/** The evidence fields the engine writes, in the reviewer's words. */
+const EVIDENCE_WORD: Record<string, string> = {
+  deadline: "deadline",
+  startsAt: "dates",
+  locationMode: "location",
+  requirementsText: "requirements",
+  applyUrl: "apply link",
+};
+
 const ACTION_WORD: Record<string, string> = {
   created: "Created",
   edited: "Edited",
@@ -56,8 +65,9 @@ function History({ item, now }: { item: Item; now: Date }) {
 }
 
 /**
- * The review item view (docs/01 §4): the source text on the left with dates and place words
- * marked, every editable field on the right. Publish needs a kind and a location, which the
+ * The review item view (docs/01 §4, docs/05 §3): the source text on the left with the
+ * extractor's evidence and the dates and place words marked, every editable field on the right
+ * with the words it came from. Publish needs a kind and a location, which the
  * browser enforces; Save and the two status buttons skip that check.
  */
 export default async function ReviewItem({ params, searchParams }: Props) {
@@ -75,6 +85,15 @@ export default async function ReviewItem({ params, searchParams }: Props) {
   const dupq = one(sp.dupq).trim().slice(0, 200);
   const candidates = dupq && !item.duplicateOf ? await duplicateCandidates(item.id, dupq) : [];
   const self = `/admin/o/${item.id}`;
+  // Evidence is only what the engine quoted and the text really contains; a hand-entered
+  // item has no source text, so nothing is claimed for or against its fields.
+  const text = item.rawItem?.text ?? "";
+  const evidence = storedEvidence(item.extracted);
+  const sources =
+    item.rawItem && item.extractionMethod !== "manual"
+      ? fieldSources(item, quotesFound(text, evidence))
+      : {};
+  const flaggedDuplicate = item.duplicateOf && inReview;
 
   return (
     <main className="flex flex-col gap-4 pt-4">
@@ -113,15 +132,41 @@ export default async function ReviewItem({ params, searchParams }: Props) {
         </p>
       ) : null}
       {item.duplicateOf ? (
-        <p className="m-0 text-[13px]">
-          Duplicate of{" "}
-          <a
-            href={`/admin/o/${item.duplicateOf.id}?back=${encodeURIComponent(back)}`}
-            className="underline underline-offset-[3px]"
-          >
-            {item.duplicateOf.title}
-          </a>
-        </p>
+        <div className="flex flex-col gap-2 text-[13px]">
+          <p className="m-0">
+            {flaggedDuplicate ? "Looks like a copy of " : "Duplicate of "}
+            <a
+              href={`/admin/o/${item.duplicateOf.id}?back=${encodeURIComponent(back)}`}
+              className="underline underline-offset-[3px]"
+            >
+              {item.duplicateOf.title}
+            </a>
+            {flaggedDuplicate ? ", by its organisation, title and year." : null}
+          </p>
+          {flaggedDuplicate ? (
+            <div className="flex flex-wrap items-center gap-2.5">
+              <form action={markDuplicate}>
+                <input type="hidden" name="id" value={item.id} />
+                <input type="hidden" name="originalId" value={item.duplicateOf.id} />
+                <input type="hidden" name="back" value={back} />
+                <button type="submit" className={`${buttonClass("secondary")} h-9 text-[13px]`}>
+                  Merge: the same opportunity
+                </button>
+              </form>
+              <form action={splitDuplicate}>
+                <input type="hidden" name="id" value={item.id} />
+                <input type="hidden" name="back" value={back} />
+                <button type="submit" className={`${buttonClass("ghost")} h-9 text-[13px]`}>
+                  Split: a different one
+                </button>
+              </form>
+              <span className="text-muted">
+                Merge keeps the earlier item and takes this one off the queue. Split lets this one
+                be published on its own.
+              </span>
+            </div>
+          ) : null}
+        </div>
       ) : null}
       {item.sourceDeadlineAt ? (
         <p role="status" className="text-body m-0 rounded-tile border border-amber px-3.5 py-3">
@@ -155,18 +200,33 @@ export default async function ReviewItem({ params, searchParams }: Props) {
           {item.rawItem ? (
             <>
               <p className="m-0 text-[12px] text-faint">
+                <mark className="rounded-[3px] bg-raise px-0.5 text-fg ring-1 ring-muted">
+                  words a field was read from
+                </mark>
+                , then{" "}
                 <mark className="rounded-[3px] bg-k-funding-bg px-0.5 text-k-funding-fg">
                   dates
                 </mark>{" "}
                 and{" "}
                 <mark className="rounded-[3px] bg-k-work-bg px-0.5 text-k-work-fg">
                   place words
-                </mark>{" "}
-                are marked to help you find them. Check each against the page itself.
+                </mark>
+                , are marked to help you find them. Check each against the page itself.
               </p>
               <div className="max-h-[75vh] overflow-y-auto rounded-tile border border-line bg-surface p-3 text-[14px] leading-[21px] whitespace-pre-wrap">
-                {highlight(item.rawItem.text).map((s, i) =>
-                  s.mark ? (
+                {highlight(item.rawItem.text, evidence).map((s, i) =>
+                  s.mark === "evidence" ? (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: static runs of one text, never reordered
+                    <span key={i}>
+                      <mark className="rounded-[3px] bg-raise px-0.5 text-fg ring-1 ring-muted">
+                        {s.text}
+                      </mark>
+                      <span className="text-[11px] text-faint">
+                        {" "}
+                        ({(s.fields ?? []).map((f) => EVIDENCE_WORD[f] ?? f).join(", ")})
+                      </span>
+                    </span>
+                  ) : s.mark ? (
                     <mark
                       // biome-ignore lint/suspicious/noArrayIndexKey: static runs of one text, never reordered
                       key={i}
@@ -259,12 +319,25 @@ export default async function ReviewItem({ params, searchParams }: Props) {
           <input type="hidden" name="back" value={back} />
           <h2 className="text-section m-0">Fields</h2>
 
-          <OpportunityFields v={item} sure={sure} />
+          <OpportunityFields v={item} sure={sure} sources={sources} />
 
           <Field>
             <Label htmlFor="note">Note or reason, kept in the history</Label>
             <input id="note" name="note" className={INPUT} />
           </Field>
+          {inReview ? (
+            <Field>
+              <Label htmlFor="reason">If you reject it, why</Label>
+              <select id="reason" name="reason" defaultValue="" className={INPUT}>
+                <option value="">Choose a reason</option>
+                {REJECT_REASONS.map((value) => (
+                  <option key={value} value={value}>
+                    {REJECT_REASON_LABEL[value]}
+                  </option>
+                ))}
+              </select>
+            </Field>
+          ) : null}
 
           <div className="flex flex-wrap items-center gap-2.5 border-t border-line pt-4">
             <button type="submit" name="intent" value="publish" className={buttonClass("primary")}>
@@ -316,8 +389,9 @@ export default async function ReviewItem({ params, searchParams }: Props) {
             ) : null}
           </div>
           <p className="m-0 text-[12px] text-faint">
-            Organisation and source address are fixed here. Reject and Unpublish keep the note above
-            as the reason and ignore other edits.
+            Organisation and source address are fixed here. Reject keeps the reason and note above,
+            Unpublish the note; both ignore other edits. A copy of another item is merged above, not
+            rejected.
           </p>
         </form>
       </div>

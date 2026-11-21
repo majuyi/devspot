@@ -185,7 +185,7 @@ week of live review.
 - [x] **M3.3 Confidence and thresholds.** Weighted overall confidence and the publish
   threshold for rules drafts (`05` §2 "Confidence and thresholds", without the LLM
   comparison). Check: unit tests.
-- [ ] **M3.4 Review queue polish.** Evidence highlighting, ignore list on reject, duplicate
+- [x] **M3.4 Review queue polish.** Evidence highlighting, ignore list on reject, duplicate
   merge and split. Check: a rejected `not-an-opportunity` URL is not re-queued after a
   content change.
 - [ ] **M3.5 Live week.** Rules only (ADR 0017). Review daily for a week, log

@@ -9,7 +9,7 @@ import {
   publishBlockers,
   safeBack,
 } from "@/admin/form";
-import { highlight } from "@/admin/highlight";
+import { fieldSources, highlight, quotesFound, storedEvidence } from "@/admin/highlight";
 import { hasStatedTime } from "@/ui/time";
 
 const form = (fields: Record<string, string | string[]>) => {
@@ -199,5 +199,64 @@ describe("source text marks", () => {
         .filter((r) => r.mark)
         .map((r) => r.text),
     ).toEqual(["March 3, 2027", "online"]);
+  });
+});
+
+describe("evidence (docs/05 §3)", () => {
+  const text =
+    "Applications close 31 October 2026.\nLocation: Hybrid, Lagos\n\nRequirements\n\n- Go or Node";
+  const evidence = [
+    { field: "deadline", quote: "31 October 2026" },
+    { field: "locationMode", quote: "Location: Hybrid, Lagos" },
+    { field: "requirementsText", quote: "- Go or Node" },
+    { field: "applyUrl", quote: "Apply now" },
+  ];
+
+  it("marks each quote with its field first, then dates and places around them", () => {
+    const runs = highlight(text, evidence);
+    expect(runs.map((r) => r.text).join("")).toBe(text);
+    expect(runs.filter((r) => r.mark).map((r) => [r.text, r.mark, r.fields])).toEqual([
+      ["31 October 2026", "evidence", ["deadline"]],
+      ["Location: Hybrid, Lagos", "evidence", ["locationMode"]],
+      ["- Go or Node", "evidence", ["requirementsText"]],
+    ]);
+  });
+
+  it("merges a quote inside another, and skips one that overlaps without containing", () => {
+    const runs = highlight("Deadline: 31 October 2026, 5pm", [
+      { field: "deadline", quote: "31 October 2026, 5pm" },
+      { field: "startsAt", quote: "31 October 2026" },
+      { field: "x", quote: "5pm and" },
+    ]);
+    expect(runs.filter((r) => r.mark === "evidence").map((r) => r.fields)).toEqual([
+      ["deadline", "startsAt"],
+    ]);
+  });
+
+  it("counts a quote as evidence only when the text contains it", () => {
+    const found = quotesFound(text, evidence);
+    expect([...found.keys()]).toEqual(["deadline", "locationMode", "requirementsText"]);
+  });
+
+  it("gives each field its quote, warns on a value with none, and says nothing of an empty field", () => {
+    const found = quotesFound(text, [{ field: "deadline", quote: "31 October 2026" }]);
+    const sources = fieldSources(
+      {
+        deadlineAt: new Date("2026-10-31T22:59:00Z"),
+        startsAt: null,
+        locationMode: "hybrid",
+        requirementsText: "",
+      },
+      found,
+    );
+    expect(sources).toEqual({ deadlineAt: "31 October 2026", locationMode: null });
+  });
+
+  it("reads stored evidence defensively", () => {
+    expect(storedEvidence(null)).toEqual([]);
+    expect(storedEvidence({ evidence: "x" })).toEqual([]);
+    expect(
+      storedEvidence({ evidence: [{ field: "deadline", quote: "q" }, { field: 1 }, null] }),
+    ).toEqual([{ field: "deadline", quote: "q" }]);
   });
 });
