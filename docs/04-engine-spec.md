@@ -311,6 +311,7 @@ alone.
 ```
 pnpm engine run [--source <key>] [--org <slug>] [--dry-run] [--llm] [--limit N]
 pnpm engine verify [--all]
+pnpm engine reextract [--source <key>] [--dry-run]   # re-score stored items with today's rules
 pnpm engine health
 pnpm engine snapshot --out <dir>
 pnpm engine record --source <key>          # record fixture from the live network
@@ -330,6 +331,17 @@ reads the registry, needs no database and sees every item as new. A source whose
 not written yet is skipped and logged, because it would otherwise fail the job for good.
 `--llm` arrives with the LLM extractor in M3. `snapshot` arrives in M4.4. An item stored by
 dedupe that then fails validation or loading is logged, and waits for its page to change.
+
+`reextract` (M3.5, `src/reextract.ts`) runs extract, validate and load again over the text
+already in `RawItem`, fetching nothing: dedupe only passes new or changed pages on, so rows
+scored by older rules keep their old scores until their page changes. It skips rows the loader
+leaves to people (reviewed, rejected, closed, flagged as a copy) and loads raw items with no
+row yet. Year-less dates resolve against `firstSeenAt`, as they did on the run that stored the
+item; the loader's clock is now, so a listing already over closes. `--dry-run` writes nothing
+and prints each status the pass would change, with totals. It shares the loader's status
+decision (`statusFor`), so the preview and the write cannot disagree. Run it after a rules
+change that should reach stored items, from the Engine workflow's `task` input
+(`reextract-preview`, then `reextract`).
 
 ## 3. Record and replay fixtures
 

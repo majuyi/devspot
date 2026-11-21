@@ -20,7 +20,9 @@ const USAGE = `usage:
   pnpm engine record --source <key>            record a fixture from the live network
   pnpm engine replay --source <key> [--update] diff the fetcher's output against the fixture
   pnpm engine eval                             score the rules extractor on test/eval/items.json
-  pnpm engine verify [--all]                   re-check published opportunities, close finished ones`;
+  pnpm engine verify [--all]                   re-check published opportunities, close finished ones
+  pnpm engine reextract [--source <key>] [--dry-run]
+                                               extract and load stored items again with today's rules`;
 
 async function main(argv: string[]): Promise<number> {
   const { positionals, values } = parseArgs({
@@ -77,6 +79,24 @@ async function main(argv: string[]): Promise<number> {
     );
     for (const key of turnedErroring) console.error(`now erroring: ${key}`);
     return turnedErroring.length ? 1 : 0;
+  }
+  if (command === "reextract") {
+    const { db } = await import("@devspot/db");
+    const { reextract } = await import("./reextract.js");
+    const dry = values["dry-run"];
+    const summary = await reextract({
+      db,
+      dryRun: dry,
+      ...(values.source ? { source: values.source } : {}),
+    });
+    await db.$disconnect();
+    log("reextract.finished", { dryRun: dry, ...summary, moves: summary.moves.length });
+    console.error(
+      `${dry ? "dry run: " : ""}${summary.checked} stored items: ${summary.moves.length} ${dry ? "would change" : "changed"} status, ${summary.sameStatus} kept it, ${summary.leftAlone} left to people, ${summary.invalid} invalid`,
+    );
+    for (const [label, n] of Object.entries(summary.totals)) console.error(`  ${label}: ${n}`);
+    for (const m of summary.moves) console.error(`  ${m.from} → ${m.to}  ${m.title}  ${m.url}`);
+    return 0;
   }
   if (command === "verify") {
     const { db } = await import("@devspot/db");
