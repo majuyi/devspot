@@ -685,8 +685,10 @@ export const WEIGHTS = {
   title: 0.1,
 } as const;
 const INVITE_ONLY = /\binvite[- ]only\b/i;
-// "for Product@TAMU Members", "members-only"; not "members of the public".
-const MEMBERS_ONLY = /\bmembers[- ]only\b|\bfor [^.\n]{0,40}\bmembers\b(?! of the public)/i;
+// "projects for Product@TAMU Members.", "members-only": the members close the sentence. Not
+// "the GSMA delivers for its members across…" or "members of the public".
+const MEMBERS_ONLY =
+  /\bmembers[- ]only\b|\b(?:for|open to) (?!(?:its|our|their|all) )[^.\n]{0,40}\bmembers(?: only)?\s*(?:[.!]|$)/im;
 // Narrow on purpose: "announced", "meet the" and "celebrating" also title real calls to apply.
 const ROUND_UP_TITLE = /\b(?:final results|project results|it[’']?s a wrap|wrap-?up|recap)\b/i;
 const HELD_CAP = 0.5;

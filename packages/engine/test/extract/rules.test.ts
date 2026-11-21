@@ -658,6 +658,17 @@ describe("extractRules", () => {
     expect(extractRules(item(title, text)).confidence).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
   });
 
+  it.each([
+    "As the global body for mobile operators, the GSMA delivers for its members across three pillars.",
+    "The hackathon is open to members of the public.",
+    "Team required: 2 to 4 members",
+  ])("does not hold a listing that only mentions members: %s", (sentence) => {
+    const text = `Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online\n\n${sentence}`;
+    expect(extractRules(item("Hackathon", text)).confidence).toBeGreaterThanOrEqual(
+      RULES_ONLY_PUBLISH_THRESHOLD,
+    );
+  });
+
   it("publishes the same listing when it is open to all", () => {
     const text = "Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online";
     expect(extractRules(item("Hackathon", text)).confidence).toBeGreaterThanOrEqual(
