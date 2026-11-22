@@ -22,3 +22,4 @@ One file per decision, numbered, never edited after acceptance except to add a
 | 0015 | Apache-2.0 licence | Accepted 2026-10-09 |
 | 0016 | A history table for opportunities; a separate database role for admin | Accepted 2026-11-16 |
 | 0017 | LLM extraction deferred; M3 runs on rules | Accepted 2026-11-20 |
+| 0018 | Relevance of the published feed | Accepted in part (B, D) 2026-11-22 |
