@@ -27,7 +27,7 @@ Runs first, always. Each rule returns a value and a confidence in [0, 1].
 Overall confidence at rules-only (M3.3, replacing M1's `min(kind, max(deadline, startsAt),
 locationMode)` less 0.15 without requirements): the weighted mean of §2, with deadline or start
 0.35, kind 0.25, locationMode 0.15, requirementsText 0.15 and title 0.10. A field the rules
-did not find contributes 0. Three things hold an item for review whatever the mean, by
+did not find contributes 0. Four things hold an item for review whatever the mean, by
 capping it at 0.5:
 
 - **A weak core field:** kind, date or location below 0.6. A hybrid item in a city we do not
@@ -36,6 +36,11 @@ capping it at 0.5:
 - **An invite-only or members-only listing** ("Invite only. Club members only", "projects
   for Product@TAMU Members"), which is for people already chosen. "Members of the public"
   does not count.
+- **A listing limited to school pupils or one institution by its own entry line** (ADR 0018):
+  an upper age below 22 ("Ages 13 to 18 only"), "High school students only", or a named
+  institution ("UIUC students only"). Only a whole line counts, never prose. "Students only",
+  "College students only" and "Ages 13+ only" do not hold an item. This reads a limit the page
+  states; it says nothing about who can enter.
 - **A round-up title** ("Final Results!", "It's a wrap!", "recap"). These posts often state
   next year's deadline in passing. The match is narrow on purpose, since "announced", "meet
   the" and "celebrating" also title real calls to apply.

@@ -659,10 +659,10 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
     WEIGHTS.locationMode * location.confidence +
     WEIGHTS.requirementsText * (requirements.value ? requirements.confidence : 0) +
     WEIGHTS.title * (title.length >= 3 ? 1 : 0);
-  // Two kinds of page a reviewer decides, never rules alone; both route, neither discards:
-  // an invite-only or members-only listing ("Invite only", "projects for Product@TAMU
-  // Members") is for people already chosen,
-  // and a round-up post ("GSoC 2023 Final Results!", "It's a wrap!") often states next year's
+  // Pages a reviewer decides, never rules alone; all route, none discards: an invite-only or
+  // members-only listing ("Invite only", "projects for Product@TAMU Members") is for people
+  // already chosen, a pupils-only or one-institution listing (closedEntry) is for few of our
+  // readers, and a round-up post ("GSoC 2023 Final Results!", "It's a wrap!") often states next year's
   // deadline in passing, which would otherwise publish a news post as an opportunity.
   // The mean ranks items that have all three core fields; it must not let a strong deadline
   // carry a weak one, such as a hybrid item in a city we do not know (location 0.5).
@@ -671,6 +671,7 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
     weakCore ||
     INVITE_ONLY.test(item.text) ||
     MEMBERS_ONLY.test(item.text) ||
+    closedEntry(item.text) ||
     ROUND_UP_TITLE.test(title);
   const confidence = held ? Math.min(weighted, HELD_CAP) : weighted;
   return { draft, confidence: Math.round(confidence * 100) / 100 };
@@ -689,6 +690,25 @@ const INVITE_ONLY = /\binvite[- ]only\b/i;
 // "the GSMA delivers for its members across…" or "members of the public".
 const MEMBERS_ONLY =
   /\bmembers[- ]only\b|\b(?:for|open to) (?!(?:its|our|their|all) )[^.\n]{0,40}\bmembers(?: only)?\s*(?:[.!]|$)/im;
+/**
+ * ADR 0018 (B): the listing's own entry line names an upper age below 22 ("Ages 13 to 18
+ * only"), school pupils ("High school students only") or one institution ("UIUC students
+ * only"). Whole lines only, so prose that mentions an age or a school never counts, and
+ * "Students only" and "College students only", which are worldwide, do not either. It reads
+ * a limit the page states; it does not say who can enter.
+ */
+function closedEntry(text: string): boolean {
+  for (const [, upper] of text.matchAll(AGES_ONLY)) if (Number(upper) < 22) return true;
+  for (const [, who] of text.matchAll(STUDENTS_ONLY)) {
+    if (who && !ANY_STUDENT.test(who)) return true;
+  }
+  return false;
+}
+const AGES_ONLY = /^(?:- )?ages? \d{1,2} ?(?:to|-|–) ?(\d{1,2}) only\.?[ \t]*$/gim;
+const STUDENTS_ONLY = /^(?:- )?([\p{L}\d][^\n.:]{0,60}?) students only\.?[ \t]*$/gimu;
+// Anything else before "students only" is a school level or an institution's name.
+const ANY_STUDENT =
+  /^(?:(?:current|enrolled|all|full-time|international|college|university|undergraduate|graduate|postgraduate|tertiary|and|or|&|\/|,)[ \t]*)+$/i;
 // Narrow on purpose: "announced", "meet the" and "celebrating" also title real calls to apply.
 const ROUND_UP_TITLE = /\b(?:final results|project results|it[’']?s a wrap|wrap-?up|recap)\b/i;
 const HELD_CAP = 0.5;
