@@ -31,6 +31,19 @@ publish only with a stated date, and employer careers pages almost never state a
 Under ADR 0017 (no LLM), every job from Renmoney, Chowdeck, Flutterwave, FairMoney, Kuda
 and Paga waits in review for ever: 16 today, all Nigerian, all in the audience's fields.
 
+**Corrections, 2026-11-22**, from reading every published listing's entry lines and the text
+behind its region tags:
+
+- The table above missed a fourth limit: 5 Devpost listings state a country list without
+  Nigeria ("US only" on Code For DFW, KeanUHackThis and NeuroHack, India only on
+  HackWithAditya, a list of European and North American countries on Pico). B as written
+  below covers only NeuroHack, by its institution line.
+- "Text names Nigeria or Africa" is a poor sign of a local listing. Of the 5 online listings it
+  matches, 2 use South African data, 1 is about mapping African roads, 1 matches a judge's job
+  title, and 1 is about Benin's languages.
+- One of those Zindi rows, about a South African pharmacy, was stored with country NG because
+  its text says "nationwide".
+
 Two golden rules bound the options. Never assert eligibility: no option may tell a reader they
 qualify, or decide for them that they do not. Never guess a date: a job with no stated
 deadline is shown as "deadline not stated", never given one.
@@ -75,7 +88,10 @@ F. **Change the source mix.** Bring the M5.4 "Registry to 60" work forward and w
 the decision this ADR asks for: it changes invariant 3 and is what puts jobs on the site.
 F as the priority for M5.4. Not C.
 
-**Decision.** Not yet made. For the maintainer.
+**Decision (2026-11-22, the maintainer).** B and D accepted. C is not taken. A, E and F are not
+decided: E still changes invariant 3 and needs its own yes. D's signal is the item's country
+only, not the region words (see the corrections); its form on the home page is agreed in its
+own task. Country limits stated by the page are a separate question, not part of B.
 
 **Consequences, if B, D and E are accepted.** The published mix moves from 79 global hackathons
 and 5 local events to about 70 global hackathons, 5 local events and about 16 Nigerian roles,
@@ -83,6 +99,6 @@ with local items first on the home page. B and E need rule and loader tests and 
 (no false publishes), and E a check that closes a role gone from its source's listing. D changes `01` §2 and the home page. E changes `03` §4 invariant 3 and
 `05` §2. The 0.7 threshold, the holds and the M3 gate are unchanged.
 
-**Status.** Proposed
+**Status.** Accepted in part (B and D), 2026-11-22
 
 **Date.** 2026-11-21
