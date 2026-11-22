@@ -644,6 +644,18 @@ describe("extractRules", () => {
       "Fall 2026 Projects",
       "Submission period: Nov 15 - 16, 2026\nLocation: Online\n\nSemester long projects for Product@TAMU Members.",
     ],
+    ...[
+      "Ages 13 to 18 only",
+      "Ages 13 to 21 only",
+      "Ages 14–18 only",
+      "High school students only",
+      "UIUC students only",
+      "Universidad Veracruzana students only",
+    ].map((line) => [
+      `a listing limited by its own words (${line})`,
+      "Hackathon",
+      `Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online\n\nWho can participate\n\n- ${line}\n- Companies excluded`,
+    ]),
     [
       "a round-up post",
       "GSoC 2025: It's a wrap!",
@@ -664,6 +676,24 @@ describe("extractRules", () => {
     "Team required: 2 to 4 members",
   ])("does not hold a listing that only mentions members: %s", (sentence) => {
     const text = `Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online\n\n${sentence}`;
+    expect(extractRules(item("Hackathon", text)).confidence).toBeGreaterThanOrEqual(
+      RULES_ONLY_PUBLISH_THRESHOLD,
+    );
+  });
+
+  it.each([
+    "- Students only",
+    "- College students only",
+    "- College and university students only",
+    "- Ages 13+ only",
+    "- Ages 18+ only",
+    "- Ages 18 to 35 only",
+    "- Team required: 2 to 4 members",
+    "An international hackathon that encourages high school students to use technology.",
+    "Cosmo Hacks is for middle school, high school and college students aged 13+.",
+    "Launchly connects student volunteers (ages 13–18) with opportunities.",
+  ])("does not hold a listing that is not limited to pupils or one school: %s", (line) => {
+    const text = `Deadline: Nov 30, 2026 @ 5:00pm EST\nLocation: Online\n\nWho can participate\n\n${line}`;
     expect(extractRules(item("Hackathon", text)).confidence).toBeGreaterThanOrEqual(
       RULES_ONLY_PUBLISH_THRESHOLD,
     );
