@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- Rules fix: "nationwide" sets country NG only for a Nigerian organisation; a South African pharmacy's Zindi challenge was stored as Nigerian.
 - ADR 0018 (B): a listing whose own entry line limits it to an upper age below 22, school pupils or one institution ("Ages 13 to 18 only", "UIUC students only") is held for review.
 - M3.5 rule fix: the members-only hold now needs the members to close the sentence, so "the GSMA delivers for its members across…" no longer holds a Zindi challenge.
 - M3.5 rule fix: the rules read the Devpost adapter's `Submission period:` line as the deadline (its last day, year required) when there is no `Deadline:` line, which upcoming hackathons lack; 52 of the 56 Devpost items in review had no date for this reason. A members-only listing ("projects for Product@TAMU Members") is held for review like an invite-only one. One eval label, marked a judgement call, is now `fixed`. Eval: 28 of 28 stated deadlines, 65 of 65 deadline kinds, no false publishes.

@@ -277,7 +277,6 @@ describe("location", () => {
       "Classes run in a hybrid format from Ibadan.",
       { mode: "hybrid", city: "ibadan", country: "NG", confidence: 0.7 },
     ],
-    ["Programme", "Open to applicants nationwide.", { country: "NG", confidence: 0 }],
     ["Programme", "Host: GDG\nLocation: Online\nThemes: AI", { mode: "remote", confidence: 0.85 }],
     [
       "Programme",
@@ -324,6 +323,14 @@ describe("location", () => {
     expect(
       ruleLocation("Programme", text, { category: "community", country: "GB" }).mode,
     ).toBeUndefined();
+  });
+
+  it("reads nationwide as Nigeria only for a Nigerian organization", () => {
+    const text = "Location: Online\nCustomers nationwide.";
+    expect(ruleLocation("Programme", text, NG_ORG)).toMatchObject({ country: "NG" });
+    const abroad = { category: "community", country: "ZA" } as const;
+    expect(ruleLocation("Challenge", text, abroad)).not.toHaveProperty("country");
+    expect(ruleLocation("Challenge", `${text} Nigerian teams.`, abroad).country).toBe("NG");
   });
 
   it("does not put a role in the organization's city when it states somewhere unknown", () => {

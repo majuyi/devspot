@@ -399,7 +399,10 @@ function findCity(text: string): { slug: string; quote: string } | undefined {
 const LOCATION_LINE = /^(?:location|venue)\s*:\s*(.+)$/im;
 
 export function ruleLocation(title: string, text: string, org: RulesInput["org"]): LocationField {
-  const nigeria = /\bnigerian?s?\b|\bnationwide\b/i.test(`${title}\n${text}`);
+  // "Nationwide" is the organisation's nation: a South African pharmacy's is not Nigeria.
+  const nigeria =
+    /\bnigerian?s?\b/i.test(`${title}\n${text}`) ||
+    (org.country === "NG" && /\bnationwide\b/i.test(`${title}\n${text}`));
   const country = nigeria ? { country: "NG" } : {};
   const stated = text.match(LOCATION_LINE)?.[1] ?? "";
   for (const [source, confidence, short] of [
