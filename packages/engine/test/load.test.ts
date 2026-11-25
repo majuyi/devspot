@@ -126,6 +126,17 @@ describe("invariant 3: what may publish", () => {
     expect(meetsPublishRule({ ...base, confidence: 0.69 })).toBe(false);
     expect(meetsPublishRule({ ...base, deadlineAt: undefined })).toBe(false);
   });
+  it("rules: an employer's job or internship with no deadline stated (ADR 0018 E)", () => {
+    const role = { ...base, kind: "job", deadlineAt: undefined, deadlineKind: "unknown" } as const;
+    expect(meetsPublishRule(role, "employer")).toBe(true);
+    expect(meetsPublishRule({ ...role, kind: "internship" }, "employer")).toBe(true);
+    expect(meetsPublishRule({ ...role, confidence: 0.69 }, "employer")).toBe(false);
+    // Only an employer's own listing, only roles, and not rolling.
+    expect(meetsPublishRule(role)).toBe(false);
+    expect(meetsPublishRule(role, "community")).toBe(false);
+    expect(meetsPublishRule({ ...role, kind: "fellowship" }, "employer")).toBe(false);
+    expect(meetsPublishRule({ ...role, deadlineKind: "rolling" }, "employer")).toBe(false);
+  });
   it("llm and manual: 0.8", () => {
     expect(meetsPublishRule({ ...base, extractionMethod: "llm" })).toBe(false);
     expect(meetsPublishRule({ ...base, extractionMethod: "llm", confidence: 0.8 })).toBe(true);
@@ -254,6 +265,25 @@ describe.skipIf(!hasDb)("load against Postgres", () => {
       }),
     );
     expect(rolling.status).toBe("review");
+  });
+
+  it("invariant 3: an employer's role with no deadline publishes, given the category", async () => {
+    const role = input({
+      title: "iOS Engineer",
+      kind: "job",
+      canonicalUrl: "https://example.org/ios",
+      deadlineKind: "unknown",
+      deadlineAt: undefined,
+    });
+    expect((await run(role)).status).toBe("review");
+    const loaded = await load(role, {
+      db,
+      orgSlug,
+      orgCategory: "employer",
+      now: T0,
+      firstSeenAt: T0,
+    });
+    expect(loaded.status).toBe("published");
   });
 
   it("invariant 3: a changed page moves a row between published and review", async () => {

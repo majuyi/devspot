@@ -632,6 +632,31 @@ describe("extractRules", () => {
     expect(withReqs).toBe(0.89);
   });
 
+  it("scores an employer's role with no deadline on the rest, and holds it like any other (ADR 0018 E)", () => {
+    const employer = { category: "employer", country: "NG", city: "lagos" } as const;
+    const text =
+      "Location: Lagos, Nigeria\n\nIn this role you will build the app.\n\nRequirements\n\n- Swift";
+    const role = (title: string, body: string, org: typeof employer | typeof NG_ORG = employer) =>
+      extractRules({ ...item(title, body), org });
+    const ios = role("iOS Engineer", text);
+    expect(ios.draft.deadlineKind).toBe("unknown");
+    expect(ios.confidence).toBeGreaterThanOrEqual(RULES_ONLY_PUBLISH_THRESHOLD);
+    // Without requirements the rest is not enough; nor is a community's role, or a held one.
+    expect(
+      role("iOS Engineer", "Location: Lagos, Nigeria\n\nIn this role you will build the app.")
+        .confidence,
+    ).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
+    expect(role("iOS Engineer", text, NG_ORG).confidence).toBeLessThan(
+      RULES_ONLY_PUBLISH_THRESHOLD,
+    );
+    expect(role("iOS Engineer", `${text}\n\nInvite only.`).confidence).toBeLessThan(
+      RULES_ONLY_PUBLISH_THRESHOLD,
+    );
+    // A stated deadline is scored as before.
+    const dated = role("iOS Engineer", `${text}\n\nApplications close 30 November 2026.`);
+    expect(dated.draft.deadlineKind).toBe("fixed");
+  });
+
   it("holds an item with a weak core field for review, however strong the rest", () => {
     // Organisation default location only (0.3): the mean alone would publish it.
     const { confidence } = extractRules(

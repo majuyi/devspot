@@ -273,7 +273,9 @@ row's life; `closed` never reopens (except a role closed as `removed-from-listin
 board lists again, above) and a duplicate stays in `review`. A listing already more
 than 24 hours past its date (invariant 7) is created or moved to `closed` with reason
 `date-passed`, never published; reviewed rows are left to the maintainer. Rules alone publish only
-with `deadlineAt` or `startsAt`, so a rolling item goes to review. The title part of a slug is
+with `deadlineAt` or `startsAt`, so a rolling item goes to review, with one exception: an
+employer's job or internship with no deadline stated (ADR 0018 E; the run passes the
+organization's category to the loader as `orgCategory`). The title part of a slug is
 cut to 60 characters at a word; the collision suffix comes from the URL.
 - A changed page that changes the stated deadline writes an `opportunity_events` row (actor
   `engine`, action `deadlineChanged`, `{ deadlineAt: { from, to } }`) in the same

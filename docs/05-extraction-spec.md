@@ -46,6 +46,15 @@ capping it at 0.5:
   next year's deadline in passing. The match is narrow on purpose, since "announced", "meet
   the" and "celebrating" also title real calls to apply.
 
+**An employer's role with no deadline stated** (ADR 0018 E): a `job` or `internship` from an
+`employer` organization with `deadlineKind: unknown` is scored on kind, location,
+requirements and title alone (their weights over 0.65), and the date does not count as a weak
+core field. Every hold above still applies. Careers boards rarely state a closing date, so
+without this no role would publish on rules; the role shows "deadline not stated" and closes
+when its board stops listing it (`04` §1). On the eval set (2026-11-25) 8 such roles publish;
+one has its mode wrong (on-site for hybrid, a judgement call its label notes), which the eval
+pins as `publishedWrong`.
+
 These caps only route: nothing is discarded, and a reviewer decides. The rules-only publish
 threshold is **0.7** (`RULES_ONLY_PUBLISH_THRESHOLD`), with a stated date still required. It
 was chosen on the eval set (2026-11-20): 21 of 100 items publish, against 9 under the M1 rule,

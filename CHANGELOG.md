@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- ADR 0018 (E, part 2): an employer's job or internship with no deadline stated may publish on rules, shown as "deadline not stated". It is scored on kind, location, requirements and title (weights over 0.65); every hold still applies. Invariant 3 and `05` §2 say so. The eval now reports what it would publish and which of those have a field wrong: 29 published, 0 false, 1 judgement call (`renmoney/careers#5`, on-site for hybrid).
 - ADR 0018 (E, part 1): a role that leaves its employer's careers board is closed (`removed-from-listing`) after the next complete read, and reopened to its previous status if the board lists it again. The bamboohr and workable adapters report every role on the board; a partial fetch closes nothing. Both moves are in the history.
 - Item filters gain `texts` (keywords in the item's text). The GSoC, AfriLabs and CcHub blogs now keep only calls to apply: a test runs each filter over its recorded feed, keeping every call it carried (8, 1 and 2) and dropping the news (17, 9 and 8). Posts already stored are not touched.
 - ADR 0018 (D): home opens with "In Nigeria", up to 6 open items whose country is Nigeria, soonest date first; their events are not repeated under "Starting soon". "Closing soon" is unchanged.
