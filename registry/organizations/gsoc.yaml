@@ -11,6 +11,10 @@ sources:
     kind: feed
     url: https://opensource.googleblog.com/feeds/posts/default/-/gsoc
     cadence: annual
+    filter:
+      # Calls to apply always say so in the title; its news posts say "apply" in passing.
+      titles: [applications, apply, is here]
+      seniority: any
     notes: >
       Google Open Source Blog, gsoc label. Carries the organisations, applications-open and
       results posts. The timeline page is client-rendered, so it is not a source. Verified

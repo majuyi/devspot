@@ -27,6 +27,12 @@ export const ItemFilter = z
      */
     titles: z.array(z.string().min(1)).min(1).optional(),
     /**
+     * Keep items whose text contains one of these as whole words, case-insensitively: for a
+     * blog whose calls to apply have no telling title. Any of departments, titles and texts
+     * matching keeps the item.
+     */
+    texts: z.array(z.string().min(1)).min(1).optional(),
+    /**
      * Drop items whose `meta.country` (ISO alpha-2, set by the adapter) is not one of these.
      * Items with no stated country are kept: the adapter could not say.
      */

@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- Item filters gain `texts` (keywords in the item's text). The GSoC, AfriLabs and CcHub blogs now keep only calls to apply: a test runs each filter over its recorded feed, keeping every call it carried (8, 1 and 2) and dropping the news (17, 9 and 8). Posts already stored are not touched.
 - ADR 0018 (D): home opens with "In Nigeria", up to 6 open items whose country is Nigeria, soonest date first; their events are not repeated under "Starting soon". "Closing soon" is unchanged.
 - ADR 0018 (B, extended 2026-11-22): a listing whose entry line limits it to countries that leave out Nigeria ("US only", "Only specific countries/territories included (India)") is held for review.
 - Rules fix: "nationwide" sets country NG only for a Nigerian organisation; a South African pharmacy's Zindi challenge was stored as Nigerian.

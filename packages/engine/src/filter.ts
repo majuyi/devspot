@@ -19,25 +19,33 @@ export type Listed = {
   country?: string | undefined;
   /** The board's own seniority label ("Entry level", "Mid-Senior level"), when it has one. */
   level?: string | undefined;
+  /** The item's text. Unknown to an adapter asking before it fetches detail. */
+  text?: string | undefined;
 };
+
+/** Whole-word keywords, as text rather than patterns. */
+const keywords = (list: string[] | undefined) =>
+  list &&
+  new RegExp(
+    `(?<![\\p{L}\\p{N}])(?:${list.map((t) => escapeRegExp(norm(t))).join("|")})(?![\\p{L}\\p{N}])`,
+    "iu",
+  );
 
 /** Compiled once per source: keyword regexes and a department set. */
 export function itemMatcher(filter: ItemFilter | undefined): (item: Listed) => boolean {
   if (!filter) return () => true;
   const departments = filter.departments && new Set(filter.departments.map(norm));
-  const titles =
-    filter.titles &&
-    new RegExp(
-      `(?<![\\p{L}\\p{N}])(?:${filter.titles.map((t) => escapeRegExp(norm(t))).join("|")})(?![\\p{L}\\p{N}])`,
-      "iu",
-    );
+  const titles = keywords(filter.titles);
+  const texts = keywords(filter.texts);
   const countries = filter.countries && new Set(filter.countries);
-  return ({ title = "", department, country, level = "" }) => {
+  return ({ title = "", department, country, level = "", text }) => {
     if (countries && country && !countries.has(country.toUpperCase())) return false;
-    if (departments || titles) {
+    if (departments || titles || texts) {
       const byDepartment = Boolean(departments && department && departments.has(norm(department)));
       const byTitle = Boolean(titles?.test(norm(title)));
-      if (!byDepartment && !byTitle) return false;
+      // Before detail is fetched the text is unknown: keep the item until it can be read.
+      const byText = Boolean(texts && (text === undefined || texts.test(norm(text))));
+      if (!byDepartment && !byTitle && !byText) return false;
     }
     if (filter.seniority === "early") {
       const senior = SENIOR_TITLE.test(title) || SENIOR_TITLE.test(level);
@@ -55,6 +63,7 @@ const listed = (item: RawItemInput): Listed => {
     department: str(department),
     country: str(country),
     level: str(level),
+    text: item.text,
   };
 };
 
