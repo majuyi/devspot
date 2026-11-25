@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- ADR 0018 (B, extended 2026-11-22): a listing whose entry line limits it to countries that leave out Nigeria ("US only", "Only specific countries/territories included (India)") is held for review.
 - Rules fix: "nationwide" sets country NG only for a Nigerian organisation; a South African pharmacy's Zindi challenge was stored as Nigerian.
 - ADR 0018 (B): a listing whose own entry line limits it to an upper age below 22, school pupils or one institution ("Ages 13 to 18 only", "UIUC students only") is held for review.
 - M3.5 rule fix: the members-only hold now needs the members to close the sentence, so "the GSMA delivers for its members across…" no longer holds a Zindi challenge.

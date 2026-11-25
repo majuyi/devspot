@@ -695,8 +695,8 @@ const MEMBERS_ONLY =
   /\bmembers[- ]only\b|\b(?:for|open to) (?!(?:its|our|their|all) )[^.\n]{0,40}\bmembers(?: only)?\s*(?:[.!]|$)/im;
 /**
  * ADR 0018 (B): the listing's own entry line names an upper age below 22 ("Ages 13 to 18
- * only"), school pupils ("High school students only") or one institution ("UIUC students
- * only"). Whole lines only, so prose that mentions an age or a school never counts, and
+ * only"), school pupils ("High school students only"), one institution ("UIUC students
+ * only"), or countries that leave out Nigeria ("US only"). Whole lines only, so prose that mentions an age or a school never counts, and
  * "Students only" and "College students only", which are worldwide, do not either. It reads
  * a limit the page states; it does not say who can enter.
  */
@@ -705,8 +705,14 @@ function closedEntry(text: string): boolean {
   for (const [, who] of text.matchAll(STUDENTS_ONLY)) {
     if (who && !ANY_STUDENT.test(who)) return true;
   }
+  for (const [, code, list] of text.matchAll(COUNTRIES_ONLY)) {
+    if (code ? code !== "NG" : !/\bnigeria\b/i.test(list ?? "")) return true;
+  }
   return false;
 }
+// Devpost's entry lines: "US only", "Only specific countries/territories included (India)".
+const COUNTRIES_ONLY =
+  /^(?:- )?(?:([A-Z]{2,3}) only|[Oo]nly specific countries\/territories included \(([^)\n]*)\))\.?[ \t]*$/gm;
 const AGES_ONLY = /^(?:- )?ages? \d{1,2} ?(?:to|-|–) ?(\d{1,2}) only\.?[ \t]*$/gim;
 const STUDENTS_ONLY = /^(?:- )?([\p{L}\d][^\n.:]{0,60}?) students only\.?[ \t]*$/gimu;
 // Anything else before "students only" is a school level or an institution's name.
