@@ -412,6 +412,21 @@ describe("requirements", () => {
       "Qualifications\n\nA degree in computing.\n\nSalary\n\nCompetitive.",
       "A degree in computing.",
     ],
+    // Careers boards' own wording.
+    [
+      "You're perfect for the role if you:\n\n- Have 3+ years of Python\n\nBeyond the paycheck, Chowdeck employees get:\n\n- Lunch",
+      "- Have 3+ years of Python",
+    ],
+    [
+      "Required Competency and Skillset:\n\n- Strong SQL\n\nHow we measure success\n\nShipped models.",
+      "- Strong SQL",
+    ],
+    ["Required competencies to be a Waver:\n\n- A degree\n\nBenefits\n\nHealth.", "- A degree"],
+    [
+      "KNOWLEDGE AND SKILL REQUIREMENTS\n\n- Excellent SQL\n\nTECHNICAL QUALIFICATIONS\n\n- Tuning",
+      "- Excellent SQL",
+    ],
+    ["TECHNICAL QUALIFICATIONS\n\n- Tuning\n\nAbout us\n\nA bank.", "- Tuning"],
   ])("%j", (text, expected) => {
     const r = ruleRequirements(text);
     expect(r).toEqual({ value: expected, confidence: 0.9, quote: expected });
@@ -432,6 +447,8 @@ describe("requirements", () => {
     "Eligibility",
     "No heading anywhere.\n\nJust prose.",
     "Our requirements include a laptop.",
+    "Required competencies are listed on our site, and you can apply there.",
+    "You're perfect for the role if you love data and want to grow with us.",
   ])("never synthesized: %j", (text) => {
     expect(ruleRequirements(text)).toEqual({ value: undefined, confidence: 0 });
   });
