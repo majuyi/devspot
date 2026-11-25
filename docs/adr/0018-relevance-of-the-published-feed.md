@@ -91,7 +91,8 @@ F as the priority for M5.4. Not C.
 **Decision (2026-11-22, the maintainer).** B and D accepted. C is not taken. A, E and F are not
 decided: E still changes invariant 3 and needs its own yes. D's signal is the item's country
 only, not the region words (see the corrections); its form on the home page is agreed in its
-own task. Country limits stated by the page are a separate question, not part of B.
+own task. Country limits stated by the page were added to B on 2026-11-22, also by the maintainer: a
+listing whose entry line names countries that leave out Nigeria is held the same way.
 
 **Consequences, if B, D and E are accepted.** The published mix moves from 79 global hackathons
 and 5 local events to about 70 global hackathons, 5 local events and about 16 Nigerian roles,

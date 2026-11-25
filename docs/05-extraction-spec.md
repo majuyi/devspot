@@ -36,9 +36,10 @@ capping it at 0.5:
 - **An invite-only or members-only listing** ("Invite only. Club members only", "projects
   for Product@TAMU Members"), which is for people already chosen. "Members of the public"
   does not count.
-- **A listing limited to school pupils or one institution by its own entry line** (ADR 0018):
+- **A listing limited to school pupils, one institution or other countries by its own entry line** (ADR 0018):
   an upper age below 22 ("Ages 13 to 18 only"), "High school students only", or a named
-  institution ("UIUC students only"). Only a whole line counts, never prose. "Students only",
+  institution ("UIUC students only"), or a list of countries that leaves out Nigeria ("US only",
+  "Only specific countries/territories included (India)"). Only a whole line counts, never prose. "Students only",
   "College students only" and "Ages 13+ only" do not hold an item. This reads a limit the page
   states; it says nothing about who can enter.
 - **A round-up title** ("Final Results!", "It's a wrap!", "recap"). These posts often state
