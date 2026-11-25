@@ -460,16 +460,26 @@ export function ruleVenue(text: string): { name?: string; address?: string; conf
 
 // -------------------------------------------------------------------------- requirements
 
+// Careers boards word it their own way: "You're perfect for the role if you:" (Chowdeck),
+// "Required Competency and Skillset:" (Flutterwave), "KNOWLEDGE AND SKILL REQUIREMENTS" and
+// "TECHNICAL QUALIFICATIONS" (Paga). Whole heading lines only.
 const REQUIREMENTS_HEADING =
-  /^(?:requirements?|eligibility(?: criteria| requirements)?|who (?:can|should|is eligible to) (?:apply|participate)\??|(?:selection |eligibility )?criteria|who is eligible\??|who we(?:'|’)re looking for|qualifications)\s*:?\s*$/i;
+  /^(?:(?:(?:knowledge|skills?|technical|minimum|key|essential|job)(?: and (?:skills?|experience))? )?(?:requirements?|qualifications)|eligibility(?: criteria| requirements)?|who (?:can|should|is eligible to) (?:apply|participate)\??|(?:selection |eligibility )?criteria|who is eligible\??|who we(?:'|’)re looking for|you(?:'|’)re (?:perfect|a (?:great |good )?fit|right) for (?:the|this) role if you|required competenc(?:y|ies)\b[^\n]{0,40})\s*:?\s*$/i;
 const REQUIREMENTS_MAX = 1500;
+
+/**
+ * A heading that ends in a colon and starts what follows the requirements ("Beyond the
+ * paycheck, Chowdeck employees get:", "Benefits:"). Other lines ending in a colon are lead-ins
+ * that belong to them ("In addition to our standard criteria, you must:").
+ */
+const AFTER_REQUIREMENTS =
+  /\b(?:benefits|perks|we offer|employees get|beyond the paycheck|compensation|salary|how to apply|about us|recruitment process)\b[^\n]*:$/i;
 
 /** A block that starts like a heading: a short first line, not a list item, no end mark. */
 function isHeading(block: string): boolean {
   const first = block.split("\n")[0] ?? "";
-  return (
-    first.length > 0 && first.length <= 80 && !first.startsWith("- ") && !/[.,;:]$/.test(first)
-  );
+  if (first.length === 0 || first.length > 80 || first.startsWith("- ")) return false;
+  return !/[.,;:]$/.test(first) || AFTER_REQUIREMENTS.test(first);
 }
 
 /**

@@ -116,6 +116,11 @@ leaves room:
 - `venue`: only `Venue:` and `Location:` lines. "at" followed by a proper noun is not used;
   it matched too much.
 - `requirementsText` headings also include "who we're looking for" and "qualifications".
+- Careers boards' own headings count too (2026-11-25): "You're perfect for the role if you:",
+  "Required Competency and Skillset:", "KNOWLEDGE AND SKILL REQUIREMENTS", "TECHNICAL
+  QUALIFICATIONS". A colon-ended line about what follows the requirements ("Beyond the
+  paycheck, Chowdeck employees get:", "Benefits:") ends the block; other colon-ended lines are
+  lead-ins and stay in it.
 - `regionsTags` values: `africa`, `west-africa`, `nigeria`, `global`.
 
 `pnpm engine eval` scores the rules on `packages/engine/test/eval/items.json`: per-field
