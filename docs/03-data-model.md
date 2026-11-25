@@ -440,7 +440,9 @@ These are product rules enforced in code and stated in tests:
 3. `status = published` requires: `title`, `kind`, `canonicalUrl`, `locationMode`,
    `organizationId`, and `confidence >= PUBLISH_THRESHOLD` (0.8; rules-only items need
    `RULES_ONLY_PUBLISH_THRESHOLD`, 0.7 on the weighted mean of `05` §1, and a stated date
-   or start), and, for engine
+   or start, except a `job` or `internship` from an `employer` organization with
+   `deadlineKind = unknown`, shown as "deadline not stated" and closed when its board stops
+   listing it: ADR 0018 E), and, for engine
    items, a title that does not mark the listing as a test ("Test Hackathon…", "(test)").
 4. The engine writes `Opportunity` only through the loader. Fetchers and extractors return
    values; they do not import `db`.

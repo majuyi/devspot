@@ -1,5 +1,11 @@
 import { type OpportunityStatus, type Prisma, type PrismaClient, uniqueSlug } from "@devspot/db";
-import { baseSlug, identityKey, normalizeTags, type OpportunityInput } from "@devspot/schema";
+import {
+  baseSlug,
+  identityKey,
+  normalizeTags,
+  type OpportunityInput,
+  type OrgCategory,
+} from "@devspot/schema";
 import { isOver } from "./over.js";
 import { meetsPublishRule } from "./publish-rule.js";
 import type { VerifyResult } from "./verify.js";
@@ -13,6 +19,8 @@ export { meetsPublishRule, TEST_TITLE } from "./publish-rule.js";
 export type LoadContext = {
   db: PrismaClient;
   orgSlug: string;
+  /** The organization's category: an employer's undated role may publish (ADR 0018 E). */
+  orgCategory?: OrgCategory;
   now?: Date;
   /** When the source first listed it; `RawItem.firstSeenAt` for engine items. */
   firstSeenAt?: Date;
@@ -44,16 +52,17 @@ export function statusFor(
   input: OpportunityInput,
   over: boolean,
   isCopy: boolean,
+  orgCategory?: OrgCategory,
 ): OpportunityStatus {
   if (existing && !isMovable(existing)) return existing.status;
   if (over) return "closed";
-  return !isCopy && meetsPublishRule(input) ? "published" : "review";
+  return !isCopy && meetsPublishRule(input, orgCategory) ? "published" : "review";
 }
 
 /** Stage 5 (docs/04 §1): the only writer of `Opportunity`. */
 export async function load(
   input: OpportunityInput,
-  { db, orgSlug, now = new Date(), firstSeenAt = now }: LoadContext,
+  { db, orgSlug, orgCategory, now = new Date(), firstSeenAt = now }: LoadContext,
 ): Promise<LoadResult> {
   const existing = await db.opportunity.findUnique({
     where: { canonicalUrl: input.canonicalUrl },
@@ -122,7 +131,7 @@ export async function load(
     // Invariant 3 holds for the row's life, not only at creation: new content can raise or
     // lower it. Closed never reopens, and a duplicate waits for a reviewer.
     const movable = isMovable(existing);
-    const status = statusFor(existing, input, over, false);
+    const status = statusFor(existing, input, over, false, orgCategory);
     // Stage 5 records a stated deadline that changed: the history row always, and the
     // "moved" columns the public pages read when a date became another date.
     const deadlineChanged =
@@ -169,7 +178,7 @@ export async function load(
     orderBy: { createdAt: "asc" },
     select: { id: true },
   });
-  const status = statusFor(null, input, over, Boolean(original));
+  const status = statusFor(null, input, over, Boolean(original), orgCategory);
   const created = await db.opportunity.create({
     data: {
       ...mutable,

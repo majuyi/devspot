@@ -88,8 +88,8 @@ F. **Change the source mix.** Bring the M5.4 "Registry to 60" work forward and w
 the decision this ADR asks for: it changes invariant 3 and is what puts jobs on the site.
 F as the priority for M5.4. Not C.
 
-**Decision (2026-11-22, the maintainer).** B and D accepted. C is not taken. A, E and F are not
-decided: E still changes invariant 3 and needs its own yes. D's signal is the item's country
+**Decision (2026-11-22, the maintainer).** B and D accepted. C is not taken. E accepted on 2026-11-25 by the
+maintainer (8 roles now; the rest wait for extraction fixes). A and F are not decided. D's signal is the item's country
 only, not the region words (see the corrections); its form on the home page is agreed in its
 own task. Country limits stated by the page were added to B on 2026-11-22, also by the maintainer: a
 listing whose entry line names countries that leave out Nigeria is held the same way.
@@ -100,6 +100,6 @@ with local items first on the home page. B and E need rule and loader tests and 
 (no false publishes), and E a check that closes a role gone from its source's listing. D changes `01` §2 and the home page. E changes `03` §4 invariant 3 and
 `05` §2. The 0.7 threshold, the holds and the M3 gate are unchanged.
 
-**Status.** Accepted in part (B and D), 2026-11-22
+**Status.** Accepted in part (B and D 2026-11-22, E 2026-11-25)
 
 **Date.** 2026-11-21

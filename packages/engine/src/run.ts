@@ -76,6 +76,7 @@ async function processFresh(
     const { status } = await load(input.data, {
       db,
       orgSlug: org.slug,
+      orgCategory: org.category,
       now: at,
       firstSeenAt: rawItem.firstSeenAt,
     });

@@ -53,6 +53,13 @@ export type EvalReport = {
   deadlineDay: { correct: number; total: number };
   /** Non-opportunities the loader's publish rule would publish. Must stay at zero. */
   falsePublishes: string[];
+  /** Opportunities the publish rule would publish. */
+  published: number;
+  /**
+   * Of those, the ones with a scored field wrong (kind, deadline or place), which a reader
+   * would see and a maintainer would correct: the M3 gate's measure.
+   */
+  publishedWrong: string[];
   /** Summaries containing eligibility words. Must stay at zero (docs/05 Acceptance). */
   eligibilityWordViolations: string[];
 };
@@ -76,6 +83,8 @@ export function runEval(set: EvalSet): EvalReport {
     fields,
     deadlineDay: { correct: 0, total: 0 },
     falsePublishes: [],
+    published: 0,
+    publishedWrong: [],
     eligibilityWordViolations: [],
   };
   for (const { id, org, item, expected } of set.items) {
@@ -92,9 +101,9 @@ export function runEval(set: EvalSet): EvalReport {
     });
     if (draft.summary && ELIGIBILITY_WORDS.test(draft.summary))
       report.eligibilityWordViolations.push(id);
-    if (!expected.isOpportunity) {
-      // The loader's own rule (invariant 3), so a test listing it holds back is not counted.
-      const publishes = meetsPublishRule({
+    // The loader's own rule (invariant 3), so a test listing it holds back is not counted.
+    const publishes = meetsPublishRule(
+      {
         title: draft.title,
         kind: draft.kind,
         locationMode: draft.locationMode,
@@ -102,11 +111,16 @@ export function runEval(set: EvalSet): EvalReport {
         extractionMethod: "rules",
         deadlineAt: draft.deadlineAt,
         startsAt: draft.startsAt,
-      });
+        deadlineKind: draft.deadlineKind,
+      },
+      org.category,
+    );
+    if (!expected.isOpportunity) {
       if (publishes) report.falsePublishes.push(id);
       continue;
     }
     report.opportunities++;
+    const wrong: string[] = [];
     for (const field of SCORED) {
       const want = expected[field];
       if (want === undefined) continue;
@@ -114,7 +128,14 @@ export function runEval(set: EvalSet): EvalReport {
       const score = fields[field];
       score.total++;
       if (got === want) score.correct++;
-      else score.misses.push(`${id}: expected ${want}, got ${got ?? "nothing"}`);
+      else {
+        score.misses.push(`${id}: expected ${want}, got ${got ?? "nothing"}`);
+        wrong.push(field);
+      }
+    }
+    if (publishes) {
+      report.published++;
+      if (wrong.length) report.publishedWrong.push(`${id}: ${wrong.join(", ")}`);
     }
     if (expected.deadlineAt) {
       report.deadlineDay.total++;
@@ -135,11 +156,13 @@ export function formatReport(report: EvalReport): string {
     }),
     `  deadline day  ${pct(report.deadlineDay.correct, report.deadlineDay.total).padStart(4)}  (${report.deadlineDay.correct}/${report.deadlineDay.total}, right day whatever the time)`,
     `  false publishes          ${report.falsePublishes.length}`,
+    `  published, seen wrong    ${report.publishedWrong.length} of ${report.published}`,
     `  eligibility words        ${report.eligibilityWordViolations.length}`,
   ];
   for (const f of SCORED)
     for (const miss of report.fields[f].misses) lines.push(`  miss ${f}: ${miss}`);
   for (const id of report.falsePublishes) lines.push(`  false publish: ${id}`);
+  for (const id of report.publishedWrong) lines.push(`  published wrong: ${id}`);
   for (const id of report.eligibilityWordViolations)
     lines.push(`  eligibility word in summary: ${id}`);
   return lines.join("\n");

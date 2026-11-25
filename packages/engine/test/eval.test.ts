@@ -15,6 +15,14 @@ describe("engine eval", () => {
     expect(report.eligibilityWordViolations).toEqual([]);
   });
 
+  it("what it publishes is right, but for one judgement call (ADR 0018 E)", () => {
+    // The Location line says Lagos; "hybrid flexibility" is in its list of perks. The city is
+    // right either way. Any other entry here is a publish a maintainer would have to correct.
+    expect(report.publishedWrong).toEqual(["renmoney/careers#5: locationMode"]);
+    // 21 dated items (M3.3) and 8 employer roles with no deadline stated.
+    expect(report.published).toBeGreaterThanOrEqual(29);
+  });
+
   it("every opportunity's deadline label has a date exactly when its kind has one", () => {
     // Never guess a date: the labels themselves must follow the rule the extractor is held to.
     for (const { id, expected } of loadEvalSet().items) {

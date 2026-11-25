@@ -1,5 +1,5 @@
 import type { OpportunityStatus, PrismaClient } from "@devspot/db";
-import { identityKey, type OpportunityInput } from "@devspot/schema";
+import { identityKey, type OpportunityInput, type OrgCategory } from "@devspot/schema";
 import { extractRules } from "./extract/rules.js";
 import { isMovable, load, statusFor } from "./load.js";
 import { log as jsonLog } from "./log.js";
@@ -102,11 +102,12 @@ export async function reextract({
       continue;
     }
     const to = dryRun
-      ? await previewStatus(db, input.data, existing, org.slug, rawItem.firstSeenAt, now)
+      ? await previewStatus(db, input.data, existing, org, rawItem.firstSeenAt, now)
       : (
           await load(input.data, {
             db,
             orgSlug: org.slug,
+            orgCategory: org.category,
             now,
             firstSeenAt: rawItem.firstSeenAt,
           })
@@ -137,7 +138,7 @@ async function previewStatus(
   db: PrismaClient,
   input: OpportunityInput,
   existing: Parameters<typeof statusFor>[0],
-  orgSlug: string,
+  org: { slug: string; category: OrgCategory },
   firstSeenAt: Date,
   now: Date,
 ): Promise<OpportunityStatus> {
@@ -154,7 +155,7 @@ async function previewStatus(
   const isCopy =
     !existing &&
     (await db.opportunity.count({
-      where: { identityKey: identityKey(orgSlug, input, firstSeenAt) },
+      where: { identityKey: identityKey(org.slug, input, firstSeenAt) },
     })) > 0;
-  return statusFor(existing, input, over, isCopy);
+  return statusFor(existing, input, over, isCopy, org.category);
 }

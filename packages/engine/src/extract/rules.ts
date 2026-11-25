@@ -8,6 +8,7 @@ import {
   TAGS,
   type Tag,
 } from "@devspot/schema";
+import { isUndatedRole } from "../publish-rule.js";
 import { type FoundDate, findDates } from "./dates.js";
 
 /** What the rules read: one RawItem and its organization. No database, no network. */
@@ -656,12 +657,15 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
   };
 
   const dated = Math.max(deadline.confidence, span.confidence);
-  const weighted =
-    WEIGHTS.dated * dated +
+  // ADR 0018 E: an employer's role with no deadline stated is scored on the rest, so the
+  // missing date neither sinks it nor counts as weak. The holds below still apply.
+  const undated = isUndatedRole({ kind: kind.value, deadlineKind: deadline.kind }, org.category);
+  const rest =
     WEIGHTS.kind * kind.confidence +
     WEIGHTS.locationMode * location.confidence +
     WEIGHTS.requirementsText * (requirements.value ? requirements.confidence : 0) +
     WEIGHTS.title * (title.length >= 3 ? 1 : 0);
+  const weighted = undated ? rest / (1 - WEIGHTS.dated) : WEIGHTS.dated * dated + rest;
   // Pages a reviewer decides, never rules alone; all route, none discards: an invite-only or
   // members-only listing ("Invite only", "projects for Product@TAMU Members") is for people
   // already chosen, a pupils-only or one-institution listing (closedEntry) is for few of our
@@ -669,7 +673,7 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
   // deadline in passing, which would otherwise publish a news post as an opportunity.
   // The mean ranks items that have all three core fields; it must not let a strong deadline
   // carry a weak one, such as a hybrid item in a city we do not know (location 0.5).
-  const weakCore = Math.min(kind.confidence, dated, location.confidence) < CORE_FLOOR;
+  const weakCore = Math.min(kind.confidence, undated ? 1 : dated, location.confidence) < CORE_FLOOR;
   const held =
     weakCore ||
     INVITE_ONLY.test(item.text) ||
