@@ -12,6 +12,11 @@ sources:
     kind: feed
     url: https://cchub.africa/feed/
     cadence: unpredictable
+    filter:
+      # Calls to apply, not ecosystem news.
+      titles: [challenge, call for, applications, apply, open call]
+      texts: [apply, deadline, expression of interest, expressions of interest, closing date]
+      seniority: any
     notes: >
       WordPress RSS with ETag and Last-Modified. Mostly ecosystem news; calls for
       applications and expressions of interest arrive among them. robots.txt disallows only

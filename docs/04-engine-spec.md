@@ -169,6 +169,7 @@ keeps:
 filter:
   departments: [Engineering, Data Science]                 # optional
   titles: [engineer, developer, data scientist, designer]  # optional
+  texts: [apply, deadline]                                 # optional
   countries: [NG]                                          # optional
   seniority: early                                         # default; or any
 ```
@@ -176,7 +177,11 @@ filter:
 `departments` matches `meta.department` (set by the adapter) case-insensitively; `titles`
 matches keywords as whole words in the title, case-insensitively, as text rather than
 patterns. With either set, an item is kept when its department or its title matches; an
-item with no department can still match by title. Employers file roles inconsistently
+item with no department can still match by title. `texts` matches keywords the same way in
+the item's text, for a blog whose calls to apply have no telling title (CcHub's "Turn your
+creative talent into a paying business"); any of departments, titles and texts matching
+keeps the item. An adapter asking before it fetches detail has no text yet, so a `texts`
+filter keeps the item at that point and decides after fetch. Employers file roles inconsistently
 (Flutterwave lists "Data Scientist, Risk" under Risk), so titles usually do the work.
 `countries` drops items whose `meta.country` (ISO alpha-2, set by the adapter) is not listed
 and keeps items that state no country; employers post one role per country, and the launch

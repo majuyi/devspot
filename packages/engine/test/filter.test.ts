@@ -105,6 +105,23 @@ describe("applyItemFilter", () => {
     ]);
   });
 
+  it("keeps an item when its text matches, and asks no text of a listing not yet fetched", () => {
+    const post = (title: string, text: string): RawItemInput => ({ ...job(title), text });
+    const items = [
+      post("Turn your creative talent into a paying business", "Apply by 30 November."),
+      post("NASENI launches a challenge", "A national innovation drive."),
+      post("A look back at Q2", "Register Now. Our quarter in review."),
+      post("Meet the fellows", "Applying lessons from the cohort."),
+    ];
+    const filter = { titles: ["challenge"], texts: ["apply"], seniority: "any" as const };
+    expect(titles(applyItemFilter(items, filter).kept)).toEqual([
+      "Turn your creative talent into a paying business",
+      "NASENI launches a challenge",
+    ]);
+    expect(itemMatcher(filter)({ title: "A look back at Q2" })).toBe(true);
+    expect(itemMatcher(filter)({ title: "A look back at Q2", text: "Our quarter." })).toBe(false);
+  });
+
   it("treats keywords as text, not patterns", () => {
     const items = [job("C++ Developer"), job("C Developer"), job("Cx Developer")];
     const filter = { titles: ["c++"], seniority: "any" as const };
