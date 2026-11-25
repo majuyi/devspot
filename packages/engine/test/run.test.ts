@@ -247,6 +247,81 @@ describe.skipIf(!hasDb)("engine run against Postgres", () => {
     expect([...(second?.knownUrls ?? [])]).toEqual([`https://example.org/${org}/one`]);
   });
 
+  it("closes a role its board no longer lists, reopens it when listed again, and trusts no partial read", async () => {
+    const board =
+      (paths: string[], extra: Partial<FetchResult> = {}): FetchFn =>
+      async (s): Promise<FetchResult> =>
+        s.key === key("good")
+          ? {
+              items: [hackathon("one"), hackathon("two")],
+              listed: paths.map((p) => `https://example.org/${org}/${p}`),
+              ...extra,
+            }
+          : { items: [] };
+    const status = async (path: string) =>
+      (
+        await db.opportunity.findUniqueOrThrow({
+          where: { canonicalUrl: `https://example.org/${org}/${path}` },
+        })
+      ).status;
+    await run(board(["one", "two"]));
+    expect([await status("one"), await status("two")]).toEqual(["published", "published"]);
+
+    // A partial read (the adapter's note says so) says nothing about what has gone.
+    await run(board(["one"], { error: "2 of 3 pages read" }));
+    expect(await status("two")).toBe("published");
+
+    await run(board(["one"]));
+    const two = await db.opportunity.findUniqueOrThrow({
+      where: { canonicalUrl: `https://example.org/${org}/two` },
+      include: { events: true },
+    });
+    expect(two).toMatchObject({ status: "closed", statusReason: "removed-from-listing" });
+    expect(two.events).toMatchObject([
+      {
+        actor: "engine",
+        action: "closed",
+        changes: { status: { from: "published", to: "closed" } },
+      },
+    ]);
+    expect(await status("one")).toBe("published");
+
+    await run(board(["one", "two"]));
+    expect(await db.opportunity.findUniqueOrThrow({ where: { id: two.id } })).toMatchObject({
+      status: "published",
+      statusReason: null,
+      closedAt: null,
+      publishedAt: two.publishedAt,
+    });
+  });
+
+  it("never reopens a row closed for another reason, and leaves other sources alone", async () => {
+    const fetch: FetchFn = async (s): Promise<FetchResult> =>
+      s.key === key("good")
+        ? { items: [hackathon("one")], listed: [`https://example.org/${org}/one`] }
+        : { items: [] };
+    await run(fetch);
+    const one = await db.opportunity.findFirstOrThrow({ where: { organization: { slug: org } } });
+    await db.opportunity.update({
+      where: { id: one.id },
+      data: { status: "closed", statusReason: "date-passed" },
+    });
+    await run(fetch);
+    expect((await db.opportunity.findUniqueOrThrow({ where: { id: one.id } })).status).toBe(
+      "closed",
+    );
+    // "broken" lists nothing and fails; a source with no list closes nothing.
+    const empty: FetchFn = async () => ({ items: [] });
+    await db.opportunity.update({
+      where: { id: one.id },
+      data: { status: "published", statusReason: null },
+    });
+    await run(empty);
+    expect((await db.opportunity.findUniqueOrThrow({ where: { id: one.id } })).status).toBe(
+      "published",
+    );
+  });
+
   it("updates the opportunity when the page changes", async () => {
     const page =
       (text: string): FetchFn =>

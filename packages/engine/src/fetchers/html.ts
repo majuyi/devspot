@@ -1,6 +1,7 @@
 import { type FetchResult, RawItemInput } from "@devspot/schema";
 import type { Adapter } from "../adapter.js";
 import { ADAPTERS } from "../adapters/index.js";
+import { canonicalizeUrl } from "../dedupe.js";
 import type { FetchSource } from "../fetch.js";
 import type { HttpClient } from "../http.js";
 
@@ -42,7 +43,8 @@ export async function fetchWithAdapter(
 ): Promise<FetchResult> {
   const adapter = source.adapter ? adapters.get(source.adapter) : undefined;
   if (!adapter) throw new AdapterNotFound(source.key, source.adapter);
-  const raw: unknown[] = await adapter.fetch(source, http);
+  const output = await adapter.fetch(source, http);
+  const raw: unknown[] = Array.isArray(output) ? output : output.items;
   const items = raw.map((item, i) => {
     const parsed = RawItemInput.safeParse(item);
     if (!parsed.success) {
@@ -51,5 +53,6 @@ export async function fetchWithAdapter(
     }
     return parsed.data;
   });
-  return { items };
+  if (Array.isArray(output)) return { items };
+  return { items, listed: [...new Set(output.listed.map(canonicalizeUrl))] };
 }

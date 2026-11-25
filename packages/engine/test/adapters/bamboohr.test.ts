@@ -1,12 +1,17 @@
 import { MockAgent } from "undici";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { AdapterLayoutChanged } from "../../src/adapter.js";
+import { type Adapter, AdapterLayoutChanged } from "../../src/adapter.js";
 import bamboohr, { BAMBOOHR_DETAIL_LIMIT } from "../../src/adapters/bamboohr.js";
 import { fetchSource } from "../../src/fetch.js";
 import { replaySource } from "../../src/fixtures/replay.js";
 import { HttpClient } from "../../src/http.js";
 import { findSource } from "../../src/registry.js";
 
+/** The built items only; `listed` has its own test. */
+const fetchItems = async (a: Adapter, ...args: Parameters<Adapter["fetch"]>) => {
+  const out = await a.fetch(...args);
+  return Array.isArray(out) ? out : out.items;
+};
 const ORIGIN = "https://acme.bamboohr.com";
 const registered = findSource("flutterwave/careers");
 const source = { ...registered, url: `${ORIGIN}/careers/list` };
@@ -74,7 +79,7 @@ describe("bamboohr adapter", () => {
     it("builds an item from the role's detail", async () => {
       list([{ id: "7", title: "Backend Engineer", department: "Engineering" }]);
       detail("7", { jobOpeningName: "Backend  Engineer" });
-      expect(await bamboohr.fetch({ ...source, filter: undefined }, http())).toEqual([
+      expect(await fetchItems(bamboohr, { ...source, filter: undefined }, http())).toEqual([
         {
           url: `${ORIGIN}/careers/7`,
           title: "Backend Engineer",
@@ -88,7 +93,7 @@ describe("bamboohr adapter", () => {
     it("says remote when the role is remote", async () => {
       list([{ id: "8", title: "Mobile Engineer" }]);
       detail("8", { isRemote: true, location: null, atsLocation: { country: "Nigeria" } });
-      const [item] = await bamboohr.fetch({ ...source, filter: undefined }, http());
+      const [item] = await fetchItems(bamboohr, { ...source, filter: undefined }, http());
       expect(item?.text).toContain("Location: Remote (Nigeria)");
     });
 
@@ -105,7 +110,7 @@ describe("bamboohr adapter", () => {
       ];
       list(jobs);
       for (const j of jobs.slice(3)) detail(j.id);
-      const items = await bamboohr.fetch(
+      const { items, listed } = await bamboohr.fetch(
         { ...source, knownUrls: new Set([`${ORIGIN}/careers/3`]) },
         http(),
       );
@@ -113,6 +118,8 @@ describe("bamboohr adapter", () => {
       expect(details).not.toContain("2");
       expect(details).not.toContain("3");
       expect(items).toHaveLength(BAMBOOHR_DETAIL_LIMIT);
+      // Every role on the board, filtered, known or over the cap, so none is taken as gone.
+      expect(listed).toEqual(jobs.map((j) => `${ORIGIN}/careers/${j.id}`));
     });
 
     it("leaves a role that closed since the list for the next run", async () => {
@@ -122,7 +129,7 @@ describe("bamboohr adapter", () => {
       ]);
       detail("5", {}, 404);
       detail("6");
-      const items = await bamboohr.fetch({ ...source, filter: undefined }, http());
+      const items = await fetchItems(bamboohr, { ...source, filter: undefined }, http());
       expect(items.map((i) => i.url)).toEqual([`${ORIGIN}/careers/6`]);
     });
 

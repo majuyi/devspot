@@ -130,6 +130,18 @@ per run at `/api/v2/accounts/<company>/jobs/<shortcode>` for the description, re
 benefits and on-site, hybrid or remote. It sets `meta.department`, `meta.country` and
 `meta.level`.
 
+**Roles that leave the board (ADR 0018 E).** An adapter that reads a complete list may return
+`{ items, listed }` instead of an array: `listed` is the URL of every role on the board now,
+filtered, already known or over the cap included. The bamboohr and workable adapters do.
+After a fetch with no error note, the run hands `listed` to the loader's `closeRemoved`: an
+open row (`published` or `review`) from that source whose URL is not listed is closed with
+reason `removed-from-listing`, and a row closed that way whose URL is listed again goes back
+to the status it had before. Both write an `opportunity_events` row (actor `engine`). A
+partial fetch says nothing about what has gone, so nothing closes. `source.finished` counts
+`removed` and `reopened`. Careers boards rarely state a closing date, so this is how a filled
+role leaves the site; verify (stage 6) cannot see it, since a removed role often redirects to
+the board.
+
 The zindi adapter reads `api.zindi.world/v1/competitions`, which lists open competitions
 first and reports `open_count`, so it reads pages until it has them all (at most 5). Each new
 one costs a request for its description pages and rules ("Who can compete"). Start, end and
@@ -257,7 +269,8 @@ classes and intakes, and a trailing number; two cycles in one year therefore sha
 A second row with the same key points at the earliest original, so duplicates never chain.
 On an update, an unreviewed row also gets `lastVerifiedAt`, fields the page no longer states
 are cleared, and status moves between `review` and `published` so invariant 3 holds for the
-row's life; `closed` never reopens and a duplicate stays in `review`. A listing already more
+row's life; `closed` never reopens (except a role closed as `removed-from-listing` that its
+board lists again, above) and a duplicate stays in `review`. A listing already more
 than 24 hours past its date (invariant 7) is created or moved to `closed` with reason
 `date-passed`, never published; reviewed rows are left to the maintainer. Rules alone publish only
 with `deadlineAt` or `startsAt`, so a rolling item goes to review. The title part of a slug is

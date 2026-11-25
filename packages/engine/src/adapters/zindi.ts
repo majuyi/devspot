@@ -45,7 +45,7 @@ type Competition = z.infer<typeof Detail>["data"];
  * found. Each new competition costs a request for its description and rules, which hold
  * "Who can compete". Closed ones are not opportunities.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "zindi",
   async fetch(source, http) {
     const open: z.infer<typeof Listed>[] = [];
@@ -81,7 +81,7 @@ const adapter: Adapter = {
     }
     return items;
   },
-};
+} satisfies Adapter;
 
 function rulesText(c: Competition): string {
   return (c.rules?.content?.blocks ?? [])
