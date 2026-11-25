@@ -74,14 +74,19 @@ export async function eventCountsByCity({ now = new Date() } = {}) {
 
 /**
  * Home, "Starting soon": the next events by start, from today in Lagos, and how many are
- * upcoming in all (the same set `/events` lists, which also keeps events under way).
+ * upcoming in all (the same set `/events` lists, which also keeps events under way). Ids in
+ * `exclude`, already shown higher on the page, are skipped but still counted.
  */
-export async function startingSoon({ now = new Date(), limit = 4 } = {}) {
+export async function startingSoon({ now = new Date(), limit = 4, exclude = [] as string[] } = {}) {
   const from = startOfDayWat(now);
   const event: Prisma.OpportunityWhereInput = { ...OPEN, kind: "event", startsAt: { not: null } };
   const [rows, total] = await Promise.all([
     db.opportunity.findMany({
-      where: { ...event, startsAt: { gte: from } },
+      where: {
+        ...event,
+        startsAt: { gte: from },
+        ...(exclude.length ? { id: { notIn: exclude } } : {}),
+      },
       orderBy: keysetOrder(BY_START),
       include: withOrganization,
       take: limit,

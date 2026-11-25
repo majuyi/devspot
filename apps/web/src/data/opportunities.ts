@@ -177,6 +177,47 @@ export async function nearYou(city: CitySlug, { limit = 3 } = {}) {
 }
 
 /**
+ * Home, "In Nigeria" (ADR 0018 D): open items whose country is Nigeria, by the date a row
+ * counts down to (a stated deadline still ahead, or an event's start from today in Lagos),
+ * soonest first; items with neither follow, newest first. Only the country counts: words
+ * such as "Africa" in the text say little about where an item is (ADR 0018).
+ */
+export async function inNigeria({ now = new Date(), limit = 6 } = {}) {
+  const ng: Prisma.OpportunityWhereInput = { ...OPEN, country: "NG" };
+  const find = (
+    where: Prisma.OpportunityWhereInput,
+    orderBy: Prisma.OpportunityOrderByWithRelationInput[],
+  ) =>
+    db.opportunity.findMany({
+      where: { AND: [ng, where] },
+      orderBy,
+      include: withOrganization,
+      take: limit,
+    });
+  const [deadlines, starts, undated, total] = await Promise.all([
+    find({ kind: { not: "event" }, deadlineAt: { gte: now } }, [
+      { deadlineAt: "asc" },
+      { id: "asc" },
+    ]),
+    find({ kind: "event", startsAt: { gte: startOfDayWat(now) } }, [
+      { startsAt: "asc" },
+      { id: "asc" },
+    ]),
+    find({ kind: { not: "event" }, deadlineAt: null }, [
+      { publishedAt: { sort: "desc", nulls: "last" } },
+      { id: "desc" },
+    ]),
+    db.opportunity.count({ where: ng }),
+  ]);
+  const when = (r: OpportunityRow) =>
+    ((r.kind === "event" ? r.startsAt : r.deadlineAt) as Date).getTime();
+  const dated = [...deadlines, ...starts].sort(
+    (a, b) => when(a) - when(b) || a.id.localeCompare(b.id),
+  );
+  return { items: [...dated, ...undated].slice(0, limit).map(toOpportunityDto), total };
+}
+
+/**
  * The status row: open items, and how many close within 7 days and within 48 hours. A
  * deadline already passed but not yet closed by verify counts as open, not as closing.
  */

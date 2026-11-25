@@ -86,15 +86,32 @@ describe.skipIf(!hasDb)("pages, as a reader without JavaScript receives them", (
       expect(link(closing, "28 more open")).toBe("/opportunities");
     });
 
-    it("starting soon: events banded This week and Later, counting days only", async () => {
-      const starting = section(render(await Home({})), "starting-soon");
-      expect(bands(starting)).toEqual(["This weekto Wed 11 Nov", "Laterfrom Thu 12 Nov"]);
-      expect(rowSlugs(starting)).toEqual(["ev-today", "ev-deadline", "ev-a", "ev-b"]);
-      expect(link(starting, "All 7 events")).toBe("/events");
-      expect(text(starting)).toContain("Starts today");
-      expect(text(starting)).toContain("Scheduled");
+    it("in Nigeria first: items there by date, and their events not repeated below", async () => {
+      const el = render(await Home({}));
+      const ids = [...el.querySelectorAll("section[aria-labelledby]")].map((s) =>
+        s.getAttribute("aria-labelledby"),
+      );
+      expect(ids.slice(0, 2)).toEqual(["in-nigeria", "closing-soon"]);
+      const ng = section(el, "in-nigeria");
+      expect(rowSlugs(ng)).toEqual([
+        "ev-today",
+        "ev-deadline",
+        "ev-a",
+        "lagos-hybrid",
+        "ev-b",
+        "ev-c",
+      ]);
+      expect(text(ng)).toContain("Starts today");
       // 8 days, never "8d 8h".
-      expect(text(starting)).toMatch(/8dEvent/);
+      expect(text(ng)).toMatch(/8dEvent/);
+      // Closing soon stays complete: lagos-hybrid is in both.
+      expect(rowSlugs(section(el, "closing-soon"))).toContain("lagos-hybrid");
+
+      const starting = section(el, "starting-soon");
+      expect(bands(starting)).toEqual(["Laterfrom Thu 12 Nov"]);
+      expect(rowSlugs(starting)).toEqual(["ev-d"]);
+      expect(link(starting, "All 7 events")).toBe("/events");
+      expect(text(starting)).toContain("Scheduled");
     });
 
     it("new this week and the kind chips link to browse", async () => {

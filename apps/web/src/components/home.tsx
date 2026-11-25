@@ -5,6 +5,7 @@ import { startingSoon } from "@/data/events";
 import {
   closingSoon,
   deadlineCounts,
+  inNigeria,
   nearYou,
   newThisWeek,
   type OpenPlace,
@@ -32,10 +33,13 @@ const count = (n: number) => n.toLocaleString("en-GB");
 export async function Home({ city }: { city?: CitySlug }) {
   const now = new Date();
   const serverNow = now.toISOString();
-  const [closing, counts, events, fresh, freshness, places, near] = await Promise.all([
+  // Events already in "In Nigeria" are not repeated under "Starting soon".
+  const nigeria = inNigeria({ now });
+  const [local, closing, counts, events, fresh, freshness, places, near] = await Promise.all([
+    nigeria,
     closingSoon({ now }),
     deadlineCounts({ now }),
-    startingSoon({ now }),
+    nigeria.then((n) => startingSoon({ now, exclude: n.items.map((o) => o.id) })),
     newThisWeek({ now }),
     sourceFreshness({ now }),
     openPlaces({ now }),
@@ -61,6 +65,15 @@ export async function Home({ city }: { city?: CitySlug }) {
               <KindChip key={f} family={f} href={browseHref({ kinds: kindsOf(f) })} />
             ))}
           </nav>
+
+          {local.items.length ? (
+            <section aria-labelledby="in-nigeria">
+              <SectionHeader id="in-nigeria" title="In Nigeria" />
+              <RowList>
+                <Rows items={local.items} serverNow={serverNow} />
+              </RowList>
+            </section>
+          ) : null}
 
           <section aria-labelledby="closing-soon">
             <SectionHeader

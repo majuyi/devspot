@@ -75,12 +75,19 @@ Visual reference: Claude Design board "D · Map band + board" (artifact
   a card at the top of the right column. No hero sentence, no buttons.
 - Sheet over the band (`radius-sheet`, overlapping by 18px). Kind family chips: All, Work,
   Build, Events, Funding, Programmes, as links to `/opportunities?kinds=<the family's kinds>`.
+- "In Nigeria" (ADR 0018 D), first in the sheet: up to 6 open items whose country is Nigeria,
+  by the date each counts down to (a stated deadline still ahead, or an event's start from
+  today), soonest first, then items with neither, newest first. Only the country counts, not
+  region words in the text. No heading link. Absent when there are none. Its events are not
+  repeated under "Starting soon"; its deadlines are repeated under "Closing soon", which stays
+  complete.
 - "Closing soon", with "All N open" linking to browse, and a freshness line under the
   heading ("All 23 sources read in the last 6 hours. Status", from `FetchRun`). Published,
   not-closed, non-event items with a fixed deadline, as DatedRows grouped Today, Tomorrow,
   This week, Later. Today, Tomorrow and This week are never capped; Later shows 5, then
   "N more open" linking to browse.
-- "Starting soon", with "All N events" linking to `/events`: the next 4 events by `startsAt`, grouped
+- "Starting soon", with "All N events" linking to `/events`: the next 4 events by `startsAt` not
+  already under "In Nigeria", grouped
   This week and Later; the countdown shows days only and the status word is "Starts Fri" or
   "Scheduled".
 - "New this week", with "See all": up to 9 items published in the last 7 days, by
