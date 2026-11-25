@@ -50,8 +50,9 @@ type Opening = z.infer<typeof Detail>["result"]["jobOpening"];
  * role costs a request for `/careers/<id>/detail`. Like the devpost adapter it returns only
  * roles not in `knownUrls`, at most BAMBOOHR_DETAIL_LIMIT per run, and it asks the source's
  * filter first so roles the filter drops (never stored, so never known) do not use the cap.
+ * It also reports every role the list holds, so one that has left the board can be closed.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "bamboohr",
   async fetch(source, http) {
     const parsed = Listing.safeParse(await http.json(source.url));
@@ -60,8 +61,12 @@ const adapter: Adapter = {
     const origin = new URL(source.url).origin;
     const known = source.knownUrls ?? new Set<string>();
     const keep = itemMatcher(source.filter);
-    const fresh = parsed.data.result
-      .map((job) => ({ ...job, url: `${origin}/careers/${encodeURIComponent(job.id)}` }))
+    const all = parsed.data.result.map((job) => ({
+      ...job,
+      url: `${origin}/careers/${encodeURIComponent(job.id)}`,
+    }));
+    const listed = all.map((job) => job.url);
+    const fresh = all
       .filter((job) => !known.has(canonicalizeUrl(job.url)))
       .filter((job) =>
         keep({ title: job.jobOpeningName, department: job.departmentLabel ?? undefined }),
@@ -88,9 +93,9 @@ const adapter: Adapter = {
         );
       items.push(toItem(job.url, detail.data.result.jobOpening));
     }
-    return items;
+    return { items, listed };
   },
-};
+} satisfies Adapter;
 
 function place(o: Opening): string {
   const p = o.location ?? o.atsLocation;

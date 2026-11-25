@@ -50,9 +50,10 @@ type Detail = z.infer<typeof Detail>;
  * hundred kilobytes). Each new role then costs one request for
  * `/api/v2/accounts/<company>/jobs/<shortcode>`. Like the bamboohr adapter it returns only
  * roles not in `knownUrls`, at most WORKABLE_DETAIL_LIMIT per run, and asks the source's
- * filter first so dropped roles do not use the cap.
+ * filter first so dropped roles do not use the cap. It also reports every role the list
+ * holds, so one that has left the board can be closed.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "workable",
   async fetch(source, http) {
     const company = new URL(source.url).pathname.match(/\/accounts\/([^/]+)\/?$/)?.[1];
@@ -63,6 +64,7 @@ const adapter: Adapter = {
       throw new AdapterLayoutChanged("workable", source.url, parsed.error.issues[0]?.message ?? "");
     const known = source.knownUrls ?? new Set<string>();
     const keep = itemMatcher(source.filter);
+    const listed = parsed.data.jobs.map((job) => job.url);
     const fresh = parsed.data.jobs
       .filter((job) => !known.has(canonicalizeUrl(job.url)))
       .filter((job) => keep(listedFields(job)))
@@ -88,9 +90,9 @@ const adapter: Adapter = {
         );
       items.push(toItem(job, detail.data));
     }
-    return items;
+    return { items, listed };
   },
-};
+} satisfies Adapter;
 
 const text = (s: string | null | undefined) => s?.replace(/\s+/g, " ").trim() || undefined;
 

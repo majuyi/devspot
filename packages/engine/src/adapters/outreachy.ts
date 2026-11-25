@@ -14,7 +14,7 @@ const clean = (s: string) => s.replace(/\s+/g, " ").trim();
  * still apply. Project cards are left out: their details are hidden without a login and each
  * repeats the final deadline.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "outreachy",
   async fetch(source, http) {
     const $ = load(await http.text(source.url, { accept: "text/html" }));
@@ -78,6 +78,6 @@ const adapter: Adapter = {
       .join("\n\n");
     return [{ url: source.url, title: title.slice(0, 300), text }];
   },
-};
+} satisfies Adapter;
 
 export default adapter;

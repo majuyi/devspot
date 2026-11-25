@@ -36,7 +36,7 @@ const clean = (s: string | null | undefined) =>
  * hybrid events are kept, as Devpost keeps online ones. The URL is the event's own site,
  * where readers register.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "mlh",
   async fetch(source, http) {
     const html = await http.text(source.url, { accept: "text/html" });
@@ -61,7 +61,7 @@ const adapter: Adapter = {
     }
     return items;
   },
-};
+} satisfies Adapter;
 
 function toItem(url: string, e: Event): RawItemInput {
   const title = clean(e.name) ?? url;

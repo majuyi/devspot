@@ -43,7 +43,7 @@ type Listed = { url: string; hackathon: Hackathon };
  * page holds the deadline with its time zone and "Who can participate", which the listing
  * lacks. Fields that change daily (time left, registrations) stay out of `text`.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "devpost",
   async fetch(source, http) {
     const known = source.knownUrls ?? new Set<string>();
@@ -62,7 +62,7 @@ const adapter: Adapter = {
     }
     return items;
   },
-};
+} satisfies Adapter;
 
 async function listOnline(apiUrl: string, http: HttpClient): Promise<Listed[]> {
   const listed: Listed[] = [];

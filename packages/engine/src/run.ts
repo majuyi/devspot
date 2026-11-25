@@ -7,7 +7,7 @@ import { type FetchFn, type FetchSource, fetchSource } from "./fetch.js";
 import { applyItemFilter, parseItemFilter } from "./filter.js";
 import { health, type RunSummary, runSummary, type SourceRun } from "./health.js";
 import { type HttpClient, HttpStatusError } from "./http.js";
-import { load } from "./load.js";
+import { closeRemoved, load } from "./load.js";
 import { log as jsonLog } from "./log.js";
 import { upsertRawItems } from "./raw-items.js";
 import { validateDraft } from "./validate.js";
@@ -92,7 +92,16 @@ async function runSource(
 ): Promise<SourceRun & { turned: boolean }> {
   const { db, http, fetch, now, log, limit } = ctx;
   const startedAt = now();
-  const outcome = { nFound: 0, nNew: 0, nChanged: 0, published: 0, review: 0, filtered: 0 };
+  const outcome = {
+    nFound: 0,
+    nNew: 0,
+    nChanged: 0,
+    published: 0,
+    review: 0,
+    filtered: 0,
+    removed: 0,
+    reopened: 0,
+  };
   let error: string | undefined;
   let httpStatus: number | undefined;
   let ok = true;
@@ -118,6 +127,12 @@ async function runSource(
     outcome.nNew = fresh.filter((f) => f.status === "new").length;
     outcome.nChanged = fresh.length - outcome.nNew;
     Object.assign(outcome, await processFresh(row, fresh, ctx));
+    // Only a complete read says what has gone: a partial fetch says nothing.
+    if (result.listed && !result.error) {
+      const { closed, reopened } = await closeRemoved(db, row.id, result.listed, startedAt);
+      outcome.removed = closed;
+      outcome.reopened = reopened;
+    }
   } catch (e) {
     ok = false;
     error = e instanceof Error ? e.message : String(e);

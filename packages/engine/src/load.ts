@@ -193,6 +193,87 @@ export async function load(
   return { id: created.id, status, created: true };
 }
 
+/** Why the engine closed a row whose source no longer lists it. */
+export const REMOVED_FROM_LISTING = "removed-from-listing";
+
+/**
+ * After a complete read of a careers board (docs/04 §1): an open row from the source whose
+ * URL the board no longer lists closes, and a row closed that way whose URL is listed again
+ * goes back to the status it had. This is the one way a closed row reopens: the role was
+ * not over, the board had dropped it for a while. Both are recorded in the history.
+ */
+export async function closeRemoved(
+  db: PrismaClient,
+  sourceId: string,
+  listed: readonly string[],
+  now: Date = new Date(),
+): Promise<{ closed: number; reopened: number }> {
+  const fromSource = { rawItem: { sourceId } };
+  const gone = await db.opportunity.findMany({
+    where: {
+      ...fromSource,
+      status: { in: ["published", "review"] },
+      canonicalUrl: { notIn: [...listed] },
+    },
+    select: { id: true, status: true },
+  });
+  for (const row of gone) {
+    await db.$transaction([
+      db.opportunity.update({
+        where: { id: row.id },
+        data: { status: "closed", statusReason: REMOVED_FROM_LISTING, closedAt: now },
+      }),
+      db.opportunityEvent.create({
+        data: {
+          opportunityId: row.id,
+          actor: "engine",
+          action: "closed",
+          changes: changes({ status: { from: row.status, to: "closed" } }),
+          note: "No longer on the organisation's own listing.",
+        },
+      }),
+    ]);
+  }
+  const back = await db.opportunity.findMany({
+    where: {
+      ...fromSource,
+      status: "closed",
+      statusReason: REMOVED_FROM_LISTING,
+      canonicalUrl: { in: [...listed] },
+    },
+    select: {
+      id: true,
+      publishedAt: true,
+      events: { where: { action: "closed" }, orderBy: { at: "desc" }, take: 1 },
+    },
+  });
+  for (const row of back) {
+    const was = (row.events[0]?.changes as { status?: { from?: string } } | null)?.status?.from;
+    const status = was === "published" ? "published" : "review";
+    await db.$transaction([
+      db.opportunity.update({
+        where: { id: row.id },
+        data: {
+          status,
+          statusReason: null,
+          closedAt: null,
+          ...(status === "published" ? { publishedAt: row.publishedAt ?? now } : {}),
+        },
+      }),
+      db.opportunityEvent.create({
+        data: {
+          opportunityId: row.id,
+          actor: "engine",
+          action: status === "published" ? "published" : "edited",
+          changes: changes({ status: { from: "closed", to: status } }),
+          note: "Listed again on the organisation's own listing.",
+        },
+      }),
+    ]);
+  }
+  return { closed: gone.length, reopened: back.length };
+}
+
 /** Stage 6's writes, here so the loader stays the only writer of `Opportunity`. */
 export async function applyVerification(
   db: PrismaClient,

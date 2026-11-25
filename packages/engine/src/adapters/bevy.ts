@@ -54,7 +54,7 @@ function nextData(html: string, url: string): unknown {
  * request for its own page, which holds the venue, the end time and whether it is virtual.
  * Past events are not opportunities.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "bevy",
   async fetch(source, http) {
     const parsed = ChapterProps.safeParse(
@@ -72,7 +72,7 @@ const adapter: Adapter = {
     }
     return items;
   },
-};
+} satisfies Adapter;
 
 async function eventPage(url: string, http: HttpClient): Promise<EventData | undefined> {
   let html: string;

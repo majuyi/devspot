@@ -1,12 +1,17 @@
 import { MockAgent } from "undici";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { AdapterLayoutChanged } from "../../src/adapter.js";
+import { type Adapter, AdapterLayoutChanged } from "../../src/adapter.js";
 import workable, { WORKABLE_DETAIL_LIMIT } from "../../src/adapters/workable.js";
 import { fetchSource } from "../../src/fetch.js";
 import { replaySource } from "../../src/fixtures/replay.js";
 import { HttpClient } from "../../src/http.js";
 import { findSource } from "../../src/registry.js";
 
+/** The built items only; `listed` has its own test. */
+const fetchItems = async (a: Adapter, ...args: Parameters<Adapter["fetch"]>) => {
+  const out = await a.fetch(...args);
+  return Array.isArray(out) ? out : out.items;
+};
 const ORIGIN = "https://apply.workable.com";
 const registered = findSource("kuda/careers");
 const source = { ...registered, url: `${ORIGIN}/api/v1/widget/accounts/acme`, filter: undefined };
@@ -97,7 +102,7 @@ describe("workable adapter", () => {
         },
       ]);
       detail("AB12", { title: "iOS  Engineer" });
-      expect(await workable.fetch(source, http())).toEqual([
+      expect(await fetchItems(workable, source, http())).toEqual([
         {
           url: `${ORIGIN}/j/AB12`,
           title: "iOS Engineer",
@@ -111,7 +116,7 @@ describe("workable adapter", () => {
     it("writes an on-site location without a mode", async () => {
       list([{ title: "QA Engineer", shortcode: "QA1" }]);
       detail("QA1", { workplace: "on_site" });
-      const [item] = await workable.fetch(source, http());
+      const [item] = await fetchItems(workable, source, http());
       expect(item?.text).toContain("Location: Lagos, Nigeria\n");
     });
 
@@ -128,7 +133,7 @@ describe("workable adapter", () => {
       ];
       list(jobs);
       for (const j of jobs.slice(4)) detail(j.shortcode);
-      const items = await workable.fetch(
+      const { items, listed } = await workable.fetch(
         {
           ...source,
           filter: {
@@ -142,6 +147,8 @@ describe("workable adapter", () => {
       );
       expect(details.filter((d) => !d.startsWith("SE"))).toEqual([]);
       expect(items).toHaveLength(WORKABLE_DETAIL_LIMIT);
+      // Every role on the board, filtered, known or over the cap, so none is taken as gone.
+      expect(listed).toEqual(jobs.map((j) => `${ORIGIN}/j/${j.shortcode}`));
     });
 
     it("leaves a role that closed since the list for the next run", async () => {
@@ -151,7 +158,7 @@ describe("workable adapter", () => {
       ]);
       detail("GONE", {}, 404);
       detail("HERE");
-      expect((await workable.fetch(source, http())).map((i) => i.url)).toEqual([
+      expect((await fetchItems(workable, source, http())).map((i) => i.url)).toEqual([
         `${ORIGIN}/j/HERE`,
       ]);
     });

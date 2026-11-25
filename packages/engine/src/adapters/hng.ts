@@ -10,7 +10,7 @@ const PAST = /past cohorts|featured hng talent|life-changing stories/i;
  * cohort number comes from the page ("Join HNG Internship 15"); identity across cohorts is
  * dedupe's job (docs/04 §2), which strips cohort numbers from titles.
  */
-const adapter: Adapter = {
+const adapter = {
   key: "hng",
   async fetch(source, http) {
     const html = await http.text(source.url, { accept: "text/html" });
@@ -30,6 +30,6 @@ const adapter: Adapter = {
     const title = cohorts.length ? `HNG Internship ${Math.max(...cohorts)}` : "HNG Internship";
     return [{ url: source.url, title, text, ...(links.length ? { meta: { links } } : {}) }];
   },
-};
+} satisfies Adapter;
 
 export default adapter;

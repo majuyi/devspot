@@ -23,5 +23,10 @@ export const FetchResult = z.object({
   httpStatus: z.number().int().optional(),
   validators: Validators.optional(),
   error: z.string().optional(),
+  /**
+   * Every item URL the source lists right now, canonicalized, from an adapter that reads a
+   * complete list (a careers board). Lets the engine close what has left it (docs/04 §1).
+   */
+  listed: z.array(z.string()).optional(),
 });
 export type FetchResult = z.infer<typeof FetchResult>;
