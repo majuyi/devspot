@@ -58,6 +58,30 @@ describe.skipIf(!hasDb)("home queries (docs/01 §3)", () => {
     expect(soon.total).toBe((await events.listEvents({ limit: 100 }, clock)).items.length);
   });
 
+  it("in Nigeria: items there by the date they count down to, then undated, with the total", async () => {
+    const ng = await data.inNigeria(clock);
+    // ev-ongoing started yesterday; passed, remote and review items are not in Nigeria's list.
+    expect(slugs(ng.items)).toEqual([
+      "ev-today",
+      "ev-deadline",
+      "ev-a",
+      "lagos-hybrid",
+      "ev-b",
+      "ev-c",
+    ]);
+    expect(ng.total).toBe(12);
+    const all = slugs((await data.inNigeria({ ...clock, limit: 100 })).items);
+    expect(all.slice(-4).sort()).toEqual(["ibadan-job", "lagos-job", "nation", "remote-ng"]);
+    expect(all).not.toContain("today");
+  });
+
+  it("starting soon skips events already shown, and still counts them", async () => {
+    const shown = (await data.inNigeria(clock)).items.map((o) => o.id);
+    const soon = await events.startingSoon({ ...clock, exclude: shown });
+    expect(slugs(soon.items)).toEqual(["ev-d"]);
+    expect(soon.total).toBe(7);
+  });
+
   it("near you: the city and nationwide, never remote or another city, with the total", async () => {
     const near = await data.nearYou("lagos");
     expect(near.total).toBe(6);
