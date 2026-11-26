@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   ELIGIBILITY_WORDS,
   extractRules,
+  headerSpan,
   ruleApplyUrl,
   ruleDeadline,
   ruleKind,
@@ -248,6 +249,44 @@ describe("starts and ends", () => {
   it.each(["No dates here.", "Founded in 2010.", "on our website"])("nothing in %j", (text) => {
     expect(ruleSpan(text, REF)).toEqual({ confidence: 0 });
   });
+
+  it("reads our adapters' Date: and Ends: lines first, for any kind", () => {
+    const text =
+      "Date: 4 December 2026, 08:00 UTC\nEnds: 5 December 2026, 15:00 UTC\nLocation: Hotel Sylvia, Enugu\n\nThis 4–5 December, GDG Enugu is back.";
+    expect(headerSpan(text, REF)).toEqual({
+      starts: new Date("2026-12-04T08:00:00Z"),
+      ends: new Date("2026-12-05T15:00:00Z"),
+      confidence: 0.85,
+      quote: "Date: 4 December 2026, 08:00 UTC",
+    });
+    const event = extractRules({
+      item: { title: "DevFest Enugu 2026", text, canonicalUrl: "https://e.org/x" },
+      org: NG_ORG,
+      now: REF,
+    });
+    expect(event.draft.startsAt).toBe("2026-12-04T08:00:00.000Z");
+    expect(event.draft.endsAt).toBe("2026-12-05T15:00:00.000Z");
+    const mlh = extractRules({
+      item: {
+        title: "Solana Hackathon",
+        text: "Host: Major League Hacking (MLH member event)\nDate: 6 November 2026, 01:11 UTC\nEnds: 8 November 2026, 23:59 UTC\nLocation: Online",
+        canonicalUrl: "https://e.org/y",
+      },
+      org: { category: "hackathonHost", country: "US" },
+      now: REF,
+    });
+    expect(mlh.draft.kind).toBe("hackathon");
+    expect(mlh.draft.startsAt).toBe("2026-11-06T01:11:00.000Z");
+    expect(mlh.draft.endsAt).toBe("2026-11-08T23:59:00.000Z");
+  });
+
+  it.each([
+    ["no Date: line", "Ends: 5 December 2026, 15:00 UTC"],
+    ["a Date: line with no year", "Date: 4 December, 08:00 UTC"],
+    ["prose that says date", "The date: to be announced."],
+  ])("no header span from %s", (_, text) => {
+    expect(headerSpan(text, REF)).toBeUndefined();
+  });
 });
 
 describe("location", () => {
@@ -291,6 +330,13 @@ describe("location", () => {
       "Location: Hybrid, Warri\nOpen to Nigerian graduates.",
       { mode: "hybrid", country: "NG", confidence: 0.5 },
     ],
+    // A stated place abroad we cannot file waits for a person too.
+    [
+      "Hackathon",
+      "Location: Hybrid, online or in person in Brooklyn, New York",
+      { mode: "hybrid", confidence: 0.5 },
+    ],
+    ["Hackathon", "Location: Hybrid, online or in person", { mode: "hybrid", confidence: 0.85 }],
     [
       "Programme",
       "Location: Hybrid, anywhere in Nigeria",
