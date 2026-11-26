@@ -317,6 +317,32 @@ const RANGES: Array<{
 
 export type SpanField = { starts?: Date; ends?: Date; confidence: number; quote?: string };
 
+// Header lines the GDG (bevy) and MLH adapters write from the listing's own fields:
+// "Date: 4 December 2026, 08:00 UTC" and "Ends: 5 December 2026, 15:00 UTC".
+const DATE_LINE = /^date:[ \t]*(.+)$/im;
+const ENDS_LINE = /^ends:[ \t]*(.+)$/im;
+const HEADER_SPAN_CONFIDENCE = 0.85;
+
+/**
+ * When an item starts and ends, from our adapters' header lines, for any kind: an MLH
+ * hackathon is dated by its weekend, not by a deadline. Read before the body, whose "4–5
+ * December" lacks the year the header states. A line without a year does not count.
+ */
+export function headerSpan(text: string, reference: Date): SpanField | undefined {
+  const line = text.match(DATE_LINE);
+  if (!line?.[1]) return undefined;
+  const [starts] = findDates(line[1], reference, { endOfDay: false });
+  if (!starts?.hasYear) return undefined;
+  const endLine = text.match(ENDS_LINE)?.[1];
+  const [ends] = endLine ? findDates(endLine, reference) : [];
+  return {
+    starts: starts.at,
+    ...(ends?.hasYear && ends.at.getTime() >= starts.at.getTime() ? { ends: ends.at } : {}),
+    confidence: HEADER_SPAN_CONFIDENCE,
+    quote: line[0].trim(),
+  };
+}
+
 /** Event and bootcamp dates: a range, else a single date after "on" or "date:". */
 export function ruleSpan(text: string, reference: Date): SpanField {
   for (const { re, read } of RANGES) {
@@ -396,6 +422,16 @@ function findCity(text: string): { slug: string; quote: string } | undefined {
   return hit && { slug: hit.slug, quote: hit.quote };
 }
 
+/** Whether a location line says where, beyond how ("Hybrid", "online or in person"). */
+function namesPlace(line: string): boolean {
+  return (
+    line.replace(
+      /\b(?:hybrid|online|remote|virtual|or|and|in|person|in-person|on-?site)\b|[^\p{L}]+/giu,
+      "",
+    ).length > 0
+  );
+}
+
 /** A line whose whole job is to state the place, as Devpost's "Location: Online". */
 const LOCATION_LINE = /^(?:location|venue)\s*:\s*(.+)$/im;
 
@@ -423,11 +459,15 @@ export function ruleLocation(title: string, text: string, org: RulesInput["org"]
       // nationwide, the city is one the dictionary does not know ("Hybrid, Warri"), so the item
       // waits for a person to set it rather than showing in every city.
       const unknownCity = !city && nigeria && !NATIONWIDE.test(`${title}\n${text}`);
+      // Likewise a stated place abroad we cannot file ("Hybrid, online or in person in
+      // Brooklyn, New York"): shown with no place, it would be wrong, so a person sets it.
+      const unknownPlace = !city && !nigeria && source === stated && namesPlace(stated);
       return {
         mode: "hybrid",
         ...cityOf(city),
         ...country,
-        confidence: unknownCity ? Math.min(confidence, UNKNOWN_CITY_CONFIDENCE) : confidence,
+        confidence:
+          unknownCity || unknownPlace ? Math.min(confidence, UNKNOWN_CITY_CONFIDENCE) : confidence,
         quote: hybrid[0],
       };
     }
@@ -611,9 +651,10 @@ export function extractRules({ item, org, now = new Date() }: RulesInput): Rules
   const kind = ruleKind(title, item.text, org.category);
   const deadline = ruleDeadline(item.text, reference, { pastStands: !item.publishedAt });
   const span =
-    kind.value === "event" || kind.value === "bootcamp"
+    headerSpan(item.text, reference) ??
+    (kind.value === "event" || kind.value === "bootcamp"
       ? ruleSpan(item.text, reference)
-      : { confidence: 0 };
+      : { confidence: 0 });
   const location = ruleLocation(title, item.text, org);
   const venue = kind.value === "event" ? ruleVenue(item.text) : { confidence: 0 };
   const requirements = ruleRequirements(item.text);
