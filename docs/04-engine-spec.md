@@ -178,6 +178,17 @@ otherwise a closed round would show the final date as open. The notice above the
 ("Initial applications are closed") is kept, which verify also reads. A timeline without an
 initial deadline throws `AdapterLayoutChanged`.
 
+The google-accelerator adapter reads a Google for Startups Accelerator page
+(`startup.google.com/programs/accelerator/<region>/`), one item per page; each round is
+posted on the same page, and ADR 0019 reopens the row when a later one is. The visible
+timeline puts each date before its label, so the dates come from its "Add to calendar"
+links (`text` names the step, `dates` gives the day): "Applications Close" is the
+`Deadline:` line, "Applications Open" and any other step keep their names. Only the page's
+description and its sentence on how sessions run are kept, because the alumni list names
+countries; when that sentence says remote and in-person, a `Location: Hybrid` line is
+added. A page without a title throws `AdapterLayoutChanged`; one without a timeline (between
+rounds) gives an item with no date.
+
 ### Item filter
 
 A job board lists every role an employer has, and most are outside the audience (docs/00
