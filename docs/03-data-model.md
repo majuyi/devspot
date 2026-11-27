@@ -416,6 +416,8 @@ are stale. The API references these.
 **Cities** (`CITIES` in `packages/schema/src/cities.ts`): slug, display name, state, lat, lng.
 Launch list: `lagos`, `abuja`, `ibadan`, `port-harcourt`, `enugu`, `kano`, `benin-city`,
 `kaduna`, `jos`, `calabar`, `uyo`, `owerri`, `abeokuta`, `ilorin`, `akure`, `ile-ife`.
+Added at M5.4 for the GDG chapters: `zaria`, `warri`, `asaba`, `minna`, `ogbomoso`, `lokoja`,
+`osogbo`, `makurdi`, `bauchi`, `yola`, `maiduguri`, `aba`, `umuahia`, `ado-ekiti`.
 Adding a city is a one-line PR. `city = null` with `country = "NG"` means nationwide, so an
 extractor sets it only when the source says so ("nationwide", "anywhere in Nigeria", "all 36
 states"); a Nigerian place it does not recognise goes to review for a person to set the city.
