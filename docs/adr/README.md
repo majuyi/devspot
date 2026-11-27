@@ -24,4 +24,4 @@ One file per decision, numbered, never edited after acceptance except to add a
 | 0017 | LLM extraction deferred; M3 runs on rules | Accepted 2026-11-20 |
 | 0018 | Relevance of the published feed | Accepted in part (B, D 2026-11-22; E 2026-11-25) |
 | 0019 | A new round on the same page reopens a row closed for its date | Proposed 2026-11-27 |
-| 0020 | The M5 registry gate counts what readers see | Proposed 2026-11-27 |
+| 0020 | The M5 registry gate counts what readers see | Accepted 2026-11-27 |

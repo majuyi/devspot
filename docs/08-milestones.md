@@ -10,7 +10,7 @@
 Registry research is a parallel, non-code track owned by Dami: interview 15 to 20 people who
 got something good in the last year ("where did you first hear about it?"), enumerate the
 organizations, and add YAML files as they are confirmed. Target 20 organizations by the end
-of M1 and 60 by M5.
+of M1; at M5 the gate counts what readers in Nigeria see, not organizations (ADR 0020).
 
 ## M0 · Foundation
 
@@ -211,7 +211,10 @@ exists.
 
 ## M5 · Launch
 
-Gate: name and domain live; 60+ organizations; one merged PR from someone Dami did not ask;
+Gate: name and domain live; in one 30-day window at least 40 open items located in Nigeria
+or from a Nigerian organisation published, from at least 15 organisations, and every enabled
+source that is not `manual` produced an item in the last 90 days or is marked seasonal in
+its notes (ADR 0020); one merged PR from someone Dami did not ask;
 the weekly benchmark shows at least five items in a month that YouthOp and Opportunity Desk
 did not list.
 
@@ -222,11 +225,13 @@ did not list.
   Console.
 - [ ] **M5.3 Contribution on-ramp.** Good-first-issue labels generated from `/status`,
   issue templates (`add-organization`, `broken-source`, `wrong-data`), PR template.
-- [ ] **M5.4 Registry to 60.** With fixtures. Taken ahead of M4 (agreed 2026-11-26), weighted
-  to Nigerian sources. Only sources that produce count: a `manual` entry does not. GDG
-  chapters are added only if they held an event in the last 12 months.
+- [ ] **M5.4 Registry for Nigerian coverage.** With fixtures. Taken ahead of M4 (agreed
+  2026-11-26). Done when the M5 gate's Nigerian count holds (ADR 0020); the number of
+  organizations is not a target. GDG chapters are added only if they held an event in the
+  last 12 months.
 - [ ] **M5.5 Benchmark process.** A weekly checklist and a `docs/benchmarks/YYYY-WW.md`
-  entry format; the `/status` coverage section reads from it.
+  entry format, reporting the gate's Nigerian count (ADR 0020); the `/status` coverage
+  section reads from it.
 - [ ] **M5.6 Launch post and channels.** Announce in the communities that were interviewed
   in the registry research.
 

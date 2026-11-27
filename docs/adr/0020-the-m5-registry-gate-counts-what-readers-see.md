@@ -41,13 +41,13 @@ Nigeria; the two batches add about 7 (Moniepoint's role and six December DevFest
 month asks for the feed to more than double its Nigerian share, mostly from employers and
 programmes rather than more chapters.
 
-**Decision.** Pending: the maintainer, including the two numbers.
+**Decision.** B, with 40 items from 15 organisations, accepted by the maintainer on 2026-11-27.
 
 **Consequences, if B is accepted.** `08` M5's gate and M5.4's title change ("Registry for
 Nigerian coverage"); the source count stops being a target. Effort goes where items come
 from: careers pages without a public board (one adapter each), the Luma calendars, and
 ADR 0019 for programmes.
 
-**Status.** Proposed
+**Status.** Accepted
 
 **Date.** 2026-11-27
