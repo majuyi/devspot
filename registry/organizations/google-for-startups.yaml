@@ -1,0 +1,19 @@
+slug: google-for-startups
+name: Google for Startups
+category: accelerator
+homepageUrl: https://startup.google.com
+description: >
+  Google's programmes for startups. Its Africa accelerator is a three-month, equity-free
+  programme for growth-stage startups, with a cohort each year; Nigerian startups are
+  regularly in it.
+country: US
+sources:
+  - name: accelerator-africa
+    kind: html
+    url: https://startup.google.com/programs/accelerator/africa/
+    adapter: google-accelerator
+    cadence: annual
+    notes: >
+      Server-rendered. Each round is posted on this one page, with "Add to calendar" links
+      for applications opening and closing (2026: 4 February to 18 March). robots.txt allows
+      all. Verified 2026-11-27.
