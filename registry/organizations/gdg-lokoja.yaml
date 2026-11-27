@@ -1,0 +1,17 @@
+slug: gdg-lokoja
+name: GDG Lokoja
+category: community
+homepageUrl: https://gdg.community.dev/gdg-lokoja/
+description: >
+  Google Developer Group for Lokoja. Free meetups, study jams and DevFest Lokoja.
+country: NG
+city: lokoja
+sources:
+  - name: events
+    kind: html
+    url: https://gdg.community.dev/gdg-lokoja/
+    adapter: bevy
+    cadence: monthly
+    notes: >
+      Bevy chapter page; upcoming events from its server-rendered data, venue and times from
+      each event's page. Verified 2026-11-27 (an event in the last 12 months).

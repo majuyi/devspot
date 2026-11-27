@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { encodePreferences, type Preferences } from "@devspot/schema";
+import { CITIES, encodePreferences, type Preferences } from "@devspot/schema";
 import axe from "axe-core";
 import type { ReactElement } from "react";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
@@ -62,7 +62,8 @@ describe.skipIf(!hasDb)("/feed (docs/01 §2 and §3)", () => {
     expect(form.getAttribute("action")).toBe("/api/prefs");
     expect(form.querySelectorAll('input[name="kinds"]')).toHaveLength(11);
     expect(form.querySelectorAll('input[name="tags"]')).toHaveLength(16);
-    expect(form.querySelectorAll("select[name=city] option")).toHaveLength(17);
+    // Every city, after "any city".
+    expect(form.querySelectorAll("select[name=city] option")).toHaveLength(CITIES.length + 1);
     expect(form.querySelectorAll("input:checked")).toHaveLength(0);
     // Nothing to clear yet.
     expect(form.querySelector('button[name="clear"]')).toBeNull();

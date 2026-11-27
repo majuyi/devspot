@@ -10,7 +10,7 @@ export type City = {
   aliases: string[];
 };
 
-// Launch list for Nigeria. Adding a city is a one-line PR. Coordinates are city centres.
+// Launch list for Nigeria, then the cities of GDG chapters in the registry (M5.4). Adding a city is a one-line PR. Coordinates are city centres.
 export const CITIES: readonly City[] = [
   {
     slug: "lagos",
@@ -104,6 +104,118 @@ export const CITIES: readonly City[] = [
     lat: 7.4905,
     lng: 4.5521,
     aliases: ["ile-ife", "ife", "oau"],
+  },
+  {
+    slug: "zaria",
+    name: "Zaria",
+    state: "Kaduna",
+    lat: 11.0855,
+    lng: 7.7199,
+    aliases: ["zaria"],
+  },
+  {
+    slug: "warri",
+    name: "Warri",
+    state: "Delta",
+    lat: 5.5167,
+    lng: 5.75,
+    aliases: ["warri"],
+  },
+  {
+    slug: "asaba",
+    name: "Asaba",
+    state: "Delta",
+    lat: 6.1985,
+    lng: 6.7319,
+    aliases: ["asaba"],
+  },
+  {
+    slug: "minna",
+    name: "Minna",
+    state: "Niger",
+    lat: 9.6139,
+    lng: 6.5569,
+    aliases: ["minna"],
+  },
+  {
+    slug: "ogbomoso",
+    name: "Ogbomoso",
+    state: "Oyo",
+    lat: 8.1333,
+    lng: 4.25,
+    aliases: ["ogbomoso", "ogbomosho"],
+  },
+  {
+    slug: "lokoja",
+    name: "Lokoja",
+    state: "Kogi",
+    lat: 7.8023,
+    lng: 6.7333,
+    aliases: ["lokoja"],
+  },
+  {
+    slug: "osogbo",
+    name: "Osogbo",
+    state: "Osun",
+    lat: 7.7827,
+    lng: 4.5418,
+    aliases: ["osogbo", "oshogbo"],
+  },
+  {
+    slug: "makurdi",
+    name: "Makurdi",
+    state: "Benue",
+    lat: 7.7322,
+    lng: 8.5391,
+    aliases: ["makurdi"],
+  },
+  {
+    slug: "bauchi",
+    name: "Bauchi",
+    state: "Bauchi",
+    lat: 10.3158,
+    lng: 9.8442,
+    aliases: ["bauchi"],
+  },
+  {
+    slug: "yola",
+    name: "Yola",
+    state: "Adamawa",
+    lat: 9.2035,
+    lng: 12.4954,
+    aliases: ["yola"],
+  },
+  {
+    slug: "maiduguri",
+    name: "Maiduguri",
+    state: "Borno",
+    lat: 11.8333,
+    lng: 13.15,
+    aliases: ["maiduguri"],
+  },
+  {
+    slug: "aba",
+    name: "Aba",
+    state: "Abia",
+    lat: 5.1066,
+    lng: 7.3667,
+    aliases: ["aba"],
+  },
+  {
+    slug: "umuahia",
+    name: "Umuahia",
+    state: "Abia",
+    lat: 5.5263,
+    lng: 7.4896,
+    aliases: ["umuahia"],
+  },
+  {
+    slug: "ado-ekiti",
+    name: "Ado-Ekiti",
+    state: "Ekiti",
+    lat: 7.6233,
+    lng: 5.2209,
+    aliases: ["ado-ekiti", "ado ekiti"],
   },
 ] as const;
 

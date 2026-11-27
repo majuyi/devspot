@@ -327,7 +327,7 @@ describe("location", () => {
     // one we do not know, and a person sets it in review.
     [
       "Programme",
-      "Location: Hybrid, Warri\nOpen to Nigerian graduates.",
+      "Location: Hybrid, Sapele\nOpen to Nigerian graduates.",
       { mode: "hybrid", country: "NG", confidence: 0.5 },
     ],
     // A stated place abroad we cannot file waits for a person too.
@@ -666,13 +666,13 @@ describe("extractRules", () => {
 
   it("sends a hybrid Nigerian item with a city we do not know to review, without a city", () => {
     const text =
-      "Applications close 31 October 2026.\nLocation: Hybrid, Warri\nFor Nigerian graduates.\n\nRequirements\n\n- A degree";
+      "Applications close 31 October 2026.\nLocation: Hybrid, Sapele\nFor Nigerian graduates.\n\nRequirements\n\n- A degree";
     const unknown = extractRules(item("Product Design Fellowship", text));
     expect(unknown.draft).toMatchObject({ locationMode: "hybrid", country: "NG" });
     expect(unknown.draft.city).toBeUndefined();
     expect(unknown.confidence).toBeLessThan(RULES_ONLY_PUBLISH_THRESHOLD);
     const nationwide = extractRules(
-      item("Product Design Fellowship", text.replace("Warri", "anywhere in Nigeria")),
+      item("Product Design Fellowship", text.replace("Sapele", "anywhere in Nigeria")),
     );
     expect(nationwide.confidence).toBeGreaterThanOrEqual(RULES_ONLY_PUBLISH_THRESHOLD);
   });
