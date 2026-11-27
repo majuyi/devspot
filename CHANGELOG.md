@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- ADR 0019 (Proposed): a row closed because its date passed reopens when its own page states a later round; Outreachy's closed row would otherwise stay closed when its next round opens. ADR 0020 (Proposed): the M5 gate counts Nigerian items published in a month instead of 60 organisations.
 - M5.4 (batch 2): 20 more Nigerian GDG chapters, every one with an event in the last 12 months (registry 47 organisations). Their 14 cities not yet in the list are added (Zaria, Warri, Asaba, Minna, Ogbomoso, Lokoja, Osogbo, Makurdi, Bauchi, Yola, Maiduguri, Aba, Umuahia, Ado-Ekiti), so an in-person event there gets its city instead of waiting for review. Six DevFests in December would publish; eval unchanged (36 published, 0 false).
 - M5.4 (batch 1): `greenhouse` adapter for any Greenhouse board, reporting every listed role so one that leaves is closed; Moniepoint added (filter: Nigerian tech roles, early-career). M5.4 is taken ahead of M4 (agreed 2026-11-26): the feed's Nigerian share is its weakest point.
 - Rules: the GDG and MLH adapters' `Date:` and `Ends:` lines give start and end for any kind, so MLH hackathons are dated (and close when over) and DevFest Enugu is no longer held on a year-less body date. A hybrid item whose location line names a place abroad we cannot file waits for review, as one in an unknown Nigerian city does. Eval: 36 published (was 34), 0 false, 1 judgement call.
