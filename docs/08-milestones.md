@@ -222,7 +222,9 @@ did not list.
   Console.
 - [ ] **M5.3 Contribution on-ramp.** Good-first-issue labels generated from `/status`,
   issue templates (`add-organization`, `broken-source`, `wrong-data`), PR template.
-- [ ] **M5.4 Registry to 60.** With fixtures.
+- [ ] **M5.4 Registry to 60.** With fixtures. Taken ahead of M4 (agreed 2026-11-26), weighted
+  to Nigerian sources. Only sources that produce count: a `manual` entry does not. GDG
+  chapters are added only if they held an event in the last 12 months.
 - [ ] **M5.5 Benchmark process.** A weekly checklist and a `docs/benchmarks/YYYY-WW.md`
   entry format; the `/status` coverage section reads from it.
 - [ ] **M5.6 Launch post and channels.** Announce in the communities that were interviewed
