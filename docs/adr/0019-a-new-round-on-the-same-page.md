@@ -33,7 +33,7 @@ added under M5.4 would go the same way.
 date; stays closed on the same or an earlier date; never reopens a maintainer's close or a
 rejection), and it matches what readers see on the page.
 
-**Decision.** Pending: the maintainer.
+**Decision.** A, accepted by the maintainer on 2026-11-27.
 
 **Consequences, if A is accepted.** Invariant 7 gains a sentence: a row closed because its
 date passed reopens when its own page states a later date that has not passed. Outreachy,
@@ -41,6 +41,6 @@ HNG and single-page programmes reopen without anyone acting. A page that re-stat
 round with a typo'd later year would reopen wrongly; the publish rule and its holds still
 apply, and the history shows the move.
 
-**Status.** Proposed
+**Status.** Accepted
 
 **Date.** 2026-11-27
