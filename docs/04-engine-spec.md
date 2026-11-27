@@ -277,7 +277,8 @@ A second row with the same key points at the earliest original, so duplicates ne
 On an update, an unreviewed row also gets `lastVerifiedAt`, fields the page no longer states
 are cleared, and status moves between `review` and `published` so invariant 3 holds for the
 row's life; `closed` never reopens (except a role closed as `removed-from-listing` that its
-board lists again, above) and a duplicate stays in `review`. A listing already more
+board lists again, above, and a new round on the same page, below) and a duplicate stays in
+`review`. A listing already more
 than 24 hours past its date (invariant 7) is created or moved to `closed` with reason
 `date-passed`, never published; reviewed rows are left to the maintainer. Rules alone publish only
 with `deadlineAt` or `startsAt`, so a rolling item goes to review, with one exception: an
@@ -293,6 +294,13 @@ cut to 60 characters at a word; the collision suffix comes from the URL.
   the loader sets `sourceDeadlineAt` and records the event once, which lists the row in the
   admin review tab while it stays live; when the page agrees again, the flag is cleared. A
   page that states no deadline is not taken as a change on a reviewed row.
+- A new round on the same page (ADR 0019): an unreviewed row closed `date-passed` whose
+  page now states a deadline (or, with none, a start) later than the stored one and not
+  over reopens. Its status comes from the publish rule as for a new item, `statusReason`,
+  `closedAt` and the "moved" columns are cleared, `publishedAt` becomes now when it
+  publishes, and one event (`published` or `edited`, note "A new round on the same page.")
+  keeps the earlier round's dates. Rows a maintainer reviewed, closed or rejected, copies
+  and roles closed `removed-from-listing` are left alone.
 
 ### Stage 6 · Verify (command `engine verify`)
 
