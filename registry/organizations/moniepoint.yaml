@@ -1,0 +1,24 @@
+slug: moniepoint
+name: Moniepoint
+category: employer
+homepageUrl: https://moniepoint.com
+description: >
+  Lagos-founded payments and banking company. Hires across Nigeria, mostly in Lagos, with
+  some roles in the UK and Europe.
+country: NG
+city: lagos
+sources:
+  - name: careers
+    kind: api
+    url: https://boards-api.greenhouse.io/v1/boards/moniepoint/jobs
+    adapter: greenhouse
+    cadence: rolling
+    filter:
+      titles: [engineer, developer, programmer, software, data scientist, data analyst,
+        data engineer, analytics, machine learning, ai, designer, ux, ui, product, devops,
+        sre, qa, cloud, mobile, android, ios, frontend, backend, full stack, fullstack,
+        system administrator, systems administrator, security engineer, it support]
+      countries: [NG]
+    notes: >
+      Greenhouse public board (job-boards.eu.greenhouse.io/moniepoint). Verified 2026-11-27.
+      Most roles are sales, operations and field work in Nigeria; the filter keeps tech ones.

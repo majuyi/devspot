@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- M5.4 (batch 1): `greenhouse` adapter for any Greenhouse board, reporting every listed role so one that leaves is closed; Moniepoint added (filter: Nigerian tech roles, early-career). M5.4 is taken ahead of M4 (agreed 2026-11-26): the feed's Nigerian share is its weakest point.
 - Rules: the GDG and MLH adapters' `Date:` and `Ends:` lines give start and end for any kind, so MLH hackathons are dated (and close when over) and DevFest Enugu is no longer held on a year-less body date. A hybrid item whose location line names a place abroad we cannot file waits for review, as one in an unknown Nigerian city does. Eval: 36 published (was 34), 0 false, 1 judgement call.
 - Rules: requirements headings as careers boards write them (Chowdeck, Flutterwave, Paga), and a colon-ended perks or benefits line ends the block. Only the six BambooHR roles in the eval change. Eval: 34 published (was 29), 0 false, still 1 judgement call.
 - ADR 0018 (E, part 2): an employer's job or internship with no deadline stated may publish on rules, shown as "deadline not stated". It is scored on kind, location, requirements and title (weights over 0.65); every hold still applies. Invariant 3 and `05` §2 say so. The eval now reports what it would publish and which of those have a field wrong: 29 published, 0 false, 1 judgement call (`renmoney/careers#5`, on-site for hybrid).

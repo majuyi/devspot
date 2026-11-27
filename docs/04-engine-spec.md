@@ -130,9 +130,16 @@ per run at `/api/v2/accounts/<company>/jobs/<shortcode>` for the description, re
 benefits and on-site, hybrid or remote. It sets `meta.department`, `meta.country` and
 `meta.level`.
 
+The greenhouse adapter reads the public board API
+(`https://boards-api.greenhouse.io/v1/boards/<board>/jobs`, titles and locations only), asks
+the filter on title and on the country the location names last ("Remote, Lagos, Nigeria"),
+then opens at most 15 new roles per run at `/jobs/<id>` for the description (escaped twice
+by the API) and department. A stated `application_deadline` is written as a `Deadline:`
+line. It sets `meta.department` and `meta.country`.
+
 **Roles that leave the board (ADR 0018 E).** An adapter that reads a complete list may return
 `{ items, listed }` instead of an array: `listed` is the URL of every role on the board now,
-filtered, already known or over the cap included. The bamboohr and workable adapters do.
+filtered, already known or over the cap included. The bamboohr, greenhouse and workable adapters do.
 After a fetch with no error note, the run hands `listed` to the loader's `closeRemoved`: an
 open row (`published` or `review`) from that source whose URL is not listed is closed with
 reason `removed-from-listing`, and a row closed that way whose URL is listed again goes back
