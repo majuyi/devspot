@@ -306,8 +306,8 @@ cut to 60 characters at a word; the collision suffix comes from the URL.
   admin review tab while it stays live; when the page agrees again, the flag is cleared. A
   page that states no deadline is not taken as a change on a reviewed row.
 - A new round on the same page (ADR 0019): an unreviewed row closed `date-passed` whose
-  page now states a deadline (or, with none, a start) later than the stored one and not
-  over reopens. Its status comes from the publish rule as for a new item, `statusReason`,
+  page now states a deadline (or, with none, a start) later than the stored one (or the
+  row stores none, when the page showed no dates between rounds) and not over reopens. Its status comes from the publish rule as for a new item, `statusReason`,
   `closedAt` and the "moved" columns are cleared, `publishedAt` becomes now when it
   publishes, and one event (`published` or `edited`, note "A new round on the same page.")
   keeps the earlier round's dates. Rows a maintainer reviewed, closed or rejected, copies

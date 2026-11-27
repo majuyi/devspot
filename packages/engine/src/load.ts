@@ -65,7 +65,8 @@ export function isNewRound(
   if (existing.status !== "closed" || existing.statusReason !== "date-passed") return false;
   const was = roundDate(existing);
   const is = roundDate(next);
-  return was !== null && is !== null && is.getTime() > was.getTime();
+  // Between rounds a page may state no date, and the closed row then stores none.
+  return is !== null && (was === null || is.getTime() > was.getTime());
 }
 
 /**
