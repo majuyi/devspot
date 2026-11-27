@@ -567,6 +567,14 @@ describe.skipIf(!hasDb)("load against Postgres", () => {
       expect(await row(id)).toMatchObject({ statusReason: "date-passed" });
     });
 
+    it("reopens when the page stated no date between the rounds", async () => {
+      const id = await closedRound();
+      const between = input({ deadlineKind: "unknown", deadlineAt: undefined });
+      expect((await run(between, later)).status).toBe("closed");
+      expect(await row(id)).toMatchObject({ deadlineAt: null, statusReason: "date-passed" });
+      expect((await run(nextRound(), later)).status).toBe("published");
+    });
+
     it("stays closed when the later date is itself over", async () => {
       await closedRound();
       const stale = input({ deadlineAt: "2026-12-10T22:59:00.000Z" });

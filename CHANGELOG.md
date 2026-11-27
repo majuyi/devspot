@@ -4,6 +4,7 @@ All notable changes to this project are documented here. Format: Keep a Changelo
 
 ## Unreleased
 
+- ADR 0019 fix: a row whose page showed no dates between rounds (so the closed row stores none) also reopens when the next round is dated.
 - ADR 0020 accepted: the M5 gate counts at least 40 open Nigerian items published in a 30-day window, from at least 15 organisations, with every non-manual source producing in 90 days, instead of 60 organisations. M5.4 is now "Registry for Nigerian coverage"; M5.5's benchmark reports the count.
 - ADR 0019 accepted and built: an unreviewed row closed `date-passed` reopens when its own page states a later deadline (or start) that is not over, the next round on the same page. It publishes or goes to review by the publish rule, with one history event keeping the earlier dates. Outreachy's closed row will reopen when its next round is posted. Invariant 7 and `04` §1 stage 5 say so.
 - ADR 0019 (Proposed): a row closed because its date passed reopens when its own page states a later round; Outreachy's closed row would otherwise stay closed when its next round opens. ADR 0020 (Proposed): the M5 gate counts Nigerian items published in a month instead of 60 organisations.
