@@ -453,7 +453,9 @@ These are product rules enforced in code and stated in tests:
    `identityKey`; the second becomes `duplicateOf` the first and is never published.
 7. An `Opportunity` past `deadlineAt` (or `endsAt` for events) by more than 24 hours becomes
    `closed` on the next verify pass, regardless of source state. The loader applies the same
-   rule on the way in: a listing already over is stored `closed`, never published.
+   rule on the way in: a listing already over is stored `closed`, never published. A row
+   closed because its date passed reopens when its own page states a later date that has
+   not passed: the next round on the same page (ADR 0019).
 8. `opportunity_events` is append-only: no role may update or delete a row. Every change a
    maintainer makes in `/admin` writes one in the same transaction as the change.
 

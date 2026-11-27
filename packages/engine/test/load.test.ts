@@ -511,6 +511,83 @@ describe.skipIf(!hasDb)("load against Postgres", () => {
     expect((await run(input(), T1)).status).toBe("closed");
   });
 
+  describe("ADR 0019: a new round on the same page", () => {
+    // The round closed on 2026-12-02; the page later posts the next one.
+    const late = new Date("2026-12-02T12:00:00Z");
+    const later = new Date("2027-01-10T08:00:00Z");
+    const nextRound = () =>
+      input({ title: "Backend Internship 2027", deadlineAt: "2027-02-28T22:59:00.000Z" });
+    const closedRound = async () => {
+      const { id } = await run(input());
+      expect((await run(input(), late)).status).toBe("closed");
+      return id;
+    };
+
+    it("reopens a row closed date-passed when its page states a later date", async () => {
+      const id = await closedRound();
+      expect(await run(nextRound(), later)).toEqual({ id, status: "published", created: false });
+      expect(await row(id)).toMatchObject({
+        status: "published",
+        statusReason: null,
+        closedAt: null,
+        title: "Backend Internship 2027",
+        deadlineAt: new Date("2027-02-28T22:59:00.000Z"),
+        publishedAt: later,
+        previousDeadlineAt: null,
+        deadlineChangedAt: null,
+      });
+      const events = await db.opportunityEvent.findMany({ where: { opportunityId: id } });
+      expect(events).toHaveLength(1);
+      expect(events[0]).toMatchObject({
+        actor: "engine",
+        action: "published",
+        note: "A new round on the same page.",
+        changes: {
+          status: { from: "closed", to: "published" },
+          deadlineAt: { from: "2026-11-30T22:59:00.000Z", to: "2027-02-28T22:59:00.000Z" },
+        },
+      });
+    });
+
+    it("reopens to review when the new round does not meet the publish rule", async () => {
+      const id = await closedRound();
+      const weak = input(
+        { title: "Backend Internship 2027", deadlineAt: "2027-02-28T22:59:00.000Z" },
+        { confidence: 0.5 },
+      );
+      expect((await run(weak, later)).status).toBe("review");
+      expect(await row(id)).toMatchObject({ statusReason: null, publishedAt: T0 });
+    });
+
+    it("stays closed when the page states the same or an earlier date", async () => {
+      const id = await closedRound();
+      expect((await run(input({ title: "Reworded" }), later)).status).toBe("closed");
+      const earlier = input({ deadlineAt: "2026-11-20T22:59:00.000Z" });
+      expect((await run(earlier, later)).status).toBe("closed");
+      expect(await row(id)).toMatchObject({ statusReason: "date-passed" });
+    });
+
+    it("stays closed when the later date is itself over", async () => {
+      await closedRound();
+      const stale = input({ deadlineAt: "2026-12-10T22:59:00.000Z" });
+      expect((await run(stale, later)).status).toBe("closed");
+    });
+
+    it("never reopens a maintainer's close, a rejection or a removed role", async () => {
+      for (const data of [
+        { status: "closed", statusReason: "date-passed", reviewedAt: T0 },
+        { status: "closed", statusReason: "maintainer" },
+        { status: "closed", statusReason: "removed-from-listing" },
+        { status: "rejected", statusReason: "not-an-opportunity", reviewedAt: T0 },
+      ] as const) {
+        const { id } = await run(input());
+        await db.opportunity.update({ where: { id }, data });
+        expect((await run(nextRound(), later)).status).toBe(data.status);
+        await db.opportunity.delete({ where: { id } });
+      }
+    });
+  });
+
   it("invariant 6: a second announcement is a duplicate, in review, never published", async () => {
     const first = await run(input());
     const second = await run(

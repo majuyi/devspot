@@ -42,6 +42,32 @@ type Placed = { status: OpportunityStatus; duplicateOfId: string | null };
 export const isMovable = (row: Placed) =>
   !row.duplicateOfId && (row.status === "review" || row.status === "published");
 
+/** The date a round is keyed on: its deadline, or its start when it states none. */
+const roundDate = (r: { deadlineAt: Date | null; startsAt: Date | null }) =>
+  r.deadlineAt ?? r.startsAt;
+
+/**
+ * ADR 0019: a row closed because its date passed, whose own page now states a later date that
+ * is not over, is the programme's next round on the same page. Rows a maintainer closed or
+ * reviewed, rejections, copies and roles gone from a listing are not new rounds.
+ */
+export function isNewRound(
+  existing: Placed & {
+    statusReason: string | null;
+    reviewedAt: Date | null;
+    deadlineAt: Date | null;
+    startsAt: Date | null;
+  },
+  next: { deadlineAt: Date | null; startsAt: Date | null },
+  over: boolean,
+): boolean {
+  if (over || existing.reviewedAt || existing.duplicateOfId) return false;
+  if (existing.status !== "closed" || existing.statusReason !== "date-passed") return false;
+  const was = roundDate(existing);
+  const is = roundDate(next);
+  return was !== null && is !== null && is.getTime() > was.getTime();
+}
+
 /**
  * The status the loader gives a row (invariants 3 and 7), shared with `engine reextract
  * --dry-run` so the preview cannot drift from the write. A new item that repeats an earlier
@@ -129,7 +155,41 @@ export async function load(
       return { id: existing.id, status: existing.status, created: false };
     }
     // Invariant 3 holds for the row's life, not only at creation: new content can raise or
-    // lower it. Closed never reopens, and a duplicate waits for a reviewer.
+    // lower it. Closed never reopens, except for a new round on the same page (ADR 0019),
+    // and a duplicate waits for a reviewer.
+    if (isNewRound(existing, mutable, over)) {
+      const status = statusFor(null, input, over, false, orgCategory);
+      await db.$transaction([
+        db.opportunity.update({
+          where: { id: existing.id },
+          data: {
+            ...mutable,
+            status,
+            statusReason: null,
+            closedAt: null,
+            // A new round is news, not a moved deadline: the earlier dates stay in the event.
+            publishedAt: status === "published" ? now : existing.publishedAt,
+            previousDeadlineAt: null,
+            deadlineChangedAt: null,
+            lastVerifiedAt: now,
+          },
+        }),
+        db.opportunityEvent.create({
+          data: {
+            opportunityId: existing.id,
+            actor: "engine",
+            action: status === "published" ? "published" : "edited",
+            changes: changes({
+              status: { from: "closed", to: status },
+              deadlineAt: { from: iso(existing.deadlineAt), to: iso(mutable.deadlineAt) },
+              startsAt: { from: iso(existing.startsAt), to: iso(mutable.startsAt) },
+            }),
+            note: "A new round on the same page.",
+          },
+        }),
+      ]);
+      return { id: existing.id, status, created: false };
+    }
     const movable = isMovable(existing);
     const status = statusFor(existing, input, over, false, orgCategory);
     // Stage 5 records a stated deadline that changed: the history row always, and the
